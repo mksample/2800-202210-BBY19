@@ -1,16 +1,21 @@
-
 const express = require("express");
 const session = require("express-session");
 const app = express();
 const fs = require("fs");
+const readline = require('readline');
 const { JSDOM } = require('jsdom');
+
 const sqlAuthentication = { // sql connection settings
     host: "localhost",
     user: "root",
     password: "",
     multipleStatements: true,
-    database: "safetyApp"
+    database: "BBY19"
 }
+
+const callerRole = "CALLER";
+const responderRole = "RESPONDER";
+const adminRole = "ADMIN";
 
 // static path mappings
 app.use("/js", express.static("public/js"));
@@ -30,6 +35,8 @@ app.use(session(
     })
 );
 
+//////// PAGES ////////
+
 // Get the index page
 app.get("/", function (req, res) {
     if (req.session.loggedIn) {
@@ -43,9 +50,16 @@ app.get("/", function (req, res) {
 // Get the profile page
 app.get("/profile", async function (req, res) {
     if (req.session.loggedIn) {
-        let doc = fs.readFileSync("./app/html/user_profile.html", "utf8");
-        if (req.session.admin) {
+        let doc = "";
+        if (req.session.role == callerRole) {
+            doc = fs.readFileSync("./app/html/caller_profile.html", "utf8");
+        } else if (req.session.role == responderRole) {
+            doc = fs.readFileSync("./app/html/responder_profile.html", "utf8");
+        } else if (req.session.role == adminRole) {
             doc = fs.readFileSync("./app/html/admin_profile.html", "utf8");
+        } else {
+            res.redirect("/");
+            return;
         }
         res.send(doc);
     } else {
@@ -54,24 +68,26 @@ app.get("/profile", async function (req, res) {
 });
 
 
-// Handle login request
+//////// USER REQUESTS ////////
+
+// Login request
 app.post("/login", function (req, res) {
-//    res.setHeader("Content-Type", "application/json");
     authenticate(req.body.email, req.body.password,
         function (userRecord) {
             if (userRecord == null) {
                 res.send({ status: "fail", msg: "Incorrect email or password" });
-            } else if (userRecord.admin) {
+            } else if (userRecord.role == callerRole) {
                 req.session.loggedIn = true;
-                req.session.admin = true;
-                req.session.save(function (err) { });
-                res.send({status: "success", msg: "Logged in as admin"});
-            } else {
+                req.session.role = callerRole;
+            } else if (userRecord.role == responderRole) {
                 req.session.loggedIn = true;
-                req.session.admin = false;
-                req.session.save(function (err) { });
-                res.send({status: "success", msg: "Logged in as user"});
+                req.session.role = responderRole;
+            } else if (userRecord.role == adminRole) {
+                req.session.loggedIn = true;
+                req.session.role = adminRole;
             }
+            req.session.save(function (err) { });
+            res.send({ status: "success", msg: "Logged in" });
         }
     );
 });
@@ -96,7 +112,7 @@ function authenticate(email, pwd, callback) {
     );
 }
 
-// Log the user out
+// Logout request
 app.get("/logout", function (req, res) {
     if (req.session) {
         req.session.destroy(function (error) {
@@ -109,27 +125,57 @@ app.get("/logout", function (req, res) {
     }
 });
 
+// Create user request
+app.post("/createUser", function(req, res) {
+    const mysql = require("mysql2");
+    const con = mysql.createConnection(sqlAuthentication);
+    con.connect();
+    const addUser = `INSERT INTO user (email, password, firstName, lastName, age, gender, phoneNumber, role)
+    VALUES ('` + req.body.email + 
+    `', '` + req.body.password +
+    `', '` + req.body.firstName + 
+    `', '` + req.body.lastName + 
+    `', ` + req.body.age + 
+    `, '` + req.body.gender + 
+    `', '` + req.body.phoneNumber + 
+    `', '` + req.body.role + 
+    `');`;
+
+    con.query(addUser, function (error, results) {
+        if (error) {
+            console.log(error);
+            res.send({ status: "fail", msg: error });
+        } else {
+            res.send({ status: "success", msg: "User created" });
+        }
+    });
+})
+
+
+
 // Connects to the mysql database, creates a user table if it doesn't exist.
-async function init() {
-    const mysql = require("mysql2/promise");
-    const con = await mysql.createConnection({
+function init() {
+    const mysql = require("mysql2");
+    const con = mysql.createConnection({
         host: sqlAuthentication.host,
         user: sqlAuthentication.user,
         password: sqlAuthentication.password,
         multipleStatements: sqlAuthentication.multipleStatements,
     });
+    con.connect();
 
-    const createUserTable = `CREATE DATABASE IF NOT EXISTS ` + sqlAuthentication.database + `;
-        use ` + sqlAuthentication.database + `;
-        CREATE TABLE IF NOT EXISTS user (
-        ID int NOT NULL AUTO_INCREMENT,
-        email varchar(30),
-        password varchar(30),
-        admin bool,
-        PRIMARY KEY (ID));`;
-    await con.query(createUserTable);
-
-    console.log("Listening on port " + port + "!");
+    var rl = readline.createInterface({
+        input: fs.createReadStream('./app/sql/bootstrap.sql'),
+        terminal: false
+    });
+    rl.on('line', function (chunk) {
+        con.query(chunk.toString('ascii'), function (err, sets, fields) {
+            if (err) console.log(err);
+        });
+    });
+    rl.on('close', function () {
+        console.log("Listening on port " + port + "!");
+    });
 }
 
 // RUN SERVER
