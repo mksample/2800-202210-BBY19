@@ -4,6 +4,7 @@ const app = express();
 const fs = require("fs");
 const readline = require('readline');
 const { JSDOM } = require('jsdom');
+const { connected } = require("process");
 
 const sqlAuthentication = { // sql connection settings
     host: "localhost",
@@ -35,7 +36,7 @@ app.use(session(
     })
 );
 
-//////// PAGES ////////
+//////// PAGE SERVING ////////
 
 // Get the index page
 app.get("/", function (req, res) {
@@ -68,7 +69,7 @@ app.get("/profile", async function (req, res) {
 });
 
 
-//////// USER REQUESTS ////////
+//////// USER MANAGEMENT ////////
 
 // Login request
 app.post("/login", function (req, res) {
@@ -76,6 +77,7 @@ app.post("/login", function (req, res) {
         function (userRecord) {
             if (userRecord == null) {
                 res.send({ status: "fail", msg: "Incorrect email or password" });
+                return;
             } else if (userRecord.role == callerRole) {
                 req.session.loggedIn = true;
                 req.session.role = callerRole;
@@ -144,9 +146,9 @@ app.post("/createUser", function(req, res) {
     con.query(addUser, function (error, results) {
         if (error) {
             console.log(error);
-            res.send({ status: "fail", msg: error });
+            res.send({ status: "fail", msg: "creating user: " + error });
         } else {
-            res.send({ status: "success", msg: "User created" });
+            res.send({ status: "success", msg: "user created" });
         }
     });
 })
