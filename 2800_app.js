@@ -154,6 +154,7 @@ app.post("/createUser", function(req, res) {
 })
 
 // Delete user request
+// POST params: ID - the ID of the user to delete.
 app.post("/deleteUser", function(req, res) {
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
