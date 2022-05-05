@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/create_user.css">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-primary fixed-top">
+        <div class="container d-flex justify-content-evenly text-center">
+            <!-- Profile button -->
+            <a class="nav-item" href="#">
+                <img src="saveme.png" height=35px>
+            </a>
+            <!-- Timeline button -->
+            <a class="nav-item" href="#">
+                <i class="material-icons md-36 white">logout</i>
+            </a>
+        </div>
+    </nav>
+
+    <div id="container">
+        <form>
+            <span id="creatingSection">Create an account</span><br><br><br>
+            <label for="email">Email:</label><br>
+            <input type="text" id="email" name="email" size="50" value="test@gmail.com" required><br><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" size="50" value="password" minlenght="8" required><br><br>
+            <label for="fname">First name:</label><br>
+            <input type="text" id="fname" name="fname" value="John" required><br><br>
+            <label for="lname">Last name:</label><br>
+            <input type="text" id="lname" name="lname" value="Doe" required><br><br>
+            <label for="age">Age: </label><br>
+            <input type="text" id="age" name="age" required><br><br>
+            <label for="phoneNumber">Cell phone: </label><br>
+            <input type="text" id="phoneNumber" name="phoneNumber" required><br><br>
+            <label for="contacts">Contacts: </label><br>
+            <input type="text" id="contacts" name="contacts" required><br><br>
+
+            <input type="submit" value="Save">
+        </form>
+    </div>
+    <footer>
+        profile icon, home button, incident log
+    </footer>
+</body>
+
+</html>

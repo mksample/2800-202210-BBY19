@@ -1,0 +1,19 @@
+body{
+  background-color: aqua;
+}
+
+
+
+form{
+  background-color: bisque;
+
+}
+
+#container {
+  display: grid;
+
+}
+
+#creatingSection{
+  font-size: 3rem;
+}

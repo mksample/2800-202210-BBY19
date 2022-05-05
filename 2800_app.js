@@ -129,7 +129,7 @@ app.get("/logout", function (req, res) {
 
 // Get the signup page
 app.get("/signup", function (req, res) {
-    let doc = fs.readFileSync("./app/html/signin.html", "utf8")
+    let doc = fs.readFileSync("./app/html/create_user.html", "utf8")
     res.send(doc)
     
 });
