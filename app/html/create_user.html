@@ -11,37 +11,35 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-primary fixed-top">
-        <div class="container d-flex justify-content-evenly text-center">
-            <!-- Profile button -->
-            <a class="nav-item" href="#">
-                <img src="saveme.png" height=35px>
-            </a>
-            <!-- Timeline button -->
-            <a class="nav-item" href="#">
-                <i class="material-icons md-36 white">logout</i>
-            </a>
-        </div>
+    <nav>
+        nash's nav
     </nav>
 
     <div id="container">
         <form>
-            <span id="creatingSection">Create an account</span><br><br><br>
+            <div id="title">Create an account</div><br><br><br>
             <label for="email">Email:</label><br>
             <input type="text" id="email" name="email" size="50" value="test@gmail.com" required><br><br>
             <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password" size="50" value="password" minlenght="8" required><br><br>
+            <input type="password" id="password" name="password" size="50" value="password" minlenght="8"
+                required><br><br>
             <label for="fname">First name:</label><br>
             <input type="text" id="fname" name="fname" value="John" required><br><br>
             <label for="lname">Last name:</label><br>
             <input type="text" id="lname" name="lname" value="Doe" required><br><br>
             <label for="age">Age: </label><br>
-            <input type="text" id="age" name="age" required><br><br>
+            <input type="number" id="age" name="age" required><br><br>
             <label for="phoneNumber">Cell phone: </label><br>
             <input type="text" id="phoneNumber" name="phoneNumber" required><br><br>
             <label for="contacts">Contacts: </label><br>
             <input type="text" id="contacts" name="contacts" required><br><br>
-
+            <label>Please select one that describes you</label><br>
+            <input type="radio" id="CALLER" name="normal_user" value="caller">
+            <label for="caller">Caller</label><br>
+            <input type="radio" id="RESPONDER" name="responder" value="responder">
+            <label for="responder">Responder</label><br>
+            <input type="radio" id="ADMIN" name="admin" value="admin">
+            <label for="admin">Admin</label><br><br>
             <input type="submit" value="Save">
         </form>
     </div>

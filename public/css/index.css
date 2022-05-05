@@ -1,0 +1,20 @@
+body{
+    background-color: aqua;
+}
+
+#signIn{
+    border: solid black;
+}
+
+#signUpPage{
+    border: solid yellow;
+
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    } 
+  
+  
+  }

@@ -46,3 +46,4 @@ function ready(callback) {
 document.getElementById("signUpPage").onclick = function () {
     window.location.replace("/signup");
 };
+

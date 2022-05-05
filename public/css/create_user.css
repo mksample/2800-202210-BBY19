@@ -1,19 +1,57 @@
 body{
   background-color: aqua;
+  
 }
 
 
 
 form{
   background-color: bisque;
+  text-align: centre;
 
 }
 
-#container {
-  display: grid;
-
+#container{
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
-#creatingSection{
+
+#title{
+  font-weight: normal;
+  text-align: center;
   font-size: 3rem;
+  color: black;
 }
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+
+  form{
+    background-color: yellow;
+    text-align: centre;
+  
+  }
+  
+  #container{
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  
+  #title{
+    font-weight: normal;
+    text-align: center;
+    font-size: 2.2rem;
+    color: black;
+  }
+
+
+}
+
+
+  
