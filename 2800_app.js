@@ -153,6 +153,7 @@ app.post("/createUser", function(req, res) {
     });
 })
 
+// Delete user request
 app.post("/deleteUser", function(req, res) {
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
