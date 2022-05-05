@@ -4,13 +4,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/css/index.css" rel="stylesheet" />
+
+  <!-- Set favicon -->
+  <link href="img/saveme.ico" rel="shortcut icon" type="image/x-icon">
+
+  <!-- Including JavaScript in here -->
+  <!-- includeHTML.js attaches Navbar and Footer in this page. -->
+  <script src="js/includeHTML.js"></script>
+  <script src="js/index.js"></script>
+
+  <!-- Set style sheets -->
+  <link rel="stylesheet" type="text/css" href="css/navbar_footer_style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/index.css" />
+
+  <!-- Icon libraries from https://fonts.google.com/icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <title>SaveMe</title>
 </head>
 
 <body>
-  <nav>
-    nash nav
-  </nav>
+  <!-- navbar.html will be in here -->
+  <nav include-html="html/navbar.html"></nav>
+  <br />
 
   <div id="signIn">
     <input id='emailInput' type='email' required="required" placeholder="Email" /><br>
@@ -26,6 +41,11 @@
   <img src="/public/imgs/sos.png">
 
   <script src="js/index.js"></script>
+  <!-- footer.html will be in here -->
+  <footer include-html="/html/footer.html"></footer>
 </body>
+<script>
+  includeHTML();
+</script>
 
 </html>
