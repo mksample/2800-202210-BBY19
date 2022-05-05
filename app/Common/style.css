@@ -1,0 +1,50 @@
+:root {
+    --primary: #4558e4;
+    --secondary: #AA1155;
+    --accent: #7f954b;
+    --white: #F4F3EE;
+}
+
+footer {
+    padding-bottom: 4.5rem;
+}
+
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+.material-icons.white {
+    color: #ffffff;
+}
+
+.bg-primary {
+    background-color: var(--primary)!important;
+}
+
+.bg-accent {
+    background-color: var(--accent)!important;
+}
+
+.bg-light {
+    background-color: var(--white)!important;
+}
+
+.text-primary {
+    color: var(--primary)!important;
+}
+
+.text-accent {
+    color: var(--accent)!important;
+}
