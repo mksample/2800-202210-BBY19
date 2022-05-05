@@ -154,7 +154,7 @@ app.post("/createUser", function (req, res) {
     });
 })
 
-// Get user request
+// Get user request.
 // Returns the current session user.
 app.get("/getUser", function (req, res) {
     const mysql = require("mysql2");
@@ -172,7 +172,7 @@ app.get("/getUser", function (req, res) {
     })
 })
 
-// Get users request (session must be admin)
+// Get users request (session must be admin).
 // Returns all users except the current session user.
 app.get("/getUsers", function (req, res) {
     if (req.session.role == adminRole) {
