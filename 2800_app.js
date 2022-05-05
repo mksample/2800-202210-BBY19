@@ -7,7 +7,7 @@ const { JSDOM } = require('jsdom');
 const { connected } = require("process");
 
 const sqlAuthentication = { // sql connection settings
-    host: "localhost",
+    host: "127.0.0.1",// for Mac os, Taylor changes this. 
     user: "root",
     password: "",
     multipleStatements: true,
@@ -125,6 +125,13 @@ app.get("/logout", function (req, res) {
             }
         });
     }
+});
+
+// Get the signup page
+app.get("/signup", function (req, res) {
+    let doc = fs.readFileSync("./app/html/signin.html", "utf8")
+    res.send(doc)
+    
 });
 
 // Create user request
