@@ -1,51 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/create_user.css">
-    <title>Document</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <link rel="stylesheet" type="text/css" href="css/create_user.css">
+
+  <!-- Set favicon -->
+  <link href="img/saveme.ico" rel="shortcut icon" type="image/x-icon">
+
+  <!-- Including JavaScript in here -->
+  <!-- includeHTML.js attaches Navbar and Footer in this page. -->
+  <script src="js/includeHTML.js"></script>
+  <script src="js/index.js"></script>
+
+  <!-- Set style sheets -->
+  <link rel="stylesheet" type="text/css" href="css/navbar_footer_style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/index.css" />
+
+  <!-- Icon libraries from https://fonts.google.com/icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <title>SaveMe</title>
 </head>
 
 <body>
-    <nav>
-        nash's nav
-    </nav>
+  <!-- navbar.html will be in here -->
+  <nav include-html="html/navbar.html"></nav>
+  <br />
+  <div id="container">
+    <form action="/action_page.php">
+      <div id="title">Create an account</div><br><br><br>
+      <p>Please fill out all the blanks.</p><br><br>
 
-    <div id="container">
-        <form>
-            <div id="title">Create an account</div><br><br><br>
-            <label for="email">Email:</label><br>
-            <input type="text" id="email" name="email" size="50" value="test@gmail.com" required><br><br>
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password" size="50" value="password" minlenght="8"
-                required><br><br>
-            <label for="fname">First name:</label><br>
-            <input type="text" id="fname" name="fname" value="John" required><br><br>
-            <label for="lname">Last name:</label><br>
-            <input type="text" id="lname" name="lname" value="Doe" required><br><br>
-            <label for="age">Age: </label><br>
-            <input type="number" id="age" name="age" required><br><br>
-            <label for="phoneNumber">Cell phone: </label><br>
-            <input type="text" id="phoneNumber" name="phoneNumber" required><br><br>
-            <label for="contacts">Contacts: </label><br>
-            <input type="text" id="contacts" name="contacts" required><br><br>
-            <label>Please select one that describes you</label><br>
-            <input type="radio" id="CALLER" name="normal_user" value="caller">
-            <label for="caller">Caller</label><br>
-            <input type="radio" id="RESPONDER" name="responder" value="responder">
-            <label for="responder">Responder</label><br>
-            <input type="radio" id="ADMIN" name="admin" value="admin">
-            <label for="admin">Admin</label><br><br>
-            <input type="submit" value="Save">
-        </form>
-    </div>
-    <footer>
-        profile icon, home button, incident log
-    </footer>
+      <label for="email">Email:</label><br>
+      <input type="text" id="email" name="email" required><br><br>
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password" minlenght="8" required><br><br>
+      <label for="fname">First name:</label><br>
+      <input type="text" id="fname" name="fname" required><br><br>
+      <label for="lname">Last name:</label><br>
+      <input type="text" id="lname" name="lname" required><br><br>
+      <label for="birthday">Birthday:</label><br>
+      <input type="date" id="birthday" name="birthday" required><br><br>
+      <label for="phoneNumber">Cell phone: </label><br>
+      <input type="number" id="phoneNumber" name="phoneNumber" minlength="10" required><br><br>
+      <label for="contacts">Contacts: </label><br>
+      <input type="text" id="contacts" name="contacts" required><br><br>
+
+      <p>Please select one that describes you:</p>
+        <input type="radio" id="CALLER" name="user_group" value="Caller">
+        <label for="Caller">Caller</label><br>
+        <input type="radio" id="RESPONDER" name="user_group" value="Responder">
+        <label for="Responder">Responder</label><br>
+        <input type="radio" id="ADMIN" name="user_group" value="Admin">
+        <label for="Admin">Admin</label><br><br>
+
+      <input id="save" type="submit" value="Save">
+    </form>
+  </div>
+
+
+  <!-- footer.html will be in here -->
+  <footer include-html="/html/footer.html"></footer>
 </body>
+<script>
+  includeHTML();
+</script>
 
 </html>

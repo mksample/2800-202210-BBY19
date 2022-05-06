@@ -13,7 +13,7 @@ form{
 
 #container{
   text-align: left;
-  font-weight: bold;
+  font-weight: normal;
   font-size: 1.5rem;
 }
 
@@ -23,6 +23,11 @@ form{
   text-align: center;
   font-size: 3rem;
   color: black;
+}
+
+#save{
+  font-size: 1.5rem;
+  
 }
 
 @media only screen and (max-width: 600px) {
@@ -38,7 +43,7 @@ form{
   
   #container{
     text-align: left;
-    font-weight: bold;
+    font-weight: normal;
     font-size: 1.2rem;
   }
   
@@ -50,6 +55,9 @@ form{
     color: black;
   }
 
+  #save{
+    font-size: 1rem;
+  }
 
 }
 
