@@ -7,7 +7,7 @@ const { JSDOM } = require('jsdom');
 const { connected } = require("process");
 
 const sqlAuthentication = { // sql connection settings
-    host: "127.0.0.1",// for Mac os, Taylor changes this. 
+    host: "localhost",// for Mac os, type 127.0.0.1
     user: "root",
     password: "",
     multipleStatements: true,
