@@ -1,3 +1,4 @@
+"use strict";
 const express = require("express");
 const session = require("express-session");
 const app = express();
@@ -11,8 +12,10 @@ const sqlAuthentication = { // sql connection settings
     user: "root",
     password: "",
     multipleStatements: true,
-    database: "BBY19"
+    database: "COMP2800"
 }
+
+const userTable = "BBY_19_user";
 
 const callerRole = "CALLER";
 const responderRole = "RESPONDER";
@@ -108,7 +111,7 @@ function authenticate(email, pwd, callback) {
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
     con.query(
-        "SELECT * FROM user WHERE email = ? AND password = ?", [email, pwd],
+        "SELECT * FROM " + userTable + " WHERE email = ? AND password = ?", [email, pwd],
         function (error, results) {
             if (error) {
                 console.log(error);
@@ -150,7 +153,7 @@ app.post("/createUser", function (req, res) {
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
-    const addUser = `INSERT INTO user (email, password, firstName, lastName, age, gender, phoneNumber, role)
+    const addUser = `INSERT INTO ` + userTable + ` (email, password, firstName, lastName, age, gender, phoneNumber, role)
     VALUES ('` + req.body.email +
         `', '` + req.body.password +
         `', '` + req.body.firstName +
@@ -184,7 +187,7 @@ app.post("/editUser", function(req, res) {
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
-    const editUser = `UPDATE user SET
+    const editUser = `UPDATE ` + userTable + ` SET
     password = IfNull(` + (req.body.password ? "'" + req.body.password + "'" : "NULL") + `, password),
     firstName = IfNull(` + (req.body.firstName? "'" + req.body.firstName + "'" : "NULL")  + `, firstName),
     lastName = IfNull(` + (req.body.lastName ? "'" + req.body.lastName + "'" : "NULL")  + `, lastName),
@@ -219,7 +222,7 @@ app.post("/adminEditUser", function(req, res) {
         const mysql = require("mysql2");
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
-        const editUser = `UPDATE user SET
+        const editUser = `UPDATE ` + userTable + ` SET
         password = IfNull(` + (req.body.password ? "'" + req.body.password + "'" : "NULL") + `, password),
         firstName = IfNull(` + (req.body.firstName? "'" + req.body.firstName + "'" : "NULL")  + `, firstName),
         lastName = IfNull(` + (req.body.lastName ? "'" + req.body.lastName + "'" : "NULL")  + `, lastName),
@@ -246,7 +249,7 @@ app.get("/getUser", function (req, res) {
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
-    const getUser = `SELECT * FROM user WHERE ID = ` + req.session.userID;
+    const getUser = `SELECT * FROM ` + userTable + ` WHERE ID = ` + req.session.userID;
 
     con.query(getUser, function (error, results) {
         if (error) {
@@ -265,7 +268,7 @@ app.get("/getUsers", function (req, res) {
         const mysql = require("mysql2");
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
-        const getUser = `SELECT * FROM user WHERE ID != ` + req.session.userID;
+        const getUser = `SELECT * FROM ` + userTable + ` WHERE ID != ` + req.session.userID;
 
         con.query(getUser, function (error, results) {
             if (error) {
@@ -289,7 +292,7 @@ app.post("/deleteUser", function(req, res) {
     con.connect();
 
     const adminCountQuery = `SELECT COUNT(*) as admin_count
-    FROM user
+    FROM ` + userTable + `
     WHERE role = "ADMIN"`;
 
     const deleteUserQuery = `DELETE FROM USER
