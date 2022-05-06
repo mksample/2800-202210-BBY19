@@ -15,6 +15,11 @@ ready(async function () {
         });
         return response.json();
     }
+
+    //redirecting to singup page, for the first time using users
+    document.getElementById("indexButton").onclick = function () {
+        window.location.replace("/");
+    };
 });
 
 function ready(callback) {
