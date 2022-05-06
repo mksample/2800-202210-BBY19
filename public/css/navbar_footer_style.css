@@ -23,14 +23,17 @@
 
 .nav2 {
     grid-area: 1 / 2 / 2 / 3;
+    text-align: center;
 }
 
 .nav3 {
     grid-area: 1 / 3 / 2 / 4;
+    text-align: center;
 }
 
 .nav4 {
     grid-area: 1 / 4 / 2 / 5;
+    text-align: center;
 }
 
 .nav5 {
@@ -91,10 +94,12 @@ footer {
 /* Media query for desktop/laptop screen */
 @media screen and (min-width: 801px) {
 
+    /* Hides mobile's footer */
     #footer_mobile {
         display: none;
     }
 
+    /* Displays desktop's navbar */
     #nav_desktop {
         display: block;
     }
