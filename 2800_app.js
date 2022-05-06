@@ -7,7 +7,7 @@ const { JSDOM } = require('jsdom');
 const { connected } = require("process");
 
 const sqlAuthentication = { // sql connection settings
-    host: "localhost",
+    host: "localhost",// for Mac os, type 127.0.0.1
     user: "root",
     password: "",
     multipleStatements: true,
@@ -126,6 +126,13 @@ app.get("/logout", function (req, res) {
             }
         });
     }
+});
+
+// Get the signup page
+app.get("/signup", function (req, res) {
+    let doc = fs.readFileSync("./app/html/create_user.html", "utf8")
+    res.send(doc)
+    
 });
 
 // Create user request

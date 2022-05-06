@@ -41,3 +41,9 @@ function ready(callback) {
         console.log("Listener was invoked");
     }
 }
+
+//redirecting to singup page, for the first time using users
+document.getElementById("signUpPage").onclick = function () {
+    window.location.replace("/signup");
+};
+
