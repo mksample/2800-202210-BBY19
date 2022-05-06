@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <link rel="stylesheet" type="text/css" href="css/create_user.css">
+
+  <!-- Set favicon -->
+  <link href="img/saveme.ico" rel="shortcut icon" type="image/x-icon">
+
+  <!-- Including JavaScript in here -->
+  <!-- includeHTML.js attaches Navbar and Footer in this page. -->
+  <script src="js/create_user.js"></script>
+
+  <!-- Set style sheets -->
+  <link rel="stylesheet" type="text/css" href="css/navbar_footer_style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/index.css" />
+
+  <!-- Icon libraries from https://fonts.google.com/icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <title>SaveMe</title>
+</head>
+
+<body>
+  <!-- navbar.html will be in here -->
+  <nav include-html="html/navbar.html"></nav>
+  <br />
+  <div id="container">
+    <form action>
+      <div id="title">Create an account</div><br><br><br>
+      <p>Please fill out all the blanks.</p><br><br>
+
+      <label for="email">Email:</label><br>
+      <input type="text" id="email" name="email" required><br><br>
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password" minlenght="8" required><br><br>
+      <label for="fname">First name:</label><br>
+      <input type="text" id="fname" name="fname" required><br><br>
+      <label for="lname">Last name:</label><br>
+      <input type="text" id="lname" name="lname" required><br><br>
+      <label for="age">Age: </label><br>
+      <input type="text" id="age" name="age" required><br><br>
+      <label for="phoneNumber">Cell phone: </label><br>
+      <input type="tel" id="phoneNumber" name="phoneNumber" minlength="10" required><br><br>
+      <label for="gender">Gender: </label><br>
+      <select id="gender" required>
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+      <br><br>
+
+      <p>Please select one that describes you:</p>
+      <label for="role">Role: </label><br>
+      <select id="role" required>
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="CALLER" re>Caller</option>
+        <option value="RESPONDER">Responder</option>
+      </select>
+
+      <input id="createUserButton" type="submit" value="Create Profile">
+      <input id="indexButton" type="button" value="Back">
+    </form>
+  </div>
+
+
+  <!-- footer.html will be in here -->
+  <footer include-html="/html/footer.html"></footer>
+</body>
+
+</html>

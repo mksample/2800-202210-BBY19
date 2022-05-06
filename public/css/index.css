@@ -1,0 +1,99 @@
+body{
+    background-color:aquamarine;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 20vw 20vw 20vw 20vw 20vw;
+    grid-template-rows: 17vh 17vh 17vh 17vh 17vh 12vh;
+}
+
+#login{
+    font-size: 1rem;
+}
+
+#navigation{
+    /* background-color: brown; */
+    grid-column:1 / span 5;
+    grid-row: 1 / span 1;
+}
+
+#signIn{
+    /* background-color: burlywood; */
+    grid-column: 2 / span 3;
+    grid-row: 2 / span 3;
+    border: solid black;
+
+}
+
+#signUp{
+    /* background-color: burlywood; */
+    grid-column: 2 / span 3;
+    grid-row: 5 / span 2;
+}
+
+
+#signUpPage{
+    border: solid yellow;
+
+}
+
+#save{
+    font-size: 1rem;
+}
+
+
+#footer {
+    /* background-color: plum; */
+    grid-column: 1 / span 5;
+    grid-row: 7 / span 1;
+}
+
+@media only screen and (max-width: 800px) {
+    body {
+      background-color: lightblue;
+    } 
+  
+    .container{
+        display: grid;
+        grid-template-columns: 100vw;
+        grid-template-rows: 10vh 30vh 45vh 15vh;
+       
+    }
+
+    #login{
+        font-size: 1.4rem;
+    }
+
+    #navigation{
+        /* background-color: brown; */
+        grid-column:1 / span 1;
+        grid-row: 1 / span 1;
+    }
+
+    #signIn{
+        /* background-color: burlywood; */
+        grid-column: 1 / span 1;
+        grid-row: 2 / span 1;
+        border: solid black;
+    
+    }
+    
+    #signUp{
+        /* background-color: burlywood; */
+        grid-column: 1 / span 1;
+        grid-row: 3 / span 1;
+    }
+
+    #save{
+        font-size: 1rem;
+    }
+    
+    #footer {
+        margin-top: 15%;
+        /* background-color: plum; */
+        grid-column: 1 / span 1;
+        grid-row: 4 / span 1;
+    }
+  
+  }

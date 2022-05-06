@@ -1,3 +1,4 @@
+"use strict";
 ready(async function () {
     async function postData(url, data) {
         const response = await fetch(url, {
@@ -15,18 +16,6 @@ ready(async function () {
         });
         return response.json();
     }
-
-    // Listener for the createUser button
-    document.querySelector("#createUser").addEventListener("click", async function (e) {
-        response = await postData("/createUser", {email: "testValue", password: "test", firstName: "test", lastName: "test", age: 5, gender: "test", phoneNumber: "1324123", role: "ADMIN"});
-        if (response) {
-            if (response.status == "fail") {
-                console.log(response.msg);
-            } else {
-                console.log(response.msg);
-            }
-        }
-    });
 });
 
 function ready(callback) {

@@ -1,0 +1,52 @@
+body{
+  background-color: aqua;
+  
+}
+
+form{
+  background-color: bisque;
+  text-align: centre;
+}
+
+#container{
+  text-align: left;
+  font-weight: normal;
+  font-size: 1.5rem;
+}
+
+
+#title{
+  font-weight: normal;
+  text-align: center;
+  font-size: 3rem;
+  color: black;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+
+  form{
+    background-color: yellow;
+    text-align: centre;
+  
+  }
+  
+  #container{
+    text-align: left;
+    font-weight: normal;
+    font-size: 1.2rem;
+  }
+  
+  
+  #title{
+    font-weight: normal;
+    text-align: center;
+    font-size: 2.2rem;
+    color: black;
+  }
+}
+
+
+  
