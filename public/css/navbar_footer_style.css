@@ -1,3 +1,6 @@
+/* Using the imported fonts */
+@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap');
+
 :root {
     --primary: #4558e4;
     --secondary: #AA1155;
@@ -20,14 +23,17 @@
 
 .nav2 {
     grid-area: 1 / 2 / 2 / 3;
+    text-align: center;
 }
 
 .nav3 {
     grid-area: 1 / 3 / 2 / 4;
+    text-align: center;
 }
 
 .nav4 {
     grid-area: 1 / 4 / 2 / 5;
+    text-align: center;
 }
 
 .nav5 {
@@ -35,10 +41,33 @@
     text-align: right;
 }
 
-
-footer {
-    padding-bottom: 4.5rem;
+.footer_parent {
     text-align: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.footer1 {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.footer2 {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.footer3 {
+    grid-area: 1 / 3 / 2 / 4;
+}
+
+.footer4 {
+    grid-area: 1 / 4 / 2 / 5;
+}
+
+.footer5 {
+    grid-area: 1 / 5 / 2 / 6;
 }
 
 .material-icons.md-18 {
@@ -79,4 +108,22 @@ footer {
 
 .text-accent {
     color: var(--accent) !important;
+}
+
+#nav_desktop {
+    display: none;
+}
+
+/* Media query for desktop/laptop screen */
+@media screen and (min-width: 801px) {
+
+    /* Hides mobile's footer */
+    #footer_mobile {
+        display: none;
+    }
+
+    /* Displays desktop's navbar */
+    #nav_desktop {
+        display: block;
+    }
 }
