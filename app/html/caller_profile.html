@@ -6,15 +6,61 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/caller_profile.css">
+  <!-- Set favicon -->
+  <link href="img/saveme.ico" rel="shortcut icon" type="image/x-icon">
+
+  <!-- Including JavaScript in here -->
+  <!-- includeHTML.js attaches Navbar and Footer in this page. -->
+  <script src="js/includeHTML.js"></script>
+  <script src="js/index.js"></script>
+
+  <!-- Set style sheets -->
+  <link rel="stylesheet" type="text/css" href="css/navbar_footer_style.css" />
+  <!-- Icon libraries from https://fonts.google.com/icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 
 <body>
-  Caller Profile body
-  <header id="header">
-    <form action="/logout" method="get">
-      <input id="logout" type="submit" value="Logout" />
+  <div class="container">
+      <header id="header">
+        <form action="/logout" method="get">
+          <div id="logoutButton"><input id="logout" type="submit" value="Logout" /></div>
+        </form>
+      </header>
+    </div>
+
+    <!-- navbar.html will be in here -->
+    <div id="navigation">
+      <nav id="nav" include-html="html/navbar.html"></nav>
+    </div>
+    <br />
+    <div id="profile"><img src="/img/profile.png"></div>
+    <form id="callerProfile">
+      <label for="fname">First name:</label><br>
+      <input type="text" id="fname" name="fname" value="John"><br><br>
+      <label for="lname">Last name:</label><br>
+      <input type="text" id="lname" name="lname" value="Doe"><br><br>
+      <label for="age">Age: </label><br>
+      <input type="number" id="age" name="age" value="23"><br><br>
+      <label for="phoneNumber">Cell phone: </label><br>
+      <input type="number" id="phoneNumber" name="phoneNumber" value="1234567890"><br><br>
+      <label for="contacts">Contacts: </label><br>
+      <input type="text" id="contacts" name="contacts"><br><br>
+      <label for="incidentLog"><a href="">Incident log</a></label><br><br>
+
+      <input type="submit" value="Edit">
+      <input type="submit" value="Save">
     </form>
-  </header>
+
+    <script src="js/index.js"></script>
+    <!-- footer.html will be in here -->
+    <div id="footer">
+      <footer include-html="/html/footer.html"></footer>
+    </div>
+    <script>
+      includeHTML();
+    </script>
+  </div>
 </body>
 
 </html>
