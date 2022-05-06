@@ -21,7 +21,7 @@ ready(async function () {
         let emailInput = document.getElementById("emailInput");
         let passwordInput = document.getElementById("passwordInput");
 
-        response = await postData("/login", {email: emailInput.value, password: passwordInput.value});
+        response = await postData("/login", { email: emailInput.value, password: passwordInput.value });
         if (response) {
             if (response.status == "fail") {
                 document.getElementById("loginStatus").innerHTML = response.msg; // display login failure
@@ -30,6 +30,11 @@ ready(async function () {
             }
         }
     });
+
+    //redirecting to singup page, for the first time using users
+    document.getElementById("signUpPage").onclick = function () {
+        window.location.replace("/signup");
+    };
 });
 
 function ready(callback) {
@@ -41,9 +46,4 @@ function ready(callback) {
         console.log("Listener was invoked");
     }
 }
-
-//redirecting to singup page, for the first time using users
-document.getElementById("signUpPage").onclick = function () {
-    window.location.replace("/signup");
-};
 

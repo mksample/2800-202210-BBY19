@@ -4,8 +4,8 @@ body{
 
 .container{
     display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
-    grid-template-rows: 17% 17% 17% 17% 17% 15%;
+    grid-template-columns: 20vw 20vw 20vw 20vw 20vw;
+    grid-template-rows: 17vh 17vh 17vh 17vh 17vh 12vh;
 }
 
 #login{
@@ -21,10 +21,17 @@ body{
 #signIn{
     /* background-color: burlywood; */
     grid-column: 2 / span 3;
-    grid-row: 2 / span 2;
+    grid-row: 2 / span 3;
     border: solid black;
 
 }
+
+#signUp{
+    /* background-color: burlywood; */
+    grid-column: 2 / span 3;
+    grid-row: 5 / span 2;
+}
+
 
 #signUpPage{
     border: solid yellow;
@@ -33,15 +40,6 @@ body{
 
 #save{
     font-size: 1rem;
-}
-
-#sos_logo{
-    margin-top: 5%;
-    max-height: 75%;
-    text-align: center;
-    /* background-color: yellowgreen; */
-    grid-column: 2 / span 3;
-    grid-row: 4 / span 3;
 }
 
 
@@ -58,8 +56,8 @@ body{
   
     .container{
         display: grid;
-        grid-template-columns: 100%;
-        grid-template-rows: 10% 30% 45% 15%;
+        grid-template-columns: 100vw;
+        grid-template-rows: 10vh 30vh 45vh 15vh;
        
     }
 
@@ -72,7 +70,7 @@ body{
         grid-column:1 / span 1;
         grid-row: 1 / span 1;
     }
-    
+
     #signIn{
         /* background-color: burlywood; */
         grid-column: 1 / span 1;
@@ -80,20 +78,16 @@ body{
         border: solid black;
     
     }
+    
+    #signUp{
+        /* background-color: burlywood; */
+        grid-column: 1 / span 1;
+        grid-row: 3 / span 1;
+    }
 
     #save{
         font-size: 1rem;
     }
-    
-    #sos_logo{
-        margin-top: 15%;
-        max-height: 75%;
-        text-align: center;
-        /* background-color: yellowgreen; */
-        grid-column: 1 / span 1;
-        grid-row: 3 / span 1;
-    }
-    
     
     #footer {
         margin-top: 15%;

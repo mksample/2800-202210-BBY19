@@ -68,6 +68,12 @@ app.get("/profile", async function (req, res) {
     }
 });
 
+// Signup page
+app.get("/signup", function (req, res) {
+    let doc = fs.readFileSync("./app/html/create_user.html", "utf8")
+    res.send(doc) 
+});
+
 
 //////// USER MANAGEMENT ////////
 
@@ -82,15 +88,13 @@ app.post("/login", function (req, res) {
                 res.send({ status: "fail", msg: "Incorrect email or password" });
                 return;
             } else if (userRecord.role == callerRole) {
-                req.session.loggedIn = true;
                 req.session.role = callerRole;
             } else if (userRecord.role == responderRole) {
-                req.session.loggedIn = true;
                 req.session.role = responderRole;
             } else if (userRecord.role == adminRole) {
-                req.session.loggedIn = true;
                 req.session.role = adminRole;
             }
+            req.session.loggedIn = true;
             req.session.userID = userRecord.ID;
             req.session.save(function (err) { });
             res.send({ status: "success", msg: "Logged in" });
@@ -130,12 +134,6 @@ app.get("/logout", function (req, res) {
             }
         });
     }
-});
-
-// Get the signup page
-app.get("/signup", function (req, res) {
-    let doc = fs.readFileSync("./app/html/create_user.html", "utf8")
-    res.send(doc) 
 });
 
 // Create user request.

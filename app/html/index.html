@@ -10,7 +10,6 @@
 
   <!-- Including JavaScript in here -->
   <!-- includeHTML.js attaches Navbar and Footer in this page. -->
-  <script src="js/includeHTML.js"></script>
   <script src="js/index.js"></script>
 
   <!-- Set style sheets -->
@@ -24,33 +23,21 @@
 
 <body>
   <div class="container">
-  <!-- navbar.html will be in here -->
-  <div id="navigation"><nav id="nav" include-html="html/navbar.html"></nav></div>
-  <br />
 
   <div id="signIn">
     <div id="login"><p>Log-in</p></div>
     <p>Email: </p><input id='emailInput' type='email' required="required" placeholder="Email" /><br>
-    <p>Passwrod: </p><input id='passwordInput' type='password' required="required" placeholder="Password" /><br><br>
+    <p>Password: </p><input id='passwordInput' type='password' required="required" placeholder="Password" /><br><br>
     <input id="signInButton" type="button" value="Sign In" />
     <p id="loginStatus">&nbsp;</p>
+  </div>
+  <div id="signUp">
     <p>If you don't have an account yet, please sign up.</p>
     <input id="signUpPage" type="button" value="Sign Up">
   </div>
 
- 
-    
-  
-
-  <div id="sos_logo"><img src="/img/sos.jpeg"></div>
-
   <script src="js/index.js"></script>
-  <!-- footer.html will be in here -->
-  <div id="footer"><footer include-html="/html/footer.html"></footer></div>
 </div>
 </body>
-<script>
-  includeHTML();
-</script>
 
 </html>
