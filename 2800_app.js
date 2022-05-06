@@ -153,7 +153,42 @@ app.post("/createUser", function(req, res) {
     });
 })
 
+// Delete user request.
+// POST params: 
+// ID - the ID of the user to delete.
+app.post("/deleteUser", function(req, res) {
+    const mysql = require("mysql2");
+    const con = mysql.createConnection(sqlAuthentication);
+    con.connect();
 
+    const adminCountQuery = `SELECT COUNT(*) as admin_count
+    FROM user
+    WHERE role = "ADMIN"`;
+
+    const deleteUserQuery = `DELETE FROM USER
+    WHERE ID = ` + req.body.ID;
+
+    con.query(adminCountQuery, function(error, results) {
+        if (error) {
+            console.log(error);
+            res.send({status: "fail", msg: "querying admin count: " + error});
+        } else {
+            if (results[0]["admin_count"] > 1) {
+                con.query(deleteUserQuery, function(error, results) {
+                    if (error) {
+                        console.log(error);
+                        res.send({status: "fail", msg: "deleting user: " + error});
+                    } else {
+                        res.send({ status: "success", msg: "user deleted" });
+                    }
+                })
+            } else {
+                console.log("tried to delete last admin");
+                res.send({status: "fail", msg: "deleting user: cannot delete last admin"});
+            }
+        }
+    })
+})
 
 // Connects to the mysql database, creates a user table if it doesn't exist.
 function init() {
