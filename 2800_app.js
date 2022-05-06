@@ -161,6 +161,75 @@ app.post("/createUser", function (req, res) {
     });
 })
 
+// Edit profile request (caller/responder).
+// Changes values for current session users profile. POST params are safe to be left blank.
+// POST params:
+// password (string) - new password for user.
+// firstName (string) - new first name for user.
+// lastName (string) - new last name for user.
+// age (int) - new age for user.
+// gender (string) - new gender for user.
+// phoneNumber (string) - new phone number for user.
+app.post("/editUser", function(req, res) {
+    const mysql = require("mysql2");
+    const con = mysql.createConnection(sqlAuthentication);
+    con.connect();
+    const editUser = `UPDATE user SET
+    password = IfNull(` + (req.body.password ? "'" + req.body.password + "'" : "NULL") + `, password),
+    firstName = IfNull(` + (req.body.firstName? "'" + req.body.firstName + "'" : "NULL")  + `, firstName),
+    lastName = IfNull(` + (req.body.lastName ? "'" + req.body.lastName + "'" : "NULL")  + `, lastName),
+    age = IfNull(` + (req.body.age ? req.body.age : "NULL") + `, age),
+    gender = IfNull(` + (req.body.gender ? "'" + req.body.gender + "'" : "NULL")  + `, gender),
+    phoneNumber = IfNull(` + (req.body.phoneNumber ? "'" + req.body.phoneNumber + "'" : "NULL")  + `, phoneNumber)
+    WHERE ID = ` + req.session.userID;
+    
+    con.query(editUser, function (error, results) {
+        if (error) {
+            console.log(error);
+            res.send({ status: "fail", msg: "editing user: " + error });
+        } else {
+            res.send({ status: "success", msg: "user edited" });
+        }
+    });
+})
+
+// Edit profile request (admin).
+// Changes values for another users profile. Admins can edit roles. POST params are safe to be left blank.
+// POST params:
+// password (string) - new password for user.
+// firstName (string) - new first name for user.
+// lastName (string) - new last name for user.
+// age (int) - new age for user.
+// gender (string) - new gender for user.
+// phoneNumber (string) - new phone number for user.
+// role (string) - new role for user (must be "ADMIN", "CALLER", or "RESPONDER").
+// userID (int) - ID of the user being edited
+app.post("/adminEditUser", function(req, res) {
+    if (req.session.role = adminRole) {
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+        const editUser = `UPDATE user SET
+        password = IfNull(` + (req.body.password ? "'" + req.body.password + "'" : "NULL") + `, password),
+        firstName = IfNull(` + (req.body.firstName? "'" + req.body.firstName + "'" : "NULL")  + `, firstName),
+        lastName = IfNull(` + (req.body.lastName ? "'" + req.body.lastName + "'" : "NULL")  + `, lastName),
+        age = IfNull(` + (req.body.age ? req.body.age : "NULL") + `, age),
+        gender = IfNull(` + (req.body.gender ? "'" + req.body.gender + "'" : "NULL")  + `, gender),
+        phoneNumber = IfNull(` + (req.body.phoneNumber ? "'" + req.body.phoneNumber + "'" : "NULL")  + `, phoneNumber),
+        role = IfNull(` + (req.body.role ? "'" + req.body.role + "'" : "NULL") + `, role)
+        WHERE ID = ` + req.body.userID;
+    
+        con.query(editUser, function (error, results) {
+            if (error) {
+                console.log(error);
+                res.send({ status: "fail", msg: "editing user (admin): " + error });
+            } else {
+                res.send({ status: "success", msg: "user edited by admin" });
+            }
+        });
+    }
+})
+
 // Get user request.
 // Returns the current session user.
 app.get("/getUser", function (req, res) {
