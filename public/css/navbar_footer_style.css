@@ -1,3 +1,6 @@
+/* Using the imported fonts */
+@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap');
+
 :root {
     --primary: #4558e4;
     --secondary: #AA1155;
@@ -79,4 +82,20 @@ footer {
 
 .text-accent {
     color: var(--accent) !important;
+}
+
+#nav_desktop {
+    display: none;
+}
+
+/* Media query for desktop/laptop screen */
+@media screen and (min-width: 801px) {
+
+    #footer_mobile {
+        display: none;
+    }
+
+    #nav_desktop {
+        display: block;
+    }
 }
