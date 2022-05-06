@@ -7,7 +7,7 @@ const { JSDOM } = require('jsdom');
 const { connected } = require("process");
 
 const sqlAuthentication = { // sql connection settings
-    host: "localhost",
+    host: "localhost",// for Mac os, type 127.0.0.1
     user: "root",
     password: "",
     multipleStatements: true,
@@ -91,6 +91,7 @@ app.post("/login", function (req, res) {
                 req.session.loggedIn = true;
                 req.session.role = adminRole;
             }
+            req.session.userID = userRecord.ID;
             req.session.save(function (err) { });
             res.send({ status: "success", msg: "Logged in" });
         }
@@ -131,6 +132,12 @@ app.get("/logout", function (req, res) {
     }
 });
 
+// Get the signup page
+app.get("/signup", function (req, res) {
+    let doc = fs.readFileSync("./app/html/create_user.html", "utf8")
+    res.send(doc) 
+});
+
 // Create user request.
 // POST params:
 // email (string) - email of the new user.
@@ -141,20 +148,20 @@ app.get("/logout", function (req, res) {
 // gender (string) - gender of the new user.
 // phoneNumber (string) - phone number of the new user.
 // role (string) - role of the new user (must be "ADMIN", "CALLER", or "RESPONDER"). 
-app.post("/createUser", function(req, res) {
+app.post("/createUser", function (req, res) {
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
     const addUser = `INSERT INTO user (email, password, firstName, lastName, age, gender, phoneNumber, role)
-    VALUES ('` + req.body.email + 
-    `', '` + req.body.password +
-    `', '` + req.body.firstName + 
-    `', '` + req.body.lastName + 
-    `', ` + req.body.age + 
-    `, '` + req.body.gender + 
-    `', '` + req.body.phoneNumber + 
-    `', '` + req.body.role + 
-    `');`;
+    VALUES ('` + req.body.email +
+        `', '` + req.body.password +
+        `', '` + req.body.firstName +
+        `', '` + req.body.lastName +
+        `', ` + req.body.age +
+        `, '` + req.body.gender +
+        `', '` + req.body.phoneNumber +
+        `', '` + req.body.role +
+        `');`;
 
     con.query(addUser, function (error, results) {
         if (error) {
@@ -166,7 +173,82 @@ app.post("/createUser", function(req, res) {
     });
 })
 
+// Get user request.
+// Returns the current session user.
+app.get("/getUser", function (req, res) {
+    const mysql = require("mysql2");
+    const con = mysql.createConnection(sqlAuthentication);
+    con.connect();
+    const getUser = `SELECT * FROM user WHERE ID = ` + req.session.userID;
 
+    con.query(getUser, function (error, results) {
+        if (error) {
+            console.log("getting user: " + error);
+            res.send({ status: "fail", msg: "getting user: " + error })
+        } else {
+            res.send({ status: "success", msg: "user retrieved", user: results[0] })
+        }
+    })
+})
+
+// Get users request (session must be admin).
+// Returns all users except the current session user.
+app.get("/getUsers", function (req, res) {
+    if (req.session.role == adminRole) {
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+        const getUser = `SELECT * FROM user WHERE ID != ` + req.session.userID;
+
+        con.query(getUser, function (error, results) {
+            if (error) {
+                console.log("getting users: " + error);
+                res.send({ status: "fail", msg: "getting users: " + error })
+            } else {
+                res.send({ status: "success", msg: "users retrieved", users: results })
+            }
+        })
+    } else {
+        res.send({ status: "fail", msg: "getting users: requesting user is not admin" })
+    }
+})
+
+// Delete user request.
+// POST params: 
+// ID - the ID of the user to delete.
+app.post("/deleteUser", function(req, res) {
+    const mysql = require("mysql2");
+    const con = mysql.createConnection(sqlAuthentication);
+    con.connect();
+
+    const adminCountQuery = `SELECT COUNT(*) as admin_count
+    FROM user
+    WHERE role = "ADMIN"`;
+
+    const deleteUserQuery = `DELETE FROM USER
+    WHERE ID = ` + req.body.ID;
+
+    con.query(adminCountQuery, function(error, results) {
+        if (error) {
+            console.log(error);
+            res.send({status: "fail", msg: "querying admin count: " + error});
+        } else {
+            if (results[0]["admin_count"] > 1) {
+                con.query(deleteUserQuery, function(error, results) {
+                    if (error) {
+                        console.log(error);
+                        res.send({status: "fail", msg: "deleting user: " + error});
+                    } else {
+                        res.send({ status: "success", msg: "user deleted" });
+                    }
+                })
+            } else {
+                console.log("tried to delete last admin");
+                res.send({status: "fail", msg: "deleting user: cannot delete last admin"});
+            }
+        }
+    })
+})
 
 // Connects to the mysql database, creates a user table if it doesn't exist.
 function init() {

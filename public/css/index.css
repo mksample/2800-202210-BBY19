@@ -1,0 +1,105 @@
+body{
+    background-color:aquamarine;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-rows: 17% 17% 17% 17% 17% 15%;
+}
+
+#login{
+    font-size: 1rem;
+}
+
+#navigation{
+    /* background-color: brown; */
+    grid-column:1 / span 5;
+    grid-row: 1 / span 1;
+}
+
+#signIn{
+    /* background-color: burlywood; */
+    grid-column: 2 / span 3;
+    grid-row: 2 / span 2;
+    border: solid black;
+
+}
+
+#signUpPage{
+    border: solid yellow;
+
+}
+
+#save{
+    font-size: 1rem;
+}
+
+#sos_logo{
+    margin-top: 5%;
+    max-height: 75%;
+    text-align: center;
+    /* background-color: yellowgreen; */
+    grid-column: 2 / span 3;
+    grid-row: 4 / span 3;
+}
+
+
+#footer {
+    /* background-color: plum; */
+    grid-column: 1 / span 5;
+    grid-row: 7 / span 1;
+}
+
+@media only screen and (max-width: 800px) {
+    body {
+      background-color: lightblue;
+    } 
+  
+    .container{
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 10% 30% 45% 15%;
+       
+    }
+
+    #login{
+        font-size: 1.4rem;
+    }
+
+    #navigation{
+        /* background-color: brown; */
+        grid-column:1 / span 1;
+        grid-row: 1 / span 1;
+    }
+    
+    #signIn{
+        /* background-color: burlywood; */
+        grid-column: 1 / span 1;
+        grid-row: 2 / span 1;
+        border: solid black;
+    
+    }
+
+    #save{
+        font-size: 1rem;
+    }
+    
+    #sos_logo{
+        margin-top: 15%;
+        max-height: 75%;
+        text-align: center;
+        /* background-color: yellowgreen; */
+        grid-column: 1 / span 1;
+        grid-row: 3 / span 1;
+    }
+    
+    
+    #footer {
+        margin-top: 15%;
+        /* background-color: plum; */
+        grid-column: 1 / span 1;
+        grid-row: 4 / span 1;
+    }
+  
+  }
