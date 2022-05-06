@@ -1,3 +1,4 @@
+"use strict";
 ready(async function () {
     async function postData(url, data) {
         const response = await fetch(url, {
@@ -21,7 +22,7 @@ ready(async function () {
         let emailInput = document.getElementById("emailInput");
         let passwordInput = document.getElementById("passwordInput");
 
-        response = await postData("/login", { email: emailInput.value, password: passwordInput.value });
+        let response = await postData("/login", { email: emailInput.value, password: passwordInput.value });
         if (response) {
             if (response.status == "fail") {
                 document.getElementById("loginStatus").innerHTML = response.msg; // display login failure
