@@ -38,7 +38,7 @@ app.use(session(
 
 //////// PAGE SERVING ////////
 
-// Get the index page
+// Index page
 app.get("/", function (req, res) {
     if (req.session.loggedIn) {
         res.redirect("/profile");
@@ -48,7 +48,7 @@ app.get("/", function (req, res) {
     }
 });
 
-// Get the profile page
+// Profile page
 app.get("/profile", async function (req, res) {
     if (req.session.loggedIn) {
         let doc = "";
@@ -71,7 +71,10 @@ app.get("/profile", async function (req, res) {
 
 //////// USER MANAGEMENT ////////
 
-// Login request
+// User login request.
+// POST params: 
+// email (string) - email of the account.
+// password (string) - password of the account.
 app.post("/login", function (req, res) {
     authenticate(req.body.email, req.body.password,
         function (userRecord) {
@@ -95,7 +98,7 @@ app.post("/login", function (req, res) {
     );
 });
 
-// Authenticate the user
+// Helper function for user login request.
 function authenticate(email, pwd, callback) {
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
@@ -115,7 +118,8 @@ function authenticate(email, pwd, callback) {
     );
 }
 
-// Logout request
+// User logout request.
+// Destroys the users session and returns them to the index page. Returns nothing.
 app.get("/logout", function (req, res) {
     if (req.session) {
         req.session.destroy(function (error) {
@@ -131,11 +135,19 @@ app.get("/logout", function (req, res) {
 // Get the signup page
 app.get("/signup", function (req, res) {
     let doc = fs.readFileSync("./app/html/create_user.html", "utf8")
-    res.send(doc)
-    
+    res.send(doc) 
 });
 
-// Create user request
+// Create user request.
+// POST params:
+// email (string) - email of the new user.
+// password (string) - password of the new user.
+// firstName (string) - first name of the new user.
+// lastName (string) - last name of the new user.
+// age (int) - age of the new user.
+// gender (string) - gender of the new user.
+// phoneNumber (string) - phone number of the new user.
+// role (string) - role of the new user (must be "ADMIN", "CALLER", or "RESPONDER"). 
 app.post("/createUser", function (req, res) {
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
