@@ -31,11 +31,6 @@ ready(async function () {
             }
         }
     });
-
-    //redirecting to singup page, for the first time using users
-    document.getElementById("signUpPage").onclick = function () {
-        window.location.replace("/signup");
-    };
 });
 
 function ready(callback) {
