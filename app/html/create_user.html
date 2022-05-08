@@ -35,17 +35,17 @@
       <p>Please fill out all the blanks.</p><br><br>
 
       <label for="email">Email:</label><br>
-      <input type="text" id="email" name="email" required><br><br>
+      <input type="text" id="email" name="email" required ><br><br>
       <label for="password">Password:</label><br>
-      <input type="password" id="password" name="password" minlenght="8" required><br><br>
+      <input type="password" id="password" name="password" minlenght="8" required ><br><br>
       <label for="fname">First name:</label><br>
-      <input type="text" id="fname" name="fname" required><br><br>
+      <input type="text" id="fname" name="fname" required ><br><br>
       <label for="lname">Last name:</label><br>
-      <input type="text" id="lname" name="lname" required><br><br>
+      <input type="text" id="lname" name="lname" required ><br><br>
       <label for="age">Age: </label><br>
-      <input type="text" id="age" name="age" required><br><br>
+      <input type="text" id="age" name="age" required value="18"><br><br>
       <label for="phoneNumber">Cell phone: </label><br>
-      <input type="tel" id="phoneNumber" name="phoneNumber" minlength="10" required><br><br>
+      <input type="tel" id="phoneNumber" name="phoneNumber" minlength="10" required ><br><br>
       <label for="gender">Gender: </label><br>
       <select id="gender" required>
         <option value="" selected disabled hidden>Choose here</option>
@@ -59,18 +59,18 @@
       <label for="role">Role: </label><br>
       <select id="role" required>
         <option value="" selected disabled hidden>Choose here</option>
-        <option value="CALLER" re>Caller</option>
+        <option value="CALLER" >Caller</option>
         <option value="RESPONDER">Responder</option>
       </select>
 
-      <input id="createUserButton" type="submit" value="Create Profile">
-      <input id="indexButton" type="button" value="Back">
+      <input id="createUserButton" type="button" value="Create Profile">
+      <input id="backButton" type="button" value="Back">
     </form>
   </div>
 
 
   <!-- footer.html will be in here -->
-  <footer include-html="/html/footer.html"></footer>
+  <footer include-html="html/footer.html"></footer>
 </body>
 
 </html>

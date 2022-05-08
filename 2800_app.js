@@ -8,7 +8,7 @@ const { JSDOM } = require('jsdom');
 const { connected } = require("process");
 
 const sqlAuthentication = { // sql connection settings
-    host: "localhost",// for Mac os, type 127.0.0.1
+    host: "127.0.0.1",// for Mac os, type 127.0.0.1
     user: "root",
     password: "",
     multipleStatements: true,
@@ -90,7 +90,7 @@ app.post("/login", function (req, res) {
             if (userRecord == null) {
                 res.send({ status: "fail", msg: "Incorrect email or password" });
                 return;
-            } else if (userRecord.role == callerRole) {
+            } else if (userRecord.role == callerRole) { // sorting types of users 
                 req.session.role = callerRole;
             } else if (userRecord.role == responderRole) {
                 req.session.role = responderRole;
@@ -150,6 +150,9 @@ app.get("/logout", function (req, res) {
 // phoneNumber (string) - phone number of the new user.
 // role (string) - role of the new user (must be "ADMIN", "CALLER", or "RESPONDER"). 
 app.post("/createUser", function (req, res) {
+    console.log(req.body);
+    console.log("--------------");
+    console.log(req.params); 
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
@@ -158,8 +161,8 @@ app.post("/createUser", function (req, res) {
         `', '` + req.body.password +
         `', '` + req.body.firstName +
         `', '` + req.body.lastName +
-        `', ` + req.body.age +
-        `, '` + req.body.gender +
+        `', '` + req.body.age +
+        `', '` + req.body.gender +
         `', '` + req.body.phoneNumber +
         `', '` + req.body.role +
         `');`;
