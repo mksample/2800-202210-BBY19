@@ -24,7 +24,7 @@ const adminRole = "ADMIN";
 // static path mappings
 app.use("/js", express.static("public/js"));
 app.use("/css", express.static("public/css"));
-app.use("/img", express.static("public/imgs"));
+app.use("/imgs", express.static("public/imgs"));
 app.use("/fonts", express.static("public/fonts"));
 app.use("/html", express.static("public/html"));
 app.use("/media", express.static("public/media"));
