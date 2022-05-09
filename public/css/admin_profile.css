@@ -9,7 +9,7 @@
 body{
     overflow-x: hidden;
     background-position: center;
-    background: url(/public/imgs/background.jpg);
+    background: url(/imgs/background.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -124,7 +124,7 @@ aside h1{
 
 aside .user-side {
     padding: 20px;
-    border-top: 1px solid#e9e9e9;
+    border-top: 1px solid #e9e9e9;
 }
 
 aside .user-pic {
@@ -452,7 +452,7 @@ aside .search-bar button {
     }
 
     aside {
-        transition: all 4s ease-in-out;
+        transition: all 1.5s ease-in-out;
         top: 69px; 
         z-index: 20;
         position: absolute;
