@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang ="en">
+<html lang="en">
 
 <head>
   <!-- Page Title-->
-  <title>Admin Profile</title>
+  <title>Admin ProfilePage</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <!-- Our StyleSheet-->
   <link rel="stylesheet" href="/css/admin_profile.css">
-  
+
   <!-- Google Material Icons-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  
+
 </head>
 
 <body>
@@ -30,7 +30,7 @@
       <!--HAMBURGER MENU FOR MOBILE-->
 
       <div class="hamburger-menu">
-        <span> <i class="material-icons">list</i></span>
+        <span><i class="material-icons">list</i></span>
       </div>
 
 
@@ -50,8 +50,10 @@
             <h3>Contact</h3>
           </li>
 
-          <li class="active">
-            <h3>Account</h3>
+          <li>
+            <form action="/logout" method="get">
+              <input id="logout" type="submit" value="Logout" />
+            </form>
           </li>
 
         </ul>
@@ -83,6 +85,13 @@
         <li class="active">
           <span> <i class="material-icons">account_circle</i></span>
           <h3>Account</h3>
+        </li>
+
+        <li>
+          <span> <i class="material-icons">logout</i></span>
+          <form action="/logout" method="get">
+            <input id="logout" type="submit" value="Logout" />
+          </form>
         </li>
 
       </ul>
@@ -196,7 +205,7 @@
             <img width="200" src="/imgs/saveme.jpg" alt="">
             <p>Title</p>
           </div>
-
+          <input id="createUser" type="button" value="Add new user" />
         </div>
 
       </section>
@@ -242,7 +251,7 @@
   </div>
   <!-- SCRIPT FOLDER-->
   <script src="/js/admin_profile.js"></script>
- 
+
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -270,25 +279,25 @@
 
   <!--DISPLAY NAVIGATION ON MOBILE-->
   <script>
-    const bar = document.querySelector(".hamburger-menu");
+    const hMenu = document.querySelector(".hamburger-menu");
 
     const navM = document.querySelector(".nav-mobile");
 
-    bar.addEventListener("click", (nav) => {
+    hMenu.addEventListener("click", (nav) => {
 
       navM.classList.toggle("show");
     })
   </script>
-  
+
   <!--DISPLAY NAVIGATION ON MOBILE-->
   <script>
-    const Mbar = document.querySelector(".vert-bar");
+    const Vbar = document.querySelector(".vert-bar");
 
     const aside = document.querySelector(".sidebar");
 
     const close = document.querySelector(".close");
 
-    Mbar.addEventListener("click", () => {
+    Vbar.addEventListener("click", () => {
       aside.classList.add("show");
     })
 
