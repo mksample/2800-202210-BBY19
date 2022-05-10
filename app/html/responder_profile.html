@@ -1,20 +1,308 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Responder Profile</title>
+  <!-- Page Title-->
+  <title>Responder ProfilePage</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Our StyleSheet-->
   <link rel="stylesheet" href="/css/responder_profile.css">
+
+  <!-- Google Material Icons-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 
 <body>
-  Responder Profile body
-  <header id="header">
-    <form action="/logout" method="get">
-      <input id="logout" type="submit" value="Logout" />
-    </form>
-  </header>
+
+  <!-- Main Container-->
+  <div class="container">
+    <header>
+      <!-- LOGO-->
+      <div class="logo">
+        <img src="/imgs/saveme.jpg" width="40px" alt="logo" />
+        <h1>SaveMe</h1>
+      </div>
+
+
+      <!--HAMBURGER MENU FOR MOBILE-->
+
+      <div class="hamburger-menu">
+        <span><i class="material-icons">list</i></span>
+      </div>
+
+
+      <!-- TOP NAVIGATION -->
+      <div class="nav">
+        <ul>
+
+          <li>
+            <h3>Home</h3>
+          </li>
+
+          <li>
+            <h3>About</h3>
+          </li>
+
+          <li>
+            <h3>Contact</h3>
+          </li>
+
+          <li>
+            <form action="/logout" method="get">
+              <input id="logout" type="submit" value="Logout" />
+            </form>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </header>
+
+
+    <!-- BOTTOM NAVIGATION BAR MOBILE-->
+    <div class="nav-mobile">
+      <ul>
+
+        <li>
+          <span> <i class="material-icons">home</i></span>
+          <h3>Home</h3>
+        </li>
+
+        <li>
+          <span> <i class="material-icons">info</i></span>
+          <h3>About</h3>
+        </li>
+
+        <li>
+          <span> <i class="material-icons">call</i></span>
+          <h3>Contact</h3>
+        </li>
+
+        <li class="active">
+          <span> <i class="material-icons">account_circle</i></span>
+          <h3>Account</h3>
+        </li>
+
+        <li>
+          <span> <i class="material-icons">logout</i></span>
+          <form action="/logout" method="get">
+            <input id="logout" type="submit" value="Logout" />
+          </form>
+        </li>
+
+      </ul>
+    </div>
+
+
+    <!-- VERTICAL ICON NAVIGATION-->
+    <div class="vert-bar">
+      <span> <i class="material-icons">more_vert</i></span>
+    </div>
+
+
+
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+      <!-- SIDEBAR CLOSE WHEN ON MOBILE-->
+      <h1>SaveMe<span class="close"><i class="material-icons">close</i></span></h1>
+
+      <div class="user-side">
+
+        <div class="user-pic">
+
+          <img width="100" src="/imgs/saveme.jpg" alt="">
+
+        </div>
+        <!-- SIDE NAVIGATION USER INFORMATION-->
+        <div class="user-info">
+
+          <span class="name">John Doe</span>
+
+          <span class="email">JohnDoe@gmail.com</span>
+
+          <span class="status">Online</span>
+
+        </div>
+
+      </div>
+
+      <!-- SIDE NAVIGATION SEARCH BAR-->
+      <div class="search-bar">
+        <form>
+          <div class="search">
+
+            <input type="text" placeholder="Search Profile...">
+
+            <button type="submit"><span><i class="material-icons">search</i></span></button>
+
+          </div>
+
+        </form>
+      </div>
+
+      <!-- SIDE NAVIGATION GENERAL-->
+      <div class="side-nav">
+        <h2>General</h2>
+        <nav>
+          <ul>
+            <li class="active" onclick="show(0)">
+              <span><i class="material-icons">speed</i></span>
+              <h3>Dashboard</h3>
+            </li>
+            <li onclick="show(1)">
+              <span><i class="material-icons">star</i></span>
+              <h3>Reviews</h3>
+            </li>
+            <li onclick="show(2)">
+              <span><i class="material-icons">comments</i></span>
+              <h3>Comments</h3>
+            </li>
+            <li onclick="show(3)">
+              <span><i class="material-icons">settings</i></span>
+              <h3>Settings</h3>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- BOTTOM NAVIGATION ICONS-->
+      <div class="bt-nav">
+        <ul>
+          <li class="alert" title="Alert">
+            <span><i class="material-icons">notifications</i></span>
+          </li>
+          <li class="message" title="Message">
+            <span><i class="material-icons">message</i></span>
+          </li>
+          <li class="set" title="Settings">
+            <span><i class="material-icons">settings</i></span>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- DASHBOARD CONTENT -->
+    <div class="main">
+      <section class="profile tabs">
+        <h1>Your Posts</h1>
+        <div class="userpost">
+          <div class="posts">
+            <span><i class="material-icons">add</i></span>
+          </div>
+          <div class="posts">
+            <img width="200" src="/imgs/saveme.jpg" alt="">
+            <p>Title</p>
+          </div>
+          <div class="posts">
+            <img width="200" src="/imgs/saveme.jpg" alt="">
+            <p>Title</p>
+          </div>
+          <div class="posts">
+            <img width="200" src="/imgs/saveme.jpg" alt="">
+            <p>Title</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- CONTENT TABS-->
+      <section class="tabs">
+
+        <h1>Reviews</h1>
+
+        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Quia recusandae laudantium odio!
+          Iusto velit laboriosam perferendis ab!
+          Aliquam ab odit animi autem cumque
+          sit sint corporis quo. Voluptas, natus corporis?</p>
+
+      </section>
+      <section class="tabs">
+        <h1>Comments</h1>
+
+        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Quia recusandae laudantium odio!
+          Iusto velit laboriosam perferendis ab!
+          Aliquam ab odit animi autem cumque
+          sit sint corporis quo. Voluptas, natus corporis?</p>
+      </section>
+      <section class="tabs">
+        <h1>Settings</h1>
+
+        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Quia recusandae laudantium odio!
+          Iusto velit laboriosam perferendis ab!
+          Aliquam ab odit animi autem cumque
+          sit sint corporis quo. Voluptas, natus corporis?</p>
+      </section>
+
+
+    </div>
+
+
+
+
+
+  </div>
+
+  <!-- JQuery-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!--DISPLAY NAVIGATION ON MOBILE-->
+  <script>
+    const tbtn = document.querySelectorAll(".side-nav ul li");
+    const tab = document.querySelectorAll(".tabs");
+
+    function show(panelIndex) {
+      tab.forEach(function (node) {
+        node.style.display = "none";
+      })
+      tab[panelIndex].style.display = "block";
+    }
+
+    show(0)
+  </script>
+
+  <!--DISPLAY NAVIGATION ON MOBILE-->
+  <script>
+    $(".side-nav ul li").click(function () {
+      $(this).addClass("active").sibilings().removeClass("active");
+    })
+  </script>
+
+  <!--DISPLAY NAVIGATION ON MOBILE-->
+  <script>
+    const hMenu = document.querySelector(".hamburger-menu");
+
+    const navM = document.querySelector(".nav-mobile");
+
+    hMenu.addEventListener("click", (nav) => {
+
+      navM.classList.toggle("show");
+    })
+  </script>
+
+  <!--DISPLAY NAVIGATION ON MOBILE-->
+  <script>
+    const Vbar = document.querySelector(".vert-bar");
+
+    const aside = document.querySelector(".sidebar");
+
+    const close = document.querySelector(".close");
+
+    Vbar.addEventListener("click", () => {
+      aside.classList.add("show");
+    })
+
+    close.addEventListener("click", () => {
+      aside.classList.remove("show");
+    })
+  </script>
+
 </body>
 
 </html>
