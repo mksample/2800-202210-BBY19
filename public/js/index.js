@@ -17,17 +17,33 @@ ready(async function () {
         return response.json();
     }
 
-    // Listener for the signin button
-    document.querySelector("#signInButton").addEventListener("click", async function (e) {
-        let emailInput = document.getElementById("emailInput");
-        let passwordInput = document.getElementById("passwordInput");
+    // Listener for the signin button for desktop
+    document.querySelector("#signInButton_desktop").addEventListener("click", async function (e) {
+        let emailInput = document.getElementById("emailInput_desktop");
+        let passwordInput = document.getElementById("passwordInput_desktop");
 
         let response = await postData("/login", { email: emailInput.value, password: passwordInput.value });
         if (response) {
             if (response.status == "fail") {
                 let errmsg = response.msg;
-                // To do: need to be fixed the status placeholder
+                console.log(errmsg);
                 document.getElementById("loginStatus_desktop").innerHTML = errmsg; // display login failure
+            } else {
+                window.location.replace("/profile");
+            }
+        }
+    });
+
+    // Listener for the signin button for mobile
+    document.querySelector("#signInButton_mobile").addEventListener("click", async function (e) {
+        let emailInput = document.getElementById("emailInput_mobile");
+        let passwordInput = document.getElementById("passwordInput_mobile");
+
+        let response = await postData("/login", { email: emailInput.value, password: passwordInput.value });
+        if (response) {
+            if (response.status == "fail") {
+                let errmsg = response.msg;
+                console.log(errmsg);
                 document.getElementById("loginStatus_mobile").innerHTML = errmsg; // display login failure
             } else {
                 window.location.replace("/profile");
@@ -35,15 +51,15 @@ ready(async function () {
         }
     });
 
-    //redirecting to signup page, for the first time using users
+    //redirecting to signup page for desktop, for the first time using users
     document.getElementById("signUpPage_desktop").onclick = function () {
         window.location.replace("/signup");
     };
 
+    //redirecting to signup page for mobile, for the first time using users
     document.getElementById("signUpPage_mobile").onclick = function () {
         window.location.replace("/signup");
     };
-
 });
 
 function ready(callback) {
