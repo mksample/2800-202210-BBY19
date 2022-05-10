@@ -27,8 +27,3 @@ function ready(callback) {
         console.log("Listener was invoked");
     }
 }
-
-
-    
-
-
