@@ -6,14 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Set favicon -->
-  <link href="img/saveme.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
 
   <!-- Including JavaScript in here -->
   <!-- includeHTML.js attaches Navbar and Footer in this page. -->
   <script src="js/index.js"></script>
 
   <!-- Set style sheets -->
-  <link rel="stylesheet" type="text/css" href="css/navbar_footer_style.css" />
   <link rel="stylesheet" type="text/css" href="/css/index.css" />
 
   <!-- Icon libraries from https://fonts.google.com/icons -->
@@ -22,22 +21,39 @@
 </head>
 
 <body>
-  <div class="container">
 
-  <div id="signIn">
-    <div id="login"><p>Log-in</p></div>
-    <p>Email: </p><input id='emailInput' type='email' required="required" placeholder="Email" /><br>
-    <p>Password: </p><input id='passwordInput' type='password' required="required" placeholder="Password" /><br><br>
-    <input id="signInButton" type="button" value="Sign In" />
-    <p id="loginStatus">&nbsp;</p>
-  </div>
-  <div id="signUp">
-    <p>If you don't have an account yet, please sign up.</p>
-    <input id="signUpPage" type="button" value="Sign Up">
-  </div>
 
-  <script src="js/index.js"></script>
-</div>
+  <!-- <div class="container">
+    <div id="signIn">
+      <div id="login">
+        <p>Log-in</p>
+      </div>
+      <p>Email: </p><input id='emailInput' type='email' required="required" placeholder="Email" /><br>
+      <p>Password: </p><input id='passwordInput' type='password' required="required" placeholder="Password" /><br><br>
+      <input id="signInButton" type="button" value="Sign In" />
+      <p id="loginStatus">&nbsp;</p>
+    </div>
+    <div id="signUp">
+      <p>If you don't have an account yet, please sign up.</p>
+      <input id="signUpPage" type="button" value="Sign Up">
+    </div> -->
+
+  <!-- Desktop page -->
+  <div class="container" id="container">
+    <div class="log-in-container">
+      <form action="#">
+        <!-- path update needed -->
+        <img src="imgs/saveme.jpg" height="100px"></a>
+        <h1>Log in</h1>
+        <input id="emailInput" type="email" required="required" placeholder="Email" />
+        <input id="passwordInput" type="password" required="required" placeholder="Password" />
+        <button id="signInButton">LOG IN</button>
+      </form>
+    </div>
+
+
+    <script src="js/index.js"></script>
+  </div>
 </body>
 
 </html>
