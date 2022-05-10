@@ -57,7 +57,7 @@ ready(async function () {
         return;
     });
 
-    //redirecting to singup page, for the first time using users
+    //redirecting to login page, back button
     document.getElementById("backButton").onclick = function () {
         window.location.replace("/");
     };
