@@ -25,17 +25,25 @@ ready(async function () {
         let response = await postData("/login", { email: emailInput.value, password: passwordInput.value });
         if (response) {
             if (response.status == "fail") {
-                document.getElementById("loginStatus").innerHTML = response.msg; // display login failure
+                let errmsg = response.msg;
+                // To do: need to be fixed the status placeholder
+                document.getElementById("loginStatus_desktop").innerHTML = errmsg; // display login failure
+                document.getElementById("loginStatus_mobile").innerHTML = errmsg; // display login failure
             } else {
                 window.location.replace("/profile");
             }
         }
     });
 
-    //redirecting to singup page, for the first time using users
-    document.getElementById("signUpPage").onclick = function () {
+    //redirecting to signup page, for the first time using users
+    document.getElementById("signUpPage_desktop").onclick = function () {
         window.location.replace("/signup");
     };
+
+    document.getElementById("signUpPage_mobile").onclick = function () {
+        window.location.replace("/signup");
+    };
+
 });
 
 function ready(callback) {

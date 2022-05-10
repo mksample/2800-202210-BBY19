@@ -13,6 +13,9 @@
 
   <!-- Set style sheets -->
   <link rel="stylesheet" type="text/css" href="/css/index.css" />
+
+  <!-- Icon libraries from https://fonts.google.com/icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <title>SaveMe</title>
 </head>
 
@@ -26,7 +29,8 @@
         <input id="emailInput" type="email" required="required" placeholder="Email" />
         <input id="passwordInput" type="password" required="required" placeholder="Password" />
         <button id="signInButton">LOG IN</button>
-        <br /><div id="loginStatus"></div>
+        <br />
+        <div id="loginStatus_desktop"></div>
       </form>
     </div>
 
@@ -35,10 +39,11 @@
         <div class="sign-up-panel">
           <h1>SaveMe</h1>
           <p>Helping local business that have security personnel respond to conflicts on their property</p>
-          <button class="ghost" id="signUpButton">SIGN UP</button>
+          <button class="ghost" id="signUpPage_desktop">SIGN UP</button>
         </div>
       </div>
     </div>
+
   </div>
 
   <!-- Mobile page -->
@@ -50,11 +55,13 @@
         <input id="emailInput" type="email" required="required" placeholder="Email" />
         <input id="passwordInput" type="password" required="required" placeholder="Password" />
         <button id="signInButton">LOG IN</button>
+        <br />
+        <div id="loginStatus_mobile"></div>
       </form>
     </div>
     <div class="sign-up-container_mobile">
       <p>Don't you have an ID?</p>
-      <button id="signUpButton">SIGN UP</button>
+      <button id="signUpPage_mobile">SIGN UP</button>
     </div>
   </div>
 </body>

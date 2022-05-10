@@ -7,7 +7,7 @@
 body {
     background: #f6f5f7;
     display: flex;
-    background: url(background.jpg);
+    background: url(../imgs/background.jpg);
     justify-content: center;
     align-items: center;
     flex-direction: column;
