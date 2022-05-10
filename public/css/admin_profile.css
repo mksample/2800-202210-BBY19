@@ -9,7 +9,7 @@
 body{
     overflow-x: hidden;
     background-position: center;
-    background: url(/imgs/background.jpg);
+    background: url(/public/imgs/background.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -391,13 +391,14 @@ aside .search-bar button {
         display: block;
         position: fixed;
         left:0; 
-        z-index: 50;
+        z-index:500;
         background: #fff;
         padding: 10px;
         transition: all .4s ease-in-out;
         border-top: 1px solid #e9e9e9; 
         width: 100%; 
         bottom:0; 
+        top: 105%; 
        
     }
 
@@ -453,7 +454,7 @@ aside .search-bar button {
 
     aside {
         transition: all 1.5s ease-in-out;
-        top: 69px; 
+        top: 70px; 
         z-index: 20;
         position: absolute;
         overflow: hidden;
