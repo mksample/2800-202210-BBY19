@@ -116,7 +116,7 @@ function authenticate(email, pwd, callback) {
             if (error) {
                 console.log(error);
             }
-            if (results.length > 0) {
+            if (results && results.length > 0) {
                 return callback(results[0]);
             } else {
                 return callback(null);
