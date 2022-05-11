@@ -26,6 +26,8 @@ ready(async function () {
             document.getElementById("email").innerHTML = response.user.email;
             document.getElementById("detail_user_firstN").innerHTML = response.user.firstName;
             document.getElementById("detail_user_lastN").innerHTML = response.user.lastName;
+            document.getElementById("detail_user_email").innerHTML = response.user.email;
+            document.getElementById("detail_user_password").innerHTML = response.user.password;
             document.getElementById("detail_user_age").innerHTML = response.user.age;
             document.getElementById("detail_user_gender").innerHTML = response.user.gender;
             document.getElementById("detail_user_cellphone").innerHTML = response.user.phoneNumber;

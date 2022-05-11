@@ -395,6 +395,19 @@ aside .search-bar button {
 }
 
 
+
+#detail_user_email{
+    display: inline;
+    font-weight: bold;
+}
+
+
+#detail_user_password{
+    display: inline;
+    font-weight: bold;
+}
+
+
 #detail_user_age{
     font-weight: bold;
 }
