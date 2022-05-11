@@ -372,6 +372,11 @@ aside .search-bar button {
     line-height: 30px;
 }
 
+#nameGroup{
+    display: inline;
+    
+}
+
 #user_profile_section{
     border: solid green;
     text-align: center;
@@ -379,11 +384,13 @@ aside .search-bar button {
 }
 
 #detail_user_firstN{
+    display: inline;
     font-weight: bold;
 }
 
 
 #detail_user_lastN{
+    display: inline;
     font-weight: bold;
 }
 
