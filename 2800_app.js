@@ -42,7 +42,7 @@ app.use(session(
 //////// PAGE SERVING ////////
 
 // Index page
-app.get("/", function (req, res) {
+app.get("/", function (req, res) { 
     if (req.session.loggedIn) {
         res.redirect("/profile");
     } else {
@@ -349,5 +349,5 @@ function init() {
 }
 
 // RUN SERVER
-let port = 8000;
+let port = process.env.PORT || 3000;
 app.listen(port, init);
