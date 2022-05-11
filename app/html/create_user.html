@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -7,27 +7,17 @@
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <link rel="stylesheet" type="text/css" href="css/create_user.css">
+  <link href="imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
 
-  <!-- Set favicon -->
-  <link href="img/saveme.ico" rel="shortcut icon" type="image/x-icon">
-
-  <!-- Including JavaScript in here -->
-  <!-- includeHTML.js attaches Navbar and Footer in this page. -->
   <script src="js/create_user.js"></script>
 
-  <!-- Set style sheets -->
-  <link rel="stylesheet" type="text/css" href="css/navbar_footer_style.css" />
-  <link rel="stylesheet" type="text/css" href="/css/index.css" />
+  <link rel="stylesheet" type="text/css" href="css/create_user.css">
 
-  <!-- Icon libraries from https://fonts.google.com/icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <title>SaveMe</title>
 </head>
 
 <body>
-  <!-- navbar.html will be in here -->
-  <nav include-html="html/navbar.html"></nav>
   <br />
   <div id="container">
     <form action>
@@ -35,17 +25,23 @@
       <p>Please fill out all the blanks.</p><br><br>
 
       <label for="email">Email:</label><br>
-      <input type="text" id="email" name="email" required ><br><br>
+      <input type="text" id="email" name="email" required><br><br>
+
       <label for="password">Password:</label><br>
-      <input type="password" id="password" name="password" minlenght="8" required ><br><br>
+      <input type="password" id="password" name="password" minlenght="8" required><br><br>
+      
       <label for="fname">First name:</label><br>
-      <input type="text" id="fname" name="fname" required ><br><br>
+      <input type="text" id="fname" name="fname" required><br><br>
+      
       <label for="lname">Last name:</label><br>
-      <input type="text" id="lname" name="lname" required ><br><br>
+      <input type="text" id="lname" name="lname" required><br><br>
+      
       <label for="age">Age: </label><br>
-      <input type="text" id="age" name="age" required ><br><br>
+      <input type="text" id="age" name="age" required><br><br>
+      
       <label for="phoneNumber">Cell phone: </label><br>
-      <input type="tel" id="phoneNumber" name="phoneNumber" minlength="10" required ><br><br>
+      <input type="tel" id="phoneNumber" name="phoneNumber" minlength="10" required><br><br>
+      
       <label for="gender">Gender: </label><br>
       <select id="gender" required>
         <option value="" selected disabled hidden>Choose here</option>
@@ -59,7 +55,7 @@
       <label for="role">Role: </label><br>
       <select id="role" required>
         <option value="" selected disabled hidden>Choose here</option>
-        <option value="CALLER" >Caller</option>
+        <option value="CALLER">Caller</option>
         <option value="RESPONDER">Responder</option>
       </select>
 
@@ -67,10 +63,141 @@
       <input id="backButton" type="button" value="Back">
     </form>
   </div>
+</body>
+
+</html> -->
 
 
-  <!-- footer.html will be in here -->
-  <footer include-html="html/footer.html"></footer>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Set favicon -->
+  <link href="imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
+
+  <!-- Including JavaScript in here -->
+  <script src="js/index.js"></script>
+
+  <!-- Set style sheets -->
+  <link rel="stylesheet" type="text/css" href="/css/create_user.css" />
+
+  <!-- Icon libraries from https://fonts.google.com/icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet'
+    type='text/css'>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+  <title>SaveMe</title>
+</head>
+
+<body>
+  <!-- Desktop page -->
+  <div class="testbox">
+    <h1>SaveMe Sign Up</h1>
+
+    <form action="/">
+      <hr>
+      <div class="accounttype">
+        <input type="radio" value="None" id="radioOne" name="account" checked />
+        <label for="radioOne" class="radio" chec>Caller</label>
+        <input type="radio" value="None" id="radioTwo" name="account" />
+        <label for="radioTwo" class="radio">Responder</label>
+      </div>
+      <label id="icon" for="name"><i class="icon-envelope "></i></label>
+      <input type="text" name="email" id="email" placeholder="Email" required />
+      <label id="icon" for="name"><i class="icon-shield"></i></label>
+      <input type="password" name="name" id="name" placeholder="Password" required />
+      <label id="icon" for="name"><i class="icon-user"></i></label>
+      <input type="text" name="fname" id="fname" placeholder="First name" required />
+      <label id="icon" for="name"><i class="icon-user"></i></label>
+      <input type="text" name="lname" id="lname" placeholder="Last name" required />
+      <label id="icon" for="name"><i class="icon-phone"></i></label>
+      <input type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone number" minlength="10" required />
+      <label id="icon" for="name"><i class="icon-time"></i></label>
+      <input type="text" name="age" id="age" placeholder="Your age" required />
+      
+      <div class="gender">
+        <input type="radio" value="None" id="male" name="gender" checked />
+        <label for="male" class="radio" chec>Male</label>
+        <input type="radio" value="None" id="female" name="gender" />
+        <label for="female" class="radio">Female</label>
+        <input type="radio" value="None" id="other" name="gender" />
+        <label for="other" class="radio">Other</label>
+      </div>
+      <hr>
+      <!-- <img src="imgs/saveme.jpg" height="100px"></a> -->
+      <a href="#" class="cancelButton">Cancel</a>
+      <a href="#" class="signUpButton">Sign&nbsp;Up</a>
+    </form>
+  </div>
+
+
+  <!-- 
+
+
+        <img src="imgs/saveme.jpg" height="100px"></a>
+        <h2>Create an account</h2>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email_desktop" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" minlenght="8" required>
+
+        <label for="fname">First name:</label>
+        <input type="text" id="fname" name="fname" required>
+
+        <label for="lname">Last name:</label>
+        <input type="text" id="lname" name="lname" required>
+
+        <label for="age">Age: </label><br>
+        <input type="text" id="age" name="age" required>
+
+        <label for="phoneNumber">Cell phone: </label><br>
+        <input type="tel" id="phoneNumber" name="phoneNumber" minlength="10" required><br><br>
+
+        <input id="emailInput_desktop" type="email" required="required" placeholder="Email" />
+        <input id="passwordInput_desktop" type="password" required="required" placeholder="Password" />
+        <button id="signInButton_desktop">LOG IN</button>
+        <br />
+        <div id="loginStatus_desktop"></div> -->
+
+
+  </form>
+  </div>
+  <!-- 
+    <div class="sign-up-container">
+      <div class="sign-up">
+        <div class="sign-up-panel">
+          <h1>SaveMe</h1>
+          <p>Helping local business that have security personnel respond to conflicts on their property</p>
+          <button class="ghost" id="signUpPage_desktop">SIGN UP</button>
+        </div>
+      </div>
+    </div>
+
+  </div> -->
+
+  <!-- Mobile page -->
+  <!-- <div class="container_mobile" id="container_mobile">
+    <div class="log-in-container_mobile">
+      <form action="#">
+        <img src="imgs/saveme.jpg" height="100px"></a>
+        <h1>Log in</h1>
+        <input id="emailInput_mobile" type="email" required="required" placeholder="Email" />
+        <input id="passwordInput_mobile" type="password" required="required" placeholder="Password" />
+        <button id="signInButton_mobile">LOG IN</button>
+        <br />
+        <div id="loginStatus_mobile"></div>
+      </form>
+    </div>
+    <div class="sign-up-container_mobile">
+      <p>Don't you have an ID?</p>
+      <button id="signUpPage_mobile">SIGN UP</button>
+    </div>
+  </div> -->
 </body>
 
 </html>
