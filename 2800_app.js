@@ -99,7 +99,11 @@ app.post("/login", function (req, res) {
             }
             req.session.loggedIn = true;
             req.session.userID = userRecord.ID;
-            req.session.save(function (err) { });
+            req.session.save(function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
             res.send({ status: "success", msg: "Logged in" });
         }
     );
