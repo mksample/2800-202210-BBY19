@@ -199,42 +199,34 @@ input[type=password] {
   margin-top: 20px;
 }
 
-a.cancelButton {
-  font-size: 14px;
-  font-weight: 600;
-  color: white;
-  padding: 6px 25px 0px 20px;
-  margin: 50px 8px 20px 0px;
-  display: inline-block;
-  text-decoration: none;
-  width: 50px;
-  height: 27px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+.cancelButton {
+  font-family: "Poppins";
+  border-radius: 10px;
+  border: 1px solid #FE3C00;
   background-color: #FE3C00;
-  transition: all 0.1s linear 0s;
-  top: -10px;
-  position: relative;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 10px 30px;
+  margin: 50px 8px 20px 0px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
 }
 
-a.signUpButton {
-  font-size: 14px;
-  font-weight: 600;
-  color: white;
-  padding: 6px 25px 0px 20px;
-  margin: 50px 8px 20px 340px;
-  display: inline-block;
-  text-decoration: none;
-  width: 50px;
-  height: 27px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+.signUpButton {
+  font-family: "Poppins";
+  border-radius: 10px;
+  border: 1px solid #FE3C00;
   background-color: #FE3C00;
-  transition: all 0.1s linear 0s;
-  top: -10px;
-  position: relative;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 10px 30px;
+  margin: 50px 8px 20px 340px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
 }
 
 /* Media query for mobile screen */
@@ -258,8 +250,8 @@ a.signUpButton {
     margin-left: 30px;
   }
 
-  a.signUpButton {
-    margin: 50px 8px 20px 170px;
+  .signUpButton {
+    margin: 50px 8px 20px 130px;
   }
 
 }
