@@ -7,7 +7,6 @@ const sqlAuthentication = { // sql connection settings
     database: "COMP2800"
 }
 
-
 const userTable = "BBY_19_user";
 
 ready(async function () {
@@ -28,8 +27,8 @@ ready(async function () {
         return response.json();
     }
 
-    // Listener for the signin button
-    document.getElementById("createUserButton").addEventListener("click", async function (e) {
+    // Listener for the signup button
+    document.getElementById("signUpButton").addEventListener("click", async function (e) {
         let xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/createUser", true);
         xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8"); // request contents description
@@ -58,7 +57,7 @@ ready(async function () {
     });
 
     //redirecting to login page, back button
-    document.getElementById("backButton").onclick = function () {
+    document.getElementById("cancelButton").onclick = function () {
         window.location.replace("/");
     };
 });
