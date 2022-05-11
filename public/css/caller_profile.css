@@ -372,6 +372,38 @@ aside .search-bar button {
     line-height: 30px;
 }
 
+#user_profile_section{
+    border: solid green;
+    text-align: center;
+    
+}
+
+#detail_user_firstN{
+    font-weight: bold;
+}
+
+
+#detail_user_lastN{
+    font-weight: bold;
+}
+
+
+#detail_user_age{
+    font-weight: bold;
+}
+
+
+#detail_user_gender{
+    font-weight: bold;
+}
+
+
+#detail_user_cellphone{
+    font-weight: bold;
+}
+
+
+
 @media (max-width:900px){
     header {
         width: 100%;
