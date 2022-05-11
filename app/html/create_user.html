@@ -5,72 +5,64 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-  <link rel="stylesheet" type="text/css" href="css/create_user.css">
-
   <!-- Set favicon -->
-  <link href="img/saveme.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
 
   <!-- Including JavaScript in here -->
-  <!-- includeHTML.js attaches Navbar and Footer in this page. -->
   <script src="js/create_user.js"></script>
 
   <!-- Set style sheets -->
-  <link rel="stylesheet" type="text/css" href="css/navbar_footer_style.css" />
-  <link rel="stylesheet" type="text/css" href="/css/index.css" />
+  <link rel="stylesheet" type="text/css" href="/css/create_user.css" />
 
   <!-- Icon libraries from https://fonts.google.com/icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="https://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
   <title>SaveMe</title>
 </head>
 
 <body>
-  <!-- navbar.html will be in here -->
-  <nav include-html="html/navbar.html"></nav>
-  <br />
-  <div id="container">
-    <form action>
-      <div id="title">Create an account</div><br><br><br>
-      <p>Please fill out all the blanks.</p><br><br>
+  <div class="container">
+    <h1>SaveMe Sign Up</h1>
 
-      <label for="email">Email:</label><br>
-      <input type="text" id="email" name="email" required ><br><br>
-      <label for="password">Password:</label><br>
-      <input type="password" id="password" name="password" minlenght="8" required ><br><br>
-      <label for="fname">First name:</label><br>
-      <input type="text" id="fname" name="fname" required ><br><br>
-      <label for="lname">Last name:</label><br>
-      <input type="text" id="lname" name="lname" required ><br><br>
-      <label for="age">Age: </label><br>
-      <input type="text" id="age" name="age" required ><br><br>
-      <label for="phoneNumber">Cell phone: </label><br>
-      <input type="tel" id="phoneNumber" name="phoneNumber" minlength="10" required ><br><br>
-      <label for="gender">Gender: </label><br>
-      <select id="gender" required>
-        <option value="" selected disabled hidden>Choose here</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-      </select>
-      <br><br>
+    <form action="/">
+      <hr>
+      <div class="accounttype">
+        <input type="radio" value="None" id="caller" name="account" checked />
+        <label for="caller" class="radio" chec>Caller</label>
+        <input type="radio" value="None" id="responder" name="account" />
+        <label for="responder" class="radio">Responder</label>
+      </div>
+      <label id="icon" for="email"><i class="icon-envelope "></i></label>
+      <input type="text" name="email" id="email" placeholder="Email" required />
 
-      <p>Please select one that describes you:</p>
-      <label for="role">Role: </label><br>
-      <select id="role" required>
-        <option value="" selected disabled hidden>Choose here</option>
-        <option value="CALLER" >Caller</option>
-        <option value="RESPONDER">Responder</option>
-      </select>
+      <label id="icon" for="password"><i class="icon-shield"></i></label>
+      <input type="password" name="name" id="name" placeholder="Password" required />
 
-      <input id="createUserButton" type="button" value="Create Profile">
-      <input id="backButton" type="button" value="Back">
+      <label id="icon" for="fname"><i class="icon-user"></i></label>
+      <input type="text" name="fname" id="fname" placeholder="First name" required />
+
+      <label id="icon" for="lname"><i class="icon-user"></i></label>
+      <input type="text" name="lname" id="lname" placeholder="Last name" required />
+
+      <label id="icon" for="phoneNumber"><i class="icon-phone"></i></label>
+      <input type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone number" minlength="10" required />
+
+      <label id="icon" for="age"><i class="icon-time"></i></label>
+      <input type="text" name="age" id="age" placeholder="Your age" required />
+
+      <div class="gender">
+        <input type="radio" value="None" id="male" name="gender" checked />
+        <label for="male" class="radio" chec>Male</label>
+        <input type="radio" value="None" id="female" name="gender" />
+        <label for="female" class="radio">Female</label>
+        <input type="radio" value="None" id="other" name="gender" />
+        <label for="other" class="radio">Other</label>
+      </div>
+      <hr>
+      <button class="cancelButton" id="cancelButton">Cancel</a>
+      <button class="signUpButton" id="signUpButton">Sign&nbsp;Up</a>
     </form>
   </div>
-
-
-  <!-- footer.html will be in here -->
-  <footer include-html="html/footer.html"></footer>
 </body>
 
 </html>
