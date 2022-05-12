@@ -16,6 +16,20 @@
 </head>
 
 <body>
+  <!-- Templates -->
+  <template id="UserProfileTemplate">
+    <div class="posts">
+      <div class="profile">
+        <img class="profilePicture" src="/imgs/saveme.jpg" width="40px" alt="logo" />
+        <p class="profileEmail">
+
+        </p>
+        <p class="profileRole">
+
+        </p>
+      </div>
+    </div>
+  </template>
 
   <!-- Main Container-->
   <div class="container">
@@ -189,23 +203,10 @@
     <div class="main">
       <section class="profile tabs">
         <h1>Your Posts</h1>
-        <div class="userpost">
+        <div id="profiles" class="userpost">
           <div class="posts">
             <span><i class="material-icons">add</i></span>
           </div>
-          <div class="posts">
-            <img width="200" src="/imgs/saveme.jpg" alt="">
-            <p>Title</p>
-          </div>
-          <div class="posts">
-            <img width="200" src="/imgs/saveme.jpg" alt="">
-            <p>Title</p>
-          </div>
-          <div class="posts">
-            <img width="200" src="/imgs/saveme.jpg" alt="">
-            <p>Title</p>
-          </div>
-          <input id="createUser" type="button" value="Add new user" />
         </div>
 
       </section>
@@ -245,8 +246,28 @@
     </div>
 
 
+    <!-- MODALS -->
 
-
+    <!-- Edit user modal -->
+    <div id="editUserModal" class="modal">
+      <div class="edit-user-modal-content">
+        <!-- entire content box -->
+        <span class="modalClose">&times;</span>
+        
+        <!-- profile info box -->
+        <div id="editUserProfile">
+          <img class="profilePicture" src="/imgs/saveme.jpg" width="300px" alt="logo" /> <!-- placeholder profile picture -->
+          <p id="editUserEmail"></p>
+          <p id="editUserFirstName"></p>
+          <p id="editUserLastName"></p>
+          <p id="editUserAge"></p>
+          <p id="editUserGender"></p>
+          <p id="editUserPhoneNumber"></p>
+          <p id="editUserRole"></p>
+        </div>
+      </div>
+    
+    </div>
 
   </div>
   <!-- SCRIPT FOLDER-->
@@ -273,7 +294,7 @@
   <!--DISPLAY NAVIGATION ON MOBILE-->
   <script>
     $(".side-nav ul li").click(function () {
-      $(this).addClass("active").sibilings().removeClass("active");
+      $(this).addClass("active").siblings().removeClass("active");
     })
   </script>
 
