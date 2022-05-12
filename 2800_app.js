@@ -1,6 +1,7 @@
 "use strict";
 const express = require("express");
 const session = require("express-session");
+const sanitizeHtml = require("sanitize-html");
 const app = express();
 const fs = require("fs");
 const readline = require('readline');
@@ -25,10 +26,15 @@ const remoteSqlAuthentication = {
 const sqlAuthentication = remoteSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
 
 const userTable = "BBY_19_user";
+const duplicateError = "ER_DUP_ENTRY";
 
 const callerRole = "CALLER";
 const responderRole = "RESPONDER";
 const adminRole = "ADMIN";
+
+const genderMale = "male";
+const genderFemale = "female";
+const genderOther = "other";
 
 // static path mappings
 app.use("/js", express.static("public/js"));
@@ -153,7 +159,73 @@ app.get("/logout", function (req, res) {
     }
 });
 
-// Create user request.
+function validateCreateUser(req) {
+    let validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    let validPhoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+    let validAgeRegex = /^(0?[1-9]|[1-9][0-9])$/;
+    let msg = "";
+
+    // email
+    if (!req.body.email.match(validEmailRegex)) {
+        msg = "Please enter a valid email"
+        console.log("creating user: invalid email");
+        return [false, msg];
+    }
+
+    // password
+    if (sanitizeHtml(req.body.password) != req.body.password || req.body.password == "") {
+        msg = "Please enter a valid password";
+        console.log("creating user: invalid password");
+        return [false, msg];
+    }
+
+    // first name
+    if (sanitizeHtml(req.body.firstName) != req.body.firstName || req.body.firstName == "") {
+        msg = "Please enter a valid first name";
+        console.log("creating user: invalid first name");
+        return [false, msg];
+    }
+
+    // last name
+    if (sanitizeHtml(req.body.lastName) != req.body.lastName || req.body.lastName == "") {
+        msg = "Please enter a valid last name";
+        console.log("creating user: invalid last name");
+        return [false, msg];
+    }
+
+    // phone number
+    if (!req.body.phoneNumber.match(validPhoneNumberRegex)) {
+        msg = "Please enter a valid phone number (format: XXX XXX XXXX)";
+        console.log("creating user: invalid phone number");
+        return [false, msg];
+    }
+
+    // age
+    if (!req.body.age.match(validAgeRegex)) {
+        msg = "Please enter a valid age";
+        console.log("creating user: invalid age");
+        return [false, msg];
+    }
+
+    // gender
+    if (req.body.gender != genderMale && req.body.gender != genderFemale && req.body.gender != genderOther) {
+        msg = "Please select a valid gender";
+        console.log("creating user: invalid gender");
+        return [false, msg];
+    }
+
+    // role
+    if (req.body.role != callerRole && req.body.role != responderRole) {
+        msg = "Please select a valid role";
+        console.log("creating user: invalid role");
+        return [false, msg];
+    }
+
+    return [true, msg];
+}
+
+// Create user request. Returns displayMsg if user input is invalid.
+// Returns a status ("success" or "fail"), a status message (internal, not for display), and a display message.
 // POST params:
 // email (string) - email of the new user.
 // password (string) - password of the new user.
@@ -164,32 +236,42 @@ app.get("/logout", function (req, res) {
 // phoneNumber (string) - phone number of the new user.
 // role (string) - role of the new user (must be "ADMIN", "CALLER", or "RESPONDER"). 
 app.post("/createUser", function (req, res) {
-    console.log(req.body);
-    console.log("--------------");
-    console.log(req.params);
-    const mysql = require("mysql2");
-    const con = mysql.createConnection(sqlAuthentication);
-    con.connect();
-    const addUser = `INSERT INTO ` + userTable + ` (email, password, firstName, lastName, age, gender, phoneNumber, role)
+    let validVals = validateCreateUser(req);
+    let valid = validVals[0];
+    let displayMsg = validVals[1];
+    if (valid) {
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+        const addUser = `INSERT INTO ` + userTable + ` (email, password, firstName, lastName, age, gender, phoneNumber, role)
     VALUES ('` + req.body.email +
-        `', '` + req.body.password +
-        `', '` + req.body.firstName +
-        `', '` + req.body.lastName +
-        `', '` + req.body.age +
-        `', '` + req.body.gender +
-        `', '` + req.body.phoneNumber +
-        `', '` + req.body.role +
-        `');`;
+            `', '` + req.body.password +
+            `', '` + req.body.firstName +
+            `', '` + req.body.lastName +
+            `', '` + req.body.age +
+            `', '` + req.body.gender +
+            `', '` + req.body.phoneNumber +
+            `', '` + req.body.role +
+            `');`;
 
-    con.query(addUser, function (error, results) {
-        con.end(err => {if (err) {console.log(err)}});
-        if (error) {
-            console.log(error);
-            res.send({ status: "fail", msg: "creating user: " + error });
-        } else {
-            res.send({ status: "success", msg: "user created" });
-        }
-    });
+        con.query(addUser, function (error, results) {
+            con.end(err => {if (err) {console.log(err)}});
+            if (error) {
+                if (error.code == duplicateError) {
+                    displayMsg = "User with this email already exists";
+                } else {
+                    console.log(error);
+                    displayMsg = "Database error";
+                }
+                res.send({ status: "fail", msg: "creating user: " + error, displayMsg: displayMsg});
+            } else {
+                console.log(req.body);
+                res.send({ status: "success", msg: "user created"});
+            }
+        });
+    } else {
+        res.send({ status: "fail", msg: "creating user: invalid input", displayMsg: displayMsg});
+    }
 })
 
 // Edit profile request (caller/responder).
