@@ -8,7 +8,7 @@ const { JSDOM } = require('jsdom');
 const { connected } = require("process");
 
 const localSqlAuthentication = { // sql connection settings
-    host: "127.0.0.1",// for Mac os, type 127.0.0.1
+    host: "127.0.0.1", // for Mac os, type 127.0.0.1
     user: "root",
     password: "",
     multipleStatements: true,
@@ -126,14 +126,7 @@ function authenticate(email, pwd, callback) {
     con.query(
         "SELECT * FROM " + userTable + " WHERE email = ? AND password = ?", [email, pwd],
         function (error, results) {
-            con.end(function(error) {
-                if (error) {
-                    console.log(error);
-                }
-            });
-            if (error) {
-                console.log(error);
-            }
+            con.end(err => {if (err) {console.log(err)}});
             if (results && results.length > 0) {
                 return callback(results[0]);
             } else {
@@ -186,11 +179,7 @@ app.post("/createUser", function (req, res) {
         `');`;
 
     con.query(addUser, function (error, results) {
-        con.end(function(error) {
-            if (error) {
-                console.log(error);
-            }
-        });
+        con.end(err => {if (err) {console.log(err)}});
         if (error) {
             console.log(error);
             res.send({ status: "fail", msg: "creating user: " + error });
@@ -223,11 +212,7 @@ app.post("/editUser", function (req, res) {
     WHERE ID = ` + req.session.userID;
 
     con.query(editUser, function (error, results) {
-        con.end(function(error) {
-            if (error) {
-                console.log(error);
-            }
-        });
+        con.end(err => {if (err) {console.log(err)}});
         if (error) {
             console.log(error);
             res.send({ status: "fail", msg: "editing user: " + error });
@@ -264,11 +249,7 @@ app.post("/adminEditUser", function (req, res) {
         WHERE ID = ` + req.body.userID;
 
         con.query(editUser, function (error, results) {
-            con.end(function(error) {
-                if (error) {
-                    console.log(error);
-                }   
-            });
+            con.end(err => {if (err) {console.log(err)}});
             if (error) {
                 console.log(error);
                 res.send({ status: "fail", msg: "editing user (admin): " + error });
@@ -288,11 +269,7 @@ app.get("/getUser", function (req, res) {
     const getUser = `SELECT * FROM ` + userTable + ` WHERE ID = ` + req.session.userID;
 
     con.query(getUser, function (error, results) {
-        con.end(function(error) {
-            if (error) {
-                console.log(error);
-            }  
-        });
+        con.end(err => {if (err) {console.log(err)}});
         if (error) {
             console.log("getting user: " + error);
             res.send({ status: "fail", msg: "getting user: " + error })
@@ -312,11 +289,7 @@ app.get("/getUsers", function (req, res) {
         const getUser = `SELECT * FROM ` + userTable + ` WHERE ID != ` + req.session.userID;
 
         con.query(getUser, function (error, results) {
-            con.end(function(error) {
-                if (error) {
-                    console.log(error);
-                }
-            });
+            con.end(err => {if (err) {console.log(err)}});
             if (error) {
                 console.log("getting users: " + error);
                 res.send({ status: "fail", msg: "getting users: " + error })
@@ -351,11 +324,7 @@ app.post("/deleteUser", function (req, res) {
         } else {
             if (results[0]["admin_count"] > 1) {
                 con.query(deleteUserQuery, function (error, results) {
-                    con.end(function(error) {
-                        if (error) {
-                            console.log(error);
-                        }
-                    });
+                    con.end(err => {if (err) {console.log(err)}});
                     if (error) {
                         console.log(error);
                         res.send({ status: "fail", msg: "deleting user: " + error });
@@ -381,11 +350,7 @@ function init() {
         multipleStatements: sqlAuthentication.multipleStatements,
     });
     con.connect();
-    con.end(function(error) {
-        if (error) {
-            console.log(error);
-        }
-    });
+    con.end(err => {if (err) {console.log(err)}});
     console.log("Listening on port " + port + "!");
 }
 
