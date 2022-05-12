@@ -24,19 +24,19 @@
   <div class="container">
     <h1>SaveMe Sign Up</h1>
 
-    <form action="/">
+    <form>
       <hr>
       <div class="accounttype">
-        <input type="radio" value="None" id="caller" name="account" checked />
+        <input type="radio" value="CALLER" id="caller" name="role" checked />
         <label for="caller" class="radio" chec>Caller</label>
-        <input type="radio" value="None" id="responder" name="account" />
+        <input type="radio" value="RESPONDER" id="responder" name="role" />
         <label for="responder" class="radio">Responder</label>
       </div>
       <label id="icon" for="email"><i class="icon-envelope "></i></label>
-      <input type="text" name="email" id="email" placeholder="Email" required />
+      <input type="email" name="email" id="email" placeholder="Email" required />
 
       <label id="icon" for="password"><i class="icon-shield"></i></label>
-      <input type="password" name="name" id="name" placeholder="Password" required />
+      <input type="password" name="name" id="password" placeholder="Password" required />
 
       <label id="icon" for="fname"><i class="icon-user"></i></label>
       <input type="text" name="fname" id="fname" placeholder="First name" required />
@@ -48,19 +48,20 @@
       <input type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone number" minlength="10" required />
 
       <label id="icon" for="age"><i class="icon-time"></i></label>
-      <input type="text" name="age" id="age" placeholder="Your age" required />
+      <input type="text" name="age" id="age" placeholder="Age" required />
 
       <div class="gender">
-        <input type="radio" value="None" id="male" name="gender" checked />
+        <input type="radio" value="male" id="male" name="gender" checked />
         <label for="male" class="radio" chec>Male</label>
-        <input type="radio" value="None" id="female" name="gender" />
+        <input type="radio" value="female" id="female" name="gender" />
         <label for="female" class="radio">Female</label>
-        <input type="radio" value="None" id="other" name="gender" />
+        <input type="radio" value="other" id="other" name="gender" />
         <label for="other" class="radio">Other</label>
       </div>
+      <span id="createUserStatus" class="status"></span>
       <hr>
-      <button class="cancelButton" id="cancelButton">Cancel</a>
-      <button class="signUpButton" id="signUpButton">Sign&nbsp;Up</a>
+      <input type="button" class="cancelButton" id="cancelButton" value="Cancel" />
+      <input type="button" class="signUpButton" id="signUpButton" value="Sign up" />
     </form>
   </div>
 </body>

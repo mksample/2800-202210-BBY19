@@ -5,7 +5,8 @@
     "jsdom": "^18.1.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
-    "readline": "^1.3.0"
+    "readline": "^1.3.0",
+    "sanitize-html": "^2.7.0"
   },
   "name": "2800-bby19",
   "description": "## File Hierarchy ```bash ├── 2800_app.js                     backend javascript ├── app                             pages │   └── html                         │       ├── admin_profile.html      admin user profile page │       ├── index.html              login page │       └── user_profile.html       normal user profile page │ └── public                          page styles, fonts, images, frontend javascript     ├── css     │   ├── admin_profile.css     │   ├── index.css     │   └── user_profile.css     ├── fonts     ├── imgs     └── js         └── index.js ```",
