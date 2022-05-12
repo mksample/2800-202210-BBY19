@@ -19,8 +19,10 @@ ready(async function () {
   
 });
 
-
-const paragraph = document.getElementsByClassName("edit");// this must be defined 
+/**
+ * JS for each button: edit and save
+ */
+const paragraph = document.getElementsByClassName("edit");
 const edit_button = document.getElementById("edit-button");
 const end_button = document.getElementById("end-editing");
 
@@ -29,7 +31,7 @@ edit_button.addEventListener("click", function() {
 
     for(let i = 0; i < paragraph.length; i++) {
         paragraph[i].contentEditable = true;
-        paragraph[i].style.backgroundColor = "#dddbdb";
+        paragraph[i].style.backgroundColor = "#ffcccb";
 
     }
  
@@ -39,25 +41,6 @@ end_button.addEventListener("click", function() {
   paragraph.contentEditable = false;
   paragraph.style.backgroundColor = "#ffe44d";
 } )
-
-
-// response = await postData("./app/html/caller_profile.html", 
-// {email: document.getElementById("detail_user_email"),
-//  password: document.getElementById("detail_user_password"),
-//  firstName: document.getElementById("detail_user_firstN"), 
-//  lastName: document.getElementById("detail_user_lastN"), 
-//  age: document.getElementById("detail_user_age"), 
-//  gender: document.getElementById("detail_user_gender"), 
-//  phoneNumber: document.getElementById("detail_user_cellphone"), 
-//  });
-//         if (response) {
-//             if (response.status == "fail") {
-//                 console.log(response.msg);
-//             } else {
-//                 console.log(response.msg);
-//             }
-//         }
-
 
 
 document.getElementById("end-editing").addEventListener("click", async function (e) {
