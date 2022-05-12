@@ -1,14 +1,4 @@
 "use strict";
-const sqlAuthentication = { // sql connection settings
-    host: "127.0.0.1", // for Mac os, type 127.0.0.1
-    user: "root",
-    password: "",
-    multipleStatements: true,
-    database: "COMP2800"
-}
-
-const userTable = "BBY_19_user";
-
 ready(async function () {
     async function postData(url, data) {
         const response = await fetch(url, {
@@ -38,6 +28,15 @@ ready(async function () {
                 console.log("new user is created successfully!");
             }
         }
+
+        // gender types
+        let male = document.getElementById("male");
+        let female = document.getElementById("female");
+        let other = document.getElementById("other");
+
+        // role types
+        let caller = document.getElementById("caller");
+        let responder = document.getElementById("responder");
         
         // Convert json object to text
         let input = JSON.stringify({
@@ -46,14 +45,13 @@ ready(async function () {
             firstName: document.getElementById("fname").value,
             lastName: document.getElementById("lname").value,
             age: document.getElementById("age").value,
-            gender: document.getElementById("gender").value,
+            gender: male.checked ? "Male" : female.checked ? "Female" : other.checked ? "Other" : null,
             phoneNumber: document.getElementById("phoneNumber").value,
-            role: document.getElementById("role").value
+            role: caller.checked ? "CALLER" : responder.checked ? "RESPONDER" : null
         });
 
         console.log(input); 
         xhttp.send(input);
-        return;
     });
 
     //redirecting to login page, back button

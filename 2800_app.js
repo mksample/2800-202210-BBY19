@@ -154,9 +154,6 @@ app.get("/logout", function (req, res) {
 // phoneNumber (string) - phone number of the new user.
 // role (string) - role of the new user (must be "ADMIN", "CALLER", or "RESPONDER"). 
 app.post("/createUser", function (req, res) {
-    console.log(req.body);
-    console.log("--------------");
-    console.log(req.params); 
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
@@ -195,12 +192,12 @@ app.post("/editUser", function(req, res) {
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
     const editUser = `UPDATE ` + userTable + ` SET
-    password = IfNull(` + (req.body.password ? "'" + req.body.password + "'" : "NULL") + `, password),
-    firstName = IfNull(` + (req.body.firstName? "'" + req.body.firstName + "'" : "NULL")  + `, firstName),
-    lastName = IfNull(` + (req.body.lastName ? "'" + req.body.lastName + "'" : "NULL")  + `, lastName),
-    age = IfNull(` + (req.body.age ? req.body.age : "NULL") + `, age),
-    gender = IfNull(` + (req.body.gender ? "'" + req.body.gender + "'" : "NULL")  + `, gender),
-    phoneNumber = IfNull(` + (req.body.phoneNumber ? "'" + req.body.phoneNumber + "'" : "NULL")  + `, phoneNumber)
+        password = IfNull(` + (req.body.password ? "'" + req.body.password + "'" : "NULL") + `, password),
+        firstName = IfNull(` + (req.body.firstName? "'" + req.body.firstName + "'" : "NULL")  + `, firstName),
+        lastName = IfNull(` + (req.body.lastName ? "'" + req.body.lastName + "'" : "NULL")  + `, lastName),
+        age = IfNull(` + (req.body.age ? req.body.age : "NULL") + `, age),
+        gender = IfNull(` + (req.body.gender ? "'" + req.body.gender + "'" : "NULL")  + `, gender),
+        phoneNumber = IfNull(` + (req.body.phoneNumber ? "'" + req.body.phoneNumber + "'" : "NULL")  + `, phoneNumber)
     WHERE ID = ` + req.session.userID;
     
     con.query(editUser, function (error, results) {
@@ -353,5 +350,5 @@ function init() {
 }
 
 // RUN SERVER
-let port = process.env.PORT || 3000;
+let port = 8000;
 app.listen(port, init);
