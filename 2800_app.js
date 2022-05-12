@@ -8,13 +8,22 @@ const readline = require('readline');
 const { JSDOM } = require('jsdom');
 const { connected } = require("process");
 
-const sqlAuthentication = { // sql connection settings
+const localSqlAuthentication = { // sql connection settings
     host: "127.0.0.1",// for Mac os, type 127.0.0.1
     user: "root",
     password: "",
     multipleStatements: true,
     database: "COMP2800"
 }
+const remoteSqlAuthentication = {
+    host: "us-cdbr-east-05.cleardb.net",
+    user: "b65b151c88c296",
+    password: "70fc390d",
+    multipleStatements: "true",
+    database: "heroku_b395e55ab1671ee"
+}
+
+const sqlAuthentication = remoteSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
 
 const userTable = "BBY_19_user";
 const duplicateError = "ER_DUP_ENTRY";
@@ -123,6 +132,7 @@ function authenticate(email, pwd, callback) {
     con.query(
         "SELECT * FROM " + userTable + " WHERE email = ? AND password = ?", [email, pwd],
         function (error, results) {
+            con.end(err => {if (err) {console.log(err)}});
             if (error) {
                 console.log(error);
             }
@@ -245,6 +255,7 @@ app.post("/createUser", function (req, res) {
             `');`;
 
         con.query(addUser, function (error, results) {
+            con.end(err => {if (err) {console.log(err)}});
             if (error) {
                 if (error.code == duplicateError) {
                     displayMsg = "User with this email already exists";
@@ -286,6 +297,7 @@ app.post("/editUser", function (req, res) {
     WHERE ID = ` + req.session.userID;
 
     con.query(editUser, function (error, results) {
+        con.end(err => {if (err) {console.log(err)}});
         if (error) {
             console.log(error);
             res.send({ status: "fail", msg: "editing user: " + error });
@@ -322,6 +334,7 @@ app.post("/adminEditUser", function (req, res) {
         WHERE ID = ` + req.body.userID;
 
         con.query(editUser, function (error, results) {
+            con.end(err => {if (err) {console.log(err)}});
             if (error) {
                 console.log(error);
                 res.send({ status: "fail", msg: "editing user (admin): " + error });
@@ -341,6 +354,7 @@ app.get("/getUser", function (req, res) {
     const getUser = `SELECT * FROM ` + userTable + ` WHERE ID = ` + req.session.userID;
 
     con.query(getUser, function (error, results) {
+        con.end(err => {if (err) {console.log(err)}});
         if (error) {
             console.log("getting user: " + error);
             res.send({ status: "fail", msg: "getting user: " + error })
@@ -360,6 +374,7 @@ app.get("/getUsers", function (req, res) {
         const getUser = `SELECT * FROM ` + userTable + ` WHERE ID != ` + req.session.userID;
 
         con.query(getUser, function (error, results) {
+            con.end(err => {if (err) {console.log(err)}});
             if (error) {
                 console.log("getting users: " + error);
                 res.send({ status: "fail", msg: "getting users: " + error })
@@ -394,6 +409,7 @@ app.post("/deleteUser", function (req, res) {
         } else {
             if (results[0]["admin_count"] > 1) {
                 con.query(deleteUserQuery, function (error, results) {
+                    con.end(err => {if (err) {console.log(err)}});
                     if (error) {
                         console.log(error);
                         res.send({ status: "fail", msg: "deleting user: " + error });
@@ -419,21 +435,10 @@ function init() {
         multipleStatements: sqlAuthentication.multipleStatements,
     });
     con.connect();
-
-    var rl = readline.createInterface({
-        input: fs.createReadStream('./app/sql/bootstrap.sql'),
-        terminal: false
-    });
-    rl.on('line', function (chunk) {
-        con.query(chunk.toString('ascii'), function (err, sets, fields) {
-            if (err) console.log(err);
-        });
-    });
-    rl.on('close', function () {
-        console.log("Listening on port " + port + "!");
-    });
+    con.end(err => {if (err) {console.log(err)}});
+    console.log("Listening on port " + port + "!");
 }
 
 // RUN SERVER
-let port = 8000;
+let port = process.env.PORT || 8000
 app.listen(port, init);
