@@ -32,6 +32,9 @@ edit_button.addEventListener("click", function() {
     for(let i = 0; i < paragraph.length; i++) {
         paragraph[i].contentEditable = true;
         paragraph[i].style.backgroundColor = "#ffcccb";
+        paragraph[2].contentEditable = false; // email address cannot be changed, except admin
+        paragraph[2].style.backgroundColor = "#ffffe0";
+        
 
     }
  
