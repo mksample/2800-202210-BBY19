@@ -7,13 +7,22 @@ const readline = require('readline');
 const { JSDOM } = require('jsdom');
 const { connected } = require("process");
 
-const sqlAuthentication = { // sql connection settings
+const localSqlAuthentication = { // sql connection settings
     host: "127.0.0.1",// for Mac os, type 127.0.0.1
     user: "root",
     password: "",
     multipleStatements: true,
     database: "COMP2800"
 }
+const remoteSqlAuthentication = {
+    host: "us-cdbr-east-05.cleardb.net",
+    user: "b65b151c88c296",
+    password: "70fc390d",
+    multipleStatements: "true",
+    database: "heroku_b395e55ab1671ee"
+}
+
+const sqlAuthentication = remoteSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
 
 const userTable = "BBY_19_user";
 
@@ -74,7 +83,7 @@ app.get("/profile", async function (req, res) {
 // Signup page
 app.get("/signup", function (req, res) {
     let doc = fs.readFileSync("./app/html/create_user.html", "utf8")
-    res.send(doc) 
+    res.send(doc)
 });
 
 
@@ -117,6 +126,11 @@ function authenticate(email, pwd, callback) {
     con.query(
         "SELECT * FROM " + userTable + " WHERE email = ? AND password = ?", [email, pwd],
         function (error, results) {
+            con.end(function(error) {
+                if (error) {
+                    console.log(error);
+                }
+            });
             if (error) {
                 console.log(error);
             }
@@ -156,7 +170,7 @@ app.get("/logout", function (req, res) {
 app.post("/createUser", function (req, res) {
     console.log(req.body);
     console.log("--------------");
-    console.log(req.params); 
+    console.log(req.params);
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
@@ -172,6 +186,11 @@ app.post("/createUser", function (req, res) {
         `');`;
 
     con.query(addUser, function (error, results) {
+        con.end(function(error) {
+            if (error) {
+                console.log(error);
+            }
+        });
         if (error) {
             console.log(error);
             res.send({ status: "fail", msg: "creating user: " + error });
@@ -190,20 +209,25 @@ app.post("/createUser", function (req, res) {
 // age (int) - new age for user.
 // gender (string) - new gender for user.
 // phoneNumber (string) - new phone number for user.
-app.post("/editUser", function(req, res) {
+app.post("/editUser", function (req, res) {
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
     const editUser = `UPDATE ` + userTable + ` SET
     password = IfNull(` + (req.body.password ? "'" + req.body.password + "'" : "NULL") + `, password),
-    firstName = IfNull(` + (req.body.firstName? "'" + req.body.firstName + "'" : "NULL")  + `, firstName),
-    lastName = IfNull(` + (req.body.lastName ? "'" + req.body.lastName + "'" : "NULL")  + `, lastName),
+    firstName = IfNull(` + (req.body.firstName ? "'" + req.body.firstName + "'" : "NULL") + `, firstName),
+    lastName = IfNull(` + (req.body.lastName ? "'" + req.body.lastName + "'" : "NULL") + `, lastName),
     age = IfNull(` + (req.body.age ? req.body.age : "NULL") + `, age),
-    gender = IfNull(` + (req.body.gender ? "'" + req.body.gender + "'" : "NULL")  + `, gender),
-    phoneNumber = IfNull(` + (req.body.phoneNumber ? "'" + req.body.phoneNumber + "'" : "NULL")  + `, phoneNumber)
+    gender = IfNull(` + (req.body.gender ? "'" + req.body.gender + "'" : "NULL") + `, gender),
+    phoneNumber = IfNull(` + (req.body.phoneNumber ? "'" + req.body.phoneNumber + "'" : "NULL") + `, phoneNumber)
     WHERE ID = ` + req.session.userID;
-    
+
     con.query(editUser, function (error, results) {
+        con.end(function(error) {
+            if (error) {
+                console.log(error);
+            }
+        });
         if (error) {
             console.log(error);
             res.send({ status: "fail", msg: "editing user: " + error });
@@ -224,22 +248,27 @@ app.post("/editUser", function(req, res) {
 // phoneNumber (string) - new phone number for user.
 // role (string) - new role for user (must be "ADMIN", "CALLER", or "RESPONDER").
 // userID (int) - ID of the user being edited
-app.post("/adminEditUser", function(req, res) {
+app.post("/adminEditUser", function (req, res) {
     if (req.session.role = adminRole) {
         const mysql = require("mysql2");
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
         const editUser = `UPDATE ` + userTable + ` SET
         password = IfNull(` + (req.body.password ? "'" + req.body.password + "'" : "NULL") + `, password),
-        firstName = IfNull(` + (req.body.firstName? "'" + req.body.firstName + "'" : "NULL")  + `, firstName),
-        lastName = IfNull(` + (req.body.lastName ? "'" + req.body.lastName + "'" : "NULL")  + `, lastName),
+        firstName = IfNull(` + (req.body.firstName ? "'" + req.body.firstName + "'" : "NULL") + `, firstName),
+        lastName = IfNull(` + (req.body.lastName ? "'" + req.body.lastName + "'" : "NULL") + `, lastName),
         age = IfNull(` + (req.body.age ? req.body.age : "NULL") + `, age),
-        gender = IfNull(` + (req.body.gender ? "'" + req.body.gender + "'" : "NULL")  + `, gender),
-        phoneNumber = IfNull(` + (req.body.phoneNumber ? "'" + req.body.phoneNumber + "'" : "NULL")  + `, phoneNumber),
+        gender = IfNull(` + (req.body.gender ? "'" + req.body.gender + "'" : "NULL") + `, gender),
+        phoneNumber = IfNull(` + (req.body.phoneNumber ? "'" + req.body.phoneNumber + "'" : "NULL") + `, phoneNumber),
         role = IfNull(` + (req.body.role ? "'" + req.body.role + "'" : "NULL") + `, role)
         WHERE ID = ` + req.body.userID;
-    
+
         con.query(editUser, function (error, results) {
+            con.end(function(error) {
+                if (error) {
+                    console.log(error);
+                }   
+            });
             if (error) {
                 console.log(error);
                 res.send({ status: "fail", msg: "editing user (admin): " + error });
@@ -259,6 +288,11 @@ app.get("/getUser", function (req, res) {
     const getUser = `SELECT * FROM ` + userTable + ` WHERE ID = ` + req.session.userID;
 
     con.query(getUser, function (error, results) {
+        con.end(function(error) {
+            if (error) {
+                console.log(error);
+            }  
+        });
         if (error) {
             console.log("getting user: " + error);
             res.send({ status: "fail", msg: "getting user: " + error })
@@ -278,6 +312,11 @@ app.get("/getUsers", function (req, res) {
         const getUser = `SELECT * FROM ` + userTable + ` WHERE ID != ` + req.session.userID;
 
         con.query(getUser, function (error, results) {
+            con.end(function(error) {
+                if (error) {
+                    console.log(error);
+                }
+            });
             if (error) {
                 console.log("getting users: " + error);
                 res.send({ status: "fail", msg: "getting users: " + error })
@@ -293,7 +332,7 @@ app.get("/getUsers", function (req, res) {
 // Delete user request.
 // POST params: 
 // ID - the ID of the user to delete.
-app.post("/deleteUser", function(req, res) {
+app.post("/deleteUser", function (req, res) {
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
@@ -305,23 +344,28 @@ app.post("/deleteUser", function(req, res) {
     const deleteUserQuery = `DELETE FROM USER
     WHERE ID = ` + req.body.ID;
 
-    con.query(adminCountQuery, function(error, results) {
+    con.query(adminCountQuery, function (error, results) {
         if (error) {
             console.log(error);
-            res.send({status: "fail", msg: "querying admin count: " + error});
+            res.send({ status: "fail", msg: "querying admin count: " + error });
         } else {
             if (results[0]["admin_count"] > 1) {
-                con.query(deleteUserQuery, function(error, results) {
+                con.query(deleteUserQuery, function (error, results) {
+                    con.end(function(error) {
+                        if (error) {
+                            console.log(error);
+                        }
+                    });
                     if (error) {
                         console.log(error);
-                        res.send({status: "fail", msg: "deleting user: " + error});
+                        res.send({ status: "fail", msg: "deleting user: " + error });
                     } else {
                         res.send({ status: "success", msg: "user deleted" });
                     }
                 })
             } else {
                 console.log("tried to delete last admin");
-                res.send({status: "fail", msg: "deleting user: cannot delete last admin"});
+                res.send({ status: "fail", msg: "deleting user: cannot delete last admin" });
             }
         }
     })
@@ -337,19 +381,12 @@ function init() {
         multipleStatements: sqlAuthentication.multipleStatements,
     });
     con.connect();
-
-    var rl = readline.createInterface({
-        input: fs.createReadStream('./app/sql/bootstrap.sql'),
-        terminal: false
+    con.end(function(error) {
+        if (error) {
+            console.log(error);
+        }
     });
-    rl.on('line', function (chunk) {
-        con.query(chunk.toString('ascii'), function (err, sets, fields) {
-            if (err) console.log(err);
-        });
-    });
-    rl.on('close', function () {
-        console.log("Listening on port " + port + "!");
-    });
+    console.log("Listening on port " + port + "!");
 }
 
 // RUN SERVER
