@@ -8,7 +8,7 @@ const { JSDOM } = require('jsdom');
 const { connected } = require("process");
 
 const localSqlAuthentication = { // sql connection settings
-    host: "127.0.0.1", // for Mac os, type 127.0.0.1
+    host: "127.0.0.1",// for Mac os, type 127.0.0.1
     user: "root",
     password: "",
     multipleStatements: true,
@@ -127,6 +127,9 @@ function authenticate(email, pwd, callback) {
         "SELECT * FROM " + userTable + " WHERE email = ? AND password = ?", [email, pwd],
         function (error, results) {
             con.end(err => {if (err) {console.log(err)}});
+            if (error) {
+                console.log(error);
+            }
             if (results && results.length > 0) {
                 return callback(results[0]);
             } else {
