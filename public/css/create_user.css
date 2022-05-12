@@ -172,7 +172,7 @@ input[type=password] {
   padding-left: 10px;
 }
 
-#icon {
+.icon {
   display: inline-block;
   width: 30px;
   background-color: #FE3C00;
