@@ -31,7 +31,7 @@ p {
     margin: 20px 0 30px;
 }
 
-button {
+.inputButton {
     border-radius: 10px;
     border: 1px solid #FE3C00;
     background-color: #FE3C00;
@@ -42,17 +42,19 @@ button {
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
+    cursor: pointer;
+    width: auto;
 }
 
-button:active {
+.inputButton:active {
     transform: scale(0.95);
 }
 
-button:focus {
+.inputButton:focus {
     outline: none;
 }
 
-button.ghost {
+.inputButton.ghost {
     background-color: transparent;
     border-color: #FFFFFF;
 }
@@ -85,7 +87,7 @@ input {
     overflow: hidden;
     width: 800px;
     max-width: 100%;
-    min-height: 480px;
+    min-height: 500px;
 }
 
 .log-in-container {
@@ -163,7 +165,7 @@ input {
         width: 800px;
         min-width: 300px;
         max-width: 50%;
-        min-height: 480px;
+        min-height: 500px;
         display: block;
     }
 
@@ -176,4 +178,9 @@ input {
         display: block;
     }
 
+    .inputButton.ghost {
+        background-color: transparent;
+        border-color:#FE3C00;
+        color: #FE3C00;
+    }
 }

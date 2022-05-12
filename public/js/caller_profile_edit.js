@@ -38,8 +38,11 @@ edit_button.addEventListener("click", function() {
 } );
 
 end_button.addEventListener("click", function() {
-  paragraph.contentEditable = false;
-  paragraph.style.backgroundColor = "#ffe44d";
+    for(let i = 0; i < paragraph.length; i++) {
+        paragraph[i].contentEditable = true;
+        paragraph[i].style.backgroundColor = "#ffffe0";
+
+    }
 } )
 
 

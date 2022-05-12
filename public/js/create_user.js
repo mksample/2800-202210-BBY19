@@ -19,39 +19,25 @@ ready(async function () {
 
     // Listener for the signup button
     document.getElementById("signUpButton").addEventListener("click", async function (e) {
-        let xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "/createUser", true);
-        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8"); // request contents description
-
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-                console.log("new user is created successfully!");
-            }
-        }
-
-        // gender types
-        let male = document.getElementById("male");
-        let female = document.getElementById("female");
-        let other = document.getElementById("other");
-
-        // role types
-        let caller = document.getElementById("caller");
-        let responder = document.getElementById("responder");
-        
-        // Convert json object to text
-        let input = JSON.stringify({
+        let response = await postData("/createUser", {
             email: document.getElementById("email").value,
             password: document.getElementById("password").value,
             firstName: document.getElementById("fname").value,
             lastName: document.getElementById("lname").value,
             age: document.getElementById("age").value,
-            gender: male.checked ? "Male" : female.checked ? "Female" : other.checked ? "Other" : null,
+            gender: document.querySelector('input[name="gender"]:checked').value,
             phoneNumber: document.getElementById("phoneNumber").value,
-            role: caller.checked ? "CALLER" : responder.checked ? "RESPONDER" : null
-        });
+            role: document.querySelector('input[name="role"]:checked').value
+        })
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+                document.getElementById("createUserStatus").innerHTML = response.displayMsg; // display create user failure
+            } else {
 
-        console.log(input); 
-        xhttp.send(input);
+                window.location.replace("/");
+            }
+        }
     });
 
     //redirecting to login page, back button
@@ -66,6 +52,6 @@ function ready(callback) {
         console.log("ready state is 'complete'");
     } else {
         document.addEventListener("DOMContentLoaded", callback);
-        console.log("ready");
+        console.log("Listener was invoked");
     }
 }
