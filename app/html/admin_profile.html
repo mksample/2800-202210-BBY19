@@ -10,8 +10,9 @@
   <!-- Our StyleSheet-->
   <link rel="stylesheet" href="/css/admin_profile.css">
 
-  <!-- Google Material Icons-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Icon libraries from https://fonts.google.com/icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="https://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
 
 </head>
 
@@ -251,22 +252,62 @@
     <!-- Edit user modal -->
     <div id="editUserModal" class="modal">
       <div class="edit-user-modal-content">
-        <!-- entire content box -->
-        <span class="modalClose">&times;</span>
-        
         <!-- profile info box -->
         <div id="editUserProfile">
-          <img class="profilePicture" src="/imgs/saveme.jpg" width="300px" alt="logo" /> <!-- placeholder profile picture -->
-          <p id="editUserEmail"></p>
-          <p id="editUserFirstName"></p>
-          <p id="editUserLastName"></p>
-          <p id="editUserAge"></p>
-          <p id="editUserGender"></p>
-          <p id="editUserPhoneNumber"></p>
-          <p id="editUserRole"></p>
+          <img class="profilePicture" src="/imgs/saveme.jpg" width="300px" alt="logo" />
+          <!-- placeholder profile picture -->
+          <div>
+            <form>
+              <hr>
+              <div class="accounttype">
+                <input type="radio" value="CALLER" id="CALLER" name="role"/>
+                <label for="CALLER" class="radio" chec>Caller</label>
+                <input type="radio" value="RESPONDER" id="RESPONDER" name="role"/>
+                <label for="RESPONDER" class="radio">Responder</label>
+                <input type="radio" value="ADMIN" id="ADMIN" name="role"/>
+                <label for="ADMIN" class="radio">Admin</label>
+              </div>
+              <div>
+                <label id="icon" for="email">Email</i></label>
+                <input type="email" name="email" id="editUserEmail" placeholder="Email" required />   
+              </div>
+              <div>
+                <label id="icon" for="password">Password</i></label>
+                <input type="text" name="name" id="editUserPassword" placeholder="Password" required />  
+              </div>
+              <div>
+                <label id="icon" for="fname">First Name</label>
+                <input type="text" name="fname" id="editUserFirstName" placeholder="First name" required />
+              </div>
+              <div>
+                <label id="icon" for="lname">Last Name</i></label>
+                <input type="text" name="lname" id="editUserLastName" placeholder="Last name" required />
+              </div>
+              <div>
+                <label id="icon" for="phoneNumber">Phone Number</label>
+                <input type="tel" name="phoneNumber" id="editUserPhoneNumber" placeholder="Phone number" minlength="10" required />
+              </div>
+              <div>
+                <label id="icon" for="age">Age</i></label>
+                <input type="text" name="age" id="editUserAge" placeholder="Age" required />
+              </div>
+              <div class="gender">
+                <input type="radio" value="male" id="male" name="gender"/>
+                <label for="male" class="radio" chec>Male</label>
+                <input type="radio" value="female" id="female" name="gender"/>
+                <label for="female" class="radio">Female</label>
+                <input type="radio" value="other" id="other" name="gender"/>
+                <label for="other" class="radio">Other</label>
+              </div>
+              <span id="modalStatus" class="modalStatus"></span>
+              <hr>
+              <input type="button" class="cancelButton" id="cancelButton" value="Cancel" />
+              <input type="button" class="submitButton" id="submitButton" value="Save" />
+            </form>
+          </div>
         </div>
       </div>
-    
+
     </div>
 
   </div>
