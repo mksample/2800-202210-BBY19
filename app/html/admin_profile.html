@@ -150,13 +150,14 @@
         <form>
           <div class="search">
 
-            <input type="text" placeholder="Search Profile...">
+            <input type="text" id="searchKeyword" placeholder="Search Profile...">
 
-            <button type="submit"><span><i class="material-icons">search</i></span></button>
-
+            <button type="button" onclick="profileSearch()"><span><i class="material-icons">search</i></span></button>
           </div>
 
         </form>
+        <div id="search_result">search result</div>
+        <div id="search_profile">search profile</div>
       </div>
 
       <!-- SIDE NAVIGATION GENERAL-->
@@ -272,6 +273,7 @@
   </div>
   <!-- SCRIPT FOLDER-->
   <script src="/js/admin_profile.js"></script>
+  <script src="/js/searchbar.js"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
