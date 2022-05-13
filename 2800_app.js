@@ -375,6 +375,18 @@ app.get("/getUsers", function (req, res) {
 // POST params: 
 // ID - the ID of the user to delete.
 app.post("/deleteUser", function (req, res) {
+    if (req.session.role != adminRole) {
+        res.send({ status: "fail", msg: "deleting user: user is not admin", displayMsg: "User is not admin"});
+        return;
+    } 
+
+    let validVars = validateDeleteUser(req);
+    if (!validVars[0]) {
+        res.send({ status: "fail", msg: "deleting user: invalid user ID", displayMsg: validVars[1]});
+        return;
+    }
+
+    let displayMsg = "Database error"
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
@@ -383,27 +395,27 @@ app.post("/deleteUser", function (req, res) {
     FROM ` + userTable + `
     WHERE role = "ADMIN"`;
 
-    const deleteUserQuery = `DELETE FROM USER
+    const deleteUserQuery = `DELETE FROM ` + userTable + `
     WHERE ID = ` + req.body.ID;
 
     con.query(adminCountQuery, function (error, results) {
         if (error) {
             console.log(error);
-            res.send({ status: "fail", msg: "querying admin count: " + error });
+            res.send({ status: "fail", msg: "querying admin count: " + error, displayMsg: displayMsg});
         } else {
             if (results[0]["admin_count"] > 1) {
                 con.query(deleteUserQuery, function (error, results) {
                     con.end(err => { if (err) { console.log(err) } });
                     if (error) {
                         console.log(error);
-                        res.send({ status: "fail", msg: "deleting user: " + error });
+                        res.send({ status: "fail", msg: "deleting user: " + error, displayMsg: displayMsg});
                     } else {
-                        res.send({ status: "success", msg: "user deleted" });
+                        res.send({ status: "success", msg: "user deleted"});
                     }
                 })
             } else {
                 console.log("tried to delete last admin");
-                res.send({ status: "fail", msg: "deleting user: cannot delete last admin" });
+                res.send({ status: "fail", msg: "deleting user: cannot delete last admin", displayMsg: "Cannot delete last admin"});
             }
         }
     })
@@ -415,9 +427,18 @@ const validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-
 const validPhoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
 const validAgeRegex = /^(0?[1-9]|[1-9][0-9])$/;
 
+function validID(condition) {
+    if (!condition) {
+        let msg = "Please enter a valid ID";
+        console.log("deleting user: invalid user ID");
+        return [false, msg];
+    }
+    return [true, null];
+}
+
 function validEmail(condition) {
     if (!condition) {
-        let msg = "Please enter a valid email"
+        let msg = "Please enter a valid email";
         console.log("creating user: invalid email");
         return [false, msg];
     }
@@ -633,6 +654,14 @@ function validateAdminEditUser(req) {
         return role;
     }
     return [true, null];
+}
+
+function validateDeleteUser(req) {
+    let ID = validID(sanitizeHtml(req.body.ID) == req.body.ID && req.body.ID != "");
+    if (!ID[0]) {
+        return ID;
+    }
+    return [true, null]
 }
 
 // Connects to the mysql database, creates a user table if it doesn't exist.

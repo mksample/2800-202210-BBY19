@@ -39,31 +39,31 @@ async function getData(url) {
 
 // Opens a modal when given a user, modalID (what modal to use), and a save method.
 // Save method is what happens when the modal is submitted, must return true or false if successful submission or not.
-function openModal(user, modalID, saveMethod) {
+function openModal(user, modalID, cancelButton, submitButton, status, saveMethod) {
     // get modal
     var modal = document.getElementById(modalID);
     modal.style.display = "block";
 
     // close modal when cancel button clicked
-    var cancel = document.getElementsByClassName("cancelButton")[0];
+    var cancel = document.getElementById(cancelButton);
     cancel.onclick = function () {
         modal.style.display = "none";
-        document.getElementById("modalStatus").innerHTML = ""; // clear status when closing
+        document.getElementById(status).innerHTML = ""; // clear status when closing
     }
 
-    var save = document.getElementsByClassName("submitButton")[0];
+    var save = document.getElementById(submitButton);
     save.onclick = async function () {
         let success = await saveMethod(user);
         if (success) {
             modal.style.display = "none";
-            document.getElementById("modalStatus").innerHTML = ""; // clear status when closing
+            document.getElementById(status).innerHTML = ""; // clear status when closing
         }
     }
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
-            document.getElementById("modalStatus").innerHTML = ""; // clear status when closing
+            document.getElementById(status).innerHTML = ""; // clear status when closing
         }
     }
 }
@@ -82,8 +82,15 @@ function createProfileDisplay(user, contentDOM) {
 
     // when profile clicked on, prepare and show edit profile modal
     document.getElementById(user.ID).addEventListener("click", async function (e) {
+        e.stopImmediatePropagation();
         prepareEditUserModal(user);
-        openModal(user, "editUserModal", submitEditUserModal);
+        openModal(user, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitEditUserModal);
+    })
+
+    // when delete button clicked on, show delete profile modal
+    document.getElementById(user.ID).querySelector(".close").addEventListener("click", async function (e) {
+        e.stopImmediatePropagation();
+        openModal(user, "deleteUserModal", "deleteUserCancelButton", "deleteUserSubmitButton", "deleteUserStatus", submitDeleteUserModal);
     })
 }
 
@@ -99,6 +106,8 @@ function prepareCreateUserModal(user) {
     document.getElementById("CALLER").checked = true;
 }
 
+// Submit function for the edit user modal. POSTS to /createUser, returns true if successful, false if not.
+// Creates a new profile display for the new profile on success.
 async function submitCreateUserModal(user) {
     // submit create user POST
     let response = await postData("/createUser", {
@@ -119,7 +128,7 @@ async function submitCreateUserModal(user) {
             return false;
         } else {
             console.log(response.msg);
-            createProfileDisplay(response.user, document.getElementById("profiles"));
+            createProfileDisplay(response.user, document.getElementById("profiles")); 
         }
     }
     return true;
