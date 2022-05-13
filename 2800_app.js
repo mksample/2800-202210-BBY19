@@ -28,12 +28,13 @@ const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL OR REM
 
 
 // storing image at images
+const uploadPath = "app/imgs/profileImgs"
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, "public/imgs/userProfile")
+        callback(null, uploadPath)
     },
     filename: function(req, file, callback) {
-        callback(null, "SaveMe-app-profile-" + file.originalname.split('/').pop().trim());
+        callback(null, "SaveMe-app-profile-" + file.originalname.split('/').pop().trim()); // add timestamp here
     }
 });
 const upload = multer({ storage: storage });
@@ -424,14 +425,26 @@ app.post("/deleteUser", function (req, res) {
 })
 
 app.post('/upload-images', upload.array("files"), function (req, res) {
-
-    //console.log(req.body);
-    console.log(req.files);
-
     for(let i = 0; i < req.files.length; i++) {
         req.files[i].filename = req.files[i].originalname;
-    }
+        
+        console.log(req.files[i].path);
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
 
+        console.log(req.session.userID);
+        let insertPicQuery = "blah" // update query
+        
+        con.query(insertPicQuery, function(error, results) {
+            if (error) {
+                console.log(error);
+                res.send({status: "fail", msg: "uploading image: " + error});
+            } else {
+                res.send({status: "success", msg: "image uploaded successfully"});
+            }
+        })
+    }
 });
 
 // VALIDATE FUNCTIONS
