@@ -124,7 +124,7 @@ async function submitCreateUserModal(user) {
     if (response) {
         if (response.status == "fail") {
             console.log(response.msg);
-            document.getElementById("modalStatus").innerHTML = response.displayMsg; // display create user failure
+            document.getElementById("editUserStatus").innerHTML = response.displayMsg; // display create user failure
             return false;
         } else {
             console.log(response.msg);

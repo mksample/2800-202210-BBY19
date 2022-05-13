@@ -94,7 +94,7 @@ async function submitEditUserModal(user) {
     if (response) {
         if (response.status == "fail") {
             console.log(response.msg);
-            document.getElementById("modalStatus").innerHTML = response.displayMsg; // display edit user failure
+            document.getElementById("editUserStatus").innerHTML = response.displayMsg; // display edit user failure
             return false;
         } else {
             console.log(response.msg);
