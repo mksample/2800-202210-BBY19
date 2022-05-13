@@ -1,5 +1,21 @@
 "use strict";
 ready(async function () {
+    async function getData(url) {
+        const response = await fetch(url, {
+            method: 'GET',
+            mode: 'same-origin',
+            cache: 'default',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+        });
+        return response.json();
+    }
+    
     // Creates profile displays, attaches event listeners to them, and appends them to the id="profiles" div.
     function createProfileDisplay(user, contentDOM) {
         // creating profile display
@@ -34,15 +50,34 @@ ready(async function () {
         }
     }
 
-    // DISPLAY USER PROFILES
-    showUsers();
+    // Get the current session user and display their info. 
+    async function displaySessionUser() {
+        let response = await getData("/getUser");
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+            } else {
+                let user = response.user;
+                document.getElementById("sessionName").innerHTML = user.firstName + " " + user.lastName;
+                document.getElementById("sessionEmail").innerHTML = user.email;
+            }
+        }
+    }
 
+    
     // ADD LISTENER TO CREATE USER BUTTON
     // (this re-uses the edit user modal, see the top of admin_profile_create_user.js for a longer explanation)
     document.getElementById("createUserButton").addEventListener("click", function (e) {
         prepareCreateUserModal();
         openModal(null, "editUserModal", submitCreateUserModal);
     })
+    
+    // DISPLAY USER PROFILES
+    showUsers();
+
+    // DISPLAY SESSION USER INFO
+    displaySessionUser();
+    
 });
 
 function ready(callback) {
