@@ -5,10 +5,10 @@ const sqlAuthentication = { // sql connection settings
   user: "root",
   password: "",
   multipleStatements: true,
-  database: "COMP2800"
+  database: "COMP2800" // Database name
 }
 
-const userTable = "BBY_19_user";
+const userTable = "BBY_19_user"; // Table name
 
 ready(async function () {
   async function getData(url) {
@@ -27,41 +27,39 @@ ready(async function () {
     return response.json();
   }
 
-
   document.getElementById("searchButton").addEventListener("click", async function (e) {
     console.log("Search button pushed");
     let keyword = document.getElementById("searchKeyword").value;
     console.log(keyword);
     document.getElementById("search_result").innerHTML = keyword;
+
+    // let response = await getData("/getUser");
+    // if (response) {
+    //   if (response.status == "fail") {
+    //     console.log(response.msg);
+    //   } else {
+    //     document.getElementById("search_profile").innerHTML = "firstName " + response.user.firstName;
+    //     document.getElementById("search_profile1").innerHTML = "lastName " + response.user.lastName;
+    //     document.getElementById("search_profile2").innerHTML = "email " + response.user.email;
+    //     document.getElementById("search_profile3").innerHTML = "password " + response.user.password;
+    //     document.getElementById("search_profile4").innerHTML = "age " + response.user.age;
+    //   }
+    // }
+
+    // Grap all users' profile
+    let response = await getData("/getUsers");
+    if (response) {
+      if (response.status == "fail") {
+        console.log(response.msg);
+      } else {
+        // let contentDOM = document.getElementById("profiles");
+        for (const user of response.users) {
+          console.log(user);
+        }
+      }
+    }
+
   });
-
-  // Listener for the signup button
-  // document.getElementById("signUpButton").addEventListener("click", async function (e) {
-  //   let response = await postData("/createUser", {
-  //     email: document.getElementById("email").value,
-  //     password: document.getElementById("password").value,
-  //     firstName: document.getElementById("fname").value,
-  //     lastName: document.getElementById("lname").value,
-  //     age: document.getElementById("age").value,
-  //     gender: document.querySelector('input[name="gender"]:checked').value,
-  //     phoneNumber: document.getElementById("phoneNumber").value,
-  //     role: document.querySelector('input[name="role"]:checked').value
-  //   })
-  //   if (response) {
-  //     if (response.status == "fail") {
-  //       console.log(response.msg);
-  //       document.getElementById("createUserStatus").innerHTML = response.displayMsg; // display create user failure
-  //     } else {
-
-  //       window.location.replace("/");
-  //     }
-  //   }
-  // });
-
-  //redirecting to login page, back button
-  document.getElementById("cancelButton").onclick = function () {
-    window.location.replace("/");
-  };
 });
 
 function ready(callback) {
