@@ -57,7 +57,7 @@ app.use(session(
 //////// PAGE SERVING ////////
 
 // Index page
-app.get("/", function (req, res) {
+app.get("/", function (req, res) { 
     if (req.session.loggedIn) {
         res.redirect("/profile");
     } else {
