@@ -240,7 +240,19 @@
           Quia recusandae laudantium odio!
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
+          sit sint corporis quo. Voluptas, natus corporis?
+          test</p>
+      
+          <div id="container">
+            <form id="upload-images-form">
+              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+                multiple="multiple" />
+              <input id="submit" type="submit" value="Save profile image" />
+            </form>
+          </div>
+          <br><br>
+
+
       </section>
 
 
@@ -260,20 +272,20 @@
             <form>
               <hr>
               <div class="accounttype">
-                <input type="radio" value="CALLER" id="CALLER" name="role"/>
+                <input type="radio" value="CALLER" id="CALLER" name="role" />
                 <label for="CALLER" class="radio" chec>Caller</label>
-                <input type="radio" value="RESPONDER" id="RESPONDER" name="role"/>
+                <input type="radio" value="RESPONDER" id="RESPONDER" name="role" />
                 <label for="RESPONDER" class="radio">Responder</label>
-                <input type="radio" value="ADMIN" id="ADMIN" name="role"/>
+                <input type="radio" value="ADMIN" id="ADMIN" name="role" />
                 <label for="ADMIN" class="radio">Admin</label>
               </div>
               <div>
                 <label id="icon" for="email">Email</i></label>
-                <input type="email" name="email" id="editUserEmail" placeholder="Email" required />   
+                <input type="email" name="email" id="editUserEmail" placeholder="Email" required />
               </div>
               <div>
                 <label id="icon" for="password">Password</i></label>
-                <input type="text" name="name" id="editUserPassword" placeholder="Password" required />  
+                <input type="text" name="name" id="editUserPassword" placeholder="Password" required />
               </div>
               <div>
                 <label id="icon" for="fname">First Name</label>
@@ -285,18 +297,19 @@
               </div>
               <div>
                 <label id="icon" for="phoneNumber">Phone Number</label>
-                <input type="tel" name="phoneNumber" id="editUserPhoneNumber" placeholder="Phone number" minlength="10" required />
+                <input type="tel" name="phoneNumber" id="editUserPhoneNumber" placeholder="Phone number" minlength="10"
+                  required />
               </div>
               <div>
                 <label id="icon" for="age">Age</i></label>
                 <input type="text" name="age" id="editUserAge" placeholder="Age" required />
               </div>
               <div class="gender">
-                <input type="radio" value="male" id="male" name="gender"/>
+                <input type="radio" value="male" id="male" name="gender" />
                 <label for="male" class="radio" chec>Male</label>
-                <input type="radio" value="female" id="female" name="gender"/>
+                <input type="radio" value="female" id="female" name="gender" />
                 <label for="female" class="radio">Female</label>
-                <input type="radio" value="other" id="other" name="gender"/>
+                <input type="radio" value="other" id="other" name="gender" />
                 <label for="other" class="radio">Other</label>
               </div>
               <span id="modalStatus" class="modalStatus"></span>
@@ -369,6 +382,41 @@
       aside.classList.remove("show");
     })
   </script>
+
+  <script>
+    const upLoadForm = document.getElementById("upload-images-form");
+    upLoadForm.addEventListener("submit", uploadImages);
+
+    function uploadImages(e) {
+      e.preventDefault();
+
+      const imageUpload = document.querySelector('#image-upload');
+      const formData = new FormData();
+
+      for (let i = 0; i < imageUpload.files.length; i++) {
+        // put the images from the input into the form data
+        formData.append("files", imageUpload.files[i]);
+      }
+
+      const options = {
+        method: 'POST',
+        body: formData,
+        // don't put a header in, the browser will do that for us
+        //                headers: {
+        //                  "Content-Type": "multipart/form-data"
+        //                }
+      };
+      //delete options.headers['Content-Type'];
+
+      // now use fetch
+      fetch("/upload-images", options).then(function (res) {
+        console.log(res);
+      }).catch(function (err) {
+        ("Error:", err)
+      });
+    }
+  </script>
+
 
 </body>
 
