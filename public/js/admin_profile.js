@@ -30,8 +30,15 @@ ready(async function () {
 
         // when profile clicked on, prepare and show edit profile modal
         document.getElementById(user.ID).addEventListener("click", async function (e) {
+            e.stopImmediatePropagation();
             prepareEditUserModal(user);
-            openModal(user, "editUserModal", submitEditUserModal);
+            openModal(user, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitEditUserModal);
+        })
+
+        // when delete button clicked on, show delete profile modal
+        document.getElementById(user.ID).querySelector(".close").addEventListener("click", async function (e) {
+            e.stopImmediatePropagation();
+            openModal(user, "deleteUserModal", "deleteUserCancelButton", "deleteUserSubmitButton", "deleteUserStatus", submitDeleteUserModal);
         })
     }
 
@@ -69,7 +76,7 @@ ready(async function () {
     // (this re-uses the edit user modal, see the top of admin_profile_create_user.js for a longer explanation)
     document.getElementById("createUserButton").addEventListener("click", function (e) {
         prepareCreateUserModal();
-        openModal(null, "editUserModal", submitCreateUserModal);
+        openModal(null, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitCreateUserModal);
     })
     
     // DISPLAY USER PROFILES
