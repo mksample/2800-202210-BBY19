@@ -11,9 +11,9 @@ const sqlAuthentication = { // sql connection settings
 const userTable = "BBY_19_user"; // Table name
 
 ready(async function () {
-  async function getData(url) {
+  async function postData(url, data) {
     const response = await fetch(url, {
-      method: 'GET',
+      method: 'POST',
       mode: 'same-origin',
       cache: 'default',
       credentials: 'same-origin',
@@ -23,42 +23,24 @@ ready(async function () {
       },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
+      body: JSON.stringify(data)
     });
     return response.json();
   }
 
   document.getElementById("searchButton").addEventListener("click", async function (e) {
-    console.log("Search button pushed");
-    let keyword = document.getElementById("searchKeyword").value;
-    console.log(keyword);
-    document.getElementById("search_result").innerHTML = keyword;
-
-    // let response = await getData("/getUser");
-    // if (response) {
-    //   if (response.status == "fail") {
-    //     console.log(response.msg);
-    //   } else {
-    //     document.getElementById("search_profile").innerHTML = "firstName " + response.user.firstName;
-    //     document.getElementById("search_profile1").innerHTML = "lastName " + response.user.lastName;
-    //     document.getElementById("search_profile2").innerHTML = "email " + response.user.email;
-    //     document.getElementById("search_profile3").innerHTML = "password " + response.user.password;
-    //     document.getElementById("search_profile4").innerHTML = "age " + response.user.age;
-    //   }
-    // }
-
-    // Grap all users' profile
-    let response = await getData("/getUsers");
+    var keyword = document.getElementById("searchKeyword").value;
+    document.getElementById("search_status").innerHTML = keyword;
+    let response = await postData("/getUsersKeyword", { keyword: keyword });
     if (response) {
       if (response.status == "fail") {
         console.log(response.msg);
       } else {
-        // let contentDOM = document.getElementById("profiles");
         for (const user of response.users) {
           console.log(user);
         }
       }
     }
-
   });
 });
 

@@ -23,7 +23,7 @@ const remoteSqlAuthentication = {
     database: "heroku_b395e55ab1671ee"
 }
 
-// const sqlAuthentication = remoteSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
+// const sqlAuthentication = remoteSqlAuthentication; // SETTING TO USE REMOTE DB
 const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL DB
 
 const userTable = "BBY_19_user";
@@ -424,6 +424,42 @@ app.post("/deleteUser", function (req, res) {
             }
         }
     })
+})
+
+// Search the keyword from database when using search bar.
+app.post("/getUsersKeyword", function (req, res) {
+    if (req.session.role == adminRole) {
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+        var keyword = `'%` + req.body.keyword + `%'`;
+        const getUser = `SELECT * FROM ` + userTable + ` WHERE ID != ` + req.session.userID + ` AND email LIKE ` + keyword + ` OR firstName LIKE ` + keyword + ` OR lastName LIKE ` + keyword;
+        con.query(getUser, function (error, results) {
+            con.end(err => {
+                if (err) {
+                    console.log(err)
+                }
+            });
+            if (error) {
+                console.log("getting users: " + error);
+                res.send({
+                    status: "fail",
+                    msg: "getting users: " + error
+                })
+            } else {
+                res.send({
+                    status: "success",
+                    msg: "users retrieved",
+                    users: results
+                })
+            }
+        })
+    } else {
+        res.send({
+            status: "fail",
+            msg: "getting users: requesting user is not admin"
+        })
+    }
 })
 
 // Connects to the mysql database, creates a user table if it doesn't exist.
