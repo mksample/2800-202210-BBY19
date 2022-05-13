@@ -1,8 +1,8 @@
 "use strict";
 ready(async function () {
-    async function postData(url, data) {
+    async function getData(url) {
         const response = await fetch(url, {
-            method: 'POST',
+            method: 'GET',
             mode: 'same-origin',
             cache: 'default',
             credentials: 'same-origin',
@@ -12,11 +12,33 @@ ready(async function () {
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
-            body: JSON.stringify(data)
         });
         return response.json();
     }
+
+    let response = await getData("/getUser");
+    if (response) {
+        if (response.status == "fail") {
+            console.log(response.msg);
+        } else {
+            document.getElementById("userFName").innerHTML = response.user.firstName;
+            document.getElementById("userLName").innerHTML = response.user.lastName;
+            document.getElementById("email").innerHTML = response.user.email;
+            document.getElementById("detail_user_firstN").innerHTML = response.user.firstName;
+            document.getElementById("detail_user_lastN").innerHTML = response.user.lastName;
+            document.getElementById("detail_user_email").innerHTML = response.user.email;
+            document.getElementById("detail_user_password").innerHTML = response.user.password;
+            document.getElementById("detail_user_age").innerHTML = response.user.age;
+            document.getElementById("detail_user_gender").innerHTML = response.user.gender;
+            document.getElementById("detail_user_cellphone").innerHTML = response.user.phoneNumber;
+
+            
+
+            
+        }
+    }   
 });
+
 
 function ready(callback) {
     if (document.readyState != "loading") {

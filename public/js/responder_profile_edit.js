@@ -34,8 +34,6 @@ edit_button.addEventListener("click", function() {
         paragraph[i].style.backgroundColor = "#ffcccb";
         paragraph[2].contentEditable = false; // email address cannot be changed, except admin
         paragraph[2].style.backgroundColor = "#ffffe0";
-        paragraph[7].contentEditable = false; // email address cannot be changed, except admin
-        paragraph[7].style.backgroundColor = "#ffffe0";
         
 
     }
@@ -72,8 +70,6 @@ document.getElementById("end-editing").addEventListener("click", async function 
         age: document.getElementById("detail_user_age").textContent,
         gender: document.getElementById("detail_user_gender").textContent,
         phoneNumber: document.getElementById("detail_user_cellphone").textContent,
-        role: document.getElementById("detail_user_role").textContent
-      
     });
 
     console.log(input); 

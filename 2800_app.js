@@ -620,7 +620,7 @@ function validateEditUser(req) {
     if (!role[0]) {
         return role;
     }
-    return [true, msg];
+    return [true, null];
 }
 
 // validation for editing a user (admin)

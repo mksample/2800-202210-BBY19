@@ -3,12 +3,12 @@
 
 <head>
   <!-- Page Title-->
-  <title>User ProfilePage</title>
+  <title>Responder Profile Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Our StyleSheet-->
-  <link rel="stylesheet" href="/css/caller_profile.css">
+  <link rel="stylesheet" href="/css/responder_profile.css">
 
   <!-- Google Material Icons-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -25,6 +25,7 @@
         <img src="/imgs/saveme.jpg" width="40px" alt="logo" />
         <h1>SaveMe</h1>
       </div>
+
 
       <!--HAMBURGER MENU FOR MOBILE-->
 
@@ -89,7 +90,7 @@
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
-            <input id="logginout" type="submit" value="Logout" />
+            <input id="logout" type="submit" value="Logout" />
           </form>
         </li>
 
@@ -119,13 +120,10 @@
         </div>
         <!-- SIDE NAVIGATION USER INFORMATION-->
         <div class="user-info">
-          <div id="nameGroup">
 
-            <div id="userFName"><span class="name">John Doe</span></div>
-            <div id="userLName"><span class="name">John Doe</span></div>
-          </div>
+          <span class="name">John Doe</span>
 
-          <div id="email"><span class="email">JohnDoe@gmail.com</span></div>
+          <span class="email">JohnDoe@gmail.com</span>
 
           <span class="status">Online</span>
 
@@ -190,43 +188,24 @@
     <!-- DASHBOARD CONTENT -->
     <div class="main">
       <section class="profile tabs">
-        <div id="user_profile_pictue"></div>
-        <h1>User profile</h1>
-        <div id="user_profile_section">
-          <div id="container">
-            <form id="upload-images-form">
-              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-                multiple="multiple" />
-              <input id="submit" type="submit" value="Save profile image" />
-            </form>
+        <h1>Your Posts</h1>
+        <div class="userpost">
+          <div class="posts">
+            <span><i class="material-icons">add</i></span>
           </div>
-          <br><br>
-
-
-          <p>First Name: </p>
-          <div class="edit" id="detail_user_firstN">bank</div>
-          <p>Last Name: </p>
-          <div class="edit" id="detail_user_lastN">name</div>
-          <p>Email: </p>
-          <div class="edit" id="detail_user_email">email</div>
-          <p>Password: </p>
-          <div class="edit" id="detail_user_password">name</div>
-          <p>Age: </p>
-          <div class="edit" id="detail_user_age">age</div>
-          <p>Gender: </p>
-          <div class="edit" id="detail_user_gender">gender</div>
-          <p>Phone Number: </p>
-          <div class="edit" id="detail_user_cellphone">number</div>
-          <p>Role: </p>
-          <div class="edit" id="detail_user_role">role</div>
-          <br><br>
-          <button type="button" id="edit-button">Edit</button>
-          <button type="button" id="end-editing">Save</button>
-
-
-
+          <div class="posts">
+            <img width="200" src="/imgs/saveme.jpg" alt="">
+            <p>Title</p>
+          </div>
+          <div class="posts">
+            <img width="200" src="/imgs/saveme.jpg" alt="">
+            <p>Title</p>
+          </div>
+          <div class="posts">
+            <img width="200" src="/imgs/saveme.jpg" alt="">
+            <p>Title</p>
+          </div>
         </div>
-
 
       </section>
 
@@ -270,8 +249,7 @@
 
   </div>
   <!-- SCRIPT FOLDER-->
-  <script src="/js/caller_profile.js"></script>
-  <script src="/js/caller_profile_edit.js"></script>
+  <script src="/js/responder_profile.js"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -325,40 +303,6 @@
     close.addEventListener("click", () => {
       aside.classList.remove("show");
     })
-  </script>
-
-  <script>
-    const upLoadForm = document.getElementById("upload-images-form");
-    upLoadForm.addEventListener("submit", uploadImages);
-
-    function uploadImages(e) {
-      e.preventDefault();
-
-      const imageUpload = document.querySelector('#image-upload');
-      const formData = new FormData();
-
-      for (let i = 0; i < imageUpload.files.length; i++) {
-        // put the images from the input into the form data
-        formData.append("files", imageUpload.files[i]);
-      }
-
-      const options = {
-        method: 'POST',
-        body: formData,
-        // don't put a header in, the browser will do that for us
-        //                headers: {
-        //                  "Content-Type": "multipart/form-data"
-        //                }
-      };
-      //delete options.headers['Content-Type'];
-
-      // now use fetch
-      fetch("/upload-images", options).then(function (res) {
-        console.log(res);
-      }).catch(function (err) {
-        ("Error:", err)
-      });
-    }
   </script>
 
 </body>
