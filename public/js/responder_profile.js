@@ -1,8 +1,8 @@
 "use strict";
 ready(async function () {
-    async function getData(url) {
+    async function postData(url, data) {
         const response = await fetch(url, {
-            method: 'GET',
+            method: 'POST',
             mode: 'same-origin',
             cache: 'default',
             credentials: 'same-origin',
@@ -12,20 +12,9 @@ ready(async function () {
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
+            body: JSON.stringify(data)
         });
         return response.json();
-    }
-
-    let response = await getData("/getUser");
-
-    if (response) {
-        console.log(response.msg);
-        if (response.status == "fail") {
-            document.getElementById("username").innerHTML = response.msg;
-        } else {
-            let user = response.user;
-            document.getElementById("username").innerHTML = "Welcome back " + user.firstName + " " + user.lastName + "!";
-        }
     }
 });
 

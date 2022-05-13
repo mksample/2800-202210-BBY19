@@ -6,14 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Set favicon -->
-  <link href="img/saveme.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
 
   <!-- Including JavaScript in here -->
-  <!-- includeHTML.js attaches Navbar and Footer in this page. -->
   <script src="js/index.js"></script>
 
   <!-- Set style sheets -->
-  <link rel="stylesheet" type="text/css" href="css/navbar_footer_style.css" />
   <link rel="stylesheet" type="text/css" href="/css/index.css" />
 
   <!-- Icon libraries from https://fonts.google.com/icons -->
@@ -22,16 +20,50 @@
 </head>
 
 <body>
-  <div class="container">
+  <!-- Desktop page -->
+  <div class="container" id="container">
+    <div class="log-in-container">
+      <form>
+        <img src="imgs/saveme.jpg" height="100px"></a>
+        <h1>Log in</h1>
+        <input id="emailInput_desktop" type="email" required="required" placeholder="Email" />
+        <input id="passwordInput_desktop" type="password" required="required" placeholder="Password" />
+        <input type="button", id="signInButton_desktop", class="inputButton", value="LOG IN">
+        <br />
+        <div id="loginStatus_desktop"></div>
+      </form>
+    </div>
 
-  <div id="signIn">
-    <div id="login"><p>Log-in</p></div>
-    <p>Email: </p><input id='emailInput' type='email' required="required" placeholder="Email" /><br>
-    <p>Password: </p><input id='passwordInput' type='password' required="required" placeholder="Password" /><br><br>
-    <input id="signInButton" type="button" value="Sign In" />
-    <p id="loginStatus">&nbsp;</p>
+    <div class="sign-up-container">
+      <div class="sign-up">
+        <div class="sign-up-panel">
+          <h1>SaveMe</h1>
+          <p>Helping local business that have security personnel respond to conflicts on their property</p>
+          <button class="inputButton ghost" id="signUpPage_desktop">SIGN UP</button>
+        </div>
+      </div>
+    </div>
+
   </div>
-</div>
+
+  <!-- Mobile page -->
+  <div class="container_mobile" id="container_mobile">
+    <div class="log-in-container_mobile">
+      <form>
+        <img src="imgs/saveme.jpg" height="100px"></a>
+        <h1>Log in</h1>
+        <input id="emailInput_mobile" type="email" required="required" placeholder="Email" />
+        <input id="passwordInput_mobile" type="password" required="required" placeholder="Password" />
+        <input type="button", id="signInButton_mobile", class="inputButton", value="LOG IN">
+        <br />
+        <div id="loginStatus_mobile"></div>
+      </form>
+    </div>
+    <div class="sign-up-container_mobile">
+      <p>Don't you have an ID?</p>
+      <button class="inputButton ghost" id="signUpPage_mobile">SIGN UP</button>
+    </div>
+  </div>
 </body>
 
 </html>

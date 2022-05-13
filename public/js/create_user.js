@@ -17,8 +17,31 @@ ready(async function () {
         return response.json();
     }
 
-    //redirecting to singup page, for the first time using users
-    document.getElementById("indexButton").onclick = function () {
+    // Listener for the signup button
+    document.getElementById("signUpButton").addEventListener("click", async function (e) {
+        let response = await postData("/createUser", {
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+            firstName: document.getElementById("fname").value,
+            lastName: document.getElementById("lname").value,
+            age: document.getElementById("age").value,
+            gender: document.querySelector('input[name="gender"]:checked').value,
+            phoneNumber: document.getElementById("phoneNumber").value,
+            role: document.querySelector('input[name="role"]:checked').value
+        })
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+                document.getElementById("createUserStatus").innerHTML = response.displayMsg; // display create user failure
+            } else {
+
+                window.location.replace("/");
+            }
+        }
+    });
+
+    //redirecting to login page, back button
+    document.getElementById("cancelButton").onclick = function () {
         window.location.replace("/");
     };
 });

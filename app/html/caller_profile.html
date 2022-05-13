@@ -1,68 +1,321 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Caller Profile</title>
+  <!-- Page Title-->
+  <title>User ProfilePage</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Our StyleSheet-->
   <link rel="stylesheet" href="/css/caller_profile.css">
-  <!-- Set favicon -->
-  <link href="img/saveme.ico" rel="shortcut icon" type="image/x-icon">
 
-  <!-- Including JavaScript in here -->
-  <!-- includeHTML.js attaches Navbar and Footer in this page. -->
-  <script src="js/caller_profile.js"></script>
-  <script src="js/includeHTML.js"></script>
+  <!-- Google Material Icons-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <!-- Set style sheets -->
-  <link rel="stylesheet" type="text/css" href="css/navbar_footer_style.css" />
-  <!-- Icon libraries from https://fonts.google.com/icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
 </head>
 
 <body>
+
+  <!-- Main Container-->
   <div class="container">
-      <header id="header">
-        <form action="/logout" method="get">
-          <div id="logoutButton"><input id="logout" type="submit" value="Logout" /></div>
+    <header>
+      <!-- LOGO-->
+      <div class="logo">
+        <img src="/imgs/saveme.jpg" width="40px" alt="logo" />
+        <h1>SaveMe</h1>
+      </div>
+
+      <!--HAMBURGER MENU FOR MOBILE-->
+
+      <div class="hamburger-menu">
+        <span><i class="material-icons">list</i></span>
+      </div>
+
+
+      <!-- TOP NAVIGATION -->
+      <div class="nav">
+        <ul>
+
+          <li>
+            <h3>Home</h3>
+          </li>
+
+          <li>
+            <h3>About</h3>
+          </li>
+
+          <li>
+            <h3>Contact</h3>
+          </li>
+
+          <li>
+            <form action="/logout" method="get">
+              <input id="logout" type="submit" value="Logout" />
+            </form>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </header>
+
+
+    <!-- BOTTOM NAVIGATION BAR MOBILE-->
+    <div class="nav-mobile">
+      <ul>
+
+        <li>
+          <span> <i class="material-icons">home</i></span>
+          <h3>Home</h3>
+        </li>
+
+        <li>
+          <span> <i class="material-icons">info</i></span>
+          <h3>About</h3>
+        </li>
+
+        <li>
+          <span> <i class="material-icons">call</i></span>
+          <h3>Contact</h3>
+        </li>
+
+        <li class="active">
+          <span> <i class="material-icons">account_circle</i></span>
+          <h3>Account</h3>
+        </li>
+
+        <li>
+          <span> <i class="material-icons">logout</i></span>
+          <form action="/logout" method="get">
+            <input id="logout" type="submit" value="Logout" />
+          </form>
+        </li>
+
+      </ul>
+    </div>
+
+
+    <!-- VERTICAL ICON NAVIGATION-->
+    <div class="vert-bar">
+      <span> <i class="material-icons">more_vert</i></span>
+    </div>
+
+
+
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+      <!-- SIDEBAR CLOSE WHEN ON MOBILE-->
+      <h1>SaveMe<span class="close"><i class="material-icons">close</i></span></h1>
+
+      <div class="user-side">
+
+        <div class="user-pic">
+
+          <img width="100" src="/imgs/saveme.jpg" alt="">
+
+        </div>
+        <!-- SIDE NAVIGATION USER INFORMATION-->
+        <div class="user-info">
+          <div id="nameGroup">
+
+            <div id="userFName"><span class="name">John Doe</span></div>
+            <div id="userLName"><span class="name">John Doe</span></div>
+          </div>
+
+          <div id="email"><span class="email">JohnDoe@gmail.com</span></div>
+
+          <span class="status">Online</span>
+
+        </div>
+
+      </div>
+
+      <!-- SIDE NAVIGATION SEARCH BAR-->
+      <div class="search-bar">
+        <form>
+          <div class="search">
+
+            <input type="text" placeholder="Search Profile...">
+
+            <button type="submit"><span><i class="material-icons">search</i></span></button>
+
+          </div>
+
         </form>
-      </header>
+      </div>
+
+      <!-- SIDE NAVIGATION GENERAL-->
+      <div class="side-nav">
+        <h2>General</h2>
+        <nav>
+          <ul>
+            <li class="active" onclick="show(0)">
+              <span><i class="material-icons">speed</i></span>
+              <h3>Dashboard</h3>
+            </li>
+            <li onclick="show(1)">
+              <span><i class="material-icons">star</i></span>
+              <h3>Reviews</h3>
+            </li>
+            <li onclick="show(2)">
+              <span><i class="material-icons">comments</i></span>
+              <h3>Comments</h3>
+            </li>
+            <li onclick="show(3)">
+              <span><i class="material-icons">settings</i></span>
+              <h3>Settings</h3>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- BOTTOM NAVIGATION ICONS-->
+      <div class="bt-nav">
+        <ul>
+          <li class="alert" title="Alert">
+            <span><i class="material-icons">notifications</i></span>
+          </li>
+          <li class="message" title="Message">
+            <span><i class="material-icons">message</i></span>
+          </li>
+          <li class="set" title="Settings">
+            <span><i class="material-icons">settings</i></span>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- DASHBOARD CONTENT -->
+    <div class="main">
+      <section class="profile tabs">
+        <h1>User profile</h1>
+        <div id="user_profile_section">
+          <img width="200" src="/imgs/saveme.jpg" alt="">
+          <p>First Name: </p>
+          <div class="edit" id="detail_user_firstN" >bank</div>
+          <p>Last Name: </p>
+          <div class="edit" id="detail_user_lastN" >name</div>
+          <p>Email: </p>
+          <div class="edit" id="detail_user_email" >email</div>
+          <p>Password: </p>
+          <div class="edit" id="detail_user_password" >name</div>
+          <p>Age: </p>
+          <div class="edit" id="detail_user_age" >age</div>
+          <p>Gender: </p>
+          <div class="edit" id="detail_user_gender" >gender</div>
+          <p>Phone Number: </p>
+          <div class="edit" id="detail_user_cellphone">number</div>
+          <br><br>
+          <button type="button" id="edit-button">Edit</button>
+          <button type="button" id="end-editing">Save</button>
+
+
+
+        </div>
+
+
+      </section>
+
+      <!-- CONTENT TABS-->
+      <section class="tabs">
+
+        <h1>Reviews</h1>
+
+        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Quia recusandae laudantium odio!
+          Iusto velit laboriosam perferendis ab!
+          Aliquam ab odit animi autem cumque
+          sit sint corporis quo. Voluptas, natus corporis?</p>
+
+      </section>
+      <section class="tabs">
+        <h1>Comments</h1>
+
+        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Quia recusandae laudantium odio!
+          Iusto velit laboriosam perferendis ab!
+          Aliquam ab odit animi autem cumque
+          sit sint corporis quo. Voluptas, natus corporis?</p>
+      </section>
+      <section class="tabs">
+        <h1>Settings</h1>
+
+        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Quia recusandae laudantium odio!
+          Iusto velit laboriosam perferendis ab!
+          Aliquam ab odit animi autem cumque
+          sit sint corporis quo. Voluptas, natus corporis?</p>
+      </section>
+
+
     </div>
 
-    <p id="username"></p> <!-- USERNAME DISPLAYED HERE -->
-
-    <!-- navbar.html will be in here -->
-    <div id="navigation">
-      <nav id="nav" include-html="html/navbar.html"></nav>
-    </div>
-    <br />
-    <div id="profile"><img src="/img/profile.png"></div>
-    <form id="callerProfile">
-      <label for="fname">First name:</label><br>
-      <input type="text" id="fname" name="fname" value="John"><br><br>
-      <label for="lname">Last name:</label><br>
-      <input type="text" id="lname" name="lname" value="Doe"><br><br>
-      <label for="age">Age: </label><br>
-      <input type="number" id="age" name="age" value="23"><br><br>
-      <label for="phoneNumber">Cell phone: </label><br>
-      <input type="number" id="phoneNumber" name="phoneNumber" value="1234567890"><br><br>
-      <label for="contacts">Contacts: </label><br>
-      <input type="text" id="contacts" name="contacts"><br><br>
-      <label for="incidentLog"><a href="">Incident log</a></label><br><br>
-
-      <input type="submit" value="Edit">
-      <input type="submit" value="Save">
-    </form>
 
 
-    <!-- footer.html will be in here -->
-    <div id="footer">
-      <footer include-html="/html/footer.html"></footer>
-    </div>
-    <script>
-      includeHTML();
-    </script>
+
+
   </div>
+  <!-- SCRIPT FOLDER-->
+  <script src="/js/caller_profile.js"></script>
+  <script src="/js/caller_profile_edit.js"></script>
+
+  <!-- JQuery-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!--DISPLAY NAVIGATION ON MOBILE-->
+  <script>
+    const tbtn = document.querySelectorAll(".side-nav ul li");
+    const tab = document.querySelectorAll(".tabs");
+
+    function show(panelIndex) {
+      tab.forEach(function (node) {
+        node.style.display = "none";
+      })
+      tab[panelIndex].style.display = "block";
+    }
+
+    show(0)
+  </script>
+
+  <!--DISPLAY NAVIGATION ON MOBILE-->
+  <script>
+    $(".side-nav ul li").click(function () {
+      $(this).addClass("active").sibilings().removeClass("active");
+    })
+  </script>
+
+  <!--DISPLAY NAVIGATION ON MOBILE-->
+  <script>
+    const hMenu = document.querySelector(".hamburger-menu");
+
+    const navM = document.querySelector(".nav-mobile");
+
+    hMenu.addEventListener("click", (nav) => {
+
+      navM.classList.toggle("show");
+    })
+  </script>
+
+  <!--DISPLAY NAVIGATION ON MOBILE-->
+  <script>
+    const Vbar = document.querySelector(".vert-bar");
+
+    const aside = document.querySelector(".sidebar");
+
+    const close = document.querySelector(".close");
+
+    Vbar.addEventListener("click", () => {
+      aside.classList.add("show");
+    })
+
+    close.addEventListener("click", () => {
+      aside.classList.remove("show");
+    })
+  </script>
+
 </body>
 
 </html>

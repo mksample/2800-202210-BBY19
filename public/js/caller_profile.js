@@ -17,17 +17,28 @@ ready(async function () {
     }
 
     let response = await getData("/getUser");
-
     if (response) {
-        console.log(response.msg);
         if (response.status == "fail") {
-            document.getElementById("username").innerHTML = response.msg;
+            console.log(response.msg);
         } else {
-            let user = response.user;
-            document.getElementById("username").innerHTML = "Welcome back " + user.firstName + " " + user.lastName + "!";
+            document.getElementById("userFName").innerHTML = response.user.firstName;
+            document.getElementById("userLName").innerHTML = response.user.lastName;
+            document.getElementById("email").innerHTML = response.user.email;
+            document.getElementById("detail_user_firstN").innerHTML = response.user.firstName;
+            document.getElementById("detail_user_lastN").innerHTML = response.user.lastName;
+            document.getElementById("detail_user_email").innerHTML = response.user.email;
+            document.getElementById("detail_user_password").innerHTML = response.user.password;
+            document.getElementById("detail_user_age").innerHTML = response.user.age;
+            document.getElementById("detail_user_gender").innerHTML = response.user.gender;
+            document.getElementById("detail_user_cellphone").innerHTML = response.user.phoneNumber;
+
+            
+
+            
         }
-    }
+    }   
 });
+
 
 function ready(callback) {
     if (document.readyState != "loading") {
@@ -38,3 +49,4 @@ function ready(callback) {
         console.log("Listener was invoked");
     }
 }
+
