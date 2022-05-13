@@ -89,7 +89,7 @@
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
-            <input id="logout" type="submit" value="Logout" />
+            <input id="logginout" type="submit" value="Logout" />
           </form>
         </li>
 
@@ -190,21 +190,31 @@
     <!-- DASHBOARD CONTENT -->
     <div class="main">
       <section class="profile tabs">
+        <div id="user_profile_pictue"></div>
         <h1>User profile</h1>
         <div id="user_profile_section">
-          <img width="200" src="/imgs/saveme.jpg" alt="">
+          <div id="container">
+            <form id="upload-images-form">
+              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+                multiple="multiple" />
+              <input id="submit" type="submit" value="Submit" />
+            </form>
+          </div>
+          <br><br>
+
+
           <p>First Name: </p>
-          <div class="edit" id="detail_user_firstN" >bank</div>
+          <div class="edit" id="detail_user_firstN">bank</div>
           <p>Last Name: </p>
-          <div class="edit" id="detail_user_lastN" >name</div>
+          <div class="edit" id="detail_user_lastN">name</div>
           <p>Email: </p>
-          <div class="edit" id="detail_user_email" >email</div>
+          <div class="edit" id="detail_user_email">email</div>
           <p>Password: </p>
-          <div class="edit" id="detail_user_password" >name</div>
+          <div class="edit" id="detail_user_password">name</div>
           <p>Age: </p>
-          <div class="edit" id="detail_user_age" >age</div>
+          <div class="edit" id="detail_user_age">age</div>
           <p>Gender: </p>
-          <div class="edit" id="detail_user_gender" >gender</div>
+          <div class="edit" id="detail_user_gender">gender</div>
           <p>Phone Number: </p>
           <div class="edit" id="detail_user_cellphone">number</div>
           <br><br>
@@ -313,6 +323,40 @@
     close.addEventListener("click", () => {
       aside.classList.remove("show");
     })
+  </script>
+
+  <script>
+    const upLoadForm = document.getElementById("upload-images-form");
+    upLoadForm.addEventListener("submit", uploadImages);
+
+    function uploadImages(e) {
+      e.preventDefault();
+
+      const imageUpload = document.querySelector('#image-upload');
+      const formData = new FormData();
+
+      for (let i = 0; i < imageUpload.files.length; i++) {
+        // put the images from the input into the form data
+        formData.append("files", imageUpload.files[i]);
+      }
+
+      const options = {
+        method: 'POST',
+        body: formData,
+        // don't put a header in, the browser will do that for us
+        //                headers: {
+        //                  "Content-Type": "multipart/form-data"
+        //                }
+      };
+      //delete options.headers['Content-Type'];
+
+      // now use fetch
+      fetch("/upload-images", options).then(function (res) {
+        console.log(res);
+      }).catch(function (err) {
+        ("Error:", err)
+      });
+    }
   </script>
 
 </body>

@@ -32,9 +32,7 @@ ready(async function () {
             document.getElementById("detail_user_gender").innerHTML = response.user.gender;
             document.getElementById("detail_user_cellphone").innerHTML = response.user.phoneNumber;
 
-            
-
-            
+               
         }
     }   
 });
