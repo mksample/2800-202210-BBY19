@@ -23,7 +23,7 @@ const remoteSqlAuthentication = {
     database: "heroku_b395e55ab1671ee"
 }
 
-const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
+const sqlAuthentication = remoteSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
 
 const userTable = "BBY_19_user";
 const duplicateError = "ER_DUP_ENTRY";
@@ -400,6 +400,7 @@ app.post("/deleteUser", function (req, res) {
 
     con.query(adminCountQuery, function (error, results) {
         if (error) {
+            con.end(err => { if (err) { console.log(err) } });
             console.log(error);
             res.send({ status: "fail", msg: "querying admin count: " + error, displayMsg: displayMsg});
         } else {
@@ -414,6 +415,7 @@ app.post("/deleteUser", function (req, res) {
                     }
                 })
             } else {
+                con.end(err => { if (err) { console.log(err) } });
                 console.log("tried to delete last admin");
                 res.send({ status: "fail", msg: "deleting user: cannot delete last admin", displayMsg: "Cannot delete last admin"});
             }
