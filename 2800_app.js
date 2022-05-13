@@ -34,7 +34,7 @@ const storage = multer.diskStorage({
         callback(null, uploadPath)
     },
     filename: function(req, file, callback) {
-        callback(null, "SaveMe-app-profile-" + file.originalname.split('/').pop().trim()); // add timestamp here
+        callback(null, "SaveMe-app-profile-" + Date.now() + file.originalname.split('/').pop().trim()); // add timestamp here
     }
 });
 const upload = multer({ storage: storage });
@@ -434,7 +434,7 @@ app.post('/upload-images', upload.array("files"), function (req, res) {
         con.connect();
 
         console.log(req.session.userID);
-        let insertPicQuery = "blah" // update query
+        let insertPicQuery = "UPDATE userTable SET avatar = <img_path> WHERE ID = req.session.userID"; // update query
         
         con.query(insertPicQuery, function(error, results) {
             if (error) {
