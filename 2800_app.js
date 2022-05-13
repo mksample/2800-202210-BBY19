@@ -172,6 +172,9 @@ app.get("/logout", function (req, res) {
 // role (string) - role of the new user (must be "ADMIN", "CALLER", or "RESPONDER"). 
 app.post("/createUser", function (req, res) {
     let validVals = validateCreateUser(req);
+    if (req.session.role == adminRole) {
+        validVals = validateAdminCreateUser(req);
+    }
     let valid = validVals[0];
     let displayMsg = validVals[1];
     if (valid) {
@@ -190,8 +193,8 @@ app.post("/createUser", function (req, res) {
             `');`;
 
         con.query(addUser, function (error, results) {
-            con.end(err => { if (err) { console.log(err) } });
             if (error) {
+                con.end(err => { if (err) { console.log(err) } });
                 if (error.code == duplicateError) {
                     displayMsg = "User with this email already exists";
                 } else {
@@ -201,7 +204,15 @@ app.post("/createUser", function (req, res) {
                 res.send({ status: "fail", msg: "creating user: " + error, displayMsg: displayMsg });
             } else {
                 console.log(req.body);
-                res.send({ status: "success", msg: "user created" });
+                con.query(`SELECT * FROM ` + userTable + ` WHERE email = '` + req.body.email + `'`, function (error, results) {
+                    con.end(err => { if (err) { console.log(err) } });
+                    if (error) {
+                        console.log(error)
+                        res.send({ status: "fail", msg: "creating user: " + error, displayMsg: "Database error"});
+                    } else {
+                        res.send({ status: "success", msg: "user created", user: results[0]});
+                    }
+                })
             }
         });
     } else {
@@ -209,8 +220,7 @@ app.post("/createUser", function (req, res) {
     }
 })
 
-// Edit profile request (caller/responder).
-// Changes values for current session users profile. POST params are safe to be left blank.
+// Edit the profile of the current session user. Role is not editable. POST params are safe to be left blank.
 // POST params:
 // password (string) - new password for user.
 // firstName (string) - new first name for user.
@@ -219,7 +229,7 @@ app.post("/createUser", function (req, res) {
 // gender (string) - new gender for user.
 // phoneNumber (string) - new phone number for user.
 app.post("/editUser", function (req, res) {
-    let validVals = validateAdminEditUser(req);
+    let validVals = validateEditUser(req);
     let valid = validVals[0];
     let displayMsg = validVals[1];
     if (valid) {
@@ -237,6 +247,7 @@ app.post("/editUser", function (req, res) {
 
         con.query(editUser, function (error, results) {
             if (error) {
+                con.end(err => { if (err) { console.log(err) } });
                 if (error.code == duplicateError) {
                     displayMsg = "User with this email already exists";
                 } else {
@@ -260,8 +271,7 @@ app.post("/editUser", function (req, res) {
     }
 })
 
-// Edit profile request (admin).
-// Changes values for another users profile. Admins can edit roles. POST params are safe to be left blank.
+// Edit the profile of any user. Role is editable. POST params are safe to be left blank.
 // POST params:
 // password (string) - new password for user.
 // firstName (string) - new first name for user.
@@ -295,6 +305,7 @@ app.post("/adminEditUser", function (req, res) {
 
         con.query(editUser, function (error, results) {
             if (error) {
+                con.end(err => { if (err) { console.log(err) } });
                 if (error.code == duplicateError) {
                     displayMsg = "User with this email already exists";
                 } else {
@@ -400,202 +411,228 @@ app.post("/deleteUser", function (req, res) {
 
 // VALIDATE FUNCTIONS
 
-// validation for creating a user
-function validateCreateUser(req) {
-    let validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    let validPhoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
-    let validAgeRegex = /^(0?[1-9]|[1-9][0-9])$/;
-    let msg = "";
+const validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const validPhoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+const validAgeRegex = /^(0?[1-9]|[1-9][0-9])$/;
 
-    // email
-    if (!req.body.email.match(validEmailRegex)) {
-        msg = "Please enter a valid email"
+function validEmail(condition) {
+    if (!condition) {
+        let msg = "Please enter a valid email"
         console.log("creating user: invalid email");
         return [false, msg];
     }
+    return [true, null];
+}
 
-    // password
-    if (sanitizeHtml(req.body.password) != req.body.password || req.body.password == "") {
-        msg = "Please enter a valid password";
+function validPassword(condition) {
+    if (!condition) {
+        let msg = "Please enter a valid password";
         console.log("creating user: invalid password");
         return [false, msg];
     }
+    return [true, null];
+}
 
-    // first name
-    if (sanitizeHtml(req.body.firstName) != req.body.firstName || req.body.firstName == "") {
-        msg = "Please enter a valid first name";
+function validFirstName(condition) {
+    if (!condition) {
+        let msg = "Please enter a valid first name";
         console.log("creating user: invalid first name");
         return [false, msg];
     }
+    return [true, null];
+}
 
-    // last name
-    if (sanitizeHtml(req.body.lastName) != req.body.lastName || req.body.lastName == "") {
-        msg = "Please enter a valid last name";
+function validLastName(condition) {
+    if (!condition) {
+        let msg = "Please enter a valid last name";
         console.log("creating user: invalid last name");
         return [false, msg];
     }
+    return [true, null];
+}
 
-    // phone number
-    if (!req.body.phoneNumber.match(validPhoneNumberRegex)) {
-        msg = "Please enter a valid phone number (format: XXX XXX XXXX)";
+function validPhoneNumber(condition) {
+    if (!condition) {
+        let msg = "Please enter a valid phone number (format: XXX XXX XXXX)";
         console.log("creating user: invalid phone number");
         return [false, msg];
     }
+    return [true, null];
+}
 
-    // age
-    if (!req.body.age.match(validAgeRegex)) {
-        msg = "Please enter a valid age";
+function validAge(condition) {
+    if (!condition) {
+        let msg = "Please enter a valid age";
         console.log("creating user: invalid age");
         return [false, msg];
     }
+    return [true, null];
+}
 
-    // gender
-    if (req.body.gender != genderMale && req.body.gender != genderFemale && req.body.gender != genderOther) {
-        msg = "Please select a valid gender";
+function validGender(condition) {
+    if (!condition) {
+        let msg = "Please select a valid gender";
         console.log("creating user: invalid gender");
         return [false, msg];
     }
+    return [true, null];
+}
 
-    // role
-    if (req.body.role != callerRole && req.body.role != responderRole) {
-        msg = "Please select a valid role";
+function validRole(condition) {
+    if (!condition) {
+        let msg = "Please select a valid role";
         console.log("creating user: invalid role");
         return [false, msg];
     }
+    return [true, null];
+}
 
-    return [true, msg];
+// validation for creating a user
+function validateCreateUser(req) {
+    let email = validEmail(req.body.email.match(validEmailRegex))
+    if (!email[0]) {
+        return email;
+    }
+    let password = validPassword(sanitizeHtml(req.body.password) == req.body.password && req.body.password != "");
+    if (!password[0]) {
+        return password;
+    }
+    let firstName = validFirstName(sanitizeHtml(req.body.firstName) == req.body.firstName && req.body.firstName != "");
+    if (!firstName[0]) {
+        return firstName;
+    }
+    let lastName = validLastName(sanitizeHtml(req.body.lastName) == req.body.lastName && req.body.lastName != "");
+    if (!lastName[0]) {
+        return lastName;
+    }
+    let phoneNumber = validPhoneNumber(req.body.phoneNumber.match(validPhoneNumberRegex));
+    if (!phoneNumber[0]) {
+        return phoneNumber;
+    }
+    let age = validAge(req.body.age.match(validAgeRegex));
+    if (!age[0]) {
+        return age;
+    }
+    let gender = validGender(req.body.gender == genderMale || req.body.gender == genderFemale || req.body.gender == genderOther);
+    if (!gender[0]) {
+        return gender;
+    }
+    let role = validRole(req.body.role == callerRole || req.body.role == responderRole);
+    if (!role[0]) {
+        return role;
+    }
+    return [true, null];
+}
+
+// validation for creating a user (admin)
+function validateAdminCreateUser(req) {
+    let email = validEmail(req.body.email.match(validEmailRegex))
+    if (!email[0]) {
+        return email;
+    }
+    let password = validPassword(sanitizeHtml(req.body.password) == req.body.password && req.body.password != "");
+    if (!password[0]) {
+        return password;
+    }
+    let firstName = validFirstName(sanitizeHtml(req.body.firstName) == req.body.firstName && req.body.firstName != "");
+    if (!firstName[0]) {
+        return firstName;
+    }
+    let lastName = validLastName(sanitizeHtml(req.body.lastName) == req.body.lastName && req.body.lastName != "");
+    if (!lastName[0]) {
+        return lastName;
+    }
+    let phoneNumber = validPhoneNumber(req.body.phoneNumber.match(validPhoneNumberRegex));
+    if (!phoneNumber[0]) {
+        return phoneNumber;
+    }
+    let age = validAge(req.body.age.match(validAgeRegex));
+    if (!age[0]) {
+        return age;
+    }
+    let gender = validGender(req.body.gender == genderMale || req.body.gender == genderFemale || req.body.gender == genderOther);
+    if (!gender[0]) {
+        return gender;
+    }
+    let role = validRole(req.body.role == callerRole || req.body.role == responderRole || req.body.role == adminRole); // accept admin role
+    if (!role[0]) {
+        return role;
+    }
+    return [true, null];
 }
 
 // validation for editing a user
 function validateEditUser(req) {
-    let validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    let validPhoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
-    let validAgeRegex = /^(0?[1-9]|[1-9][0-9])$/;
-    let msg = "";
-
-    // email
-    if (!req.body.email.match(validEmailRegex) && req.body.email != "") {
-        msg = "Please enter a valid email"
-        console.log("creating user: invalid email");
-        return [false, msg];
+    let email = validEmail(req.body.email.match(validEmailRegex) || req.body.email == "");
+    if (!email[0]) {
+        return email;
     }
-
-    // password
-    if (sanitizeHtml(req.body.password) != req.body.password) {
-        msg = "Please enter a valid password";
-        console.log("creating user: invalid password");
-        return [false, msg];
+    let password = validPassword(sanitizeHtml(req.body.password) == req.body.password);
+    if (!password[0]) {
+        return password;
     }
-
-    // first name
-    if (sanitizeHtml(req.body.firstName) != req.body.firstName) {
-        msg = "Please enter a valid first name";
-        console.log("creating user: invalid first name");
-        return [false, msg];
+    let firstName = validFirstName(sanitizeHtml(req.body.firstName) == req.body.firstName);
+    if (!firstName[0]) {
+        return firstName;
     }
-
-    // last name
-    if (sanitizeHtml(req.body.lastName) != req.body.lastName) {
-        msg = "Please enter a valid last name";
-        console.log("creating user: invalid last name");
-        return [false, msg];
+    let lastName = validLastName(req.body.lastName == req.body.lastName);
+    if (!lastName[0]) {
+        return lastName;
     }
-
-    // phone number
-    if (!req.body.phoneNumber.match(validPhoneNumberRegex) && req.body.phoneNumber != "") {
-        msg = "Please enter a valid phone number (format: XXX XXX XXXX)";
-        console.log("creating user: invalid phone number");
-        return [false, msg];
+    let phoneNumber = validPhoneNumber(req.body.phoneNumber.match(validPhoneNumberRegex) || req.body.phoneNumber == "");
+    if (!phoneNumber[0]) {
+        return phoneNumber;
     }
-
-    // age
-    if (!req.body.age.match(validAgeRegex) && req.body.age != "") {
-        msg = "Please enter a valid age";
-        console.log("creating user: invalid age");
-        return [false, msg];
+    let age = validAge(req.body.age.match(validAgeRegex) || req.body.age == "");
+    if (!age[0]) {
+        return age;
     }
-
-    // gender
-    if (req.body.gender != genderMale && req.body.gender != genderFemale && req.body.gender != genderOther && req.body.gender != "") {
-        msg = "Please select a valid gender";
-        console.log("creating user: invalid gender");
-        return [false, msg];
+    let gender = validGender(req.body.gender == genderMale || req.body.gender == genderFemale || req.body.gender == genderOther || req.body.gender == "");
+    if (!gender[0]) {
+        return gender;
     }
-
-    // role
-    if (req.body.role != callerRole && req.body.role != responderRole && req.body.role != "") {
-        msg = "Please select a valid role";
-        console.log("creating user: invalid role");
-        return [false, msg];
+    let role = validRole(req.body.role == callerRole || req.body.role == responderRole || req.body.role == "");
+    if (!role[0]) {
+        return role;
     }
-
     return [true, msg];
 }
 
 // validation for editing a user (admin)
 function validateAdminEditUser(req) {
-    let validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    let validPhoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
-    let validAgeRegex = /^(0?[1-9]|[1-9][0-9])$/;
-    let msg = "";
-
-    // email
-    if (!req.body.email.match(validEmailRegex) && req.body.email != "") {
-        msg = "Please enter a valid email"
-        console.log("creating user: invalid email");
-        return [false, msg];
+    let email = validEmail(req.body.email.match(validEmailRegex) || req.body.email == "");
+    if (!email[0]) {
+        return email;
     }
-
-    // password
-    if (sanitizeHtml(req.body.password) != req.body.password) {
-        msg = "Please enter a valid password";
-        console.log("creating user: invalid password");
-        return [false, msg];
+    let password = validPassword(sanitizeHtml(req.body.password) == req.body.password);
+    if (!password[0]) {
+        return password;
     }
-
-    // first name
-    if (sanitizeHtml(req.body.firstName) != req.body.firstName) {
-        msg = "Please enter a valid first name";
-        console.log("creating user: invalid first name");
-        return [false, msg];
+    let firstName = validFirstName(sanitizeHtml(req.body.firstName) == req.body.firstName);
+    if (!firstName[0]) {
+        return firstName;
     }
-
-    // last name
-    if (sanitizeHtml(req.body.lastName) != req.body.lastName) {
-        msg = "Please enter a valid last name";
-        console.log("creating user: invalid last name");
-        return [false, msg];
+    let lastName = validLastName(req.body.lastName == req.body.lastName);
+    if (!lastName[0]) {
+        return lastName;
     }
-
-    // phone number
-    if (!req.body.phoneNumber.match(validPhoneNumberRegex) && req.body.phoneNumber != "") {
-        msg = "Please enter a valid phone number (format: XXX XXX XXXX)";
-        console.log("creating user: invalid phone number");
-        return [false, msg];
+    let phoneNumber = validPhoneNumber(req.body.phoneNumber.match(validPhoneNumberRegex) || req.body.phoneNumber == "");
+    if (!phoneNumber[0]) {
+        return phoneNumber;
     }
-
-    // age
-    if (!req.body.age.match(validAgeRegex) && req.body.age != "") {
-        msg = "Please enter a valid age";
-        console.log("creating user: invalid age");
-        return [false, msg];
+    let age = validAge(req.body.age.match(validAgeRegex) || req.body.age == "");
+    if (!age[0]) {
+        return age;
     }
-
-    // gender
-    if (req.body.gender != genderMale && req.body.gender != genderFemale && req.body.gender != genderOther && req.body.gender != "") {
-        msg = "Please select a valid gender";
-        console.log("creating user: invalid gender");
-        return [false, msg];
+    let gender = validGender(req.body.gender == genderMale || req.body.gender == genderFemale || req.body.gender == genderOther || req.body.gender == "");
+    if (!gender[0]) {
+        return gender;
     }
-
-    // role
-    if (req.body.role != callerRole && req.body.role != responderRole && req.body.role != adminRole && req.body.role != "") {
-        msg = "Please select a valid role";
-        console.log("creating user: invalid role");
-        return [false, msg];
+    let role = validRole(req.body.role == callerRole || req.body.role == responderRole || req.body.role == adminRole ||req.body.role == ""); // accept admin roles as well
+    if (!role[0]) {
+        return role;
     }
-
-    return [true, msg];
+    return [true, null];
 }
 
 // Connects to the mysql database, creates a user table if it doesn't exist.
