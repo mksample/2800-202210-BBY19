@@ -60,6 +60,7 @@ ready(async function () {
     document.getElementById("signUpPage_mobile").onclick = function () {
         window.location.replace("/signup");
     };
+
 });
 
 function ready(callback) {
