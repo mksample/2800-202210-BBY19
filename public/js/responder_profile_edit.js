@@ -70,6 +70,7 @@ document.getElementById("end-editing").addEventListener("click", async function 
         age: document.getElementById("detail_user_age").textContent,
         gender: document.getElementById("detail_user_gender").textContent,
         phoneNumber: document.getElementById("detail_user_cellphone").textContent,
+        role: document.getElementById("detail_user_role").textContent
     });
 
     console.log(input); 
