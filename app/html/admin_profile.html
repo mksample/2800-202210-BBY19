@@ -130,7 +130,7 @@
 
         <div class="user-pic">
 
-          <img width="100" src="/imgs/saveme.jpg" alt="">
+          <img id="userPicture" width="100" src="/imgs/saveme.jpg" alt="">
 
         </div>
         <!-- SIDE NAVIGATION USER INFORMATION-->
@@ -328,6 +328,7 @@
   <script src="/js/admin_profile.js"></script>
   <script src="/js/admin_profile_edit_user.js"></script>
   <script src="/js/admin_profile_create_user.js"></script>
+  <script src="/js/admin_profile_upload_photo.js"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -382,41 +383,6 @@
       aside.classList.remove("show");
     })
   </script>
-
-  <script>
-    const upLoadForm = document.getElementById("upload-images-form");
-    upLoadForm.addEventListener("submit", uploadImages);
-
-    function uploadImages(e) {
-      e.preventDefault();
-
-      const imageUpload = document.querySelector('#image-upload');
-      const formData = new FormData();
-
-      for (let i = 0; i < imageUpload.files.length; i++) {
-        // put the images from the input into the form data
-        formData.append("files", imageUpload.files[i]);
-      }
-
-      const options = {
-        method: 'POST',
-        body: formData,
-        // don't put a header in, the browser will do that for us
-        //                headers: {
-        //                  "Content-Type": "multipart/form-data"
-        //                }
-      };
-      //delete options.headers['Content-Type'];
-
-      // now use fetch
-      fetch("/upload-images", options).then(function (res) {
-        console.log(res);
-      }).catch(function (err) {
-        ("Error:", err)
-      });
-    }
-  </script>
-
 
 </body>
 

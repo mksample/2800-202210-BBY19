@@ -72,7 +72,9 @@ function openModal(user, modalID, saveMethod) {
 function createProfileDisplay(user, contentDOM) {
     // creating profile display
     let profile = document.getElementById("UserProfileTemplate").content.cloneNode(true);
-    profile.querySelector(".profilePicture").innerHTML = user.email;
+    if (user.avatar != null) {
+        profile.querySelector(".profilePicture").src = user.avatar;
+    }
     profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email
     profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;;
     profile.querySelector('.profile').setAttribute("id", user.ID);

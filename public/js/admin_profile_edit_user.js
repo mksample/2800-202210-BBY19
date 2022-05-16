@@ -108,7 +108,9 @@ async function submitEditUserModal(user) {
 async function updateProfileDisplay(user) {
     let profile = document.getElementById(user.ID);
 
-    profile.querySelector(".profilePicture").innerHTML = user.email;
+    if (user.avatar != null) {
+        profile.querySelector(".profilePicture").src = user.avatar;
+    }
     profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email
     profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;;
 

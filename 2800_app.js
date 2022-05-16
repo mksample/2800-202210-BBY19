@@ -28,13 +28,14 @@ const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL OR REM
 
 
 // storing image at images
-const uploadPath = "app/imgs/profileImgs"
+const uploadPath = "public/imgs/userProfile"
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, uploadPath)
     },
     filename: function(req, file, callback) {
-        callback(null, "SaveMe-app-profile-" + Date.now() + file.originalname.split('/').pop().trim()); // add timestamp here
+        let filename = "user-" + req.session.userID + "." + file.originalname.split('.').pop();
+        callback(null, filename)
     }
 });
 const upload = multer({ storage: storage });
@@ -54,6 +55,7 @@ const genderOther = "other";
 app.use("/js", express.static("public/js"));
 app.use("/css", express.static("public/css"));
 app.use("/imgs", express.static("public/imgs"));
+app.use("/profilePictures", express.static("public/imgs/userProfile"));
 app.use("/fonts", express.static("public/fonts"));
 app.use("/html", express.static("public/html"));
 app.use("/media", express.static("public/media"));
@@ -403,6 +405,7 @@ app.post("/deleteUser", function (req, res) {
 
     con.query(adminCountQuery, function (error, results) {
         if (error) {
+            con.end(err => { if (err) { console.log(err) } });
             console.log(error);
             res.send({ status: "fail", msg: "querying admin count: " + error });
         } else {
@@ -417,6 +420,7 @@ app.post("/deleteUser", function (req, res) {
                     }
                 })
             } else {
+                con.end(err => { if (err) { console.log(err) } });
                 console.log("tried to delete last admin");
                 res.send({ status: "fail", msg: "deleting user: cannot delete last admin" });
             }
@@ -426,22 +430,19 @@ app.post("/deleteUser", function (req, res) {
 
 app.post('/upload-images', upload.array("files"), function (req, res) {
     for(let i = 0; i < req.files.length; i++) {
-        req.files[i].filename = req.files[i].originalname;
-        
-        console.log(req.files[i].path);
         const mysql = require("mysql2");
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
-
-        console.log(req.session.userID);
-        let insertPicQuery = "UPDATE userTable SET avatar = <img_path> WHERE ID = req.session.userID"; // update query
+        console.log(req.files[i]);
+        
+        let insertPicQuery = `UPDATE ` + userTable +` SET avatar = '/profilePictures/` + req.files[i].filename + `' WHERE ID = ` +req.session.userID; // update query
         
         con.query(insertPicQuery, function(error, results) {
             if (error) {
                 console.log(error);
                 res.send({status: "fail", msg: "uploading image: " + error});
             } else {
-                res.send({status: "success", msg: "image uploaded successfully"});
+                res.send({status: "success", msg: "image uploaded successfully", avatar: `/profilePictures/` + req.files[i].filename});
             }
         })
     }
