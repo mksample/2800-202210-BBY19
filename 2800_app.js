@@ -468,6 +468,41 @@ app.post("/getUsersKeyword", function (req, res) {
     }
 })
 
+// Search the keyword from database when using search bar.
+app.post("/getUsersKeywordExact", function (req, res) {
+    if (req.session.role == adminRole) {
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+        const getUser = `SELECT * FROM ` + userTable + ` WHERE ID = ` + req.body.keyword;
+        con.query(getUser, function (error, results) {
+            con.end(err => {
+                if (err) {
+                    console.log(err)
+                }
+            });
+            if (error) {
+                console.log("getting users: " + error);
+                res.send({
+                    status: "fail",
+                    msg: "getting users: " + error
+                })
+            } else {
+                res.send({
+                    status: "success",
+                    msg: "users retrieved",
+                    users: results
+                })
+            }
+        })
+    } else {
+        res.send({
+            status: "fail",
+            msg: "getting users: requesting user is not admin"
+        })
+    }
+})
+
 // Connects to the mysql database, creates a user table if it doesn't exist.
 function init() {
     const mysql = require("mysql2");
