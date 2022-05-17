@@ -390,6 +390,20 @@ aside .search-bar button {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.searchModal {
+    display: none;
+    position: fixed;
+    /* z-index controls the modal depth/whether it appears infront or behind something */
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
 /* Edit user modal content */
 .edit-user-modal-content {
     background-color: #fefefe;
@@ -398,6 +412,15 @@ aside .search-bar button {
     border: 1px solid #888;
     width: 80%;
     text-align: center;
+}
+
+.edit-search-modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: left;
 }
 
 .modalClose {
