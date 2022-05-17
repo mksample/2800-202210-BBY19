@@ -195,17 +195,14 @@
         <h1>User profile</h1>
         <div id="user_profile_section">
           <div id="container">
-            <form id="upload-images-form">
-              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-                multiple="multiple" />
-              <input id="submit" type="submit" value="Save profile image" />
-            </form>
+           
           </div>
           <br><br>
 
 
 
           <form>
+            <img width="200" src="/imgs/saveme.jpg" alt="">
             <p>First Name: </p>
             <div class="edit" id="detail_user_firstN" reqired>bank</div>
             <p>Last Name: </p>
@@ -228,13 +225,6 @@
             <button type="button" id="edit-button">Edit</button>
             <button type="button" id="end-editing">Save</button>
           </form>
-
-           
-    
-
-
-
-
         </div>
 
 
@@ -335,40 +325,6 @@
     close.addEventListener("click", () => {
       aside.classList.remove("show");
     })
-  </script>
-
-  <script>
-    const upLoadForm = document.getElementById("upload-images-form");
-    upLoadForm.addEventListener("submit", uploadImages);
-
-    function uploadImages(e) {
-      e.preventDefault();
-
-      const imageUpload = document.querySelector('#image-upload');
-      const formData = new FormData();
-
-      for (let i = 0; i < imageUpload.files.length; i++) {
-        // put the images from the input into the form data
-        formData.append("files", imageUpload.files[i]);
-      }
-
-      const options = {
-        method: 'POST',
-        body: formData,
-        // don't put a header in, the browser will do that for us
-        //                headers: {
-        //                  "Content-Type": "multipart/form-data"
-        //                }
-      };
-      //delete options.headers['Content-Type'];
-
-      // now use fetch
-      fetch("/upload-images", options).then(function (res) {
-        console.log(res);
-      }).catch(function (err) {
-        ("Error:", err)
-      });
-    }
   </script>
 
 </body>

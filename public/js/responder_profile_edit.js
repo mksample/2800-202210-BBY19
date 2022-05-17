@@ -39,15 +39,13 @@ ready(async function () {
 
     });
 
-    end_button.addEventListener("click", function () {
+    function closeEditing() {
         for (let i = 0; i < paragraph.length; i++) {
-            paragraph[i].contentEditable = true;
-            paragraph[i].style.backgroundColor = "#ffffe0";
-
+            paragraph[i].contentEditable = false;
+            paragraph[i].style.backgroundColor = "lightblue";
+            document.getElementById("editUserStatus").innerHTML = "";
         }
-    })
-
- 
+    }
 
     document.getElementById("end-editing").addEventListener("click", async function (e) {
 
@@ -62,19 +60,15 @@ ready(async function () {
             role: document.getElementById("detail_user_role").textContent
         })
 
-
-        
-
         if (response) {
             if (response.status == "fail") {
                 console.log(response.msg);
                 document.getElementById("editUserStatus").innerHTML = response.displayMsg; // display edit user failure
             } else {
-                document.getElementById("editUserStatus").innerHTML = response.msg;
-
+                console.log(response.msg);
+                closeEditing();
             }
         }
-
     });
 });
 

@@ -25,7 +25,6 @@ const remoteSqlAuthentication = {
 
 const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
 
-
 const userTable = "BBY_19_user";
 const duplicateError = "ER_DUP_ENTRY";
 
@@ -425,7 +424,6 @@ app.post("/deleteUser", function (req, res) {
     })
 })
 
-
 // VALIDATE FUNCTIONS
 
 const validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -682,8 +680,6 @@ function init() {
     con.end(err => { if (err) { console.log(err) } });
     console.log("Listening on port " + port + "!");
 }
-
-
 
 // RUN SERVER
 let port = process.env.PORT || 8000
