@@ -116,10 +116,19 @@ aside h1 {
     padding: 20px;
 }
 
+/* The Close Button */
 .close {
+    color: #aaaaaa;
     float: right;
-    font-size: .9em;
-    display: none;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -400,6 +409,7 @@ aside .search-bar button {
     text-align: center;
 }
 
+
 #editUserProfile {
     display: flex;
     background-size: cover;
@@ -408,6 +418,39 @@ aside .search-bar button {
     align-items: center;
     flex-direction: column;
     font-family: "Poppins";
+}
+
+/* Delete user modal content */
+.delete-user-modal-content {
+    position: fixed;
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 430px;
+    height: 180px;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#deleteUserProfile {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins";
+}
+
+#deleteUserProfile h2 {
+    margin-top: 18px;
+}
+
+#deleteUserProfile .submitButton {
+    margin: 50px 8px 20px 50px;
 }
 
 input[type=radio] {
@@ -467,10 +510,10 @@ hr {
     opacity: 0.3;
 }
 
-input[type=text],
-input[type=email],
-input[type=tel],
-input[type=password] {
+#editUserProfile input[type=text],
+#editUserProfile input[type=email],
+#editUserProfile input[type=tel],
+#editUserProfile input[type=password] {
     width: 150px;
     height: 39px;
     -webkit-border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
