@@ -82,14 +82,6 @@ ready(async function () {
   }
 
   function prepareEditUserModal(user) {
-    // document.getElementById("editUserEmail").innerHTML = "Email: " + user.email;
-    // document.getElementById("editUserFirstName").innerHTML = "First name: " + user.firstName;
-    // document.getElementById("editUserLastName").innerHTML = "Last name: " + user.lastName;
-    // document.getElementById("editUserAge").innerHTML = "Age: " + user.age;
-    // document.getElementById("editUserGender").innerHTML = "Gender: " + user.gender;
-    // document.getElementById("editUserPhoneNumber").innerHTML = "Phone number: " + user.phoneNumber;
-    // document.getElementById("editUserRole").innerHTML = "Role: " + user.role;
-
     document.getElementById("editUserEmail").value = user.email;
     document.getElementById("editUserPassword").value = user.password;
     document.getElementById("editUserFirstName").value = user.firstName;
@@ -117,6 +109,38 @@ ready(async function () {
       }
     }
   }
+
+  // Opens a modal when given a user, modalID (what modal to use), and a save method.
+  // Save method is what happens when the modal is submitted, must return true or false if successful submission or not.
+  function openModalEdit(user, modalID, cancelButton, submitButton, status, saveMethod) {
+    // get modal
+    var modal = document.getElementById(modalID);
+    modal.style.display = "block";
+
+    // close modal when cancel button clicked
+    var cancel = document.getElementById(cancelButton);
+    cancel.onclick = function () {
+      modal.style.display = "none";
+      document.getElementById(status).innerHTML = ""; // clear status when closing
+    }
+
+    var save = document.getElementById(submitButton);
+    save.onclick = async function () {
+      let success = await saveMethod(user);
+      if (success) {
+        modal.style.display = "none";
+        document.getElementById(status).innerHTML = ""; // clear status when closing
+      }
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+        document.getElementById(status).innerHTML = ""; // clear status when closing
+      }
+    }
+  }
+
 
   // Listener for the edit button for get the selected item from radio button
   document.querySelector("#edit").addEventListener("click", async function (e) {
@@ -147,7 +171,7 @@ ready(async function () {
               var modal = document.getElementById("searchModal");
               modal.style.display = "none";
               prepareEditUserModal(user);
-              openModal("editUserModal");
+              openModalEdit(user, "editUserModal",  "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitEditUserModal);
             }
           }
         }
