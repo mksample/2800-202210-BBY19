@@ -23,9 +23,12 @@ const remoteSqlAuthentication = {
     database: "heroku_b395e55ab1671ee"
 }
 
-const sqlAuthentication = remoteSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
+const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
 
 const userTable = "BBY_19_user";
+const incidentTable = "BBY_19_incident";
+const respondersTable = "BBY_19_responders";
+
 const duplicateError = "ER_DUP_ENTRY";
 
 const callerRole = "CALLER";
@@ -54,10 +57,12 @@ app.use(session(
     })
 );
 
-//////// PAGE SERVING ////////
+////////////////////////////////////
+/////////// PAGE SERVING ///////////
+////////////////////////////////////
 
 // Index page
-app.get("/", function (req, res) { 
+app.get("/", function (req, res) {
     if (req.session.loggedIn) {
         res.redirect("/profile");
     } else {
@@ -92,8 +97,9 @@ app.get("/signup", function (req, res) {
     res.send(doc)
 });
 
-
-//////// USER MANAGEMENT ////////
+///////////////////////////////////////
+/////////// USER MANAGEMENT ///////////
+///////////////////////////////////////
 
 // User login request.
 // POST params: 
@@ -208,9 +214,9 @@ app.post("/createUser", function (req, res) {
                     con.end(err => { if (err) { console.log(err) } });
                     if (error) {
                         console.log(error)
-                        res.send({ status: "fail", msg: "creating user: " + error, displayMsg: "Database error"});
+                        res.send({ status: "fail", msg: "creating user: " + error, displayMsg: "Database error" });
                     } else {
-                        res.send({ status: "success", msg: "user created", user: results[0]});
+                        res.send({ status: "success", msg: "user created", user: results[0] });
                     }
                 })
             }
@@ -376,13 +382,13 @@ app.get("/getUsers", function (req, res) {
 // ID - the ID of the user to delete.
 app.post("/deleteUser", function (req, res) {
     if (req.session.role != adminRole) {
-        res.send({ status: "fail", msg: "deleting user: user is not admin", displayMsg: "User is not admin"});
+        res.send({ status: "fail", msg: "deleting user: user is not admin", displayMsg: "User is not admin" });
         return;
-    } 
+    }
 
     let validVars = validateDeleteUser(req);
     if (!validVars[0]) {
-        res.send({ status: "fail", msg: "deleting user: invalid user ID", displayMsg: validVars[1]});
+        res.send({ status: "fail", msg: "deleting user: invalid user ID", displayMsg: validVars[1] });
         return;
     }
 
@@ -402,28 +408,91 @@ app.post("/deleteUser", function (req, res) {
         if (error) {
             con.end(err => { if (err) { console.log(err) } });
             console.log(error);
-            res.send({ status: "fail", msg: "querying admin count: " + error, displayMsg: displayMsg});
+            res.send({ status: "fail", msg: "querying admin count: " + error, displayMsg: displayMsg });
         } else {
             if (results[0]["admin_count"] > 1) {
                 con.query(deleteUserQuery, function (error, results) {
                     con.end(err => { if (err) { console.log(err) } });
                     if (error) {
                         console.log(error);
-                        res.send({ status: "fail", msg: "deleting user: " + error, displayMsg: displayMsg});
+                        res.send({ status: "fail", msg: "deleting user: " + error, displayMsg: displayMsg });
                     } else {
-                        res.send({ status: "success", msg: "user deleted"});
+                        res.send({ status: "success", msg: "user deleted" });
                     }
                 })
             } else {
                 con.end(err => { if (err) { console.log(err) } });
                 console.log("tried to delete last admin");
-                res.send({ status: "fail", msg: "deleting user: cannot delete last admin", displayMsg: "Cannot delete last admin"});
+                res.send({ status: "fail", msg: "deleting user: cannot delete last admin", displayMsg: "Cannot delete last admin" });
             }
         }
     })
 })
 
-// VALIDATE FUNCTIONS
+///////////////////////////////////////////
+/////////// INCIDENT MANAGEMENT ///////////
+///////////////////////////////////////////
+
+// Gets incidents based on the current session user
+// Returns an array of incidents.
+app.get("/getIncidents", function (req, res) {
+    // select which query to use
+    let query = "";
+    if (req.session.role == adminRole) {
+        query = "SELECT * FROM " + incidentTable;   // admins get all incidents
+    } else if (req.session.role == callerRole) {
+        query = "SELECT * FROM " + incidentTable + " WHERE callerID = " + req.session.userID;   // callers get all incidents they created
+    } else if (req.session.role == responderRole) { // responders get all incidents they responded to 
+        query = `SELECT ` + incidentTable + `.ID, title, type, callerID, description, lat, lon, timestamp
+        FROM ` + incidentTable + `
+        JOIN ` + respondersTable + `
+        ON ` + incidentTable + `.ID = ` + respondersTable + `.IncidentID 
+        WHERE responderID = ` + req.session.userID;
+    }
+
+    // query for getting responder IDs
+    let responderIDQuery = `SELECT responderID
+    FROM ` + incidentTable + `
+    JOIN ` + respondersTable + `
+    ON ` + incidentTable + `.ID = ` + respondersTable + `.IncidentID
+    WHERE ` + incidentTable + `.ID = ` // append incident ID here
+
+    const mysql = require("mysql2");
+    const con = mysql.createConnection(sqlAuthentication);
+    con.connect();
+    con.query(query, function (error, incidentResults) {
+        if (error) {
+            con.end(err => { if (err) { console.log(err) } });
+            console.log("getting incidents: " + error);
+            res.send({ status: "fail", msg: "getting incidents: " + error });
+        } else {
+            for (let i = 0; i < incidentResults.length; i++) { // for each incident get all responder IDs associated with that incident
+                con.query(responderIDQuery + incidentResults[i].ID, function(error, responderResults) { // append incident ID onto end of responderIDQuery
+                    if (error) {
+                        con.end(err => { if (err) { console.log(err) } });
+                        console.log("getting responderIDs: " + error);
+                        res.send({ status: "fail", msg: "getting responder IDs: " + error });
+                        return;
+                    } else {
+                        let responderIDs = [];
+                        for (const result of responderResults) {
+                            responderIDs.push(result.responderID);
+                        }
+                        incidentResults[i].responderIDs = responderIDs; // append responder IDs to incident
+                    }
+                    if (i + 1 == incidentResults.length) { // if done processing the final incident send response
+                        con.end(err => { if (err) { console.log(err) } });
+                        res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults}) // return incidents
+                    }
+                })
+            }
+        }
+    });
+})
+
+////////////////////////////////////////
+/////////// INPUT VALIDATION ///////////
+////////////////////////////////////////
 
 const validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const validPhoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
@@ -651,7 +720,7 @@ function validateAdminEditUser(req) {
     if (!gender[0]) {
         return gender;
     }
-    let role = validRole(req.body.role == callerRole || req.body.role == responderRole || req.body.role == adminRole ||req.body.role == ""); // accept admin roles as well
+    let role = validRole(req.body.role == callerRole || req.body.role == responderRole || req.body.role == adminRole || req.body.role == ""); // accept admin roles as well
     if (!role[0]) {
         return role;
     }
@@ -665,6 +734,10 @@ function validateDeleteUser(req) {
     }
     return [true, null]
 }
+
+////////////////////////////
+/////////// INIT ///////////
+////////////////////////////
 
 // Connects to the mysql database, creates a user table if it doesn't exist.
 function init() {
