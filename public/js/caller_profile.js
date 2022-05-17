@@ -39,6 +39,7 @@ ready(async function () {
     }   
 });
 
+
 function ready(callback) {
     if (document.readyState != "loading") {
         callback();
@@ -48,3 +49,4 @@ function ready(callback) {
         console.log("Listener was invoked");
     }
 }
+

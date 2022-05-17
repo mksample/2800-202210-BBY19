@@ -116,10 +116,19 @@ aside h1 {
     padding: 20px;
 }
 
+/* The Close Button */
 .close {
+    color: #aaaaaa;
     float: right;
-    font-size: .9em;
-    display: none;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -380,7 +389,7 @@ aside .search-bar button {
     display: none;
     position: fixed;
     /* z-index controls the modal depth/whether it appears infront or behind something */
-    z-index: 1000; 
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
@@ -407,8 +416,8 @@ aside .search-bar button {
 /* Edit user modal content */
 .edit-user-modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
+    margin: 0% auto;
+    padding: 0px;
     border: 1px solid #888;
     width: 80%;
     text-align: center;
@@ -423,32 +432,192 @@ aside .search-bar button {
     text-align: left;
 }
 
-.modalClose {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+
+#editUserProfile {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins";
 }
 
-.modalClose:hover,
-.modalClose:focus {
-    color: black;
-    text-decoration: none;
+/* Delete user modal content */
+.delete-user-modal-content {
+    position: fixed;
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 430px;
+    height: 180px;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#deleteUserProfile {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins";
+}
+
+#deleteUserProfile h2 {
+    margin-top: 18px;
+}
+
+#deleteUserProfile .submitButton {
+    margin: 50px 8px 20px 50px;
+}
+
+input[type=radio] {
+    visibility: hidden;
+}
+
+form {
+    margin: 0px;
+}
+
+label.radio {
+    cursor: pointer;
+    text-indent: 35px;
+    overflow: visible;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+label.radio:before {
+    background: #FE3C00;
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+}
+
+label.radio:after {
+    opacity: 0;
+    content: '';
+    position: absolute;
+    width: 0.5em;
+    height: 0.25em;
+    background: transparent;
+    top: 7.5px;
+    left: 4.5px;
+    border: 3px solid #ffffff;
+    border-top: none;
+    border-right: none;
+
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+input[type=radio]:checked+label:after {
+    opacity: 1;
+}
+
+hr {
+    color: #a9a9a9;
+    opacity: 0.3;
+}
+
+#editUserProfile input[type=text],
+#editUserProfile input[type=email],
+#editUserProfile input[type=tel],
+#editUserProfile input[type=password] {
+    width: 150px;
+    height: 39px;
+    -webkit-border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
+    -moz-border-radius: 0px 4px 4px 0px/0px 0px 4px 4px;
+    border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
+    background-color: #fff;
+    -webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+    -moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+    border: solid 1px #cbc9c9;
+    margin-left: -5px;
+    margin-top: 13px;
+    padding-left: 10px;
+}
+
+#icon {
+    display: inline-block;
+    width: 130px;
+    background-color: #FE3C00;
+    padding: 6px 0px 10px 6px;
+    margin-left: 15px;
+    -webkit-border-radius: 4px 0px 0px 4px;
+    -moz-border-radius: 4px 0px 0px 4px;
+    border-radius: 4px 0px 0px 4px;
+    color: white;
+    -webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+    -moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+    border: solid 0px #cbc9c9;
+}
+
+.gender {
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-bottom: 30px;
+}
+
+.accounttype {
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+.cancelButton {
+    font-family: "Poppins";
+    border-radius: 10px;
+    border: 1px solid #FE3C00;
+    background-color: #FE3C00;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin: 50px 8px 20px 0px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
     cursor: pointer;
 }
 
-.searchModalClose {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+.submitButton {
+    font-family: "Poppins";
+    border-radius: 10px;
+    border: 1px solid #FE3C00;
+    background-color: #FE3C00;
+    color: #FFFFFF;
+    font-size: 12px;
     font-weight: bold;
-}
+    padding: 10px 30px;
+    margin: 50px 8px 20px 340px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
 
 .searchModalClose:hover,
 .searchModalClose:focus {
-    color: black;
-    text-decoration: none;
     cursor: pointer;
+}
+
+.modalStatus {
+    display: table;
+    margin: 0 auto;
+    color: #FE3C00;
 }
 
 @media (max-width:900px) {

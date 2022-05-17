@@ -1,22 +1,5 @@
 "use strict";
 ready(async function () {
-    async function postData(url, data) {
-        const response = await fetch(url, {
-            method: 'POST',
-            mode: 'same-origin',
-            cache: 'default',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            body: JSON.stringify(data)
-        });
-        return response.json();
-    }
-
     async function getData(url) {
         const response = await fetch(url, {
             method: 'GET',
@@ -32,35 +15,8 @@ ready(async function () {
         });
         return response.json();
     }
-
-    function openModal(modalID) {
-        // get modal
-        var modal = document.getElementById(modalID);
-        modal.style.display = "block";
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("modalClose")[0];
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    }
-
-    function prepareEditUserModal(user) {
-        document.getElementById("editUserEmail").innerHTML = "Email: " + user.email;
-        document.getElementById("editUserFirstName").innerHTML = "First name: " + user.firstName;
-        document.getElementById("editUserLastName").innerHTML = "Last name: " + user.lastName;
-        document.getElementById("editUserAge").innerHTML = "Age: " + user.age;
-        document.getElementById("editUserGender").innerHTML = "Gender: " + user.gender;
-        document.getElementById("editUserPhoneNumber").innerHTML = "Phone number: " + user.phoneNumber;
-        document.getElementById("editUserRole").innerHTML = "Role: " + user.role;
-    }
-
+    
+    // Creates profile displays, attaches event listeners to them, and appends them to the id="profiles" div.
     function createProfileDisplay(user, contentDOM) {
         // creating profile display
         let profile = document.getElementById("UserProfileTemplate").content.cloneNode(true);
@@ -74,23 +30,61 @@ ready(async function () {
 
         // when profile clicked on, prepare and show edit profile modal
         document.getElementById(user.ID).addEventListener("click", async function (e) {
+            e.stopImmediatePropagation();
             prepareEditUserModal(user);
-            openModal("editUserModal");
+            openModal(user, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitEditUserModal);
+        })
+
+        // when delete button clicked on, show delete profile modal
+        document.getElementById(user.ID).querySelector(".close").addEventListener("click", async function (e) {
+            e.stopImmediatePropagation();
+            openModal(user, "deleteUserModal", "deleteUserCancelButton", "deleteUserSubmitButton", "deleteUserStatus", submitDeleteUserModal);
         })
     }
 
-    // USER PROFILE DISPLAY
-    let response = await getData("/getUsers");
-    if (response) {
-        if (response.status == "fail") {
-            console.log(response.msg);
-        } else {
-            let contentDOM = document.getElementById("profiles");
-            for (const user of response.users) {
-                createProfileDisplay(user, contentDOM);
+    // Gets users from the database and adds them to the admin dashboard.
+    async function showUsers() {
+        let response = await getData("/getUsers");
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+            } else {
+                let contentDOM = document.getElementById("profiles");
+                for (const user of response.users) {
+                    createProfileDisplay(user, contentDOM);
+                }
             }
         }
     }
+
+    // Get the current session user and display their info. 
+    async function displaySessionUser() {
+        let response = await getData("/getUser");
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+            } else {
+                let user = response.user;
+                document.getElementById("sessionName").innerHTML = user.firstName + " " + user.lastName;
+                document.getElementById("sessionEmail").innerHTML = user.email;
+            }
+        }
+    }
+
+    
+    // ADD LISTENER TO CREATE USER BUTTON
+    // (this re-uses the edit user modal, see the top of admin_profile_create_user.js for a longer explanation)
+    document.getElementById("createUserButton").addEventListener("click", function (e) {
+        prepareCreateUserModal();
+        openModal(null, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitCreateUserModal);
+    })
+    
+    // DISPLAY USER PROFILES
+    showUsers();
+
+    // DISPLAY SESSION USER INFO
+    displaySessionUser();
+    
 });
 
 function ready(callback) {

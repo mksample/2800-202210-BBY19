@@ -1,14 +1,4 @@
 "use strict";
-const sqlAuthentication = { // sql connection settings
-    host: "127.0.0.1", // for Mac os, type 127.0.0.1
-    user: "root",
-    password: "",
-    multipleStatements: true,
-    database: "COMP2800"
-}
-
-const userTable = "BBY_19_user";
-
 ready(async function () {
     async function postData(url, data) {
         const response = await fetch(url, {

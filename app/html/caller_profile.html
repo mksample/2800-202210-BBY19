@@ -13,6 +13,7 @@
   <!-- Google Material Icons-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+
 </head>
 
 <body>
@@ -194,19 +195,23 @@
         <div id="user_profile_section">
           <img width="200" src="/imgs/saveme.jpg" alt="">
           <p>First Name: </p>
-          <div id="detail_user_firstN">bank</div>
+          <div class="edit" id="detail_user_firstN" >bank</div>
           <p>Last Name: </p>
-          <div id="detail_user_lastN">name</div>
-          <p>Eamil: </p>
-          <div id="detail_user_email">email</div>
+          <div class="edit" id="detail_user_lastN" >name</div>
+          <p>Email: </p>
+          <div class="edit" id="detail_user_email" >email</div>
           <p>Password: </p>
-          <div id="detail_user_password">name</div>
+          <div class="edit" id="detail_user_password" >name</div>
           <p>Age: </p>
-          <div id="detail_user_age">age</div>
+          <div class="edit" id="detail_user_age" >age</div>
           <p>Gender: </p>
-          <div id="detail_user_gender">gender</div>
+          <div class="edit" id="detail_user_gender" >gender</div>
           <p>Phone Number: </p>
-          <div id="detail_user_cellphone">number</div>
+          <div class="edit" id="detail_user_cellphone">number</div>
+          <br><br>
+          <button type="button" id="edit-button">Edit</button>
+          <button type="button" id="end-editing">Save</button>
+
 
 
         </div>
@@ -255,6 +260,7 @@
   </div>
   <!-- SCRIPT FOLDER-->
   <script src="/js/caller_profile.js"></script>
+  <script src="/js/caller_profile_edit.js"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
