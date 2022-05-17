@@ -437,6 +437,20 @@ aside .search-bar button {
     cursor: pointer;
 }
 
+.searchModalClose {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.searchModalClose:hover,
+.searchModalClose:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 @media (max-width:900px) {
     header {
         width: 100%;
