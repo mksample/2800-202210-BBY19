@@ -23,7 +23,7 @@ const remoteSqlAuthentication = {
     database: "heroku_b395e55ab1671ee"
 }
 
-const sqlAuthentication = remoteSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
+const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
 
 const userTable = "BBY_19_user";
 const duplicateError = "ER_DUP_ENTRY";
@@ -89,6 +89,11 @@ app.get("/profile", async function (req, res) {
 // Signup page
 app.get("/signup", function (req, res) {
     let doc = fs.readFileSync("./app/html/create_user.html", "utf8")
+    res.send(doc)
+});
+
+app.get("/homepage", function (req, res) {
+    let doc = fs.readFileSync("./app/html/caller_homepage.html", "utf8")
     res.send(doc)
 });
 

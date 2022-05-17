@@ -77,6 +77,10 @@ document.getElementById("end-editing").addEventListener("click", async function 
     return;
 });
 
+document.getElementById("homepage").onclick = function () {
+    window.location.replace("/homepage");
+};
+
 function ready(callback) {
     if (document.readyState != "loading") {
         callback();

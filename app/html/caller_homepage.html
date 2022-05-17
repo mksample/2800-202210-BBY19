@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Our StyleSheet-->
-  <link rel="stylesheet" href="/css/caller_profile.css">
+  <link rel="stylesheet" href="/css/caller_homepage.css">
 
   <!-- Google Material Icons-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -90,7 +90,7 @@
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
-            <input id="logingout" type="submit" value="Logout" />
+            <input id="loggigout" type="submit" value="Logout" />
           </form>
         </li>
 
@@ -189,47 +189,30 @@
     </aside>
 
     <!-- DASHBOARD CONTENT -->
-    <div class="main">
-      <section class="profile tabs">
-        <h1>User profile</h1>
-        <div id="user_profile_section">
-          <img width="200" src="/imgs/saveme.jpg" alt="">
-          <p>First Name: </p>
-          <div class="edit" id="detail_user_firstN" >bank</div>
-          <p>Last Name: </p>
-          <div class="edit" id="detail_user_lastN" >name</div>
-          <p>Email: </p>
-          <div class="edit" id="detail_user_email" >email</div>
-          <p>Password: </p>
-          <div class="edit" id="detail_user_password" >name</div>
-          <p>Age: </p>
-          <div class="edit" id="detail_user_age" >age</div>
-          <p>Gender: </p>
-          <div class="edit" id="detail_user_gender" >gender</div>
-          <p>Phone Number: </p>
-          <div class="edit" id="detail_user_cellphone">number</div>
-          <br><br>
-          <button type="button" id="edit-button">Edit</button>
-          <button type="button" id="end-editing">Save</button>
-          <button type="button" id="homepage">Home</button>
 
-
-
-        </div>
-
-
-      </section>
+    <div class="grid-container">
+      <div class="grid-item">1</div>
+      <div class="grid-item">2</div>
+      <div class="grid-item">3</div>  
+      <div class="grid-item">4</div>
+      <div class="grid-item">5</div>
+      <div class="grid-item">6</div>  
+      <div class="grid-item">7</div>
+      <div class="grid-item">8</div>
+      <div class="grid-item">9</div>  
+    </div>
+   
 
       <!-- CONTENT TABS-->
       <section class="tabs">
 
-        <h1>Reviews</h1>
+        <!-- <h1>Reviews</h1>
 
         <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Quia recusandae laudantium odio!
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
+          sit sint corporis quo. Voluptas, natus corporis?</p> -->
 
       </section>
       <section class="tabs">
@@ -261,7 +244,8 @@
   </div>
   <!-- SCRIPT FOLDER-->
   <script src="/js/caller_profile.js"></script>
-  <script src="/js/caller_profile_edit.js"></script>
+ 
+
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
