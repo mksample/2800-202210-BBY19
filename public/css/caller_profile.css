@@ -456,6 +456,12 @@ button:active {
     background-color: lightblue;
 }
 
+#editUserStatus{
+    color: red;
+    font-weight: bold;
+    
+}
+
 
 @media (max-width:900px) {
     header {
