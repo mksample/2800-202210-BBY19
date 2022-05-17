@@ -41,6 +41,7 @@ ready(async function () {
         console.log(response.msg);
       } else {
         console.log(response.users);
+        document.getElementById("searchList").innerHTML = "";
         for (const user of response.users) {
           openSearchModal("searchModal");
           createSearchList(user);
