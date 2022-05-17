@@ -4,7 +4,6 @@ const session = require("express-session");
 const sanitizeHtml = require("sanitize-html");
 const app = express();
 const fs = require("fs");
-const multer = require("multer"); // storing images
 const readline = require('readline');
 const { JSDOM } = require('jsdom');
 const { connected } = require("process");
@@ -25,18 +24,6 @@ const remoteSqlAuthentication = {
 }
 
 const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
-
-
-// storing image at images
-const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, "public/imgs/userProfile")
-    },
-    filename: function(req, file, callback) {
-        callback(null, "SaveMe-app-profile-" + file.originalname.split('/').pop().trim());
-    }
-});
-const upload = multer({ storage: storage });
 
 const userTable = "BBY_19_user";
 const duplicateError = "ER_DUP_ENTRY";
@@ -318,7 +305,6 @@ app.post("/adminEditUser", function (req, res) {
         WHERE ID = ` + req.body.userID;
 
         con.query(editUser, function (error, results) {
-            con.end(err => {if (err) {console.log(err)}});
             if (error) {
                 con.end(err => { if (err) { console.log(err) } });
                 if (error.code == duplicateError) {
@@ -437,17 +423,6 @@ app.post("/deleteUser", function (req, res) {
         }
     })
 })
-
-app.post('/upload-images', upload.array("files"), function (req, res) {
-
-    //console.log(req.body);
-    console.log(req.files);
-
-    for(let i = 0; i < req.files.length; i++) {
-        req.files[i].filename = req.files[i].originalname;
-    }
-
-});
 
 // VALIDATE FUNCTIONS
 
@@ -705,8 +680,6 @@ function init() {
     con.end(err => { if (err) { console.log(err) } });
     console.log("Listening on port " + port + "!");
 }
-
-
 
 // RUN SERVER
 let port = process.env.PORT || 8000
