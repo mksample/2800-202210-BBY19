@@ -82,13 +82,22 @@ ready(async function () {
   }
 
   function prepareEditUserModal(user) {
-    document.getElementById("editUserEmail").innerHTML = "Email: " + user.email;
-    document.getElementById("editUserFirstName").innerHTML = "First name: " + user.firstName;
-    document.getElementById("editUserLastName").innerHTML = "Last name: " + user.lastName;
-    document.getElementById("editUserAge").innerHTML = "Age: " + user.age;
-    document.getElementById("editUserGender").innerHTML = "Gender: " + user.gender;
-    document.getElementById("editUserPhoneNumber").innerHTML = "Phone number: " + user.phoneNumber;
-    document.getElementById("editUserRole").innerHTML = "Role: " + user.role;
+    // document.getElementById("editUserEmail").innerHTML = "Email: " + user.email;
+    // document.getElementById("editUserFirstName").innerHTML = "First name: " + user.firstName;
+    // document.getElementById("editUserLastName").innerHTML = "Last name: " + user.lastName;
+    // document.getElementById("editUserAge").innerHTML = "Age: " + user.age;
+    // document.getElementById("editUserGender").innerHTML = "Gender: " + user.gender;
+    // document.getElementById("editUserPhoneNumber").innerHTML = "Phone number: " + user.phoneNumber;
+    // document.getElementById("editUserRole").innerHTML = "Role: " + user.role;
+
+    document.getElementById("editUserEmail").value = user.email;
+    document.getElementById("editUserPassword").value = user.password;
+    document.getElementById("editUserFirstName").value = user.firstName;
+    document.getElementById("editUserLastName").value = user.lastName;
+    document.getElementById("editUserAge").value = user.age;
+    document.getElementById("editUserPhoneNumber").value = user.phoneNumber;
+    document.getElementById('' + user.gender).checked = true;
+    document.getElementById('' + user.role).checked = true;
   }
 
   function openModal(modalID) {
