@@ -71,7 +71,7 @@ ready(async function () {
 
   function createSearchList(user) {
     $(document).ready(function () {
-      var radios = [" " + user.email + ", " + user.firstName + " " + user.lastName];
+      var radios = [" " + user.ID + ", " + user.email + ", " + user.firstName + " " + user.lastName];
       for (var value of radios) {
         $('#searchList')
           .append(`<input type="radio" id="${value}" name="contact" value="${value}">`)
@@ -80,6 +80,71 @@ ready(async function () {
       }
     });
   }
+
+  function prepareEditUserModal(user) {
+    document.getElementById("editUserEmail").innerHTML = "Email: " + user.email;
+    document.getElementById("editUserFirstName").innerHTML = "First name: " + user.firstName;
+    document.getElementById("editUserLastName").innerHTML = "Last name: " + user.lastName;
+    document.getElementById("editUserAge").innerHTML = "Age: " + user.age;
+    document.getElementById("editUserGender").innerHTML = "Gender: " + user.gender;
+    document.getElementById("editUserPhoneNumber").innerHTML = "Phone number: " + user.phoneNumber;
+    document.getElementById("editUserRole").innerHTML = "Role: " + user.role;
+  }
+
+  function openModal(modalID) {
+    // get modal
+    var modal = document.getElementById(modalID);
+    modal.style.display = "block";
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("modalClose")[0];
+    span.onclick = function () {
+      modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  }
+
+  // Listener for the edit button for get the selected item from radio button
+  document.querySelector("#edit").addEventListener("click", async function (e) {
+    console.log("submit button");
+    var obj_length = document.getElementsByName("contact").length;
+    for (var i = 0; i < obj_length; i++) {
+      if (document.getElementsByName("contact")[i].checked == true) {
+        let str = document.getElementsByName("contact")[i].value;
+        let str_id = str.split(',')[0];
+        str_id = str_id.substr(1);
+        console.log(str_id);
+
+        // exactly search again with user ID
+        let response = await postData("/getUsersKeywordExact", {
+          keyword: str_id,
+        });
+
+        if (response.users.length == 0) {
+          alert("No search results found.");
+        }
+        if (response) {
+          if (response.status == "fail") {
+            console.log(response.msg);
+          } else {
+            console.log(response.users);
+            for (const user of response.users) {
+              console.log(user);
+              var modal = document.getElementById("searchModal");
+              modal.style.display = "none";
+              prepareEditUserModal(user);
+              openModal("editUserModal");
+            }
+          }
+        }
+      }
+    }
+  });
 });
 
 function ready(callback) {
