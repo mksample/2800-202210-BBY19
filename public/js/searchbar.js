@@ -40,7 +40,7 @@ ready(async function () {
       if (response.status == "fail") {
         console.log(response.msg);
       } else {
-        console.log(response.users);
+        // console.log(response.users);
         document.getElementById("searchList").innerHTML = "";
         for (const user of response.users) {
           openSearchModal("searchModal");
@@ -75,7 +75,7 @@ ready(async function () {
       for (var value of radios) {
         $('#searchList')
           .append(`<input type="radio" id="${value}" name="contact" value="${value}">`)
-          .append(`<label for="${value}">${value}</label></div>`)
+          .append(`<label for="${value}" class="radio">${value}</label></div>`)
           .append(`<br>`);
       }
     });
@@ -144,15 +144,12 @@ ready(async function () {
 
   // Listener for the edit button for get the selected item from radio button
   document.querySelector("#edit").addEventListener("click", async function (e) {
-    console.log("submit button");
     var obj_length = document.getElementsByName("contact").length;
     for (var i = 0; i < obj_length; i++) {
       if (document.getElementsByName("contact")[i].checked == true) {
         let str = document.getElementsByName("contact")[i].value;
         let str_id = str.split(',')[0];
         str_id = str_id.substr(1);
-        console.log(str_id);
-
         // exactly search again with user ID
         let response = await postData("/getUsersKeywordExact", {
           keyword: str_id,
@@ -165,18 +162,21 @@ ready(async function () {
           if (response.status == "fail") {
             console.log(response.msg);
           } else {
-            console.log(response.users);
             for (const user of response.users) {
-              console.log(user);
               var modal = document.getElementById("searchModal");
               modal.style.display = "none";
               prepareEditUserModal(user);
-              openModalEdit(user, "editUserModal",  "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitEditUserModal);
+              openModalEdit(user, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitEditUserModal);
             }
           }
         }
       }
     }
+  });
+
+  document.querySelector("#cancel").addEventListener("click", async function (e) {
+    var modal = document.getElementById("searchModal");
+    modal.style.display = "none";
   });
 });
 

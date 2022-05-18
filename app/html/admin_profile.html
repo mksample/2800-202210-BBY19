@@ -206,7 +206,6 @@
             <span><i class="material-icons">add</i></span>
           </div>
         </div>
-
       </section>
 
       <!-- CONTENT TABS-->
@@ -322,22 +321,23 @@
 
     </div>
 
+
     <div id="searchModal" class="modal">
       <div class="edit-search-modal-content">
-        <!-- entire content box -->
         <span class="searchModalClose">&times;</span>
-        <!-- profile info box -->
-        <div id="searchUserProfile">
-          Choose a profile to edit. 
+        <div id="editUserProfile">
+          <h2>Choose a profile to edit.</h2>
           <br /><br />
           <div id="searchList"> </div>
           <br /><br />
-          <button id="edit">Edit</button>
+          <form>
+            <input type="button" class="cancelButton" id="cancel" value="Cancel" />
+            <input type="button" class="submitButton" id="edit" value="Edit" />
+          </form>
+
         </div>
       </div>
-      
     </div>
-  </div>
 
   </div>
   <!-- SCRIPT FOLDER-->
@@ -346,7 +346,6 @@
   <script src="/js/admin_profile_edit_user.js"></script>
   <script src="/js/admin_profile_create_user.js"></script>
   <script src="/js/admin_profile_delete_user.js"></script>
-  
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
