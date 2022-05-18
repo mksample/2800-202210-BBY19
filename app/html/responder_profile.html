@@ -114,18 +114,15 @@
 
         <div class="user-pic">
 
-          <img width="100" src="/imgs/saveme.jpg" alt="">
+          <img id="userPicture" width="100" src="/imgs/saveme.jpg" alt="">
 
         </div>
         <!-- SIDE NAVIGATION USER INFORMATION-->
         <div class="user-info">
           <div id="nameGroup">
+          <span id="sessionName" class="name">John Doe</span>
 
-            <div id="userFName"><span class="name">John Doe</span></div>
-            <div id="userLName"><span class="name">John Doe</span></div>
-          </div>
-
-          <div id="email"><span class="email">JohnDoe@gmail.com</span></div>
+          <span id="sessionEmail" class="email">JohnDoe@gmail.com</span>
 
           <span class="status">Online</span>
 
@@ -251,6 +248,13 @@
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
           sit sint corporis quo. Voluptas, natus corporis?</p>
+          <div id="container">
+            <form id="upload-images-form">
+              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+                multiple="multiple" />
+              <input id="submit" type="submit" value="Save profile image" />
+            </form>
+          </div>
       </section>
 
 
@@ -264,6 +268,7 @@
   <!-- SCRIPT FOLDER-->
   <script src="/js/responder_profile.js"></script>
   <script src="/js/responder_profile_edit.js"></script>
+  <script src="/js/responder_profile_upload_photo.js"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -286,7 +291,7 @@
   <!--DISPLAY NAVIGATION ON MOBILE-->
   <script>
     $(".side-nav ul li").click(function () {
-      $(this).addClass("active").sibilings().removeClass("active");
+      $(this).addClass("active").siblings().removeClass("active");
     })
   </script>
 
