@@ -429,6 +429,10 @@ aside .search-bar button {
     outline: none;
 }
 
+#user_profile_image{
+    border: solid black;
+}
+
 button {
     width: 80px;
     padding: 5px;
@@ -450,6 +454,12 @@ button:active {
 
 .edit{
     background-color: lightblue;
+}
+
+#editUserStatus{
+    color: red;
+    font-weight: bold;
+    
 }
 
 

@@ -24,8 +24,7 @@ const remoteSqlAuthentication = {
     database: "heroku_b395e55ab1671ee"
 }
 
-// const sqlAuthentication = remoteSqlAuthentication; // SETTING TO USE REMOTE DB
-const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL DB
+const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
 
 
 // storing image at images
@@ -279,8 +278,9 @@ app.post("/editUser", function (req, res) {
                 }
                 res.send({ status: "fail", msg: "editing user: " + error, displayMsg: displayMsg });
             } else {
-                con.query(`SELECT * FROM ` + userTable + ` WHERE ID = ` + req.body.userID, function (error, results) {
+                con.query(`SELECT * FROM ` + userTable + ` WHERE ID = ` + req.session.userID, function (error, results) { // used session.
                     con.end(err => { if (err) { console.log(err) } });
+                    
                     if (error || !results) {
                         res.send({ status: "fail", msg: "editing user: failed to fetch updated user", displayMsg: "Database error" });
                     } else {
@@ -808,7 +808,7 @@ function validateEditUser(req) {
     if (!role[0]) {
         return role;
     }
-    return [true, msg];
+    return [true, null];
 }
 
 // validation for editing a user (admin)
