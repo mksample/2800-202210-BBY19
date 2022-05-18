@@ -98,6 +98,7 @@ function createProfileDisplay(user, contentDOM) {
 
 // Sets input values in the edit user modal to blank values and default radio button values.
 function prepareCreateUserModal(user) {
+    document.getElementById("editUserProfilePicture").src = "/imgs/saveme.jpg";
     document.getElementById("editUserEmail").value = "";
     document.getElementById("editUserPassword").value = "";
     document.getElementById("editUserFirstName").value = "";
