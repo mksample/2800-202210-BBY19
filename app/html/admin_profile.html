@@ -21,6 +21,7 @@
   <template id="UserProfileTemplate">
     <div class="posts">
       <div class="profile">
+        <span id="deleteProfileButton" class="close">&times;</span>
         <img class="profilePicture" src="/imgs/saveme.jpg" width="40px" alt="logo" />
         <p class="profileEmail">
 
@@ -312,12 +313,26 @@
                 <input type="radio" value="other" id="other" name="gender" />
                 <label for="other" class="radio">Other</label>
               </div>
-              <span id="modalStatus" class="modalStatus"></span>
+              <span id="editUserStatus" class="modalStatus"></span>
               <hr>
-              <input type="button" class="cancelButton" id="cancelButton" value="Cancel" />
-              <input type="button" class="submitButton" id="submitButton" value="Save" />
+              <input type="button" class="cancelButton" id="editUserCancelButton" value="Cancel" />
+              <input type="button" class="submitButton" id="editUserSubmitButton" value="Save" />
             </form>
           </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="deleteUserModal" class="modal">
+      <div class="delete-user-modal-content">
+        <div id="deleteUserProfile">
+          <form>
+            <h2>Delete user?</h2>
+            <span id="deleteUserStatus" class="modalStatus"></span>
+            <input type="button" class="cancelButton" id="deleteUserCancelButton" value="Cancel" />
+            <input type="button" class="submitButton" id="deleteUserSubmitButton" value="Delete" />
+          </form>
         </div>
       </div>
 
@@ -328,7 +343,10 @@
   <script src="/js/admin_profile.js"></script>
   <script src="/js/admin_profile_edit_user.js"></script>
   <script src="/js/admin_profile_create_user.js"></script>
+
   <script src="/js/admin_profile_upload_photo.js"></script>
+  <script src="/js/admin_profile_delete_user.js"></script>
+
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

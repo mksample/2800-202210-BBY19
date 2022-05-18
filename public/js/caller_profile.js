@@ -37,6 +37,23 @@ ready(async function () {
     }   
 });
 
+// Get the current session user and display their info. 
+    async function displaySessionUser() {
+        let response = await getData("/getUser");
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+            } else {
+                let user = response.user;
+                if (user.avatar != null) { 
+                    document.getElementById("userPicture").src = user.avatar;
+                }
+                document.getElementById("sessionName").innerHTML = user.firstName + " " + user.lastName;
+                document.getElementById("sessionEmail").innerHTML = user.email;
+            }
+        }
+}
+
 
 function ready(callback) {
     if (document.readyState != "loading") {
@@ -47,3 +64,4 @@ function ready(callback) {
         console.log("Listener was invoked");
     }
 }
+

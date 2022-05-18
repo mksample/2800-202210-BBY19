@@ -34,31 +34,31 @@ async function getData(url) {
 
 // Opens a modal when given a user, modalID (what modal to use), and a save method.
 // Save method is what happens when the modal is submitted, must return true or false if successful submission or not.
-function openModal(user, modalID, saveMethod) {
+function openModal(user, modalID, cancelButton, submitButton, status, saveMethod) {
     // get modal
     var modal = document.getElementById(modalID);
     modal.style.display = "block";
 
     // close modal when cancel button clicked
-    var cancel = document.getElementsByClassName("cancelButton")[0];
+    var cancel = document.getElementById(cancelButton);
     cancel.onclick = function () {
         modal.style.display = "none";
-        document.getElementById("modalStatus").innerHTML = ""; // clear status when closing
+        document.getElementById(status).innerHTML = ""; // clear status when closing
     }
 
-    var save = document.getElementsByClassName("submitButton")[0];
+    var save = document.getElementById(submitButton);
     save.onclick = async function () {
         let success = await saveMethod(user);
         if (success) {
             modal.style.display = "none";
-            document.getElementById("modalStatus").innerHTML = ""; // clear status when closing
+            document.getElementById(status).innerHTML = ""; // clear status when closing
         }
     }
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
-            document.getElementById("modalStatus").innerHTML = ""; // clear status when closing
+            document.getElementById(status).innerHTML = ""; // clear status when closing
         }
     }
 }
@@ -94,7 +94,7 @@ async function submitEditUserModal(user) {
     if (response) {
         if (response.status == "fail") {
             console.log(response.msg);
-            document.getElementById("modalStatus").innerHTML = response.displayMsg; // display edit user failure
+            document.getElementById("editUserStatus").innerHTML = response.displayMsg; // display edit user failure
             return false;
         } else {
             console.log(response.msg);
@@ -118,7 +118,14 @@ async function updateProfileDisplay(user) {
     let newProfile = profile.cloneNode(true);
     profile.parentNode.replaceChild(newProfile, profile); // delete any existing event listeners
     newProfile.addEventListener("click", async function (e) { // attach new updated one
+        e.stopImmediatePropagation();
         prepareEditUserModal(user);
-        openModal(user, "editUserModal", submitEditUserModal);
+        openModal(user, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitEditUserModal);
+    })
+
+    // when delete button clicked on, show delete profile modal
+    newProfile.querySelector(".close").addEventListener("click", async function (e) {
+        e.stopImmediatePropagation();
+        openModal(user, "deleteUserModal", "deleteUserCancelButton", "deleteUserSubmitButton", "deleteUserStatus", submitDeleteUserModal);
     })
 }
