@@ -3,12 +3,12 @@
 
 <head>
   <!-- Page Title-->
-  <title>Admin ProfilePage</title>
+  <title>Caller Profile Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Our StyleSheet-->
-  <link rel="stylesheet" href="/css/caller_dashboard.css">
+  <link rel="stylesheet" href="/css/caller_profile.css">
 
   <!-- Icon libraries from https://fonts.google.com/icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -199,15 +199,42 @@
 
       <!-- CONTENT TABS-->
       <section class="tabs">
-
-        <h1>Reviews</h1>
-
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
-
+        <div id="user_profile_pictue"></div>
+        <h1>User profile</h1>
+        <div id="user_profile_section">
+          <div id="container">
+            <form id="upload-images-form">
+              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+                multiple="multiple" />
+              <input id="submitProfilePhoto" type="submit" value="Save profile image" />
+            </form>
+          </div>
+          <br><br>
+          <form>
+            <img width="200" src="/imgs/saveme.jpg" alt="">
+            <p>First Name: </p>
+            <div class="edit" id="detail_user_firstN" reqired>bank</div>
+            <p>Last Name: </p>
+            <div class="edit" id="detail_user_lastN">name</div>
+            <p>Email: </p>
+            <div class="edit" id="detail_user_email">email</div>
+            <p>Password: </p>
+            <div class="edit" id="detail_user_password">name</div>
+            <p>Age: </p>
+            <div class="edit" id="detail_user_age">age</div>
+            <p>Gender: </p>
+            <div class="edit" id="detail_user_gender">gender</div>
+            <p>Phone Number: </p>
+            <div class="edit" id="detail_user_cellphone">number</div>
+            <p>Role: </p>
+            <div class="edit" id="detail_user_role">role</div>
+            <br><br>
+            <span id="editUserStatus" class="status"></span>
+            <br><br>
+            <button type="button" id="edit-button">Edit</button>
+            <button type="button" id="end-editing">Save</button>
+          </form>
+        </div>
       </section>
       <section class="tabs">
         <h1>Comments</h1>
@@ -236,7 +263,6 @@
     <!-- Call for help modal -->
     <div id="callForHelpModal" class="modal">
       <div class="edit-call-modal-content">
-        <span class="callForHelpModalClose">&times;</span>
         <div id="modalContents">
           <h2>Call for help</h2>
           <br /><br />
@@ -254,7 +280,6 @@
     <!-- Report Incident modal -->
     <div id="reportIncidentModal" class="modal">
       <div class="edit-report-modal-content">
-        <span class="reportIncidentModalClose">&times;</span>
         <div id="modalContents">
           <h2>Report incident</h2>
           <br /><br />
@@ -272,7 +297,6 @@
     <!-- Active Incident modal -->
     <div id="activeIncidentModal" class="modal">
       <div class="edit-active-modal-content">
-        <span class="activeIncidentModalClose">&times;</span>
         <div id="modalContents">
           <h2>Active incident</h2>
           <br /><br />
@@ -290,6 +314,8 @@
   </div>
   <!-- SCRIPT FOLDER-->
   <script src="/js/caller_dashboard.js"></script>
+  <script src="/js/caller_profile_edit.js"></script>
+  <script src="/js/caller_profile.js"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

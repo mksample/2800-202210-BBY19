@@ -22,11 +22,6 @@ ready(async function () {
         var modal = document.getElementById(modalID);
         modal.style.display = "block";
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName(modalID + 'Close')[0];
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
         // // When the user clicks cancel button, closes the modal
         // var cancel = document.getElementsByClassName("cancelButton")[0];
         var cancel = document.getElementsByClassName(modalID + "CancelButton")[0];

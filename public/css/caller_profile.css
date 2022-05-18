@@ -4,6 +4,7 @@
     padding: 0px;
     margin: 0;
     box-sizing: border-box;
+    font-family: "Poppins";
 }
 
 body {
@@ -14,7 +15,8 @@ body {
     background-repeat: no-repeat;
 }
 
-ul, li {
+ul,
+li {
     list-style: none;
 }
 
@@ -115,10 +117,19 @@ aside h1 {
     padding: 20px;
 }
 
+/* The Close Button */
 .close {
+    color: #aaaaaa;
     float: right;
-    font-size: .9em;
-    display: none;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -176,43 +187,6 @@ aside .status::before {
     border-radius: 50%;
     left: -10px;
     top: 5.5px;
-}
-
-
-aside .search-bar {
-    border-top: 1px solid #e9e9e9;
-    padding: 20px;
-}
-
-aside .search-bar .search {
-    position: relative;
-    display: flex;
-    width: 100%;
-}
-
-aside .search-bar input {
-    display: block;
-    width: 100%;
-    padding: 6px 12px;
-    font-size: 1rem;
-    line-height: 1.5;
-    border: 1px solid #dfdfdf;
-    border-radius: 4px 0 0 4px;
-    outline: none;
-    font-family: "open sans", serif;
-    font-weight: 100;
-}
-
-aside .search-bar button {
-    padding: 6px 12px;
-    font-size: 1rem;
-    border-radius: 0 4px 4px 0;
-    border: 1px solid lightblue;
-    background: lightblue;
-    color: white;
-    outline: none;
-    cursor: pointer;
-    border-left: 0;
 }
 
 .side-nav {
@@ -341,26 +315,10 @@ aside .search-bar button {
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.userpost .posts:first-child {
-    background: grey;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.userpost .posts:first-child span {
-    text-align: center;
-    width: 70px;
-    height: 70px;
-    background: grey;
-    border-radius: 50%;
-    line-height: 70px;
-    color: #fff;
-    font-size: 30px;
     cursor: pointer;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    text-align: center;
 }
 
 .userpost .posts img {
@@ -372,6 +330,208 @@ aside .search-bar button {
     margin-left: 10px;
     line-height: 30px;
 }
+
+/* modal styling */
+
+.modal {
+    display: none;
+    position: fixed;
+    /* z-index controls the modal depth/whether it appears infront or behind something */
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#modalContents {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+input[type=radio] {
+    visibility: hidden;
+}
+
+form {
+    margin: 0px;
+}
+
+label.radio {
+    cursor: pointer;
+    text-indent: 35px;
+    overflow: visible;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+label.radio:before {
+    background: #FE3C00;
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+}
+
+label.radio:after {
+    opacity: 0;
+    content: '';
+    position: absolute;
+    width: 0.5em;
+    height: 0.25em;
+    background: transparent;
+    top: 7.5px;
+    left: 4.5px;
+    border: 3px solid #ffffff;
+    border-top: none;
+    border-right: none;
+
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+input[type=radio]:checked+label:after {
+    opacity: 1;
+}
+
+hr {
+    color: #a9a9a9;
+    opacity: 0.3;
+}
+
+#icon {
+    display: inline-block;
+    width: 130px;
+    background-color: #FE3C00;
+    padding: 6px 0px 10px 6px;
+    margin-left: 15px;
+    -webkit-border-radius: 4px 0px 0px 4px;
+    -moz-border-radius: 4px 0px 0px 4px;
+    border-radius: 4px 0px 0px 4px;
+    color: white;
+    -webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+    -moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+    border: solid 0px #cbc9c9;
+}
+
+#cancel {
+    font-family: "Poppins";
+    border-radius: 10px;
+    border: 1px solid #FE3C00;
+    background-color: #FE3C00;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin: 20px 8px 20px 0px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+.submitButton {
+    font-family: "Poppins";
+    border-radius: 10px;
+    border: 1px solid #FE3C00;
+    background-color: #FE3C00;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin: 20px 8px 20px 340px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+.searchRadio {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.modalStatus {
+    display: table;
+    margin: 0 auto;
+    color: #FE3C00;
+}
+
+.callForHelpModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.edit-call-modal-content, .edit-report-modal-content, .edit-active-modal-content {
+    background-color: #ffffff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: left;
+}
+
+.callForHelpModalClose, .reportIncidentModalClose, .activeIncidentModalClose {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.callForHelpModalClose:hover,
+.reportIncidentModalClose:hover,
+.activeIncidentModalClose:hover,
+.callForHelpModalClose:focus,
+.reportIncidentModalClose:focus,
+.activeIncidentModalClose:focus
+{
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#submit {
+    font-family: "Poppins";
+    border-radius: 10px;
+    border: 1px solid #FE3C00;
+    background-color: #FE3C00;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin: 50px 8px 20px 340px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+/* profile styling */
 
 #nameGroup {
     display: inline;
@@ -452,7 +612,6 @@ button:active {
     background-color: lightblue;
 }
 
-
 @media (max-width:900px) {
     header {
         width: 100%;
@@ -480,7 +639,6 @@ button:active {
         width: 100%;
         bottom: 0;
         top: 105%;
-
     }
 
     .nav-mobile ul {
@@ -566,10 +724,37 @@ button:active {
         padding: 10px;
         font-size: 20px;
     }
+
+    /* modal */
+
+    .submitButton {
+        margin: 20px 0px 20px 85px;
+    }
+
+    #cancel {
+        margin: 20px 0px 20px 0px;
+    }
+
+    #submit {
+        margin: 20px 0px 20px 85px;
+    }
 }
 
 @media (max-width: 450px) {
-    .userpost .posts:first-child {
-        height: 400px;
+
+    /* modal */
+
+    .submitButton {
+        margin: 20px 0px 20px 15px;
+
+    }
+
+    #cancel {
+        margin: 20px 0px 20px 0px;
+    }
+
+    #submit {
+        margin: 20px 0px 20px 15px;
+
     }
 }
