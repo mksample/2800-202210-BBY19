@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Our StyleSheet-->
-  <link rel="stylesheet" href="/css/caller_homepage.css">
+  <link rel="stylesheet" href="/css/caller_profile.css">
 
   <!-- Google Material Icons-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -90,7 +90,7 @@
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
-            <input id="loggigout" type="submit" value="Logout" />
+            <input id="logingout" type="submit" value="Logout" />
           </form>
         </li>
 
@@ -189,14 +189,21 @@
     </aside>
 
     <!-- DASHBOARD CONTENT -->
+    <div class="main">
 
-    <div class="grid-container">
-      <div class="grid-item" id="sos">Call for help</div>
-      <div class="grid-item" id="report">Report Incident</div>
-      <div class="grid-item" id="active">Active Incident</div>  
-      
-    </div>
-   
+      <div>call for help page: location, type, description, time are required </div>
+      <form>
+        <label>Location: </label>
+        <input value="googleMapAPI" /> <br>
+        <label>Time: </label>
+        <input value="useCurrentTime" /> <br>
+        <label>Type: </label>
+        <input value="Emergency_Regular" /> <br>
+        <label>Description: </label>
+        <input value="UserDescription" />
+
+      </form>
+
 
       <!-- CONTENT TABS-->
       <section class="tabs">
@@ -238,9 +245,8 @@
 
   </div>
   <!-- SCRIPT FOLDER-->
-  <script src="/js/caller_homepage.js"></script>
- 
-
+  <script src="/js/caller_profile.js"></script>
+  <script src="/js/caller_profile_edit.js"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
