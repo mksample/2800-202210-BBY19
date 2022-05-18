@@ -77,7 +77,7 @@ app.get("/profile", async function (req, res) {
     if (req.session.loggedIn) {
         let doc = "";
         if (req.session.role == callerRole) {
-            doc = fs.readFileSync("./app/html/caller_profile.html", "utf8");
+            doc = fs.readFileSync("./app/html/caller_dashboard.html", "utf8");
         } else if (req.session.role == responderRole) {
             doc = fs.readFileSync("./app/html/responder_profile.html", "utf8");
         } else if (req.session.role == adminRole) {
