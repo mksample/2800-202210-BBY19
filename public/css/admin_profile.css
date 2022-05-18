@@ -609,7 +609,7 @@ hr {
 .searchModal {
     display: none;
     position: fixed;
-    z-index: 1000; 
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
@@ -774,9 +774,13 @@ hr {
     .submitButton {
         margin: 20px 8px 20px 100px;
     }
-    
+
     .cancelButton {
         margin: 20px 8px 20px 0px;
+    }
+
+    #edit {
+        margin: 50px 8px 20px 100px;
     }
 }
 
@@ -791,5 +795,9 @@ hr {
 
     .cancelButton {
         margin: 20px 8px 20px 0px;
+    }
+
+    #edit {
+        margin: 50px 8px 20px 100px;
     }
 }
