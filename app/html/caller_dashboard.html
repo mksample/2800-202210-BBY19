@@ -3,16 +3,16 @@
 
 <head>
   <!-- Page Title-->
-  <title>User ProfilePage</title>
+  <title>Admin ProfilePage</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Our StyleSheet-->
-  <link rel="stylesheet" href="/css/caller_profile.css">
+  <link rel="stylesheet" href="/css/caller_dashboard.css">
 
-  <!-- Google Material Icons-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+  <!-- Icon libraries from https://fonts.google.com/icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="https://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
 
 </head>
 
@@ -27,12 +27,12 @@
         <h1>SaveMe</h1>
       </div>
 
+
       <!--HAMBURGER MENU FOR MOBILE-->
 
       <div class="hamburger-menu">
         <span><i class="material-icons">list</i></span>
       </div>
-
 
       <!-- TOP NAVIGATION -->
       <div class="nav">
@@ -97,14 +97,10 @@
       </ul>
     </div>
 
-
     <!-- VERTICAL ICON NAVIGATION-->
     <div class="vert-bar">
       <span> <i class="material-icons">more_vert</i></span>
     </div>
-
-
-
 
     <!-- SIDEBAR NAVIGATION -->
     <aside class="sidebar">
@@ -120,32 +116,15 @@
         </div>
         <!-- SIDE NAVIGATION USER INFORMATION-->
         <div class="user-info">
-          <div id="nameGroup">
 
-            <div id="userFName"><span class="name">John Doe</span></div>
-            <div id="userLName"><span class="name">John Doe</span></div>
-          </div>
+          <span id="sessionName" class="name">John Doe</span>
 
-          <div id="email"><span class="email">JohnDoe@gmail.com</span></div>
+          <span id="sessionEmail" class="email">JohnDoe@gmail.com</span>
 
           <span class="status">Online</span>
 
         </div>
 
-      </div>
-
-      <!-- SIDE NAVIGATION SEARCH BAR-->
-      <div class="search-bar">
-        <form>
-          <div class="search">
-
-            <input type="text" placeholder="Search Profile...">
-
-            <button type="submit"><span><i class="material-icons">search</i></span></button>
-
-          </div>
-
-        </form>
       </div>
 
       <!-- SIDE NAVIGATION GENERAL-->
@@ -191,32 +170,31 @@
     <!-- DASHBOARD CONTENT -->
     <div class="main">
       <section class="profile tabs">
-        <h1>User profile</h1>
-        <div id="user_profile_section">
-          <img width="200" src="/imgs/saveme.jpg" alt="">
-          <p>First Name: </p>
-          <div class="edit" id="detail_user_firstN" >bank</div>
-          <p>Last Name: </p>
-          <div class="edit" id="detail_user_lastN" >name</div>
-          <p>Email: </p>
-          <div class="edit" id="detail_user_email" >email</div>
-          <p>Password: </p>
-          <div class="edit" id="detail_user_password" >name</div>
-          <p>Age: </p>
-          <div class="edit" id="detail_user_age" >age</div>
-          <p>Gender: </p>
-          <div class="edit" id="detail_user_gender" >gender</div>
-          <p>Phone Number: </p>
-          <div class="edit" id="detail_user_cellphone">number</div>
-          <br><br>
-          <button type="button" id="edit-button">Edit</button>
-          <button type="button" id="end-editing">Save</button>
+        <h1>User Dashboard</h1>
 
+        <div id="profiles" class="userpost">
+          <div class="posts">
+            <div class="profile" id="callForHelp">
+              <img class="profilePicture" src="/imgs/saveme.jpg" width="40px" alt="logo">
+              <p class="ticketName">Call for help</p>
+            </div>
+          </div>
 
+          <div class="posts">
+            <div class="profile" id="reportIncident">
+              <img class="profilePicture" src="/imgs/saveme.jpg" width="40px" alt="logo">
+              <p class="ticketName">Report incident</p>
+            </div>
+          </div>
+
+          <div class="posts">
+            <div class="profile" id="activeIncident">
+              <img class="profilePicture" src="/imgs/saveme.jpg" width="40px" alt="logo">
+              <p class="ticketName">Active incident</p>
+            </div>
+          </div>
 
         </div>
-
-
       </section>
 
       <!-- CONTENT TABS-->
@@ -250,17 +228,68 @@
           sit sint corporis quo. Voluptas, natus corporis?</p>
       </section>
 
-
     </div>
 
 
+    <!-- MODALS -->
 
+    <!-- Call for help modal -->
+    <div id="callForHelpModal" class="modal">
+      <div class="edit-call-modal-content">
+        <span class="callForHelpModalClose">&times;</span>
+        <div id="modalContents">
+          <h2>Call for help</h2>
+          <br /><br />
+          <div id="callcontext"> </div>
+          <br /><br />
+          <form>
+            <input type="button" class="callForHelpModalCancelButton" id="cancel" value="Cancel" />
+            <input type="button" class="submitButton" id="submit" value="Submit" />
+          </form>
 
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Incident modal -->
+    <div id="reportIncidentModal" class="modal">
+      <div class="edit-report-modal-content">
+        <span class="reportIncidentModalClose">&times;</span>
+        <div id="modalContents">
+          <h2>Report incident</h2>
+          <br /><br />
+          <div id="reportContext"> </div>
+          <br /><br />
+          <form>
+            <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" />
+            <input type="button" class="submitButton" id="submit" value="Submit" />
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Incident modal -->
+    <div id="activeIncidentModal" class="modal">
+      <div class="edit-active-modal-content">
+        <span class="activeIncidentModalClose">&times;</span>
+        <div id="modalContents">
+          <h2>Active incident</h2>
+          <br /><br />
+          <div id="activeContext"> </div>
+          <br /><br />
+          <form>
+            <input type="button" class="activeIncidentModalCancelButton" id="cancel" value="Cancel" />
+            <input type="button" class="submitButton" id="submit" value="Submit" />
+          </form>
+
+        </div>
+      </div>
+    </div>
 
   </div>
   <!-- SCRIPT FOLDER-->
-  <script src="/js/caller_profile.js"></script>
-  <script src="/js/caller_profile_edit.js"></script>
+  <script src="/js/caller_dashboard.js"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -283,7 +312,7 @@
   <!--DISPLAY NAVIGATION ON MOBILE-->
   <script>
     $(".side-nav ul li").click(function () {
-      $(this).addClass("active").sibilings().removeClass("active");
+      $(this).addClass("active").siblings().removeClass("active");
     })
   </script>
 
