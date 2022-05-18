@@ -151,14 +151,11 @@
       <div class="search-bar">
         <form>
           <div class="search">
-
-            <input type="text" placeholder="Search Profile...">
-
-            <button type="submit"><span><i class="material-icons">search</i></span></button>
-
+            <input type="text" id="searchKeyword" placeholder="Search Profile...">
+            <button type="button" id="searchButton"><span><i class="material-icons">search</i></span></button>
           </div>
-
         </form>
+        <div id="searchStatus"></div>
       </div>
 
       <!-- SIDE NAVIGATION GENERAL-->
@@ -210,7 +207,6 @@
             <span><i class="material-icons">add</i></span>
           </div>
         </div>
-
       </section>
 
       <!-- CONTENT TABS-->
@@ -338,9 +334,28 @@
 
     </div>
 
+
+    <div id="searchModal" class="modal">
+      <div class="edit-search-modal-content">
+        <span class="searchModalClose">&times;</span>
+        <div id="editUserProfile">
+          <h2>Choose a profile to edit.</h2>
+          <br /><br />
+          <div id="searchList"> </div>
+          <br /><br />
+          <form>
+            <input type="button" class="cancelButton" id="cancel" value="Cancel" />
+            <input type="button" class="submitButton" id="edit" value="Edit" />
+          </form>
+
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- SCRIPT FOLDER-->
   <script src="/js/admin_profile.js"></script>
+  <script src="/js/searchbar.js"></script>
   <script src="/js/admin_profile_edit_user.js"></script>
   <script src="/js/admin_profile_create_user.js"></script>
 
