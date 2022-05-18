@@ -28,12 +28,27 @@ ready(async function () {
             document.getElementById("detail_user_age").innerHTML = response.user.age;
             document.getElementById("detail_user_gender").innerHTML = response.user.gender;
             document.getElementById("detail_user_cellphone").innerHTML = response.user.phoneNumber;
-
-            
-
-            
+            document.getElementById("detail_user_role").innerHTML = response.user.role;
         }
-    }   
+    }
+
+    // Get the current session user and display their info. 
+    async function displaySessionUser() {
+        let response = await getData("/getUser");
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+            } else {
+                let user = response.user;
+                if (user.avatar != null) {
+                    document.getElementById("userPicture").src = user.avatar;
+                }
+                document.getElementById("sessionName").innerHTML = user.firstName + " " + user.lastName;
+                document.getElementById("sessionEmail").innerHTML = user.email;
+            }
+        }
+    }
+    displaySessionUser();
 });
 
 

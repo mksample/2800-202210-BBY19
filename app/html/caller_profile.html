@@ -38,7 +38,7 @@
       <div class="nav">
         <ul>
 
-          <li>
+          <li onclick="show(1)">
             <h3>Home</h3>
           </li>
 
@@ -90,7 +90,7 @@
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
-            <input id="logout" type="submit" value="Logout" />
+            <input id="logginout" type="submit" value="Logout" />
           </form>
         </li>
 
@@ -111,7 +111,7 @@
 
         <div class="user-pic">
 
-          <img width="100" src="/imgs/saveme.jpg" alt="">
+          <img id="userPicture" width="100" src="/imgs/saveme.jpg" alt="">
 
         </div>
         <!-- SIDE NAVIGATION USER INFORMATION-->
@@ -134,15 +134,15 @@
           <ul>
             <li class="active" onclick="show(0)">
               <span><i class="material-icons">speed</i></span>
-              <h3>Dashboard</h3>
+              <h3>Profile</h3>
             </li>
             <li onclick="show(1)">
               <span><i class="material-icons">star</i></span>
-              <h3>Reviews</h3>
+              <h3>Dashboard</h3>
             </li>
             <li onclick="show(2)">
               <span><i class="material-icons">comments</i></span>
-              <h3>Comments</h3>
+              <h3>Reviews</h3>
             </li>
             <li onclick="show(3)">
               <span><i class="material-icons">settings</i></span>
@@ -167,7 +167,7 @@
       </div>
     </aside>
 
-    <!-- DASHBOARD CONTENT -->
+    <!-- PROFILE CONTENT -->
     <div class="main">
       <section class="profile tabs">
         <h1>User Dashboard</h1>
@@ -197,7 +197,7 @@
         </div>
       </section>
 
-      <!-- CONTENT TABS-->
+      <!-- DASHBOARD TABS-->
       <section class="tabs">
         <div id="user_profile_pictue"></div>
         <h1>User profile</h1>
@@ -236,8 +236,10 @@
           </form>
         </div>
       </section>
+
+      <!-- REVIEWS TABS-->
       <section class="tabs">
-        <h1>Comments</h1>
+        <h1>Reviews</h1>
 
         <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Quia recusandae laudantium odio!
@@ -245,6 +247,8 @@
           Aliquam ab odit animi autem cumque
           sit sint corporis quo. Voluptas, natus corporis?</p>
       </section>
+
+      <!-- SETTINGS TABS-->
       <section class="tabs">
         <h1>Settings</h1>
 
@@ -253,6 +257,13 @@
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
           sit sint corporis quo. Voluptas, natus corporis?</p>
+        <div id="container">
+          <form id="upload-images-form">
+            <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+              multiple="multiple" />
+            <input id="submit" type="submit" value="Save profile image" />
+          </form>
+        </div>
       </section>
 
     </div>
@@ -316,6 +327,7 @@
   <script src="/js/caller_dashboard.js"></script>
   <script src="/js/caller_profile_edit.js"></script>
   <script src="/js/caller_profile.js"></script>
+  <script src="/js/caller_profile_upload_photo.js"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -370,6 +382,7 @@
       aside.classList.remove("show");
     })
   </script>
+
 
 </body>
 

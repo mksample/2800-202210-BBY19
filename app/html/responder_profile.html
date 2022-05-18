@@ -3,7 +3,7 @@
 
 <head>
   <!-- Page Title-->
-  <title>Responder Profile Page</title>
+  <title>User ProfilePage</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -25,7 +25,6 @@
         <img src="/imgs/saveme.jpg" width="40px" alt="logo" />
         <h1>SaveMe</h1>
       </div>
-
 
       <!--HAMBURGER MENU FOR MOBILE-->
 
@@ -115,15 +114,15 @@
 
         <div class="user-pic">
 
-          <img width="100" src="/imgs/saveme.jpg" alt="">
+          <img id="userPicture" width="100" src="/imgs/saveme.jpg" alt="">
 
         </div>
         <!-- SIDE NAVIGATION USER INFORMATION-->
         <div class="user-info">
+          <div id="nameGroup">
+          <span id="sessionName" class="name">John Doe</span>
 
-          <span class="name">John Doe</span>
-
-          <span class="email">JohnDoe@gmail.com</span>
+          <span id="sessionEmail" class="email">JohnDoe@gmail.com</span>
 
           <span class="status">Online</span>
 
@@ -188,24 +187,43 @@
     <!-- DASHBOARD CONTENT -->
     <div class="main">
       <section class="profile tabs">
-        <h1>Your Posts</h1>
-        <div class="userpost">
-          <div class="posts">
-            <span><i class="material-icons">add</i></span>
+        <h1>User profile</h1>
+        <div id="user_profile_section">
+          <div id="container">
+            <form id="upload-images-form">
+              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+                multiple="multiple" />
+              <input id="submit" type="submit" value="Save profile image" />
+            </form>
           </div>
-          <div class="posts">
-            <img width="200" src="/imgs/saveme.jpg" alt="">
-            <p>Title</p>
-          </div>
-          <div class="posts">
-            <img width="200" src="/imgs/saveme.jpg" alt="">
-            <p>Title</p>
-          </div>
-          <div class="posts">
-            <img width="200" src="/imgs/saveme.jpg" alt="">
-            <p>Title</p>
-          </div>
+          <br><br>
+          <img width="200" src="/imgs/saveme.jpg" alt="">
+          <p>First Name: </p>
+          <div class="edit" id="detail_user_firstN">bank</div>
+          <p>Last Name: </p>
+          <div class="edit" id="detail_user_lastN">name</div>
+          <p>Email: </p>
+          <div class="edit" id="detail_user_email">email</div>
+          <p>Password: </p>
+          <div class="edit" id="detail_user_password">name</div>
+          <p>Age: </p>
+          <div class="edit" id="detail_user_age">age</div>
+          <p>Gender: </p>
+          <div class="edit" id="detail_user_gender">gender</div>
+          <p>Phone Number: </p>
+          <div class="edit" id="detail_user_cellphone">number</div>
+          <p>Role: </p>
+          <div class="edit" id="detail_user_role">role</div>
+          <br><br>
+          <span id="editUserStatus" class="status"></span>
+          <br><br>
+          <button type="button" id="edit-button">Edit</button>
+          <button type="button" id="end-editing">Save</button>
+
+
+
         </div>
+
 
       </section>
 
@@ -238,6 +256,13 @@
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
           sit sint corporis quo. Voluptas, natus corporis?</p>
+          <div id="container">
+            <form id="upload-images-form">
+              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+                multiple="multiple" />
+              <input id="submit" type="submit" value="Save profile image" />
+            </form>
+          </div>
       </section>
 
 
@@ -250,6 +275,8 @@
   </div>
   <!-- SCRIPT FOLDER-->
   <script src="/js/responder_profile.js"></script>
+  <script src="/js/responder_profile_edit.js"></script>
+  <script src="/js/responder_profile_upload_photo.js"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -272,7 +299,7 @@
   <!--DISPLAY NAVIGATION ON MOBILE-->
   <script>
     $(".side-nav ul li").click(function () {
-      $(this).addClass("active").sibilings().removeClass("active");
+      $(this).addClass("active").siblings().removeClass("active");
     })
   </script>
 

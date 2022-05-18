@@ -72,7 +72,9 @@ function openModal(user, modalID, cancelButton, submitButton, status, saveMethod
 function createProfileDisplay(user, contentDOM) {
     // creating profile display
     let profile = document.getElementById("UserProfileTemplate").content.cloneNode(true);
-    profile.querySelector(".profilePicture").innerHTML = user.email;
+    if (user.avatar != null) {
+        profile.querySelector(".profilePicture").src = user.avatar;
+    }
     profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email
     profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;;
     profile.querySelector('.profile').setAttribute("id", user.ID);
@@ -96,6 +98,7 @@ function createProfileDisplay(user, contentDOM) {
 
 // Sets input values in the edit user modal to blank values and default radio button values.
 function prepareCreateUserModal(user) {
+    document.getElementById("editUserProfilePicture").src = "/imgs/saveme.jpg";
     document.getElementById("editUserEmail").value = "";
     document.getElementById("editUserPassword").value = "";
     document.getElementById("editUserFirstName").value = "";

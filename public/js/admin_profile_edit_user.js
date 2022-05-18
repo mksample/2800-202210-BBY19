@@ -65,6 +65,11 @@ function openModal(user, modalID, cancelButton, submitButton, status, saveMethod
 
 // Sets input values in the edit user modal to users current values.
 function prepareEditUserModal(user) {
+    if (user.avatar) {
+        document.getElementById("editUserProfilePicture").src = user.avatar;
+    } else {
+        document.getElementById("editUserProfilePicture").src = "/imgs/saveme.jpg";
+    }
     document.getElementById("editUserEmail").value = user.email;
     document.getElementById("editUserPassword").value = user.password;
     document.getElementById("editUserFirstName").value = user.firstName;
@@ -108,7 +113,9 @@ async function submitEditUserModal(user) {
 async function updateProfileDisplay(user) {
     let profile = document.getElementById(user.ID);
 
-    profile.querySelector(".profilePicture").innerHTML = user.email;
+    if (user.avatar != null) {
+        profile.querySelector(".profilePicture").src = user.avatar;
+    }
     profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email
     profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;;
 
