@@ -38,7 +38,7 @@
       <div class="nav">
         <ul>
 
-          <li>
+          <li onclick="show(1)">
             <h3>Home</h3>
           </li>
 
@@ -152,15 +152,15 @@
           <ul>
             <li class="active" onclick="show(0)">
               <span><i class="material-icons">speed</i></span>
-              <h3>Dashboard</h3>
+              <h3>Profile</h3>
             </li>
             <li onclick="show(1)">
               <span><i class="material-icons">star</i></span>
-              <h3>Reviews</h3>
+              <h3>Dashboard</h3>
             </li>
             <li onclick="show(2)">
               <span><i class="material-icons">comments</i></span>
-              <h3>Comments</h3>
+              <h3>Reviews</h3>
             </li>
             <li onclick="show(3)">
               <span><i class="material-icons">settings</i></span>
@@ -185,7 +185,7 @@
       </div>
     </aside>
 
-    <!-- DASHBOARD CONTENT -->
+    <!-- PROFILE CONTENT -->
     <div class="main">
       <section class="profile tabs">
         <div id="user_profile_pictue"></div>
@@ -226,9 +226,21 @@
         </div>
       </section>
 
-      <!-- CONTENT TABS-->
+      <!-- DASHBOARD TABS-->
       <section class="tabs">
 
+        <h1>Dashboard</h1>
+
+        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Quia recusandae laudantium odio!
+          Iusto velit laboriosam perferendis ab!
+          Aliquam ab odit animi autem cumque
+          sit sint corporis quo. Voluptas, natus corporis?</p>
+
+      </section>
+
+      <!-- REVIEWS TABS-->
+      <section class="tabs">
         <h1>Reviews</h1>
 
         <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
@@ -236,17 +248,9 @@
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
           sit sint corporis quo. Voluptas, natus corporis?</p>
-
       </section>
-      <section class="tabs">
-        <h1>Comments</h1>
 
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
-      </section>
+      <!-- SETTINGS TABS-->
       <section class="tabs">
         <h1>Settings</h1>
 
@@ -255,13 +259,15 @@
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
           sit sint corporis quo. Voluptas, natus corporis?</p>
-          <div id="container">
-            <form id="upload-images-form">
-              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-                multiple="multiple" />
-              <input id="submit" type="submit" value="Save profile image" />
-            </form>
-          </div>
+         
+      </section>
+
+      <section class="tabs">
+        <h1>User Profile</h1>
+        
+
+ 
+         
       </section>
 
 
