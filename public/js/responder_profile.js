@@ -1,8 +1,8 @@
 "use strict";
 ready(async function () {
-    async function postData(url, data) {
+    async function getData(url) {
         const response = await fetch(url, {
-            method: 'POST',
+            method: 'GET',
             mode: 'same-origin',
             cache: 'default',
             credentials: 'same-origin',
@@ -12,10 +12,27 @@ ready(async function () {
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
-            body: JSON.stringify(data)
         });
         return response.json();
     }
+
+    // Get the current session user and display their info. 
+    async function displaySessionUser() {
+        let response = await getData("/getUser");
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+            } else {
+                let user = response.user;
+                if (user.avatar != null) {
+                    document.getElementById("userPicture").src = user.avatar;
+                }
+                document.getElementById("sessionName").innerHTML = user.firstName + " " + user.lastName;
+                document.getElementById("sessionEmail").innerHTML = user.email;
+            }
+        }
+    }
+    displaySessionUser();
 });
 
 function ready(callback) {

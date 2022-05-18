@@ -4,6 +4,7 @@ const session = require("express-session");
 const sanitizeHtml = require("sanitize-html");
 const app = express();
 const fs = require("fs");
+const multer = require("multer"); // storing images
 const readline = require('readline');
 const { JSDOM } = require('jsdom');
 const { connected } = require("process");
@@ -26,6 +27,20 @@ const remoteSqlAuthentication = {
 // const sqlAuthentication = remoteSqlAuthentication; // SETTING TO USE REMOTE DB
 const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL DB
 
+
+// storing image at images
+const uploadPath = "public/imgs/userProfile"
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, uploadPath)
+    },
+    filename: function(req, file, callback) {
+        let filename = "user-" + req.session.userID + "." + file.originalname.split('.').pop();
+        callback(null, filename)
+    }
+});
+const upload = multer({ storage: storage });
+
 const userTable = "BBY_19_user";
 const incidentTable = "BBY_19_incident";
 const respondersTable = "BBY_19_responders";
@@ -44,6 +59,7 @@ const genderOther = "other";
 app.use("/js", express.static("public/js"));
 app.use("/css", express.static("public/css"));
 app.use("/imgs", express.static("public/imgs"));
+app.use("/profilePictures", express.static("public/imgs/userProfile"));
 app.use("/fonts", express.static("public/fonts"));
 app.use("/html", express.static("public/html"));
 app.use("/media", express.static("public/media"));
@@ -311,6 +327,7 @@ app.post("/adminEditUser", function (req, res) {
         WHERE ID = ` + req.body.userID;
 
         con.query(editUser, function (error, results) {
+            con.end(err => {if (err) {console.log(err)}});
             if (error) {
                 con.end(err => { if (err) { console.log(err) } });
                 if (error.code == duplicateError) {
@@ -430,6 +447,30 @@ app.post("/deleteUser", function (req, res) {
     })
 })
 
+
+
+app.post('/upload-images', upload.array("files"), function (req, res) {
+    for(let i = 0; i < req.files.length; i++) {
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+        console.log(req.files[i]);
+        
+        let insertPicQuery = `UPDATE ` + userTable +` SET avatar = '/profilePictures/` + req.files[i].filename + `' WHERE ID = ` +req.session.userID; // update query
+        
+        con.query(insertPicQuery, function(error, results) {
+            if (error) {
+                console.log(error);
+                res.send({status: "fail", msg: "uploading image: " + error});
+            } else {
+                res.send({status: "success", msg: "image uploaded successfully", avatar: `/profilePictures/` + req.files[i].filename});
+            }
+        })
+    }
+});
+
+// VALIDATE FUNCTIONS
+
 // Search the keyword from database when using search bar.
 app.post("/getUsersKeyword", function (req, res) {
     if (req.session.role == adminRole) {
@@ -507,6 +548,7 @@ app.post("/getUsersKeywordExact", function (req, res) {
     }
 })
 
+
 ///////////////////////////////////////////
 /////////// INCIDENT MANAGEMENT ///////////
 ///////////////////////////////////////////
@@ -571,6 +613,7 @@ app.get("/getIncidents", function (req, res) {
 ////////////////////////////////////////
 /////////// INPUT VALIDATION ///////////
 ////////////////////////////////////////
+
 
 const validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const validPhoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
@@ -830,6 +873,8 @@ function init() {
     con.end(err => { if (err) { console.log(err) } });
     console.log("Listening on port " + port + "!");
 }
+
+
 
 // RUN SERVER
 let port = process.env.PORT || 8000

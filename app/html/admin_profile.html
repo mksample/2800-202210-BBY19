@@ -131,7 +131,7 @@
 
         <div class="user-pic">
 
-          <img width="100" src="/imgs/saveme.jpg" alt="">
+          <img id="userPicture" width="100" src="/imgs/saveme.jpg" alt="">
 
         </div>
         <!-- SIDE NAVIGATION USER INFORMATION-->
@@ -237,7 +237,19 @@
           Quia recusandae laudantium odio!
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
+          sit sint corporis quo. Voluptas, natus corporis?
+          test</p>
+      
+          <div id="container">
+            <form id="upload-images-form">
+              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+                multiple="multiple" />
+              <input id="submit" type="submit" value="Save profile image" />
+            </form>
+          </div>
+          <br><br>
+
+
       </section>
 
 
@@ -251,7 +263,7 @@
       <div class="edit-user-modal-content">
         <!-- profile info box -->
         <div id="editUserProfile">
-          <img class="profilePicture" src="/imgs/saveme.jpg" width="300px" alt="logo" />
+          <img id="editUserProfilePicture" class="profilePicture" src="/imgs/saveme.jpg" width="300px" alt="logo" />
           <!-- placeholder profile picture -->
           <div>
             <form>
@@ -346,7 +358,10 @@
   <script src="/js/searchbar.js"></script>
   <script src="/js/admin_profile_edit_user.js"></script>
   <script src="/js/admin_profile_create_user.js"></script>
+
+  <script src="/js/admin_profile_upload_photo.js"></script>
   <script src="/js/admin_profile_delete_user.js"></script>
+
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

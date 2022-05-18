@@ -20,7 +20,9 @@ ready(async function () {
     function createProfileDisplay(user, contentDOM) {
         // creating profile display
         let profile = document.getElementById("UserProfileTemplate").content.cloneNode(true);
-        profile.querySelector(".profilePicture").innerHTML = user.email;
+        if (user.avatar != null) {
+            profile.querySelector(".profilePicture").src = user.avatar;
+        }
         profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email
         profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;;
         profile.querySelector('.profile').setAttribute("id", user.ID);
@@ -65,6 +67,9 @@ ready(async function () {
                 console.log(response.msg);
             } else {
                 let user = response.user;
+                if (user.avatar != null) { 
+                    document.getElementById("userPicture").src = user.avatar;
+                }
                 document.getElementById("sessionName").innerHTML = user.firstName + " " + user.lastName;
                 document.getElementById("sessionEmail").innerHTML = user.email;
             }
