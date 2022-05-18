@@ -34,7 +34,7 @@ ready(async function () {
     });
 
     if (response.users.length == 0) {
-      alert("No search results found.");
+      document.getElementById("searchStatus").innerHTML ="No search results found.";
     }
     if (response) {
       if (response.status == "fail") {
@@ -71,6 +71,7 @@ ready(async function () {
 
   function createSearchList(user) {
     $(document).ready(function () {
+      document.getElementById("searchStatus").innerHTML ="";
       var radios = [" " + user.ID + ", " + user.email + ", " + user.firstName + " " + user.lastName];
       for (var value of radios) {
         $('#searchList')
@@ -154,9 +155,8 @@ ready(async function () {
         let response = await postData("/getUsersKeywordExact", {
           keyword: str_id,
         });
-
         if (response.users.length == 0) {
-          alert("No search results found.");
+          document.getElementById("searchStatus").innerHTML ="No search results found.";
         }
         if (response) {
           if (response.status == "fail") {
