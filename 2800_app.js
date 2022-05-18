@@ -33,26 +33,46 @@ const storage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, uploadPath)
     },
-    filename: function(req, file, callback) {
+    filename: function (req, file, callback) {
         let filename = "user-" + req.session.userID + "." + file.originalname.split('.').pop();
         callback(null, filename)
     }
 });
 const upload = multer({ storage: storage });
 
+// sql tables
 const userTable = "BBY_19_user";
 const incidentTable = "BBY_19_incident";
 const respondersTable = "BBY_19_responders";
 
+// sql duplicate entry error code
 const duplicateError = "ER_DUP_ENTRY";
 
+// user roles
 const callerRole = "CALLER";
 const responderRole = "RESPONDER";
 const adminRole = "ADMIN";
 
+// user genders
 const genderMale = "male";
 const genderFemale = "female";
 const genderOther = "other";
+
+// incident status types
+const activeStatus = "ACTIVE";
+const inProgressStatus = "INPROGRESS";
+const resolvedStatus = "RESOLVED";
+
+// incident priority types
+const urgentPriority = "URGENT";
+const highPriority = "HIGH";
+const mediumPriority = "MEDIUM";
+const lowPriority = "LOW";
+
+// incident types
+const harassmentIncident = "HARASSMENT";
+const suspiciousActivityIncident = "SUSACTIVITY"; // no amongus
+const violentIncident = "VIOLENCE";
 
 // static path mappings
 app.use("/js", express.static("public/js"));
@@ -280,7 +300,7 @@ app.post("/editUser", function (req, res) {
             } else {
                 con.query(`SELECT * FROM ` + userTable + ` WHERE ID = ` + req.session.userID, function (error, results) { // used session.
                     con.end(err => { if (err) { console.log(err) } });
-                    
+
                     if (error || !results) {
                         res.send({ status: "fail", msg: "editing user: failed to fetch updated user", displayMsg: "Database error" });
                     } else {
@@ -327,7 +347,7 @@ app.post("/adminEditUser", function (req, res) {
         WHERE ID = ` + req.body.userID;
 
         con.query(editUser, function (error, results) {
-            con.end(err => {if (err) {console.log(err)}});
+            con.end(err => { if (err) { console.log(err) } });
             if (error) {
                 con.end(err => { if (err) { console.log(err) } });
                 if (error.code == duplicateError) {
@@ -450,26 +470,24 @@ app.post("/deleteUser", function (req, res) {
 
 
 app.post('/upload-images', upload.array("files"), function (req, res) {
-    for(let i = 0; i < req.files.length; i++) {
+    for (let i = 0; i < req.files.length; i++) {
         const mysql = require("mysql2");
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
         console.log(req.files[i]);
-        
-        let insertPicQuery = `UPDATE ` + userTable +` SET avatar = '/profilePictures/` + req.files[i].filename + `' WHERE ID = ` +req.session.userID; // update query
-        
-        con.query(insertPicQuery, function(error, results) {
+
+        let insertPicQuery = `UPDATE ` + userTable + ` SET avatar = '/profilePictures/` + req.files[i].filename + `' WHERE ID = ` + req.session.userID; // update query
+
+        con.query(insertPicQuery, function (error, results) {
             if (error) {
                 console.log(error);
-                res.send({status: "fail", msg: "uploading image: " + error});
+                res.send({ status: "fail", msg: "uploading image: " + error });
             } else {
-                res.send({status: "success", msg: "image uploaded successfully", avatar: `/profilePictures/` + req.files[i].filename});
+                res.send({ status: "success", msg: "image uploaded successfully", avatar: `/profilePictures/` + req.files[i].filename });
             }
         })
     }
 });
-
-// VALIDATE FUNCTIONS
 
 // Search the keyword from database when using search bar.
 app.post("/getUsersKeyword", function (req, res) {
@@ -480,7 +498,7 @@ app.post("/getUsersKeyword", function (req, res) {
         var keyword;
         if (req.body.keyword == '') {
             // If there's empty search keyword, it intentionally induces search results to be lost.
-            keyword = `'%EmptySearchKeyword%'`;     
+            keyword = `'%EmptySearchKeyword%'`;
         } else {
             keyword = `'%` + req.body.keyword + `%'`;
         }
@@ -553,8 +571,77 @@ app.post("/getUsersKeywordExact", function (req, res) {
 /////////// INCIDENT MANAGEMENT ///////////
 ///////////////////////////////////////////
 
+
+// Create incident request. Returns displayMsg if incident input is invalid.
+// Returns a status ("success" or "fail"), a status message (internal, not for display), and a display message.
+// POST params:
+// title (string) - title of the incident.
+// priority (see valid priorities at top of file) - priority of the incident.
+// type (see valid types at top of file) - type of the incident.
+// description (string) - description of the incident.
+// lat (float) - latitude of the incident.
+// lon (float) - longitude of the incident.
+app.post("/createIncident", function (req, res) {
+    if (req.session.role != callerRole) {
+        res.send({ status: "fail", msg: "creating incident: user is not caller"});
+        return;
+    }
+
+    let validVals = validateCreateIncident(req);
+    let valid = validVals[0];
+    let displayMsg = validVals[1];
+    if (valid) {
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+        const addUser = `INSERT INTO ` + incidentTable + ` (title, priority, type, status, callerID, description, lat, lon, timestamp)
+    VALUES ('` + req.body.title +
+            `', '` + req.body.priority +
+            `', '` + req.body.type +
+            `', '` + activeStatus +
+            `', '` + req.session.userID +
+            `', '` + req.body.description +
+            `', '` + req.body.lat +
+            `', '` + req.body.lon +
+            `', CURRENT_TIMESTAMP);`;
+
+        con.query(addUser, function (error, results) {
+            if (error) {
+                con.end(err => { if (err) { console.log(err) } });
+                console.log(error);
+                res.send({ status: "fail", msg: "creating incident: " + error, displayMsg: "Database error" });
+            } else {
+                console.log(`SELECT * FROM ` + incidentTable + ` WHERE callerID = ` + req.session.userID + ` AND lat = ` + req.body.lat + ` AND lon = ` + req.body.lon + ` AND title = '` + req.body.title + `'`);
+                con.query(`SELECT * FROM ` + incidentTable + ` WHERE callerID = ` + req.session.userID + ` AND lat = ` + req.body.lat + ` AND lon = ` + req.body.lon + ` AND title = '` + req.body.title + `'`, function (error, results) {
+                    con.end(err => { if (err) { console.log(err) } });
+                    if (error) {
+                        console.log(error)
+                        res.send({ status: "fail", msg: "getting created incident: " + error, displayMsg: "Database error" });
+                    } else {
+                        res.send({ status: "success", msg: "incident created", incident: results});
+                    }
+                })
+            }
+        });
+    } else {
+        res.send({ status: "fail", msg: "creating incident: invalid input", displayMsg: displayMsg });
+    }
+})
+
 // Gets incidents based on the current session user
 // Returns an array of incidents.
+// Incident:
+// ID (int) - ID of the incident.
+// title (string) - title of the incident.
+// priority (string) - priority of the incident.
+// type (string) - type of the incident.
+// status (string) - the status of the incident.
+// callerID (int) - the ID of the user who reported the incident.
+// description (string) - the description of the incident.
+// lat (float) - the latitude of where the incident occurred.
+// lon (float) - the longitude of where the incident occurred.
+// timestamp (yyyy-mm-dd hh:mm:ss) - timestamp of when the incident was created.
+// responderIDs (int array) - IDs of the users who responded to the incident.
 app.get("/getIncidents", function (req, res) {
     // select which query to use
     let query = "";
@@ -587,7 +674,7 @@ app.get("/getIncidents", function (req, res) {
             res.send({ status: "fail", msg: "getting incidents: " + error });
         } else {
             for (let i = 0; i < incidentResults.length; i++) { // for each incident get all responder IDs associated with that incident
-                con.query(responderIDQuery + incidentResults[i].ID, function(error, responderResults) { // append incident ID onto end of responderIDQuery
+                con.query(responderIDQuery + incidentResults[i].ID, function (error, responderResults) { // append incident ID onto end of responderIDQuery
                     if (error) {
                         con.end(err => { if (err) { console.log(err) } });
                         console.log("getting responderIDs: " + error);
@@ -602,7 +689,7 @@ app.get("/getIncidents", function (req, res) {
                     }
                     if (i + 1 == incidentResults.length) { // if done processing the final incident send response
                         con.end(err => { if (err) { console.log(err) } });
-                        res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults}) // return incidents
+                        res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults }) // return incidents
                     }
                 })
             }
@@ -610,11 +697,72 @@ app.get("/getIncidents", function (req, res) {
     });
 })
 
+// Gets active or in progress incidents, only accessible by responders.
+// Returns an array of incidents.
+// Incident:
+// ID (int) - ID of the incident.
+// title (string) - title of the incident.
+// priority (string) - priority of the incident.
+// type (string) - type of the incident.
+// status (string) - the status of the incident.
+// callerID (int) - the ID of the user who reported the incident.
+// description (string) - the description of the incident.
+// lat (float) - the latitude of where the incident occurred.
+// lon (float) - the longitude of where the incident occurred.
+// timestamp (yyyy-mm-dd hh:mm:ss) - timestamp of when the incident was created.
+// responderIDs (int array) - IDs of the users who responded to the incident.
+app.get("/getResponderIncidents", function (req, res) {
+    if (req.session.role == responderRole) {
+        let query = "SELECT * FROM " + incidentTable + ` WHERE status = '` + activeStatus + `' OR status = '` + inProgressStatus + `'`; // get all active or in progess incidents
+
+        // query for getting responder IDs
+        let responderIDQuery = `SELECT responderID
+    FROM ` + incidentTable + `
+    JOIN ` + respondersTable + `
+    ON ` + incidentTable + `.ID = ` + respondersTable + `.IncidentID
+    WHERE ` + incidentTable + `.ID = ` // append incident ID here
+
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+        con.query(query, function (error, incidentResults) {
+            if (error) {
+                con.end(err => { if (err) { console.log(err) } });
+                console.log("getting responder incidents: " + error);
+                res.send({ status: "fail", msg: "getting responder incidents: " + error });
+            } else {
+                for (let i = 0; i < incidentResults.length; i++) { // for each incident get all responder IDs associated with that incident
+                    con.query(responderIDQuery + incidentResults[i].ID, function (error, responderResults) { // append incident ID onto end of responderIDQuery
+                        if (error) {
+                            con.end(err => { if (err) { console.log(err) } });
+                            console.log("getting responderIDs: " + error);
+                            res.send({ status: "fail", msg: "getting responder IDs: " + error });
+                            return;
+                        } else {
+                            let responderIDs = [];
+                            for (const result of responderResults) {
+                                responderIDs.push(result.responderID);
+                            }
+                            incidentResults[i].responderIDs = responderIDs; // append responder IDs to incident
+                        }
+                        if (i + 1 == incidentResults.length) { // if done processing the final incident send response
+                            con.end(err => { if (err) { console.log(err) } });
+                            res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults }) // return incidents
+                        }
+                    })
+                }
+            }
+        });
+    } else {
+        res.send({ status: "fail", msg: "getting responder incidents: user is not a responder"});
+    }
+})
+
 ////////////////////////////////////////
 /////////// INPUT VALIDATION ///////////
 ////////////////////////////////////////
 
-
+// USER
 const validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const validPhoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
 const validAgeRegex = /^(0?[1-9]|[1-9][0-9])$/;
@@ -854,6 +1002,89 @@ function validateDeleteUser(req) {
         return ID;
     }
     return [true, null]
+}
+
+// INCIDENT
+function validTitle(condition) {
+    if (!condition) {
+        let msg = "Please enter a valid title";
+        console.log("creating incident: invalid title");
+        return [false, msg];
+    }
+    return [true, null];
+}
+
+function validType(condition) {
+    if (!condition) {
+        let msg = "Please select a valid type";
+        console.log("creating incident: invalid type");
+        return [false, msg];
+    }
+    return [true, null];
+}
+
+function validPriority(condition) {
+    if (!condition) {
+        let msg = "Please select a valid priority";
+        console.log("creating incident: invalid priority");
+        return [false, msg];
+    }
+    return [true, null];
+}
+
+function validDescription(condition) {
+    if (!condition) {
+        let msg = "Please enter a valid description";
+        console.log("creating incident: invalid description");
+        return [false, msg];
+    }
+    return [true, null];
+}
+
+function validLatitude(condition) {
+    if (!condition) {
+        let msg = "Please select a valid latitude";
+        console.log("creating incident: invalid latitude");
+        return [false, msg];
+    }
+    return [true, null];
+}
+
+function validLongitude(condition) {
+    if (!condition) {
+        let msg = "Please select a valid longitude";
+        console.log("creating incident: invalid longitude");
+        return [false, msg];
+    }
+    return [true, null];
+}
+
+function validateCreateIncident(req) {
+    let title = validTitle(sanitizeHtml(req.body.title) == req.body.title);
+    if (!title[0]) {
+        return title;
+    }
+    let priority = validPriority(req.body.priority == urgentPriority || req.body.priority == highPriority || req.body.priority == mediumPriority || req.body.priority == lowPriority)
+    if (!priority[0]) {
+        return priority;
+    }
+    let type = validType(req.body.type == harassmentIncident || req.body.type == suspiciousActivityIncident || req.body.type == violentIncident);
+    if (!type[0]) {
+        return type;
+    }
+    let description = validDescription(sanitizeHtml(req.body.description) == req.body.description);
+    if (!description[0]) {
+        return description;
+    }
+    let latitude = validLatitude(req.body.lat < 90 && req.body.lat > -90);
+    if (!latitude[0]) {
+        return latitude;
+    }
+    let longitude = validLongitude(req.body.lon < 180 && req.body.lon > -180);
+    if (!longitude[0]) {
+        return longitude;
+    }
+    return [true, null];
 }
 
 ////////////////////////////
