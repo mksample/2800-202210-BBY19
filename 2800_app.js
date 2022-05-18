@@ -23,7 +23,8 @@ const remoteSqlAuthentication = {
     database: "heroku_b395e55ab1671ee"
 }
 
-const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
+// const sqlAuthentication = remoteSqlAuthentication; // SETTING TO USE REMOTE DB
+const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL DB
 
 const userTable = "BBY_19_user";
 const incidentTable = "BBY_19_incident";
@@ -427,6 +428,83 @@ app.post("/deleteUser", function (req, res) {
             }
         }
     })
+})
+
+// Search the keyword from database when using search bar.
+app.post("/getUsersKeyword", function (req, res) {
+    if (req.session.role == adminRole) {
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+        var keyword;
+        if (req.body.keyword == '') {
+            // If there's empty search keyword, it intentionally induces search results to be lost.
+            keyword = `'%EmptySearchKeyword%'`;     
+        } else {
+            keyword = `'%` + req.body.keyword + `%'`;
+        }
+        const getUser = `SELECT * FROM ` + userTable + ` WHERE ID != ` + req.session.userID + ` AND email LIKE ` + keyword + ` OR firstName LIKE ` + keyword + ` OR lastName LIKE ` + keyword;
+        con.query(getUser, function (error, results) {
+            con.end(err => {
+                if (err) {
+                    console.log(err)
+                }
+            });
+            if (error) {
+                console.log("getting users: " + error);
+                res.send({
+                    status: "fail",
+                    msg: "getting users: " + error
+                })
+            } else {
+                res.send({
+                    status: "success",
+                    msg: "users retrieved",
+                    users: results
+                })
+            }
+        })
+    } else {
+        res.send({
+            status: "fail",
+            msg: "getting users: requesting user is not admin"
+        })
+    }
+})
+
+// Search the keyword from database when using search bar.
+app.post("/getUsersKeywordExact", function (req, res) {
+    if (req.session.role == adminRole) {
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+        const getUser = `SELECT * FROM ` + userTable + ` WHERE ID = ` + req.body.keyword;
+        con.query(getUser, function (error, results) {
+            con.end(err => {
+                if (err) {
+                    console.log(err)
+                }
+            });
+            if (error) {
+                console.log("getting users: " + error);
+                res.send({
+                    status: "fail",
+                    msg: "getting users: " + error
+                })
+            } else {
+                res.send({
+                    status: "success",
+                    msg: "users retrieved",
+                    users: results
+                })
+            }
+        })
+    } else {
+        res.send({
+            status: "fail",
+            msg: "getting users: requesting user is not admin"
+        })
+    }
 })
 
 ///////////////////////////////////////////
