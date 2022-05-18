@@ -466,7 +466,8 @@ label.radio {
     overflow: visible;
     display: inline-block;
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 label.radio:before {
@@ -524,7 +525,8 @@ hr {
     box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
     border: solid 1px #cbc9c9;
     margin-left: -5px;
-    margin-top: 13px;
+    margin-top: 6px;
+    margin-bottom: 7px;
     padding-left: 10px;
 }
 
@@ -545,8 +547,11 @@ hr {
 }
 
 .accounttype {
-    margin-left: 10px;
-    margin-top: 20px;
+    margin-top: 10px
+}
+
+.gender {
+    margin-bottom: 10px;
 }
 
 .cancelButton {
@@ -558,7 +563,7 @@ hr {
     font-size: 12px;
     font-weight: bold;
     padding: 10px 30px;
-    margin: 50px 8px 20px 0px;
+    margin: 20px 8px 20px 0px;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
@@ -574,7 +579,7 @@ hr {
     font-size: 12px;
     font-weight: bold;
     padding: 10px 30px;
-    margin: 50px 8px 20px 340px;
+    margin: 20px 8px 20px 340px;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
@@ -765,10 +770,26 @@ hr {
         padding: 10px;
         font-size: 20px;
     }
+
+    .submitButton {
+        margin: 20px 8px 20px 100px;
+    }
+    
+    .cancelButton {
+        margin: 20px 8px 20px 0px;
+    }
 }
 
 @media (max-width: 450px) {
     .userpost .posts:first-child {
         height: 400px;
+    }
+
+    .submitButton {
+        margin: 20px 8px 20px 50px;
+    }
+
+    .cancelButton {
+        margin: 20px 8px 20px 0px;
     }
 }
