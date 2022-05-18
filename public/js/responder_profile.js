@@ -21,9 +21,6 @@ ready(async function () {
         if (response.status == "fail") {
             console.log(response.msg);
         } else {
-            document.getElementById("userFName").innerHTML = response.user.firstName;
-            document.getElementById("userLName").innerHTML = response.user.lastName;
-            document.getElementById("email").innerHTML = response.user.email;
             document.getElementById("detail_user_firstN").innerHTML = response.user.firstName;
             document.getElementById("detail_user_lastN").innerHTML = response.user.lastName;
             document.getElementById("detail_user_email").innerHTML = response.user.email;
