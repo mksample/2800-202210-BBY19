@@ -3,16 +3,16 @@
 
 <head>
   <!-- Page Title-->
-  <title>User ProfilePage</title>
+  <title>Caller Profile Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Our StyleSheet-->
   <link rel="stylesheet" href="/css/caller_profile.css">
 
-  <!-- Google Material Icons-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+  <!-- Icon libraries from https://fonts.google.com/icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="https://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
 
 </head>
 
@@ -27,12 +27,12 @@
         <h1>SaveMe</h1>
       </div>
 
+
       <!--HAMBURGER MENU FOR MOBILE-->
 
       <div class="hamburger-menu">
         <span><i class="material-icons">list</i></span>
       </div>
-
 
       <!-- TOP NAVIGATION -->
       <div class="nav">
@@ -97,14 +97,10 @@
       </ul>
     </div>
 
-
     <!-- VERTICAL ICON NAVIGATION-->
     <div class="vert-bar">
       <span> <i class="material-icons">more_vert</i></span>
     </div>
-
-
-
 
     <!-- SIDEBAR NAVIGATION -->
     <aside class="sidebar">
@@ -129,20 +125,6 @@
 
         </div>
 
-      </div>
-
-      <!-- SIDE NAVIGATION SEARCH BAR-->
-      <div class="search-bar">
-        <form>
-          <div class="search">
-
-            <input type="text" placeholder="Search Profile...">
-
-            <button type="submit"><span><i class="material-icons">search</i></span></button>
-
-          </div>
-
-        </form>
       </div>
 
       <!-- SIDE NAVIGATION GENERAL-->
@@ -188,6 +170,35 @@
     <!-- PROFILE CONTENT -->
     <div class="main">
       <section class="profile tabs">
+        <h1>User Dashboard</h1>
+
+        <div id="profiles" class="userpost">
+          <div class="posts">
+            <div class="profile" id="callForHelp">
+              <img class="profilePicture" src="/imgs/call.png" width="40px" alt="logo">
+              <p class="ticketName">Call for help</p>
+            </div>
+          </div>
+
+          <div class="posts">
+            <div class="profile" id="reportIncident">
+              <img class="profilePicture" src="/imgs/report.png" width="40px" alt="logo">
+              <p class="ticketName">Report incident</p>
+            </div>
+          </div>
+
+          <div class="posts">
+            <div class="profile" id="activeIncident">
+              <img class="profilePicture" src="/imgs/incident.png" width="40px" alt="logo">
+              <p class="ticketName">Active incident</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- DASHBOARD TABS-->
+      <section class="tabs">
         <div id="user_profile_pictue"></div>
         <h1>User profile</h1>
         <div id="user_profile_section">
@@ -195,7 +206,7 @@
             <form id="upload-images-form">
               <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
                 multiple="multiple" />
-              <input id="submit" type="submit" value="Save profile image" />
+              <input id="submitProfilePhoto" type="submit" value="Save profile image" />
             </form>
           </div>
           <br><br>
@@ -224,18 +235,6 @@
             <button type="button" id="end-editing">Save</button>
           </form>
         </div>
-      </section>
-
-      <!-- DASHBOARD TABS-->
-      <section class="tabs">
-
-        <h1>Dashboard</h1>
-
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
       </section>
 
       <!-- REVIEWS TABS-->
@@ -267,17 +266,67 @@
         </div>
       </section>
 
-
     </div>
 
 
+    <!-- MODALS -->
 
+    <!-- Call for help modal -->
+    <div id="callForHelpModal" class="modal">
+      <div class="edit-call-modal-content">
+        <div id="modalContents">
+          <h2>Call for help</h2>
+          <br /><br />
+          <div id="callcontext"> </div>
+          <br /><br />
+          <form>
+            <input type="button" class="callForHelpModalCancelButton" id="cancel" value="Cancel" />
+            <input type="button" class="submitButton" id="submit" value="Submit" />
+          </form>
 
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Incident modal -->
+    <div id="reportIncidentModal" class="modal">
+      <div class="edit-report-modal-content">
+        <div id="modalContents">
+          <h2>Report incident</h2>
+          <br /><br />
+          <div id="reportContext"> </div>
+          <br /><br />
+          <form>
+            <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" />
+            <input type="button" class="submitButton" id="submit" value="Submit" />
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Incident modal -->
+    <div id="activeIncidentModal" class="modal">
+      <div class="edit-active-modal-content">
+        <div id="modalContents">
+          <h2>Active incident</h2>
+          <br /><br />
+          <div id="activeContext"> </div>
+          <br /><br />
+          <form>
+            <input type="button" class="activeIncidentModalCancelButton" id="cancel" value="Cancel" />
+            <input type="button" class="submitButton" id="submit" value="Submit" />
+          </form>
+
+        </div>
+      </div>
+    </div>
 
   </div>
   <!-- SCRIPT FOLDER-->
-  <script src="/js/caller_profile.js"></script>
+  <script src="/js/caller_dashboard.js"></script>
   <script src="/js/caller_profile_edit.js"></script>
+  <script src="/js/caller_profile.js"></script>
   <script src="/js/caller_profile_upload_photo.js"></script>
 
   <!-- JQuery-->
