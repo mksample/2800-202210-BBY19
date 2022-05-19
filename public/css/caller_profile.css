@@ -356,6 +356,11 @@ aside .status::before {
     flex-direction: column;
 }
 
+#map {
+    height: 600px;
+    width: 100%;
+}
+
 input[type=radio] {
     visibility: hidden;
 }
