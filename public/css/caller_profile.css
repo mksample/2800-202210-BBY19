@@ -361,6 +361,14 @@ aside .status::before {
     width: 100%;
 }
 
+
+#test{
+    width: 15%;
+    background-color: #ff7e00;
+    
+}
+
+
 input[type=radio] {
     visibility: hidden;
 }

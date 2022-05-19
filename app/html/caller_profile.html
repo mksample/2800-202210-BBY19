@@ -281,11 +281,11 @@
           <br /><br />
           <form>
             <!-- <label class="icon" for="email"><i class="icon-envelope "></i></label> -->
-            <input type="text" name="email" id="title" placeholder="Title" required/>
+            <input type="text" name="email" id="title" placeholder="Title"/>
             <br>
             <p>Please select one that desribes your situation </p>
             <div class="Priority">
-              <input type="radio" value="URGENT" id="urgent" name="Priority" checked />
+              <input type="radio" value="URGENT" id="urgent" name="Priority"/>
               <label for="urgent" class="radio" chec>Urgent</label>
               <input type="radio" value="HIGH" id="high" name="Priority" />
               <label for="high" class="radio">High</label>
@@ -297,7 +297,7 @@
 
             <p>Please select one that descirbes the type of an incidnet</p>
             <div class="InciType">
-              <input type="radio" value="HARASSMENT" id="harrasment" name="InciType" checked />
+              <input type="radio" value="HARASSMENT" id="harrasment" name="InciType" />
               <label for="harrasment" class="radio" chec>Harrasment</label>
               <input type="radio" value="SUSACTIVITY" id="susactivity" name="InciType" />
               <label for="susactivity" class="radio">Suspicious Activity</label>
@@ -306,7 +306,7 @@
             </div>
 
             <!-- <label class="icon" for="password"><i class="icon-shield"></i></label> -->
-            <input type="text" name="name" id="description" placeholder="Description"  required/>
+            <input type="text" name="name" id="description" placeholder="Description" />
 
             <div id="map"></div>
             <div>user location: </div>
@@ -438,9 +438,12 @@
       });
       infoWindow = new google.maps.InfoWindow();
 
-      const locationButton = document.createElement("button");
-
-      locationButton.textContent = "Incident";
+      const locationButton = document.createElement("input");
+      const message = "SOS";
+      locationButton.type = "button";
+      locationButton.value = "SOS";
+      locationButton.id = "test"
+     
       locationButton.classList.add("custom-map-control-button");
       map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
       locationButton.addEventListener("click", () => {
@@ -460,9 +463,7 @@
                 "Incident occured. Your location has been shared to our responders. The closest responder to you will be there."
               );
               infoWindow.open(map);
-              // document.getElementById("userLocation").innerHTML = JSON.stringify(pos);
-              // console.log(pos.lat);
-              // console.log(pos.lng);
+            
               document.getElementById("user_lat").innerHTML = pos.lat;
               document.getElementById("user_lng").innerHTML = pos.lng;
               map.setCenter(pos);
