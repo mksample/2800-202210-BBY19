@@ -80,7 +80,7 @@ app.use("/css", express.static("public/css"));
 app.use("/imgs", express.static("public/imgs"));
 app.use("/profilePictures", express.static("public/imgs/userProfile"));
 app.use("/fonts", express.static("public/fonts"));
-app.use("/html", express.static("public/html"));
+app.use("/html", express.static("app/html"));
 app.use("/media", express.static("public/media"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
