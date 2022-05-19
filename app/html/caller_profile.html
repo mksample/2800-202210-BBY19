@@ -24,7 +24,7 @@
       <!-- LOGO-->
       <div class="logo">
         <img src="/imgs/saveme.jpg" width="40px" alt="logo" />
-        <h1>SaveMe</h1>
+        <h2>SaveMe</h2>
       </div>
 
 
@@ -42,44 +42,44 @@
             <h3>Home</h3>
           </li>
 
-        <li>
-          <a href="/html/about_nav.html">About</a>
-        </li>
+          <li>
+            <a href="/html/about_nav.html">About</a>
+          </li>
 
-        <li>
-          <a href="/html/contact_nav.html">Contact</a>
-        </li>
+          <li>
+            <a href="/html/contact_nav.html">Contact</a>
+          </li>
 
-        <li>
-          <form action="/logout" method="get">
-            <input id="logout" type="submit" value="Logout" />
-          </form>
-        </li>
+          <li>
+            <form action="/logout" method="get">
+              <input id="logout" type="submit" value="Logout" />
+            </form>
+          </li>
 
-      </ul>
+        </ul>
 
-    </div>
+      </div>
 
-  </header>
+    </header>
 
 
     <!-- BOTTOM NAVIGATION BAR MOBILE-->
     <div class="nav-mobile">
       <ul>
 
-        <li>
-          <span> <i class="material-icons">home</i></span>
+        <li onclick=show(0)>
+          <span><i class="material-icons">home</i></span>
           <h3>Home</h3>
         </li>
 
         <li>
           <span> <i class="material-icons">info</i></span>
-          <h3>About</h3>
+          <a href="/html/about_nav.html">About</a>
         </li>
 
         <li>
-          <span> <i class="material-icons">call</i></span>
-          <h3>Contact</h3>
+          <span><i class="material-icons">call</i></span>
+          <a href="/html/contact_nav.html">Contact</a>
         </li>
 
         <li class="active">
@@ -90,7 +90,7 @@
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
-            <input id="logginout" type="submit" value="Logout" />
+            <input id="logout-bt" type="submit" value="Logout" />
           </form>
         </li>
 
@@ -105,7 +105,7 @@
     <!-- SIDEBAR NAVIGATION -->
     <aside class="sidebar">
       <!-- SIDEBAR CLOSE WHEN ON MOBILE-->
-      <h1>SaveMe<span class="close"><i class="material-icons">close</i></span></h1>
+      <h2>SaveMe<span class="close"><i class="material-icons">close</i></span></h2>
 
       <div class="user-side">
 
@@ -137,11 +137,11 @@
               <h3>Profile</h3>
             </li>
             <li onclick="show(1)">
-              <span><i class="material-icons">star</i></span>
+              <span><i class="material-icons">person_outline</i></span>
               <h3>Dashboard</h3>
             </li>
             <li onclick="show(2)">
-              <span><i class="material-icons">comments</i></span>
+              <span><i class="material-icons">timeline</i></span>
               <h3>Reviews</h3>
             </li>
             <li onclick="show(3)">
@@ -150,20 +150,6 @@
             </li>
           </ul>
         </nav>
-      </div>
-      <!-- BOTTOM NAVIGATION ICONS-->
-      <div class="bt-nav">
-        <ul>
-          <li class="alert" title="Alert">
-            <span><i class="material-icons">notifications</i></span>
-          </li>
-          <li class="message" title="Message">
-            <span><i class="material-icons">message</i></span>
-          </li>
-          <li class="set" title="Settings">
-            <span><i class="material-icons">settings</i></span>
-          </li>
-        </ul>
       </div>
     </aside>
 
@@ -239,7 +225,18 @@
 
       <!-- REVIEWS TABS-->
       <section class="tabs">
-        <h1>Reviews</h1>
+
+        <h1>Profile</h1>
+
+        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Quia recusandae laudantium odio!
+          Iusto velit laboriosam perferendis ab!
+          Aliquam ab odit animi autem cumque
+          sit sint corporis quo. Voluptas, natus corporis?</p>
+
+      </section>
+      <section class="tabs">
+        <h1>Incident Log</h1>
 
         <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Quia recusandae laudantium odio!
@@ -247,8 +244,6 @@
           Aliquam ab odit animi autem cumque
           sit sint corporis quo. Voluptas, natus corporis?</p>
       </section>
-
-      <!-- SETTINGS TABS-->
       <section class="tabs">
         <h1>Settings</h1>
 
@@ -256,7 +251,9 @@
           Quia recusandae laudantium odio!
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
+          sit sint corporis quo. Voluptas, natus corporis?
+          test</p>
+
         <div id="container">
           <form id="upload-images-form">
             <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
@@ -264,6 +261,9 @@
             <input id="submit" type="submit" value="Save profile image" />
           </form>
         </div>
+
+
+
       </section>
 
     </div>
