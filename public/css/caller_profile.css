@@ -419,6 +419,19 @@ aside .search-bar button {
     flex-direction: column;
 }
 
+#map {
+    height: 600px;
+    width: 100%;
+}
+
+
+#test{
+    width: 15%;
+    background-color: #ff7e00;
+    
+}
+
+
 input[type=radio] {
     visibility: hidden;
 }
