@@ -583,7 +583,7 @@ app.post("/getUsersKeywordExact", function (req, res) {
 // lon (float) - longitude of the incident.
 app.post("/createIncident", function (req, res) {
     if (req.session.role != callerRole) {
-        res.send({ status: "fail", msg: "creating incident: user is not caller"});
+        res.send({ status: "fail", msg: "creating incident: user is not caller" });
         return;
     }
 
@@ -608,7 +608,7 @@ app.post("/createIncident", function (req, res) {
         con.query(addUser, function (error, results) {
             if (error) {
                 con.end(err => { if (err) { console.log(err) } });
-                console.log(error);
+                console.log("creating incident: " + error);
                 res.send({ status: "fail", msg: "creating incident: " + error, displayMsg: "Database error" });
             } else {
                 console.log(`SELECT * FROM ` + incidentTable + ` WHERE callerID = ` + req.session.userID + ` AND lat = ` + req.body.lat + ` AND lon = ` + req.body.lon + ` AND title = '` + req.body.title + `'`);
@@ -618,7 +618,7 @@ app.post("/createIncident", function (req, res) {
                         console.log(error)
                         res.send({ status: "fail", msg: "getting created incident: " + error, displayMsg: "Database error" });
                     } else {
-                        res.send({ status: "success", msg: "incident created", incident: results});
+                        res.send({ status: "success", msg: "incident created", incident: results });
                     }
                 })
             }
@@ -626,6 +626,42 @@ app.post("/createIncident", function (req, res) {
     } else {
         res.send({ status: "fail", msg: "creating incident: invalid input", displayMsg: displayMsg });
     }
+})
+
+// Delete incident request. User needs to be a caller to delete it.
+// Returns a status ("success" or "fail"), a status message (internal, not for display).
+// POST params:
+// incidentID (int) - ID of the incident to delete.
+app.post("/deleteIncident", function(req, res) {
+    if (req.session.role != callerRole) {
+        res.send({ status: "fail", msg: "deleting incident: user is not caller" });
+        return;
+    }
+
+    const mysql = require("mysql2");
+    const con = mysql.createConnection(sqlAuthentication);
+    con.connect();
+
+    deleteIncidentQuery = "DELETE FROM " + incidentTable + " WHERE ID = " + req.body.incidentID + " AND callerID = " + req.session.userID;
+    deleteRespondersQuery = "DELETE FROM " + respondersTable + " WHERE incidentID = " + req.body.incidentID;
+
+    con.query(deleteRespondersQuery, function(error, results) {
+        if (error) {
+            con.end(err => { if (err) { console.log(err) } });
+            console.log("deleting responders: " + error);
+            res.send({ status: "fail", msg: "deleting responders: " + error });
+        } else {
+            con.query(deleteIncidentQuery, function(error, results) {
+                con.end(err => { if (err) { console.log(err) } });
+                if (error) {
+                    console.log("deleting incident: " + error);
+                    res.send({ status: "fail", msg: "deleting incident: " + error });
+                } else {
+                    res.send({ status: "success", msg: "incident deleted" });
+                }
+            })
+        }
+    })
 })
 
 // Gets incidents based on the current session user
@@ -641,6 +677,7 @@ app.post("/createIncident", function (req, res) {
 // lat (float) - the latitude of where the incident occurred.
 // lon (float) - the longitude of where the incident occurred.
 // timestamp (yyyy-mm-dd hh:mm:ss) - timestamp of when the incident was created.
+// resolutionComment (string) - comment left on resolution of incident.
 // responderIDs (int array) - IDs of the users who responded to the incident.
 app.get("/getIncidents", function (req, res) {
     // select which query to use
@@ -754,9 +791,100 @@ app.get("/getResponderIncidents", function (req, res) {
             }
         });
     } else {
-        res.send({ status: "fail", msg: "getting responder incidents: user is not a responder"});
+        res.send({ status: "fail", msg: "getting responder incidents: user is not a responder" });
     }
 })
+
+// Join incident request. User needs to be a responder to join it.
+// Returns a status ("success" or "fail"), a status message (internal, not for display).
+// POST params:
+// incidentID (int) - ID of the incident to join.
+app.post("/joinIncident", function (req, res) {
+    if (req.session.role != responderRole) {
+        res.send({ status: "fail", msg: "joining incident: user is not responder" });
+        return;
+    }
+
+    const mysql = require("mysql2");
+    const con = mysql.createConnection(sqlAuthentication);
+    con.connect();
+
+    let query = "INSERT INTO " + respondersTable + " (responderID, incidentID) VALUES (" + req.session.userID + ", " + incidentID + ");"
+    con.query(query, function(error, results) {
+        con.end(err => { if (err) { console.log(err) } });
+        if (error) {
+            console.log("joining incident: " + error);
+            res.send({ status: "fail", msg: "joining incident: " + error });
+        } else {
+            res.send({status: "success", msg: "incident joined"});
+        }
+    })
+})
+
+// Resolve incident request. User needs to have responded to the incident for them to resolve it.
+// Returns a status ("success" or "fail"), a status message (internal, not for display).
+// POST params:
+// incidentID (int) - ID of the incident to resolve.
+// resolutionComment (string) - resolution comment for the incident.
+app.post("/resolveIncident", function (req, res) {
+    if (req.session.role != responderRole) {
+        res.send({ status: "fail", msg: "resolving incident: user is not responder" });
+        return;
+    }
+
+    let validVals = validateResolveIncident(req);
+    let valid = validVals[0];
+    let displayMsg = validVals[1];
+    if (valid) {
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+
+        let responderQuery = `SELECT responderID
+        FROM ` + incidentTable + `
+        JOIN ` + respondersTable + `
+        ON ` + incidentTable + `.ID = ` + respondersTable + `.IncidentID
+        WHERE ` + incidentTable + `.ID = ` + req.body.incidentID;
+
+        let resolveQuery = `UPDATE ` + incidentTable + ` 
+        SET resolutionComment = '` + req.body.resolutionComment + `', status = '` + resolvedStatus + `' 
+        WHERE ID = ` + req.body.incidentID;
+
+        con.query(responderQuery, function(error, results) {
+            if (error) {
+                con.end(err => { if (err) { console.log(err) } });
+                console.log("getting responder IDs: " + error);
+                res.send({ status: "fail", msg: "getting responder IDs: " + error });
+            } else {
+                let valid = false;
+                for (const result of results) {
+                    if (result.responderID == req.session.userID) {
+                        valid = true;
+                    }
+                }
+                if (!valid) {
+                    con.end(err => { if (err) { console.log(err) } });
+                    console.log("resolving incident: user did not respond to this incident");
+                    res.send({ status: "fail", msg: "resolving incident: user did not respond to this incident"});
+                } else {
+                    con.query(resolveQuery, function(error, results) {
+                        con.end(err => { if (err) { console.log(err) } });
+                        if (error) {
+                            console.log("resolving incident: " + error);
+                            res.send({ status: "fail", msg: "resolving incident: " + error });
+                        } else {
+                            res.send({ status: "success", msg: "incident resolved"});
+                        }
+                    })
+                }
+            }
+        })
+    } else {
+        res.send({ status: "fail", msg: "creating incident: invalid input", displayMsg: displayMsg });
+    }
+})
+
+
 
 ////////////////////////////////////////
 /////////// INPUT VALIDATION ///////////
@@ -1059,6 +1187,15 @@ function validLongitude(condition) {
     return [true, null];
 }
 
+function validResolutionComment(condition) {
+    if (!condition) {
+        let msg = "Please enter a valid resolution comment";
+        console.log("resolving incident: invalid resolution comment");
+        return [false, msg];
+    }
+    return [true, null];
+}
+
 function validateCreateIncident(req) {
     let title = validTitle(sanitizeHtml(req.body.title) == req.body.title);
     if (!title[0]) {
@@ -1085,6 +1222,13 @@ function validateCreateIncident(req) {
         return longitude;
     }
     return [true, null];
+}
+
+function validateResolveIncident(req) {
+    let resolutionComment = validResolutionComment(sanitizeHtml(req.body.resolutionComment) == req.body.resolutionComment);
+    if (resolutionComment[0]) {
+        return resolutionComment;
+    }
 }
 
 ////////////////////////////
