@@ -281,42 +281,43 @@
           <br /><br />
           <form>
             <!-- <label class="icon" for="email"><i class="icon-envelope "></i></label> -->
-            <input type="text" name="email" id="email" placeholder="Title" required />
+            <input type="text" name="email" id="title" placeholder="Title" required/>
             <br>
             <p>Please select one that desribes your situation </p>
-            <div class="Priorty">
-              <input type="radio" value="URGENT" id="urgent" name="Priorty" checked />
+            <div class="Priority">
+              <input type="radio" value="URGENT" id="urgent" name="Priority" checked />
               <label for="urgent" class="radio" chec>Urgent</label>
-              <input type="radio" value="HIGH" id="high" name="Priorty" />
+              <input type="radio" value="HIGH" id="high" name="Priority" />
               <label for="high" class="radio">High</label>
-              <input type="radio" value="MEDIUM" id="medium" name="Priorty" />
+              <input type="radio" value="MEDIUM" id="medium" name="Priority" />
               <label for="medium" class="radio">Medium</label>
-              <input type="radio" value="LOW" id="low" name="Priorty" />
+              <input type="radio" value="LOW" id="low" name="Priority" />
               <label for="low" class="radio">Low</label>
             </div>
 
             <p>Please select one that descirbes the type of an incidnet</p>
-            <div class="Status">
-              <input type="radio" value="HARRASMENT" id="harrasement" name="InciType" checked />
-              <label for="harrasement" class="radio" chec>Harrasment</label>
+            <div class="InciType">
+              <input type="radio" value="HARASSMENT" id="harrasment" name="InciType" checked />
+              <label for="harrasment" class="radio" chec>Harrasment</label>
               <input type="radio" value="SUSACTIVITY" id="susactivity" name="InciType" />
               <label for="susactivity" class="radio">Suspicious Activity</label>
               <input type="radio" value="VIOLENCE" id="violence" name="InciType" />
               <label for="violence" class="radio">Violence</label>
             </div>
 
-             <!-- <label class="icon" for="password"><i class="icon-shield"></i></label> -->
-             <input type="text" name="name" id="password" placeholder="Description" required />
+            <!-- <label class="icon" for="password"><i class="icon-shield"></i></label> -->
+            <input type="text" name="name" id="description" placeholder="Description"  required/>
 
             <div id="map"></div>
             <div>user location: </div>
-            <div id="userLocation"></div>
-
-
+            <p>user's latitude: </p>
+            <div id="user_lat"></div>
+            <p>user's longitude: </p>
+            <div id="user_lng"></div>
 
 
             <input type="button" class="callForHelpModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="submit" value="Submit" />
+            <input type="button" class="submitButton" id="callSubmit" value="Submit" />
           </form>
 
         </div>
@@ -332,8 +333,8 @@
           <div id="reportContext"> </div>
           <br /><br />
           <form>
-            <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="submit" value="Submit" />
+            <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" /> // id is using twice, so changed temporarry
+            <input type="button" class="submitButton" id="submit" value="Submit" /> // id is using twice, so changed temporarry
           </form>
 
         </div>
@@ -349,8 +350,8 @@
           <div id="activeContext"> </div>
           <br /><br />
           <form>
-            <input type="button" class="activeIncidentModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="submit" value="Submit" />
+            <input type="button" class="activeIncidentModalCancelButton" id="cancel" value="Cancel" /> // id is using twice, so changed temporarry
+            <input type="button" class="submitButton" id="submit" value="Submit" /> // id is using twice, so changed temporarry
           </form>
 
         </div>
@@ -363,6 +364,8 @@
   <script src="/js/caller_profile_edit.js"></script>
   <script src="/js/caller_profile.js"></script>
   <script src="/js/caller_profile_upload_photo.js"></script>
+  <script src="/js/call_for_help.js"></script>
+  
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -455,9 +458,13 @@
               infoWindow.setPosition(pos);
               infoWindow.setContent(
                 "Incident occured. Your location has been shared to our responders. The closest responder to you will be there."
-                );
+              );
               infoWindow.open(map);
-              document.getElementById("userLocation").innerHTML = JSON.stringify(pos);
+              // document.getElementById("userLocation").innerHTML = JSON.stringify(pos);
+              // console.log(pos.lat);
+              // console.log(pos.lng);
+              document.getElementById("user_lat").innerHTML = pos.lat;
+              document.getElementById("user_lng").innerHTML = pos.lng;
               map.setCenter(pos);
             },
             () => {
