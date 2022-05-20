@@ -4,7 +4,6 @@
     padding: 0px;
     margin: 0;
     box-sizing: border-box;
-    font-family: "Poppins";
 }
 
 /* background image for the body */
@@ -14,6 +13,7 @@ body {
     background: url(/imgs/background2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    font-family: "Poppins";
 }
 
 /* take off the list styling */
@@ -37,7 +37,7 @@ header {
 }
 
 /* SaveMe logo in the header*/
-header .logo {
+#logo {
     padding: 15px 25px;
     justify-content: center;
     align-items: center;
@@ -50,8 +50,7 @@ header img {
 }
 
 /* logo heading*/
-header .logo h2 {
-    font-family: "Poppins";
+#logo h2 {
     color: #d63b00;
     font-weight: 100;
     font-size: 1.5em;
@@ -76,7 +75,6 @@ header .nav ul li {
 }
 
 header .nav ul li h3 {
-    font-family: "Poppins";
     text-transform: uppercase;
     font-size: 15px;
     color: #d63b00;
@@ -96,7 +94,6 @@ header .nav ul li:hover {
 /* styling for the links*/
 a:link {
     color: red;
-    font-family: "Poppins";
     font-size: 15px;
     font-weight: bold;
     text-transform: uppercase;
@@ -125,7 +122,6 @@ a:hover {
     background-color: white;
     border-style: none;
     color: #d63b00;
-    font-family: "Poppins";
     font-size:15px;
     font-weight: 700px;
     text-transform: uppercase;
@@ -157,13 +153,12 @@ aside {
     background: white;
     overflow: auto;
     z-index: 10;
-    font-family: "Poppins"; 
 }
+
 /* Side-bar heading*/
 aside h2 {
     padding: 20px;
     color: #d63b00;
-    font-family: "Poppins";
     font-weight: 100;
 }
 
@@ -223,7 +218,6 @@ aside .name {
 aside .mail,
 aside .status {
     font-size: 14px;
-    font-family: "open sans", sans-serif;
 }
 
 aside .status {
@@ -345,7 +339,6 @@ aside .search-bar button {
 .main section {
     width: 100%;
     height: 100%;
-    font-family: "Poppins";
     padding: 20px;
     display: none;
 }
@@ -652,7 +645,6 @@ hr {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-family: "Poppins";
 }
 
 /* display incident modal styling */
@@ -822,7 +814,6 @@ button:active {
     }
 
     .nav-mobile ul li h3 {
-        font-family: "Poppins";
         text-transform: uppercase;
         margin-left: 20px;
     }

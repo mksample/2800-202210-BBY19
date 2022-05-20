@@ -59,8 +59,10 @@
   <div class="container">
     <header>
       <!-- LOGO-->
-      <div class="logo">
-        <img src="/imgs/saveme.jpg" width="40" alt="logo" />
+      <div id="logo">
+        <a href="/html/admin_profile.html">
+          <img src="/imgs/saveme.jpg" width="40" alt="logo" />
+        </a>
         <h2>SaveMe</h2>
       </div>
 
@@ -462,6 +464,27 @@
     close.addEventListener("click", () => {
       aside.classList.remove("show");
     })
+  </script>
+
+  <!--Easter Egg, change font-->
+  <script>
+    let counter = 0;
+
+    const logo = document.getElementById("logo");
+    const selectbody = document.getElementsByTagName("body")[0];
+
+
+    logo.addEventListener('click', toggleFont);
+
+
+    function toggleFont() {
+      counter += 1;
+
+      if (counter == 5) {
+        selectbody.style.fontFamily = "monospace";
+      }
+
+    }
   </script>
 
 </body>
