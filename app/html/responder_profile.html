@@ -175,16 +175,16 @@
           <h2>General</h2>
           <nav>
             <ul>
-              <li class="active" onclick="show(0)">
+              <li class ="active" onclick="show(0)">
+                <span><i class="material-icons">person_outline</i></span>
+                <h3>Profile</h3>
+              </li>
+              <li onclick="show(1)">
                 <span><i class="material-icons">speed</i></span>
                 <h3>Dashboard</h3>
               </li>
-              <li onclick="show(1)">
-                <span><i class="material-icons">star</i></span>
-                <h3>Profile</h3>
-              </li>
               <li onclick="show(2)">
-                <span><i class="material-icons">comments</i></span>
+                <span><i class="material-icons">timeline</i></span>
                 <h3>Incident Log</h3>
               </li>
               <li onclick="show(3)">
@@ -194,17 +194,10 @@
             </ul>
           </nav>
         </div>
-    </aside>
+      </aside>
 
     <!-- DASHBOARD TAB -->
     <div class="main">
-      <section id="dashboard" class="profile tabs">
-        <h1>Incident Live Feed</h1>
-        <div id="incidents" class="userpost">
-
-        </div>
-      </section>
-
       <!-- PROFILE TAB -->
       <section class="tabs">
         <h1>User profile</h1>
@@ -241,6 +234,15 @@
           <button type="button" id="end-editing">Save</button>
         </div>
       </section>
+
+        <!-- DASHBOARD TAB -->
+      <section id="dashboard" class="profile tabs">
+        <h1>Incident Live Feed</h1>
+        <div id="incidents" class="userpost">
+
+        </div>
+      </section>
+
       <!-- INCIDENT LOG TAB -->
       <section class="tabs">
         <h1>Incident Log</h1>

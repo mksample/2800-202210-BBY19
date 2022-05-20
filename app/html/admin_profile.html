@@ -188,12 +188,12 @@
         <nav>
           <ul>
             <li class="active" onclick="show(0)">
-              <span><i class="material-icons">speed</i></span>
-              <h3>Dashboard</h3>
-            </li>
-            <li onclick="show(1)">
               <span><i class="material-icons">person_outline</i></span>
               <h3>Profile</h3>
+            </li>
+            <li onclick="show(1)">
+              <span><i class="material-icons">speed</i></span>
+              <h3>Dashboard</h3>
             </li>
             <li onclick="show(2)">
               <span><i class="material-icons">timeline</i></span>
@@ -208,16 +208,7 @@
       </div>
     </aside>
 
-    <!-- DASHBOARD CONTENT -->
     <div class="main">
-      <section class="profile tabs">
-        <h1>Users</h1>
-        <div id="profiles" class="userProfiles">
-          <div id="createUserButton" class="posts">
-            <span><i class="material-icons">add</i></span>
-          </div>
-        </div>
-      </section>
 
       <!-- PROFILE TAB -->
       <section class="tabs">
@@ -258,6 +249,18 @@
           </form>
         </div>
       </section>
+
+
+      <!-- DASHBOARD CONTENT -->
+      <section class="profile tabs">
+        <h1>Users</h1>
+        <div id="profiles" class="userProfiles">
+          <div id="createUserButton" class="posts">
+            <span><i class="material-icons">add</i></span>
+          </div>
+        </div>
+      </section>
+
       <!-- INCIDENT LOG TAB -->
       <section class="tabs">
         <h1>Incident Log</h1>
