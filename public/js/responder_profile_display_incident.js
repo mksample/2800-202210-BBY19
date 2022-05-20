@@ -82,10 +82,10 @@ async function prepareDisplayIncidentModal(incident) {
             // Otherwise, make sure they're displayed
             if (!joined || incident.status == "RESOLVED") {
                 document.getElementById("displayIncidentResolveButton").style.display = "none";
-                document.getElementById("displayIncidentResolutionComment").style.display = "none";
+                document.getElementById("displayIncidentResolutionCommentInput").style.display = "none";
             } else {
                 document.getElementById("displayIncidentResolveButton").style.display = "";
-                document.getElementById("displayIncidentResolutionComment").style.display = "";
+                document.getElementById("displayIncidentResolutionCommentInput").style.display = "";
             }
         }
     }
@@ -101,7 +101,13 @@ async function prepareDisplayIncidentModal(incident) {
     document.getElementById("displayIncidentLat").innerHTML = incident.lat;
     document.getElementById("displayIncidentLon").innerHTML = incident.lon;
     document.getElementById("displayIncidentTimestamp").innerHTML = incident.timestamp;
-    document.getElementById("displayIncidentResolutionComment").value = "";
+    if (incident.resolutionComment) {
+        document.getElementById("displayIncidentResolutionComment").style.display = ""
+        document.getElementById("displayIncidentResolutionComment").innerHTML = incident.resolutionComment;
+    } else {
+        document.getElementById("displayIncidentResolutionComment").style.display = "none"
+    }
+    document.getElementById("displayIncidentResolutionCommentInput").value = "";
 }
 
 // Submit function for the display incident modal. POSTS to /resolveIncident, returns true if successful, false if not.
@@ -110,7 +116,7 @@ async function submitDisplayIncidentModal(incident) {
     // submit resolve incident POST
     let response = await postData("/resolveIncident", {
         incidentID: incident.ID,
-        resolutionComment: document.getElementById("displayIncidentResolutionComment").value
+        resolutionComment: document.getElementById("displayIncidentResolutionCommentInput").value
     });
 
     if (response) {
