@@ -281,11 +281,11 @@
           <br /><br />
           <form>
             <!-- <label class="icon" for="email"><i class="icon-envelope "></i></label> -->
-            <input type="text" name="email" id="title" placeholder="Title"/>
+            <input type="text" name="email" id="title" placeholder="Title" />
             <br>
             <p>Please select one that desribes your situation </p>
             <div class="Priority">
-              <input type="radio" value="URGENT" id="urgent" name="Priority"/>
+              <input type="radio" value="URGENT" id="urgent" name="Priority" />
               <label for="urgent" class="radio" chec>Urgent</label>
               <input type="radio" value="HIGH" id="high" name="Priority" />
               <label for="high" class="radio">High</label>
@@ -333,8 +333,18 @@
           <div id="reportContext"> </div>
           <br /><br />
           <form>
-            <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" /> 
-            <input type="button" class="submitButton" id="submit" value="Submit" /> //
+            Message
+            <p><textarea cols="40" rows="5" id="textContents" placeholder="Type your message in here."></textarea></p>
+            <br />
+            Preview
+            <p><textarea cols="40" rows="5" id="previewContents" placeholder="Push the preview button." readonly></textarea></p>
+            <br />
+          </form>
+          <div id="status"></div>
+          <form>
+            <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" />
+            <input type="button" class="reportIncidentModalPreviewButton" id="preview" value="Preview" />
+            <input type="button" class="submitButton" id="incidentSubmit" value="Submit" />
           </form>
 
         </div>
@@ -351,7 +361,7 @@
           <br /><br />
           <form>
             <input type="button" class="activeIncidentModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="submit" value="Submit" /> 
+            <input type="button" class="submitButton" id="submit" value="Submit" />
           </form>
 
         </div>
@@ -365,7 +375,8 @@
   <script src="/js/caller_profile.js"></script>
   <script src="/js/caller_profile_upload_photo.js"></script>
   <script src="/js/call_for_help.js"></script>
-  
+  <script src="/js/call_report_incident.js"></script>
+
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -443,7 +454,7 @@
       locationButton.type = "button";
       locationButton.value = "SOS";
       locationButton.id = "test"
-     
+
       locationButton.classList.add("custom-map-control-button");
       map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
       locationButton.addEventListener("click", () => {
@@ -463,7 +474,7 @@
                 "Incident occured. Your location has been shared to our responders. The closest responder to you will be there."
               );
               infoWindow.open(map);
-            
+
               document.getElementById("user_lat").innerHTML = pos.lat;
               document.getElementById("user_lng").innerHTML = pos.lng;
               map.setCenter(pos);
@@ -483,8 +494,8 @@
       infoWindow.setPosition(pos);
       infoWindow.setContent(
         browserHasGeolocation ?
-        "Error: The Geolocation service failed." :
-        "Error: Your browser doesn't support geolocation."
+          "Error: The Geolocation service failed." :
+          "Error: Your browser doesn't support geolocation."
       );
       infoWindow.open(map);
     }
@@ -493,7 +504,7 @@
   </script>
   <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8&callback=initMap">
-  </script>
+    </script>
 
 
 </body>
