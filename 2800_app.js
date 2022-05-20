@@ -8,6 +8,7 @@ const multer = require("multer"); // storing images
 const readline = require('readline');
 const { JSDOM } = require('jsdom');
 const { connected } = require("process");
+const { NULL } = require("mysql/lib/protocol/constants/types");
 
 const localSqlAuthentication = { // sql connection settings
     host: "127.0.0.1",// for Mac os, type 127.0.0.1
@@ -1197,7 +1198,10 @@ function validResolutionComment(condition) {
 }
 
 function validateCreateIncident(req) {
-    let title = validTitle(sanitizeHtml(req.body.title) == req.body.title);
+    let isNotNull = req.body.title !== null;
+    let isNotEmpty = req.body.title !== "";
+    let isSanitized = sanitizeHtml(req.body.title) == req.body.title;
+    let title = validTitle(isNotNull && isNotEmpty && isSanitized);
     if (!title[0]) {
         return title;
     }
@@ -1209,14 +1213,20 @@ function validateCreateIncident(req) {
     if (!type[0]) {
         return type;
     }
-    let description = validDescription(sanitizeHtml(req.body.description) == req.body.description);
+    isNotNull = req.body.description !== null;
+    isNotEmpty = req.body.description !== "";
+    isSanitized = sanitizeHtml(req.body.description) == req.body.description;
+    let description = validDescription(isNotNull && isNotEmpty && isSanitized);
     if (!description[0]) {
         return description;
     }
+
     let latitude = validLatitude(req.body.lat < 90 && req.body.lat > -90);
     if (!latitude[0]) {
         return latitude;
     }
+
+
     let longitude = validLongitude(req.body.lon < 180 && req.body.lon > -180);
     if (!longitude[0]) {
         return longitude;

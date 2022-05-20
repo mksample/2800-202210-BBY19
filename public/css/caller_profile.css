@@ -431,6 +431,10 @@ aside .search-bar button {
     
 }
 
+#reportStatus{
+    color: red;
+}
+
 
 input[type=radio] {
     visibility: hidden;

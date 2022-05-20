@@ -20,6 +20,8 @@ ready(async function () {
 
     // Listener for call for help
     document.getElementById("callSubmit").addEventListener("click", async function (e) {
+
+
         let response = await postData("/createIncident", {
             title: document.getElementById("title").value,
             priority: document.querySelector('input[name="Priority"]:checked').value,
@@ -29,11 +31,14 @@ ready(async function () {
             lon: document.getElementById("user_lng").textContent 
            
         })
+
         if (response) {
             if (response.status == "fail") {
                 console.log(response.msg);
+                document.getElementById("reportStatus").innerHTML = response.displayMsg;
             } else {
                 console.log(response.msg);
+                window.location.replace("/profile");
             }
         }
     });

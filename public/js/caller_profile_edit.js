@@ -22,7 +22,7 @@ ready(async function () {
      */
     const paragraph = document.getElementsByClassName("edit");
     const edit_button = document.getElementById("edit-button");
-    const end_button = document.getElementById("end-editing");
+    // const end_button = document.getElementById("end-editing");
 
     edit_button.addEventListener("click", function () {
 

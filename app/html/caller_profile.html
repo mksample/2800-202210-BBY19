@@ -279,9 +279,9 @@
           <br /><br />
           <div id="callcontext"> </div>
           <br /><br />
-          <form>
+          <form name="incidentCreate">
             <!-- <label class="icon" for="email"><i class="icon-envelope "></i></label> -->
-            <input type="text" name="email" id="title" placeholder="Title"/>
+            <input type="text" name="email" id="title" placeholder="Title" reqired/>
             <br>
             <p>Please select one that desribes your situation </p>
             <div class="Priority">
@@ -295,7 +295,7 @@
               <label for="low" class="radio">Low</label>
             </div>
 
-            <p>Please select one that descirbes the type of an incidnet</p>
+            <p>Please select one that descirbes the type of an incident</p>
             <div class="InciType">
               <input type="radio" value="HARASSMENT" id="harrasment" name="InciType" />
               <label for="harrasment" class="radio" chec>Harrasment</label>
@@ -306,7 +306,7 @@
             </div>
 
             <!-- <label class="icon" for="password"><i class="icon-shield"></i></label> -->
-            <input type="text" name="name" id="description" placeholder="Description" />
+            <input type="text" name="name" id="description" placeholder="Description" required/>
 
             <div id="map"></div>
             <div>user location: </div>
@@ -314,11 +314,14 @@
             <div id="user_lat"></div>
             <p>user's longitude: </p>
             <div id="user_lng"></div>
+            <div id="reportStatus"></div>
 
 
             <input type="button" class="callForHelpModalCancelButton" id="cancel" value="Cancel" />
             <input type="button" class="submitButton" id="callSubmit" value="Submit" />
           </form>
+
+          
 
         </div>
       </div>
@@ -334,7 +337,7 @@
           <br /><br />
           <form>
             <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" /> 
-            <input type="button" class="submitButton" id="submit" value="Submit" /> //
+            <input type="button" class="submitButton" id="submit" value="Submit" />
           </form>
 
         </div>
