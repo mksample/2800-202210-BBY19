@@ -16,8 +16,16 @@ ready(async function () {
         return response.json();
     }
 
+    function appendAfter(incidentDisp, contentDOM) {
+        contentDOM.appendChild(incidentDisp);
+    }
+
+    function appendBefore(incidentDisp, contentDOM) {
+        contentDOM.insertBefore(incidentDisp, contentDOM.firstChild)
+    }
+
     // Creates incident displays, attaches event listeners to them, and appends them to contentDOM.
-    function createIncidentDisplay(incident, contentDOM) {
+    function createIncidentDisplay(incident, contentDOM, appendFunction) {
         // Creating incident display
         let incidentDisp = document.getElementById("IncidentTemplate").content.cloneNode(true);
         incidentDisp.querySelector("#incidentTitle").innerHTML = incident.title;
@@ -38,19 +46,23 @@ ready(async function () {
         }
 
         // Append the incident display to the contentDOM.
-        contentDOM.appendChild(incidentDisp);
-
-
+        appendFunction(incidentDisp, contentDOM);
 
         // If the incident is not active, add an event listener for displaying it. Otherwise, add an event listener for editing it.
         if (incident.status != "ACTIVE") {
-            contentDOM.querySelector("#incident" + incident.ID).addEventListener("click", async function (e) {
+            contentDOM.querySelector("#incident" + incident.ID).parentNode.addEventListener("click", async function (e) {
                 e.stopImmediatePropagation();
                 prepareDisplayIncidentModal(incident);
                 openDisplayIncidentModal(incident, "displayIncidentModal", "displayIncidentCancelButton");
             })
         } else {
-            // TODO: add edit incident event listener here
+
+            // TODO: temp, replace this with the edit incident modal
+            contentDOM.querySelector("#incident" + incident.ID).parentNode.addEventListener("click", async function (e) {
+                e.stopImmediatePropagation();
+                prepareDisplayIncidentModal(incident);
+                openDisplayIncidentModal(incident, "displayIncidentModal", "displayIncidentCancelButton");
+            })
         }
     }
 
@@ -97,18 +109,28 @@ ready(async function () {
         document.getElementById("callSubmit").addEventListener("click", async function (e) {
             let response = await postData("/createIncident", {
                 title: document.getElementById("title").value,
-                priority: document.querySelector('input[name="Priority"]:checked').value,
-                type: document.querySelector('input[name="InciType"]:checked').value,
+                priority: document.getElementById("Priority").value,
+                type: document.getElementById("InciType").value,
                 description: document.getElementById("description").value,
-                lat: document.getElementById("user_lat").textContent,
-                lon: document.getElementById("user_lng").textContent
-
+                // lat: document.getElementById("user_lat").textContent,
+                // lon: document.getElementById("user_lng").textContent
+                lat: 48.787386,
+                lon:  -125.221652
             })
             if (response) {
                 if (response.status == "fail") {
                     console.log(response.msg);
+                    document.getElementById("callForHelpModalStatus").innerHTML = response.displayMsg;
                 } else {
                     console.log(response.msg);
+                    let incident = response.incident;
+                    let image = await uploadImagesIncident(e, response.incident);
+                    if (image) {
+                        incident.image = image;
+                    }
+                    createIncidentDisplay(incident, document.getElementById("profiles"), appendAfter);
+                    createIncidentDisplay(incident, document.getElementById("incidents"), appendBefore);
+                    document.getElementById("callForHelpModal").style.display = "none";
                 }
             }
         });
@@ -123,7 +145,7 @@ ready(async function () {
             } else {
                 let contentDOM = document.getElementById("incidents");
                 for (const incident of response.incidents) {
-                    createIncidentDisplay(incident, contentDOM);
+                    createIncidentDisplay(incident, contentDOM, appendAfter);
                 }
             }
         }
@@ -139,7 +161,7 @@ ready(async function () {
                 let contentDOM = document.getElementById("profiles");
                 for (const incident of response.incidents) {
                     if (incident.status == "ACTIVE") {
-                        createIncidentDisplay(incident, contentDOM);
+                        createIncidentDisplay(incident, contentDOM, appendAfter);
                     }
                 }
             }

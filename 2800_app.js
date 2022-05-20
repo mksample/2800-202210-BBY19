@@ -28,17 +28,29 @@ const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL OR REM
 
 
 // storing image at images
-const uploadPath = "public/imgs/userProfile"
-const storage = multer.diskStorage({
+const profileUploadPath = "public/imgs/userProfile"
+const profileStorage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, uploadPath)
+        callback(null, profileUploadPath)
     },
     filename: function (req, file, callback) {
         let filename = "user-" + req.session.userID + "." + file.originalname.split('.').pop();
         callback(null, filename)
     }
 });
-const upload = multer({ storage: storage });
+const profileUpload = multer({ storage: profileStorage });
+
+const incidentUploadPath = "public/imgs/incidentImages"
+const incidentStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, incidentUploadPath)
+    },
+    filename: function (req, file, callback) {
+        let filename = "incident-" + Date.now() + "." + file.originalname.split('.').pop();
+        callback(null, filename)
+    }
+});
+const incidentUpload = multer({ storage: incidentStorage });
 
 // sql tables
 const userTable = "BBY_19_user";
@@ -79,6 +91,7 @@ app.use("/js", express.static("public/js"));
 app.use("/css", express.static("public/css"));
 app.use("/imgs", express.static("public/imgs"));
 app.use("/profilePictures", express.static("public/imgs/userProfile"));
+app.use("/incidentImages", express.static("public/imgs/incidentImages"));
 app.use("/fonts", express.static("public/fonts"));
 app.use("/html", express.static("app/html"));
 app.use("/media", express.static("public/media"));
@@ -491,7 +504,7 @@ app.post("/deleteUser", function (req, res) {
 
 
 
-app.post('/upload-images', upload.array("files"), function (req, res) {
+app.post('/upload-images', profileUpload.array("files"), function (req, res) {
     for (let i = 0; i < req.files.length; i++) {
         const mysql = require("mysql2");
         const con = mysql.createConnection(sqlAuthentication);
@@ -501,11 +514,33 @@ app.post('/upload-images', upload.array("files"), function (req, res) {
         let insertPicQuery = `UPDATE ` + userTable + ` SET avatar = '/profilePictures/` + req.files[i].filename + `' WHERE ID = ` + req.session.userID; // update query
 
         con.query(insertPicQuery, function (error, results) {
+            con.end(err => { if (err) { console.log(err) } });
             if (error) {
                 console.log(error);
                 res.send({ status: "fail", msg: "uploading image: " + error });
             } else {
                 res.send({ status: "success", msg: "image uploaded successfully", avatar: `/profilePictures/` + req.files[i].filename });
+            }
+        })
+    }
+});
+
+app.post('/upload-images-incident', incidentUpload.array("files"), function (req, res) {
+    for (let i = 0; i < req.files.length; i++) {
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+        console.log(req.files[i]);
+
+        let insertPicQuery = `UPDATE ` + incidentTable+ ` SET image = '/incidentImages/` + req.files[i].filename + `' WHERE ID = ` + req.body.incidentID; // update query
+
+        con.query(insertPicQuery, function (error, results) {
+            con.end(err => { if (err) { console.log(err) } });
+            if (error) {
+                console.log(error);
+                res.send({ status: "fail", msg: "uploading image: " + error });
+            } else {
+                res.send({ status: "success", msg: "image uploaded successfully", image: `/incidentImages/` + req.files[i].filename });
             }
         })
     }
@@ -633,14 +668,13 @@ app.post("/createIncident", function (req, res) {
                 console.log("creating incident: " + error);
                 res.send({ status: "fail", msg: "creating incident: " + error, displayMsg: "Database error" });
             } else {
-                console.log(`SELECT * FROM ` + incidentTable + ` WHERE callerID = ` + req.session.userID + ` AND lat = ` + req.body.lat + ` AND lon = ` + req.body.lon + ` AND title = '` + req.body.title + `'`);
-                con.query(`SELECT * FROM ` + incidentTable + ` WHERE callerID = ` + req.session.userID + ` AND lat = ` + req.body.lat + ` AND lon = ` + req.body.lon + ` AND title = '` + req.body.title + `'`, function (error, results) {
+                con.query(`SELECT * FROM ` + incidentTable + ` WHERE callerID = ` + req.session.userID + ` AND title = '` + req.body.title + `' ORDER BY timestamp DESC`, function (error, results) {
                     con.end(err => { if (err) { console.log(err) } });
                     if (error) {
                         console.log(error)
                         res.send({ status: "fail", msg: "getting created incident: " + error, displayMsg: "Database error" });
                     } else {
-                        res.send({ status: "success", msg: "incident created", incident: results });
+                        res.send({ status: "success", msg: "incident created", incident: results[0] });
                     }
                 })
             }
@@ -1299,7 +1333,7 @@ function validResolutionComment(condition) {
 }
 
 function validateCreateIncident(req) {
-    let title = validTitle(sanitizeHtml(req.body.title) == req.body.title);
+    let title = validTitle(sanitizeHtml(req.body.title) == req.body.title && req.body.title != "");
     if (!title[0]) {
         return title;
     }
@@ -1311,15 +1345,15 @@ function validateCreateIncident(req) {
     if (!type[0]) {
         return type;
     }
-    let description = validDescription(sanitizeHtml(req.body.description) == req.body.description);
+    let description = validDescription(sanitizeHtml(req.body.description) == req.body.description && req.body.description != "");
     if (!description[0]) {
         return description;
     }
-    let latitude = validLatitude(req.body.lat < 90 && req.body.lat > -90);
+    let latitude = validLatitude(req.body.lat < 90 && req.body.lat > -90 && req.body.lat != null);
     if (!latitude[0]) {
         return latitude;
     }
-    let longitude = validLongitude(req.body.lon < 180 && req.body.lon > -180);
+    let longitude = validLongitude(req.body.lon < 180 && req.body.lon > -180 && req.body.lon != null);
     if (!longitude[0]) {
         return longitude;
     }

@@ -90,7 +90,10 @@ async function prepareDisplayIncidentModal(incident) {
         }
     }
     if (incident.image) {
+        document.getElementById("displayIncidentImage").style.display = "";
         document.getElementById("displayIncidentImage").src = incident.image;
+    } else {
+        document.getElementById("displayIncidentImage").style.display = "none";
     }
     document.getElementById("displayIncidentTitle").innerHTML = incident.title;
     document.getElementById("displayIncidentPriority").innerHTML = incident.priority;

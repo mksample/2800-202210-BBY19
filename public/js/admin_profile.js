@@ -58,7 +58,7 @@ ready(async function () {
         // appending the incident to the contentDOM
         contentDOM.appendChild(incidentDisp);
 
-        contentDOM.querySelector("#incident" + incident.ID).addEventListener("click", async function (e) {
+        contentDOM.querySelector("#incident" + incident.ID).parentNode.addEventListener("click", async function (e) {
             e.stopImmediatePropagation();
             prepareDisplayIncidentModal(incident);
             openDisplayIncidentModal(incident, "displayIncidentModal", "displayIncidentCancelButton");
