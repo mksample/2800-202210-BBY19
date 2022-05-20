@@ -92,8 +92,8 @@
     <div class="nav-mobile">
       <ul>
 
-        <li onclick=show(0)>
-          <span><i class="material-icons">home</i></span>
+        <li class ="active" onclick=show(0)>
+          <span> <i class="material-icons">home</i></span>
           <h3>Home</h3>
         </li>
 
@@ -103,19 +103,13 @@
         </li>
 
         <li>
-          <span><i class="material-icons">call</i></span>
+          <span> <i class="material-icons">call</i></span>
           <a href="/html/contact_nav.html">Contact</a>
         </li>
-
-        <li class="active">
-          <span> <i class="material-icons">account_circle</i></span>
-          <h3>Account</h3>
-        </li>
-
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
-            <input id="logout-bt" type="submit" value="Logout" />
+            <input id="logout" type="submit" value="Logout" />
           </form>
         </li>
 
