@@ -17,6 +17,29 @@
 </head>
 
 <body>
+  <!-- Templates -->
+  <template id="IncidentTemplate">
+    <div class="posts">
+      <div class="incident">
+        <span id="deleteIncidentButton" class="close">&times;</span>
+        <span id="incidentTitle">
+
+        </span>
+        <span id="incidentPriority">
+
+        </span>
+        <span id="incidentType">
+
+        </span>
+        <span id="incidentStatus">
+
+        </span>
+        <span id="incidentTimestamp">
+
+        </span>
+      </div>
+    </div>
+  </template>
 
   <!-- Main Container-->
   <div class="container">
@@ -42,25 +65,25 @@
             <h3>Home</h3>
           </li>
 
-        <li>
-          <a href="/html/about_nav.html">About</a>
-        </li>
+          <li>
+            <a href="/html/about_nav.html">About</a>
+          </li>
 
-        <li>
-          <a href="/html/contact_nav.html">Contact</a>
-        </li>
+          <li>
+            <a href="/html/contact_nav.html">Contact</a>
+          </li>
 
-        <li>
-          <form action="/logout" method="get">
-            <input id="logout" type="submit" value="Logout" />
-          </form>
-        </li>
+          <li>
+            <form action="/logout" method="get">
+              <input id="logout" type="submit" value="Logout" />
+            </form>
+          </li>
 
-      </ul>
+        </ul>
 
-    </div>
+      </div>
 
-  </header>
+    </header>
 
 
     <!-- BOTTOM NAVIGATION BAR MOBILE-->
@@ -167,7 +190,7 @@
       </div>
     </aside>
 
-    <!-- PROFILE CONTENT -->
+    <!-- DASHBOARD TAB -->
     <div class="main">
       <section class="profile tabs">
         <h1>User Dashboard</h1>
@@ -197,7 +220,7 @@
         </div>
       </section>
 
-      <!-- DASHBOARD TABS-->
+      <!-- PROFILE TAB-->
       <section class="tabs">
         <div id="user_profile_pictue"></div>
         <h1>User profile</h1>
@@ -237,15 +260,12 @@
         </div>
       </section>
 
-      <!-- REVIEWS TABS-->
+      <!-- INCIDENT LOG TAB-->
       <section class="tabs">
-        <h1>Reviews</h1>
+        <h1>Incident Log</h1>
+        <div id="incidents" class="incidentLog">
 
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
+        </div>
       </section>
 
       <!-- SETTINGS TABS-->
@@ -322,12 +342,52 @@
       </div>
     </div>
 
+    <!-- Delete incident modal -->
+    <div id="deleteIncidentModal" class="modal">
+      <div class="delete-incident-modal-content">
+        <div id="deleteIncidentContent">
+          <form>
+            <h2>Delete incident?</h2>
+            <span id="deleteIncidentStatus" class="modalStatus"></span>
+            <input type="button" class="cancelButton" id="deleteIncidentCancelButton" value="Cancel" />
+            <input type="button" class="submitButton" id="deleteIncidentSubmitButton" value="Delete" />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Display incident modal -->
+    <div id="displayIncidentModal" class="modal">
+      <div class="display-incident-modal-content">
+        <div id="displayIncidentContent">
+          <img id="displayIncidentImage" src="" alt="">
+          <p id="displayIncidentTitle"></p>
+          <p id="displayIncidentPriority"></p>
+          <p id="displayIncidentType"></p>
+          <p id="displayIncidentStatus"></p>
+          <p id="displayIncidentCallerID"></p>
+          <p id="displayIncidentDescription"></p>
+          <p id="displayIncidentLat"></p>
+          <p id="displayIncidentLon"></p>
+          <p id="displayIncidentTimestamp"></p>
+          <p id="displayIncidentResolutionComment"></p>
+        </div>
+        <div id="displayIncidentModalButtons">
+          <form>
+            <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
+          </form>
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- SCRIPT FOLDER-->
   <script src="/js/caller_dashboard.js"></script>
   <script src="/js/caller_profile_edit.js"></script>
   <script src="/js/caller_profile.js"></script>
   <script src="/js/caller_profile_upload_photo.js"></script>
+  <script src="/js/caller_profile_delete_incident.js"></script>
+  <script src="/js/caller_profile_display_incident.js"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

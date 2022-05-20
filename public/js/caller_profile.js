@@ -32,6 +32,77 @@ ready(async function () {
         }
     }
 
+    // Creates incident displays, attaches event listeners to them, and appends them to contentDOM.
+    function createIncidentDisplay(incident, contentDOM) {
+        // Creating incident display
+        let incidentDisp = document.getElementById("IncidentTemplate").content.cloneNode(true);
+        incidentDisp.querySelector("#incidentTitle").innerHTML = incident.title;
+        incidentDisp.querySelector("#incidentPriority").innerHTML = incident.priority;
+        incidentDisp.querySelector("#incidentType").innerHTML = incident.type;
+        incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
+        incidentDisp.querySelector("#incidentTimestamp").innerHTML = incident.timestamp;
+        incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
+
+        // If the incident is not active, do not show a delete button. Otherwise add a listener.
+        if (incident.status != "ACTIVE") {
+            incidentDisp.querySelector("#deleteIncidentButton").style.display = "none";
+        } else {
+            incidentDisp.querySelector("#deleteIncidentButton").addEventListener("click", async function (e) {
+                e.stopImmediatePropagation();
+                openModal(incident, "deleteIncidentModal", "deleteIncidentCancelButton", "deleteIncidentSubmitButton", "deleteIncidentStatus", submitDeleteIncidentModal);
+            })
+        }
+
+        // Append the incident display to the contentDOM.
+        contentDOM.appendChild(incidentDisp);
+
+
+
+        // If the incident is not active, add an event listener for displaying it. Otherwise, add an event listener for editing it.
+        if (incident.status != "ACTIVE") {
+            console.log("test")
+            contentDOM.querySelector("#incident" + incident.ID).addEventListener("click", async function (e) {
+                e.stopImmediatePropagation();
+                prepareDisplayIncidentModal(incident);
+                openDisplayIncidentModal(incident, "displayIncidentModal", "displayIncidentCancelButton");
+            })
+        } else {
+            // TODO: add edit incident event listener here
+        }
+    }
+
+    // Gets incidents from the database and adds them to the caller incident log.
+    async function showIncidentLog() {
+        let response = await getData("/getIncidents");
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+            } else {
+                let contentDOM = document.getElementById("incidents");
+                for (const incident of response.incidents) {
+                    createIncidentDisplay(incident, contentDOM);
+                }
+            }
+        }
+    }
+
+    // Gets incidents from the database and adds them to the caller dashboard if theyre active.
+    async function showActiveIncidents() {
+        let response = await getData("/getIncidents");
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+            } else {
+                let contentDOM = document.getElementById("profiles");
+                for (const incident of response.incidents) {
+                    if (incident.status == "ACTIVE") {
+                        createIncidentDisplay(incident, contentDOM);
+                    }
+                }
+            }
+        }
+    }
+
     // Get the current session user and display their info. 
     async function displaySessionUser() {
         let response = await getData("/getUser");
@@ -48,7 +119,15 @@ ready(async function () {
             }
         }
     }
+
+    // DISPLAY SESSION USER INFO
     displaySessionUser();
+
+    // DISPLAY INCIDENT LOG
+    showIncidentLog();
+
+    // DISPLAY ACTIVE INCIDENTS ON DASHBOARD
+    showActiveIncidents();
 });
 
 

@@ -15,7 +15,7 @@ ready(async function () {
         });
         return response.json();
     }
-    
+
     // Creates profile displays, attaches event listeners to them, and appends them to the id="profiles" div.
     function createProfileDisplay(user, contentDOM) {
         // creating profile display
@@ -44,6 +44,53 @@ ready(async function () {
         })
     }
 
+    // Creates incident displays, attaches event listeners to them, and appends them to the contentDOM.
+    function createIncidentDisplay(incident, contentDOM) {
+        // creating incident display
+        let incidentDisp = document.getElementById("IncidentTemplate").content.cloneNode(true);
+        incidentDisp.querySelector("#incidentTitle").innerHTML = incident.title;
+        incidentDisp.querySelector("#incidentPriority").innerHTML = incident.priority;
+        incidentDisp.querySelector("#incidentType").innerHTML = incident.type;
+        incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
+        incidentDisp.querySelector("#incidentTimestamp").innerHTML = incident.timestamp;
+        incidentDisp.querySelector('.incident').setAttribute("id", incident.ID);
+
+        // appending the incident to the contentDOM
+        contentDOM.appendChild(incidentDisp);
+    }
+
+    // Gets incidents from the database and adds them to the admin incident log.
+    async function showIncidents() {
+        let response = await getData("/getIncidents");
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+            } else {
+                let contentDOM = document.getElementById("incidents");
+                for (const incident of response.incidents) {
+                    createIncidentDisplay(incident, contentDOM);
+                }
+            }
+        }
+    }
+
+    // Get the current session user and display their info. 
+    async function displaySessionUser() {
+        let response = await getData("/getUser");
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+            } else {
+                let user = response.user;
+                if (user.avatar != null) {
+                    document.getElementById("userPicture").src = user.avatar;
+                }
+                document.getElementById("sessionName").innerHTML = user.firstName + " " + user.lastName;
+                document.getElementById("sessionEmail").innerHTML = user.email;
+            }
+        }
+    }
+
     // Gets users from the database and adds them to the admin dashboard.
     async function showUsers() {
         let response = await getData("/getUsers");
@@ -59,37 +106,22 @@ ready(async function () {
         }
     }
 
-    // Get the current session user and display their info. 
-    async function displaySessionUser() {
-        let response = await getData("/getUser");
-        if (response) {
-            if (response.status == "fail") {
-                console.log(response.msg);
-            } else {
-                let user = response.user;
-                if (user.avatar != null) { 
-                    document.getElementById("userPicture").src = user.avatar;
-                }
-                document.getElementById("sessionName").innerHTML = user.firstName + " " + user.lastName;
-                document.getElementById("sessionEmail").innerHTML = user.email;
-            }
-        }
-    }
-
-    
     // ADD LISTENER TO CREATE USER BUTTON
     // (this re-uses the edit user modal, see the top of admin_profile_create_user.js for a longer explanation)
     document.getElementById("createUserButton").addEventListener("click", function (e) {
         prepareCreateUserModal();
         openModal(null, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitCreateUserModal);
     })
-    
+
     // DISPLAY USER PROFILES
     showUsers();
 
     // DISPLAY SESSION USER INFO
     displaySessionUser();
-    
+
+    // DISPLAY INCIDENT LOG
+    showIncidents()
+
 });
 
 function ready(callback) {

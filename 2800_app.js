@@ -435,6 +435,8 @@ app.post("/deleteUser", function (req, res) {
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
 
+    let getRoleQuery = `SELECT role FROM ` + userTable + ` WHERE ID = ` + req.body.ID;
+
     const adminCountQuery = `SELECT COUNT(*) as admin_count
     FROM ` + userTable + `
     WHERE role = "ADMIN"`;
@@ -442,13 +444,38 @@ app.post("/deleteUser", function (req, res) {
     const deleteUserQuery = `DELETE FROM ` + userTable + `
     WHERE ID = ` + req.body.ID;
 
-    con.query(adminCountQuery, function (error, results) {
+
+    con.query(getRoleQuery, function (error, results) {
         if (error) {
             con.end(err => { if (err) { console.log(err) } });
             console.log(error);
-            res.send({ status: "fail", msg: "querying admin count: " + error, displayMsg: displayMsg });
+            res.send({ status: "fail", msg: "getting user role: " + error, displayMsg: displayMsg });
         } else {
-            if (results[0]["admin_count"] > 1) {
+            if (results.role == adminRole) {
+                con.query(adminCountQuery, function (error, results) {
+                    if (error) {
+                        con.end(err => { if (err) { console.log(err) } });
+                        console.log(error);
+                        res.send({ status: "fail", msg: "querying admin count: " + error, displayMsg: displayMsg });
+                    } else {
+                        if (results[0]["admin_count"] > 1) {
+                            con.query(deleteUserQuery, function (error, results) {
+                                con.end(err => { if (err) { console.log(err) } });
+                                if (error) {
+                                    console.log(error);
+                                    res.send({ status: "fail", msg: "deleting user: " + error, displayMsg: displayMsg });
+                                } else {
+                                    res.send({ status: "success", msg: "user deleted" });
+                                }
+                            })
+                        } else {
+                            con.end(err => { if (err) { console.log(err) } });
+                            console.log("tried to delete last admin");
+                            res.send({ status: "fail", msg: "deleting user: cannot delete last admin", displayMsg: "Cannot delete last admin" });
+                        }
+                    }
+                })
+            } else {
                 con.query(deleteUserQuery, function (error, results) {
                     con.end(err => { if (err) { console.log(err) } });
                     if (error) {
@@ -458,10 +485,6 @@ app.post("/deleteUser", function (req, res) {
                         res.send({ status: "success", msg: "user deleted" });
                     }
                 })
-            } else {
-                con.end(err => { if (err) { console.log(err) } });
-                console.log("tried to delete last admin");
-                res.send({ status: "fail", msg: "deleting user: cannot delete last admin", displayMsg: "Cannot delete last admin" });
             }
         }
     })
@@ -632,7 +655,7 @@ app.post("/createIncident", function (req, res) {
 // Returns a status ("success" or "fail"), a status message (internal, not for display).
 // POST params:
 // incidentID (int) - ID of the incident to delete.
-app.post("/deleteIncident", function(req, res) {
+app.post("/deleteIncident", function (req, res) {
     if (req.session.role != callerRole) {
         res.send({ status: "fail", msg: "deleting incident: user is not caller" });
         return;
@@ -642,16 +665,16 @@ app.post("/deleteIncident", function(req, res) {
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
 
-    deleteIncidentQuery = "DELETE FROM " + incidentTable + " WHERE ID = " + req.body.incidentID + " AND callerID = " + req.session.userID;
-    deleteRespondersQuery = "DELETE FROM " + respondersTable + " WHERE incidentID = " + req.body.incidentID;
+    let deleteIncidentQuery = "DELETE FROM " + incidentTable + " WHERE ID = " + req.body.incidentID + " AND callerID = " + req.session.userID;
+    let deleteRespondersQuery = "DELETE FROM " + respondersTable + " WHERE incidentID = " + req.body.incidentID;
 
-    con.query(deleteRespondersQuery, function(error, results) {
+    con.query(deleteRespondersQuery, function (error, results) {
         if (error) {
             con.end(err => { if (err) { console.log(err) } });
             console.log("deleting responders: " + error);
             res.send({ status: "fail", msg: "deleting responders: " + error });
         } else {
-            con.query(deleteIncidentQuery, function(error, results) {
+            con.query(deleteIncidentQuery, function (error, results) {
                 con.end(err => { if (err) { console.log(err) } });
                 if (error) {
                     console.log("deleting incident: " + error);
@@ -683,15 +706,15 @@ app.get("/getIncidents", function (req, res) {
     // select which query to use
     let query = "";
     if (req.session.role == adminRole) {
-        query = "SELECT * FROM " + incidentTable;   // admins get all incidents
+        query = "SELECT * FROM " + incidentTable + " ORDER BY timestamp DESC";   // admins get all incidents
     } else if (req.session.role == callerRole) {
-        query = "SELECT * FROM " + incidentTable + " WHERE callerID = " + req.session.userID;   // callers get all incidents they created
+        query = "SELECT * FROM " + incidentTable + " WHERE callerID = " + req.session.userID + " ORDER BY timestamp DESC";   // callers get all incidents they created
     } else if (req.session.role == responderRole) { // responders get all incidents they responded to 
-        query = `SELECT ` + incidentTable + `.ID, title, type, callerID, description, lat, lon, timestamp
+        query = `SELECT ` + incidentTable + `.ID, title, priority, type, status, callerID, description, image, lat, lon, timestamp, resolutionComment
         FROM ` + incidentTable + `
         JOIN ` + respondersTable + `
         ON ` + incidentTable + `.ID = ` + respondersTable + `.IncidentID 
-        WHERE responderID = ` + req.session.userID;
+        WHERE responderID = ` + req.session.userID + " ORDER BY timestamp DESC";
     }
 
     // query for getting responder IDs
@@ -750,7 +773,7 @@ app.get("/getIncidents", function (req, res) {
 // responderIDs (int array) - IDs of the users who responded to the incident.
 app.get("/getResponderIncidents", function (req, res) {
     if (req.session.role == responderRole) {
-        let query = "SELECT * FROM " + incidentTable + ` WHERE status = '` + activeStatus + `' OR status = '` + inProgressStatus + `'`; // get all active or in progess incidents
+        let query = "SELECT * FROM " + incidentTable + ` WHERE status = '` + activeStatus + `' OR status = '` + inProgressStatus + `' ORDER BY timestamp DESC`; // get all active or in progess incidents
 
         // query for getting responder IDs
         let responderIDQuery = `SELECT responderID
@@ -795,6 +818,59 @@ app.get("/getResponderIncidents", function (req, res) {
     }
 })
 
+// Edit an incident the session user created.  is not editable. POST params are safe to be left blank.
+// POST params:
+// incidentID (int) - ID of the incident to edit.
+// title (string) - new title of the incident.
+// priority (see valid priorities at top of file) - new priority of the incident.
+// type (see valid types at top of file) - new type of the incident.
+// description (string) - new description of the incident.
+// lat (float) - new latitude of the incident location.
+// lon (float) - new longitude of the incident location.
+app.post("/editIncident", function (req, res) {
+    if (req.session.user != callerRole) {
+        res.send({ status: "fail", msg: "editing incident: user is not caller" });
+        return;
+    }
+    let validVals = validateEditIncident(req);
+    let valid = validVals[0];
+    let displayMsg = validVals[1];
+    if (valid) {
+        const mysql = require("mysql2");
+        const con = mysql.createConnection(sqlAuthentication);
+        con.connect();
+        
+        let editIncident = `UPDATE ` + incidentTable + ` SET
+    title = IfNull(` + (req.body.title ? "'" + req.body.title + "'" : "NULL") + `, title),
+    priority = IfNull(` + (req.body.priority ? "'" + req.body.priority + "'" : "NULL") + `, priority),
+    type = IfNull(` + (req.body.type ? "'" + req.body.type + "'" : "NULL") + `, type),
+    description = IfNull(` + (req.body.description ? req.body.description : "NULL") + `, description),
+    lat = IfNull(` + (req.body.lat ? "'" + req.body.lat + "'" : "NULL") + `, lat),
+    lon = IfNull(` + (req.body.lon ? "'" + req.body.lon + "'" : "NULL") + `, lon)
+    WHERE ID = ` + req.body.incidentID;
+
+        con.query(editIncident, function (error, results) {
+            if (error) {
+                con.end(err => { if (err) { console.log(err) } });
+                console.log(error);
+                displayMsg = "Database error";
+                res.send({ status: "fail", msg: "editing incident: " + error, displayMsg: displayMsg });
+            } else {
+                con.query(`SELECT * FROM ` + incidentTable + ` WHERE ID = ` + req.body.incidentID, function (error, results) {
+                    con.end(err => { if (err) { console.log(err) } });
+                    if (error || !results) {
+                        res.send({ status: "fail", msg: "editing incident: failed to fetch updated incident", displayMsg: "Database error" });
+                    } else {
+                        res.send({ status: "success", msg: "edited incident retrieved", user: results[0] });
+                    }
+                });
+            }
+        });
+    } else {
+        res.send({ status: "fail", msg: "editing incident: invalid input", displayMsg: displayMsg });
+    }
+})
+
 // Join incident request. User needs to be a responder to join it.
 // Returns a status ("success" or "fail"), a status message (internal, not for display).
 // POST params:
@@ -809,14 +885,32 @@ app.post("/joinIncident", function (req, res) {
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
 
-    let query = "INSERT INTO " + respondersTable + " (responderID, incidentID) VALUES (" + req.session.userID + ", " + incidentID + ");"
-    con.query(query, function(error, results) {
-        con.end(err => { if (err) { console.log(err) } });
+    let query = "INSERT INTO " + respondersTable + " (responderID, incidentID) VALUES (" + req.session.userID + ", " + req.body.incidentID + ");"
+    con.query(query, function (error, results) {
         if (error) {
+            con.end(err => { if (err) { console.log(err) } });
             console.log("joining incident: " + error);
             res.send({ status: "fail", msg: "joining incident: " + error });
         } else {
-            res.send({status: "success", msg: "incident joined"});
+            query = "UPDATE " + incidentTable + " SET status = '" + inProgressStatus + "' WHERE ID = " + req.body.incidentID;
+            con.query(query, function (error, results) {
+                if (error) {
+                    con.end(err => { if (err) { console.log(err) } });
+                    console.log("updating incidents table: " + error);
+                    res.send({ status: "fail", msg: "updating incidents table: " + error });
+                } else {
+                    query = "SELECT * FROM " + incidentTable + " WHERE ID = " + req.body.incidentID;
+                    con.query(query, function (error, results) {
+                        con.end(err => { if (err) { console.log(err) } });
+                        if (error) {
+                            console.log("getting joined incident: " + error);
+                            res.send({ status: "fail", msg: "getting joined incident: " + error });
+                        } else {
+                            res.send({ status: "success", msg: "incident joined", incident: results[0] });
+                        }
+                    })
+                }
+            })
         }
     })
 })
@@ -850,7 +944,7 @@ app.post("/resolveIncident", function (req, res) {
         SET resolutionComment = '` + req.body.resolutionComment + `', status = '` + resolvedStatus + `' 
         WHERE ID = ` + req.body.incidentID;
 
-        con.query(responderQuery, function(error, results) {
+        con.query(responderQuery, function (error, results) {
             if (error) {
                 con.end(err => { if (err) { console.log(err) } });
                 console.log("getting responder IDs: " + error);
@@ -865,15 +959,24 @@ app.post("/resolveIncident", function (req, res) {
                 if (!valid) {
                     con.end(err => { if (err) { console.log(err) } });
                     console.log("resolving incident: user did not respond to this incident");
-                    res.send({ status: "fail", msg: "resolving incident: user did not respond to this incident"});
+                    res.send({ status: "fail", msg: "resolving incident: user did not respond to this incident" });
                 } else {
-                    con.query(resolveQuery, function(error, results) {
-                        con.end(err => { if (err) { console.log(err) } });
+                    con.query(resolveQuery, function (error, results) {
                         if (error) {
+                            con.end(err => { if (err) { console.log(err) } });
                             console.log("resolving incident: " + error);
                             res.send({ status: "fail", msg: "resolving incident: " + error });
                         } else {
-                            res.send({ status: "success", msg: "incident resolved"});
+                            let query = "SELECT * FROM " + incidentTable + " WHERE ID = " + req.body.incidentID;
+                            con.query(query, function (error, results) {
+                                con.end(err => { if (err) { console.log(err) } });
+                                if (error) {
+                                    console.log("getting resolved incident: " + error);
+                                    res.send({ status: "fail", msg: "getting resolved incident: " + error });
+                                } else {
+                                    res.send({ status: "success", msg: "incident resolved", incident: results[0] });
+                                }
+                            })
                         }
                     })
                 }
@@ -1201,7 +1304,7 @@ function validateCreateIncident(req) {
     if (!title[0]) {
         return title;
     }
-    let priority = validPriority(req.body.priority == urgentPriority || req.body.priority == highPriority || req.body.priority == mediumPriority || req.body.priority == lowPriority)
+    let priority = validPriority(req.body.priority == urgentPriority || req.body.priority == highPriority || req.body.priority == mediumPriority || req.body.priority == lowPriority);
     if (!priority[0]) {
         return priority;
     }
@@ -1224,11 +1327,40 @@ function validateCreateIncident(req) {
     return [true, null];
 }
 
+function validateEditIncident(req) {
+    let title = validTitle(sanitizeHtml(req.body.title) == req.body.title || req.body.title == "");
+    if (!title[0]) {
+        return title;
+    }
+    let priority = validPriority(req.body.priority == urgentPriority || req.body.priority == highPriority || req.body.priority == mediumPriority || req.body.priority == lowPriority || req.body.priority == "");
+    if (!priority[0]) {
+        return priority;
+    }
+    let type = validType(req.body.type == harassmentIncident || req.body.type == suspiciousActivityIncident || req.body.type == violentIncident || req.body.type == "");
+    if (!type[0]) {
+        return type;
+    }
+    let description = validDescription(sanitizeHtml(req.body.description) == req.body.description || req.body.description == "");
+    if (!description[0]) {
+        return description;
+    }
+    let latitude = validLatitude(req.body.lat < 90 && req.body.lat > -90 || req.body.lat == null);
+    if (!latitude[0]) {
+        return latitude;
+    }
+    let longitude = validLongitude(req.body.lon < 180 && req.body.lon > -180 || req.body.lon == null);
+    if (!longitude[0]) {
+        return longitude;
+    }
+    return [true, null];
+}
+
 function validateResolveIncident(req) {
-    let resolutionComment = validResolutionComment(sanitizeHtml(req.body.resolutionComment) == req.body.resolutionComment);
-    if (resolutionComment[0]) {
+    let resolutionComment = validResolutionComment(sanitizeHtml(req.body.resolutionComment) == req.body.resolutionComment && req.body.resolutionComment != "");
+    if (!resolutionComment[0]) {
         return resolutionComment;
     }
+    return [true, null];
 }
 
 ////////////////////////////

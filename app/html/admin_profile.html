@@ -33,6 +33,28 @@
     </div>
   </template>
 
+  <template id="IncidentTemplate">
+    <div class="posts">
+      <div class="incident">
+        <span id="incidentTitle">
+
+        </span>
+        <span id="incidentPriority">
+
+        </span>
+        <span id="incidentType">
+
+        </span>
+        <span id="incidentStatus">
+
+        </span>
+        <span id="incidentTimestamp">
+
+        </span>
+      </div>
+    </div>
+  </template>
+
   <!-- Main Container-->
   <div class="container">
     <header>
@@ -202,7 +224,7 @@
     <div class="main">
       <section class="profile tabs">
         <h1>Your Posts</h1>
-        <div id="profiles" class="userpost">
+        <div id="profiles" class="userProfiles">
           <div id="createUserButton" class="posts">
             <span><i class="material-icons">add</i></span>
           </div>
@@ -222,13 +244,10 @@
 
       </section>
       <section class="tabs">
-        <h1>Comments</h1>
+        <h1>Incident Log</h1>
+        <div id="incidents" class="incidentLog">
 
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
+        </div>
       </section>
       <section class="tabs">
         <h1>Settings</h1>
