@@ -281,35 +281,35 @@
           <br /><br />
           <form name="incidentCreate">
             <!-- <label class="icon" for="email"><i class="icon-envelope "></i></label> -->
-            <input type="text" name="email" id="title" placeholder="Title" reqired/>
+            <input type="text" name="title" id="title" class="inputBox" placeholder="Title" reqired/>
             <br>
-            <p>Please select one that desribes your situation </p>
+            <p class="question">Please select one that desribes your situation </p>
             <div class="Priority">
               <input type="radio" value="URGENT" id="urgent" name="Priority"/>
-              <label for="urgent" class="radio" chec>Urgent</label>
+              <label for="urgent" class="radio">Urgent</label>
               <input type="radio" value="HIGH" id="high" name="Priority" />
               <label for="high" class="radio">High</label>
-              <input type="radio" value="MEDIUM" id="medium" name="Priority" />
+              <input type="radio" value="MEDIUM" id="medium" name="Priority" checked/>
               <label for="medium" class="radio">Medium</label>
               <input type="radio" value="LOW" id="low" name="Priority" />
               <label for="low" class="radio">Low</label>
             </div>
 
-            <p>Please select one that descirbes the type of an incident</p>
+            <p class="question">Please select one that descirbes the type of an incident</p>
             <div class="InciType">
               <input type="radio" value="HARASSMENT" id="harrasment" name="InciType" />
-              <label for="harrasment" class="radio" chec>Harrasment</label>
-              <input type="radio" value="SUSACTIVITY" id="susactivity" name="InciType" />
+              <label for="harrasment" class="radio">Harrasment</label>
+              <input type="radio" value="SUSACTIVITY" id="susactivity" name="InciType" checked/>
               <label for="susactivity" class="radio">Suspicious Activity</label>
               <input type="radio" value="VIOLENCE" id="violence" name="InciType" />
               <label for="violence" class="radio">Violence</label>
             </div>
 
             <!-- <label class="icon" for="password"><i class="icon-shield"></i></label> -->
-            <input type="text" name="name" id="description" placeholder="Description" required/>
+            <input type="text" name="description" id="description"  class="inputBox" placeholder="Description" required/>
 
             <div id="map"></div>
-            <div>user location: </div>
+            <div class="question">user location: </div>
             <p>user's latitude: </p>
             <div id="user_lat"></div>
             <p>user's longitude: </p>
@@ -444,7 +444,7 @@
       const locationButton = document.createElement("input");
       const message = "SOS";
       locationButton.type = "button";
-      locationButton.value = "SOS";
+      locationButton.value = "Report Location";
       locationButton.id = "test"
      
       locationButton.classList.add("custom-map-control-button");

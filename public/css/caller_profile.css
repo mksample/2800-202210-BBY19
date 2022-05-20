@@ -410,6 +410,12 @@ aside .search-bar button {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.question{
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+}
+
 #modalContents {
     display: flex;
     background-size: cover;
@@ -426,13 +432,14 @@ aside .search-bar button {
 
 
 #test{
-    width: 15%;
+    width: 25%;
     background-color: #ff7e00;
     
 }
 
 #reportStatus{
     color: red;
+    text-align: center;
 }
 
 

@@ -1172,7 +1172,7 @@ function validDescription(condition) {
 
 function validLatitude(condition) {
     if (!condition) {
-        let msg = "Please select a valid latitude";
+        let msg = "Please select the Report Location button";
         console.log("creating incident: invalid latitude");
         return [false, msg];
     }
@@ -1181,7 +1181,7 @@ function validLatitude(condition) {
 
 function validLongitude(condition) {
     if (!condition) {
-        let msg = "Please select a valid longitude";
+        let msg = "Please select the Report Location button";
         console.log("creating incident: invalid longitude");
         return [false, msg];
     }
@@ -1221,13 +1221,17 @@ function validateCreateIncident(req) {
         return description;
     }
 
+    // isNotNull = req.body.lat !== null;
+    // isNotEmpty = req.body.lat !== "";
     let latitude = validLatitude(req.body.lat < 90 && req.body.lat > -90);
     if (!latitude[0]) {
         return latitude;
     }
 
 
-    let longitude = validLongitude(req.body.lon < 180 && req.body.lon > -180);
+    isNotNull = req.body.lon !== null;
+    isNotEmpty = req.body.lon !== "";
+    let longitude = validLongitude(req.body.lon < 180 && req.body.lon > -180 && isNotEmpty && isNotNull);
     if (!longitude[0]) {
         return longitude;
     }
