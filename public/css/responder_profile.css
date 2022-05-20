@@ -1,60 +1,63 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 * {
-    padding: 0px; 
-    margin:0; 
+    padding: 0px;
+    margin: 0;
     box-sizing: border-box;
 }
 
-body{
+/* background image for the body */
+body {
     overflow-x: hidden;
     background-position: center;
-    background: url(/imgs/background.jpg);
+    background: url(/imgs/background2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    font-family: "Poppins";
 }
 
-ul, li {
+/* take off the list styling */
+ul,
+li {
     list-style: none;
 }
 
-
-a {
-    text-decoration: none;
-}
-
+/* contains logo, top nav bar */
 header {
     display: flex;
-    background-color: white;
+    background-color: white; 
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 0 4px rgba(0,0,0,0.15), 0 4px 5px rgba(0,0,0,0.3);
-    height: 80px; 
+    box-shadow: 0 0 100px rgba(0, 0, 0, .15), 0 4px 5px rgba(0, 0, 0, 0.3);
+    height: 80px;
     z-index: 10;
-    position: relative;   
-    top: 0; 
-    left: 0; 
+    position: relative;
+    margin-top: 10px;
+    left: 0;
 }
 
-header .logo {
-    padding: 15px 25px; 
+/* SaveMe logo in the header*/
+#logo {
+    padding: 15px 25px;
     justify-content: center;
     align-items: center;
     display: flex;
 }
 
+/* logo size */
 header img {
     width: 50px;
 }
 
-header .logo h1 {
-    font-family: "Poppins";
-    color: red;
+/* logo heading*/
+#logo h2 {
+    color: #d63b00;
     font-weight: 100;
     font-size: 1.5em;
     cursor: pointer;
 }
 
+/* header navbar, adds a grey border between the logo and links section */
 header .nav {
     position: relative;
     border-left: 1px solid #e9e9e9;
@@ -66,26 +69,65 @@ header .nav ul {
 }
 
 header .nav ul li {
-
     padding: 26px 20px 24px 20px;
-    transition: all .4s ease; 
+    transition: all .4s ease;
     cursor: pointer;
 }
 
 header .nav ul li h3 {
-    font-family: "Poppins";
-    font-weight: 700px;
     text-transform: uppercase;
-    font-size: 1em;
+    font-size: 15px;
+    color: #d63b00;
 }
 
+header .nav ul li h3:hover{
+    color: rgb(10, 89, 116);
+    text-decoration: underline;
+}
+
+/* hover effect for the header */
 header .nav ul li:active,
 header .nav ul li:hover {
-    background: grey; 
-    box-shadow: 0 -4px 0px yellow inset; 
-    color: white
+    background: lightblue;
+    box-shadow: 0 -4px 0px #d63b00 inset;
+}
+/* styling for the links*/
+a:link {
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
+a {
+    text-decoration: none;
+    color: #d63b00;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: rgb(10, 89, 116);
+}
+
+/* styling for the log-out button*/
+#logout {
+    background-color: white;
+    border-style: none;
+    color: #d63b00;
+    font-size:15px;
+    text-transform: uppercase;
+    font-weight: lighter;
+}
+
+/* hamburger menu on mobile*/
 .hamburger-menu {
     display: none;
     margin-right: 20px;
@@ -94,98 +136,113 @@ header .nav ul li:hover {
     font-size: 1.6em;
 }
 
-.nav-mobile{
+/* don't display it on the desktop view */
+.nav-mobile {
     display: none;
 }
 
+/* Side-bar contents */
 aside {
     position: relative;
-    top:4px; 
-    box-shadow: 0 0 4px rgba(0,0,0,0.15), 0 4px 5px rgba(0,0,0,0.3);
+    top: 8px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15), 0 4px 5px rgba(0, 0, 0, 0.3);
     width: 270px;
     height: 100%;
     float: left;
     background: white;
     overflow: auto;
     z-index: 10;
-    font-family: "Roboto",sans-serif;
 }
-
-aside h1{
+/* Side-bar heading*/
+aside h2 {
     padding: 20px;
+    color: #d63b00;
+    font-weight: 100;
 }
 
-.close{
-    float:right; 
-    font-size: .9em;
-    display: none;
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
     cursor: pointer;
 }
 
 aside .user-side {
     padding: 20px;
-    border-top: 1px solid #e9e9e9;
+    border-top: 1px solid lightblue; 
 }
 
+/* User uploaded image */
 aside .user-pic {
     float: left;
     width: 70px;
     height: 70px;
-    padding:2px; 
+    padding: 2px;
     border-radius: 12px;
     margin-right: 15px;
     overflow: hidden;
 }
 
 aside .user-pic img {
-    width: 100%; 
-    height: 100%; 
+    width: 100%;
+    height: 100%;
 }
 
+/* User details */
 aside .user-info {
     display: flex;
     flex-direction: column;
-    color: grey;
+    color: #d63b00;
 }
 
+/* User name styling */
 aside .name {
-    margin-bottom: 4px; 
+    margin-bottom: 4px;
     font-size: 1.3em;
     text-transform: uppercase;
     font-weight: 900;
 }
 
+/* Styling for online circle */
 aside .mail,
 aside .status {
     font-size: 14px;
-    font-family: "open sans", sans-serif;
 }
 
 aside .status {
-    margin-top: 3px; 
+    margin-top: 3px;
     position: relative;
     margin-left: 10px;
 }
 
 aside .status::before {
-    content: ''; 
+    content: '';
     position: absolute;
     width: 7px;
     height: 7px;
     background: lightgreen;
     border-radius: 50%;
-    left: -10px; 
-    top: 5.5px; 
+    left: -10px;
+    top: 5.5px;
 }
 
-
+/* Styling for search bar */
 aside .search-bar {
-    border-top: 1px solid #e9e9e9; 
+    border-top: 1px solid lightblue;
     padding: 20px;
 }
 
 aside .search-bar .search {
-    position: relative; 
+    position: relative;
     display: flex;
     width: 100%;
 }
@@ -196,36 +253,38 @@ aside .search-bar input {
     padding: 6px 12px;
     font-size: 1rem;
     line-height: 1.5;
-    border: 1px solid #dfdfdf;
+    border: 1px solid lightblue;
     border-radius: 4px 0 0 4px;
     outline: none;
     font-family: "open sans", serif;
-    font-weight: 100;
+    font-weight: 900;
+    color: rgb(10, 89, 116);
 }
 
 aside .search-bar button {
-    padding: 6px 12px; 
+    padding: 6px 12px;
     font-size: 1rem;
     border-radius: 0 4px 4px 0;
-    border: 1px solid lightblue; 
-    background: lightblue;
+    border: 1px solid  lightblue;
+    background: #d63b00; 
     color: white;
     outline: none;
     cursor: pointer;
     border-left: 0;
 }
 
+/* Styling for tabs section in the sidebar */
 .side-nav {
-    border-top: 1px solid #e9e9e9;
-    padding: 20px 0; 
+    border-top: 1px solid lightblue;
+    padding: 20px 0;
     padding-bottom: 10px;
     margin-bottom: 40px;
 }
 
 .side-nav h2 {
     font-size: 1.2em;
-    padding: 10px 0px 5px 20px; 
-    color: red; 
+    padding: 10px 0px 5px 20px;
+    color: #d63b00;
     margin-bottom: 10px;
 }
 
@@ -237,17 +296,18 @@ aside .search-bar button {
     margin-bottom: 10px;
     cursor: pointer;
     transition: all .4s ease;
+    color: rgb(10, 89, 116);
 }
 
 .side-nav ul li:active,
 .side-nav ul li:hover {
-    background: #eee;
+    background:#e1f2f7;
 }
 
 .side-nav ul li span {
     margin-right: 10px;
     font-size: 12px;
-    width: 30px; 
+    width: 30px;
     height: 30px;
     line-height: 30px;
     text-align: center;
@@ -259,77 +319,46 @@ aside .search-bar button {
 .side-nav ul li h3 {
     line-height: 30px;
     font-size: 1.2em;
-    color: grey;
+    color: #d63b00;
     font-weight: 100;
 }
 
-.bt-nav {
-    background: grey;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
-.bt-nav ul {
-    display: flex;
-    justify-content: space-around;
-}
-
-.bt-nav ul li {
-    line-height: 30px;
-    position: relative;
-    color: #fff;
-    cursor: pointer;
-}
-
-.alert::after,
-.message::after{
-    content: '';
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    top: 2%; 
-    background: red;
-}
-
-.alert::after{
-    background-color: lightgreen;
-}
-
+/* Vert bar on mobile, display none on desktop view */
 .vert-bar {
     display: none;
 }
 
+/* Content section for the tabs*/
 .main {
     position: relative;
     margin-left: 300px;
 }
+
 .main section {
     width: 100%;
     height: 100%;
-    font-family: "Roboto", sans-serif;
-    padding:20px; 
+    padding: 20px;
     display: none;
 }
 
 .main section h1 {
-    margin:0 auto 20px; 
+    margin: 0 auto 20px;
     font-size: 2.5em;
     text-transform: uppercase;
     text-align: center;
     color: grey;
 }
 
-.main section .text{
+.main section .text {
     font-weight: 500;
-    padding: 30px 50px; 
+    padding: 30px 50px;
     font-size: 25px;
     height: 300px;
     display: flex;
     align-items: center;
 }
 
+/* DASHBOARD STYLING */
 .userpost {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -337,29 +366,13 @@ aside .search-bar button {
 }
 
 .userpost .posts {
-    background: #fff; 
+    background: #fff;
     border-radius: 10px;
-    overflow: hidden; 
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.userpost .posts:first-child {
-    background: grey;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.userpost .posts:first-child span {
-    text-align: center;
-    width: 70px;
-    height: 70px;
-    background: grey;
-    border-radius: 50%;
-    line-height: 70px;
-    color: #fff; 
-    font-size: 30px;
+    overflow: hidden;
     cursor: pointer;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    text-align: center;
 }
 
 .userpost .posts img {
@@ -372,7 +385,196 @@ aside .search-bar button {
     line-height: 30px;
 }
 
-@media (max-width:900px){
+/* INCIDENT LOG STYLING */
+.incidentLog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+}
+
+.incidentLog .posts {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    text-align: center;
+}
+
+.incidentLog .posts img {
+    width: 100%;
+    height: 90%;
+}
+
+.incidentLog .posts p {
+    margin-left: 10px;
+    line-height: 30px;
+}
+
+#nameGroup {
+    display: inline;
+
+}
+
+#user_profile_section {
+    border: solid green;
+    text-align: center;
+
+}
+
+#detail_user_firstN {
+    display: inline;
+    font-weight: bold;
+}
+
+
+#detail_user_lastN {
+    display: inline;
+    font-weight: bold;
+}
+
+
+
+#detail_user_email {
+    display: inline;
+    font-weight: bold;
+}
+
+
+#detail_user_password {
+    display: inline;
+    font-weight: bold;
+}
+
+
+#detail_user_age {
+    font-weight: bold;
+}
+
+
+#detail_user_gender {
+    font-weight: bold;
+}
+
+
+#detail_user_cellphone {
+    font-weight: bold;
+}
+
+
+#edit {
+    padding: 5px;
+    outline: none;
+}
+
+#user_profile_image{
+    border: solid black;
+}
+
+#edit-button {
+    width: 80px;
+    padding: 5px;
+    margin: 0 3px;
+    background-color: #ff7e00;
+    outline: none;
+    border: 1px solid #ff7e00;
+    box-shadow: 2px 2px 2px #3f3f3f;
+}
+
+#edit-button:hover {
+    box-shadow: 2px 2px 3px;
+}
+
+#edit-button:active {
+    box-shadow: 1px 1px 3px;
+}
+
+#end-editing {
+    width: 80px;
+    padding: 5px;
+    margin: 0 3px;
+    background-color: #ff7e00;
+    outline: none;
+    border: 1px solid #ff7e00;
+    box-shadow: 2px 2px 2px #3f3f3f;
+}
+
+#end-editing:hover {
+    box-shadow: 2px 2px 3px;
+}
+
+#end-editing:active {
+    box-shadow: 1px 1px 3px;
+}
+
+
+.edit{
+    background-color: lightblue;
+}
+
+#editUserStatus{
+    color: red;
+    font-weight: bold;
+    
+}
+
+/* MODAL STYLING */
+.modal {
+    display: none;
+    position: fixed;
+    /* z-index controls the modal depth/whether it appears infront or behind something */
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* DISPLAY INCIDENT STYLING */
+.display-incident-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+#displayIncidentInformation {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins";
+}
+
+/* JOIN INCIDENT STYLING */
+.join-incident-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+#joinIncidentContent {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+@media (max-width:900px) {
     header {
         width: 100%;
         box-shadow: unset;
@@ -389,27 +591,27 @@ aside .search-bar button {
 
     .nav-mobile {
         display: block;
-        position: fixed;
-        left:0; 
-        z-index:500;
+        position: absolute;
+        left: 0;
+        z-index: 500;
         background: #fff;
         padding: 10px;
         transition: all .4s ease-in-out;
-        border-top: 1px solid #e9e9e9; 
-        width: 100%; 
-        bottom:0; 
-        top: 105%; 
-       
+        border-top: 1px solid #e9e9e9;
+        width: 100%;
+        bottom: 0;
+        top: 105%;
+
     }
 
     .nav-mobile ul {
-        padding: 10px 20px; 
+        padding: 10px 20px;
     }
 
     .nav-mobile ul li {
         display: flex;
         align-items: center;
-        color: #797979; 
+        color: rgb(10, 89, 116);
         padding: 10px;
         margin-top: 5px;
         cursor: pointer;
@@ -418,28 +620,41 @@ aside .search-bar button {
 
     .nav-mobile ul li.active,
     .nav-mobile ul li:hover {
-        background: grey;
+        background: lightblue;
         color: #fff;
     }
 
     .nav-mobile ul li span {
-        line-height: 1;
-        font-size: 22px;
+        line-height: 2;
+        font-size: 25px;
     }
-    
+
     .nav-mobile ul li h3 {
-        font-family: "Poppins";
         text-transform: uppercase;
         margin-left: 20px;
     }
 
     .nav-mobile.show {
-        top: 70px; 
+        top: 70px;
     }
 
-    .vert-bar{
+    .nav-mobile ul li a {
+        margin-left: 20px;
+        font-size: 20px;
+    }
+
+    .nav-mobile ul li a:hover {
+        color: white;
+    }
+
+    #logout{
+        margin-left: 20px;
+        font-size: 20px;
+    }
+
+    .vert-bar {
         display: block;
-        color: #797979; 
+        color: #797979;
         cursor: pointer;
         font-size: 1.6em;
         position: absolute;
@@ -454,10 +669,10 @@ aside .search-bar button {
 
     aside {
         transition: all 1.5s ease-in-out;
-        top: 70px; 
+        top: 70px;
         z-index: 20;
-        position: absolute;
-        overflow: hidden;
+        position: relative;
+        overflow: hidden; 
         box-shadow: unset;
         width: 0;
         border-top: 1px solid #e9e9e9;
@@ -473,7 +688,7 @@ aside .search-bar button {
         display: block;
     }
 
-    .main{
+    .main {
         margin-left: 0px;
     }
 
@@ -487,7 +702,7 @@ aside .search-bar button {
     }
 }
 
-@media (max-width: 450px){
+@media (max-width: 450px) {
     .userpost .posts:first-child {
         height: 400px;
     }

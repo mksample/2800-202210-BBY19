@@ -16,16 +16,41 @@
 </head>
 
 <body>
+  <!-- Templates -->
+  <template id="IncidentTemplate">
+    <div class="posts">
+      <div class="incident">
+        <span id="incidentTitle">
+
+        </span>
+        <span id="incidentPriority">
+
+        </span>
+        <span id="incidentType">
+
+        </span>
+        <span id="incidentStatus">
+
+        </span>
+        <span id="incidentTimestamp">
+
+        </span>
+        <input type="button" id="joinIncidentButton" value="Join +">
+      </div>
+    </div>
+  </template>
+
 
   <!-- Main Container-->
   <div class="container">
     <header>
       <!-- LOGO-->
-      <div class="logo">
-        <img src="/imgs/saveme.jpg" width="40px" alt="logo" />
-        <h1>SaveMe</h1>
+      <div id="logo">
+        <a href="/html/responder_profile.html">
+          <img src="/imgs/saveme.jpg" width="40" alt="logo" />
+        </a>
+        <h2>SaveMe</h2>
       </div>
-
 
       <!--HAMBURGER MENU FOR MOBILE-->
 
@@ -38,16 +63,16 @@
       <div class="nav">
         <ul>
 
-          <li>
+          <li onclick=show(0)>
             <h3>Home</h3>
           </li>
 
           <li>
-            <h3>About</h3>
+            <a href="/html/about_nav.html">About</a>
           </li>
 
           <li>
-            <h3>Contact</h3>
+            <a href="/html/contact_nav.html">Contact</a>
           </li>
 
           <li>
@@ -67,26 +92,20 @@
     <div class="nav-mobile">
       <ul>
 
-        <li>
+        <li class ="active" onclick=show(0)>
           <span> <i class="material-icons">home</i></span>
           <h3>Home</h3>
         </li>
 
         <li>
           <span> <i class="material-icons">info</i></span>
-          <h3>About</h3>
+          <a href="/html/about_nav.html">About</a>
         </li>
 
         <li>
           <span> <i class="material-icons">call</i></span>
-          <h3>Contact</h3>
+          <a href="/html/contact_nav.html">Contact</a>
         </li>
-
-        <li class="active">
-          <span> <i class="material-icons">account_circle</i></span>
-          <h3>Account</h3>
-        </li>
-
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
@@ -106,130 +125,126 @@
 
 
 
-    <!-- SIDEBAR NAVIGATION -->
-    <aside class="sidebar">
+     <!-- SIDEBAR NAVIGATION -->
+     <aside class="sidebar">
       <!-- SIDEBAR CLOSE WHEN ON MOBILE-->
-      <h1>SaveMe<span class="close"><i class="material-icons">close</i></span></h1>
+      <h2>SaveMe<span class="close"><i class="material-icons">close</i></span></h2>
 
       <div class="user-side">
 
         <div class="user-pic">
 
-          <img width="100" src="/imgs/saveme.jpg" alt="">
+          <img id="userPicture" width="100" src="/imgs/saveme.jpg" alt="">
 
         </div>
         <!-- SIDE NAVIGATION USER INFORMATION-->
         <div class="user-info">
 
-          <span class="name">John Doe</span>
+          <span id="sessionName" class="name">John Doe</span>
 
-          <span class="email">JohnDoe@gmail.com</span>
+            <span id="sessionEmail" class="email">JohnDoe@gmail.com</span>
 
-          <span class="status">Online</span>
-
-        </div>
-
-      </div>
-
-      <!-- SIDE NAVIGATION SEARCH BAR-->
-      <div class="search-bar">
-        <form>
-          <div class="search">
-
-            <input type="text" placeholder="Search Profile...">
-
-            <button type="submit"><span><i class="material-icons">search</i></span></button>
+            <span class="status">Online</span>
 
           </div>
 
-        </form>
-      </div>
+        </div>
 
-      <!-- SIDE NAVIGATION GENERAL-->
-      <div class="side-nav">
-        <h2>General</h2>
-        <nav>
-          <ul>
-            <li class="active" onclick="show(0)">
-              <span><i class="material-icons">speed</i></span>
-              <h3>Dashboard</h3>
-            </li>
-            <li onclick="show(1)">
-              <span><i class="material-icons">star</i></span>
-              <h3>Reviews</h3>
-            </li>
-            <li onclick="show(2)">
-              <span><i class="material-icons">comments</i></span>
-              <h3>Comments</h3>
-            </li>
-            <li onclick="show(3)">
-              <span><i class="material-icons">settings</i></span>
-              <h3>Settings</h3>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <!-- BOTTOM NAVIGATION ICONS-->
-      <div class="bt-nav">
-        <ul>
-          <li class="alert" title="Alert">
-            <span><i class="material-icons">notifications</i></span>
-          </li>
-          <li class="message" title="Message">
-            <span><i class="material-icons">message</i></span>
-          </li>
-          <li class="set" title="Settings">
-            <span><i class="material-icons">settings</i></span>
-          </li>
-        </ul>
-      </div>
-    </aside>
+        <!-- SIDE NAVIGATION SEARCH BAR-->
+        <div class="search-bar">
+          <form>
+            <div class="search">
 
-    <!-- DASHBOARD CONTENT -->
+              <input type="text" placeholder="Search Profile...">
+
+              <button type="submit"><span><i class="material-icons">search</i></span></button>
+
+            </div>
+
+          </form>
+        </div>
+
+        <!-- SIDE NAVIGATION GENERAL-->
+        <div class="side-nav">
+          <h2>General</h2>
+          <nav>
+            <ul>
+              <li class ="active" onclick="show(0)">
+                <span><i class="material-icons">person_outline</i></span>
+                <h3>Profile</h3>
+              </li>
+              <li onclick="show(1)">
+                <span><i class="material-icons">speed</i></span>
+                <h3>Dashboard</h3>
+              </li>
+              <li onclick="show(2)">
+                <span><i class="material-icons">timeline</i></span>
+                <h3>Incident Log</h3>
+              </li>
+              <li onclick="show(3)">
+                <span><i class="material-icons">settings</i></span>
+                <h3>Settings</h3>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+
+    <!-- DASHBOARD TAB -->
     <div class="main">
-      <section class="profile tabs">
-        <h1>Your Posts</h1>
-        <div class="userpost">
-          <div class="posts">
-            <span><i class="material-icons">add</i></span>
+      <!-- PROFILE TAB -->
+      <section class="tabs">
+        <h1>User profile</h1>
+        <div id="user_profile_section">
+          <div id="container">
+            <form id="upload-images-form">
+              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+                multiple="multiple" />
+              <input id="submit" type="submit" value="Save profile image" />
+            </form>
           </div>
-          <div class="posts">
-            <img width="200" src="/imgs/saveme.jpg" alt="">
-            <p>Title</p>
-          </div>
-          <div class="posts">
-            <img width="200" src="/imgs/saveme.jpg" alt="">
-            <p>Title</p>
-          </div>
-          <div class="posts">
-            <img width="200" src="/imgs/saveme.jpg" alt="">
-            <p>Title</p>
-          </div>
+          <br><br>
+          <img id="detail_user_picture" width="200" src="/imgs/saveme.jpg" alt="">
+          <p>First Name: </p>
+          <div class="edit" id="detail_user_firstN">bank</div>
+          <p>Last Name: </p>
+          <div class="edit" id="detail_user_lastN">name</div>
+          <p>Email: </p>
+          <div class="edit" id="detail_user_email">email</div>
+          <p>Password: </p>
+          <div class="edit" id="detail_user_password">name</div>
+          <p>Age: </p>
+          <div class="edit" id="detail_user_age">age</div>
+          <p>Gender: </p>
+          <div class="edit" id="detail_user_gender">gender</div>
+          <p>Phone Number: </p>
+          <div class="edit" id="detail_user_cellphone">number</div>
+          <p>Role: </p>
+          <div class="edit" id="detail_user_role">role</div>
+          <br><br>
+          <span id="editUserStatus" class="status"></span>
+          <br><br>
+          <button type="button" id="edit-button">Edit</button>
+          <button type="button" id="end-editing">Save</button>
         </div>
-
       </section>
 
-      <!-- CONTENT TABS-->
+        <!-- DASHBOARD TAB -->
+      <section id="dashboard" class="profile tabs">
+        <h1>Incident Live Feed</h1>
+        <div id="incidents" class="userpost">
+
+        </div>
+      </section>
+
+      <!-- INCIDENT LOG TAB -->
       <section class="tabs">
+        <h1>Incident Log</h1>
+        <div id="incidentLog" class="incidentLog">
 
-        <h1>Reviews</h1>
-
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
-
+        </div>
       </section>
-      <section class="tabs">
-        <h1>Comments</h1>
-
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
-      </section>
+      <!-- SETTINGS TAB -->
       <section class="tabs">
         <h1>Settings</h1>
 
@@ -237,19 +252,62 @@
           Quia recusandae laudantium odio!
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
+          sit sint corporis quo. Voluptas, natus corporis?
+          test</p>
       </section>
-
 
     </div>
 
+    <!-- MODALS -->
+    <div id="displayIncidentModal" class="modal">
+      <div class="display-incident-modal-content">
+        <div id="displayIncidentInformation">
+          <p id="displayIncidentTitle"></p>
+          <p id="displayIncidentPriority"></p>
+          <p id="displayIncidentType"></p>
+          <p id="displayIncidentStatus"></p>
+          <p id="displayIncidentCallerID"></p>
+          <p id="displayIncidentDescription"></p>
+          <img id="displayIncidentImage" src="" width="300" alt="">
+          <p id="displayIncidentLat"></p>
+          <p id="displayIncidentLon"></p>
+          <p id="displayIncidentTimestamp"></p>
+          <p id="displayIncidentResolutionComment"></p>
+        </div>
+        <div id="displayIncidentModalButtons">
+          <form>
+            <span id="displayIncidentResolveStatus" class="modalStatus"></span>
+            <input type="text" id="displayIncidentResolutionCommentInput" placeholder="Resolution Comment">
+            <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
+            <input type="button" class="submitButton" id="displayIncidentResolveButton" value="Resolve" />
+          </form>
+        </div>
+      </div>
+    </div>
 
+    <div id="joinIncidentModal" class="modal">
+      <div class="join-incident-modal-content">
+        <div id="joinIncidentContent">
+          <form>
+            <h2>Join Incident?</h2>
+            <span id="joinIncidentStatus" class="modalStatus"></span>
+            <input type="button" class="cancelButton" id="joinIncidentCancelButton" value="Cancel" />
+            <input type="button" class="submitButton" id="joinIncidentSubmitButton" value="Join" />
+          </form>
+        </div>
+      </div>
+    </div>
 
 
 
   </div>
   <!-- SCRIPT FOLDER-->
   <script src="/js/responder_profile.js"></script>
+  <script src="/js/responder_profile_edit.js"></script>
+  <script src="/js/responder_profile_upload_photo.js"></script>
+  <script src="/js/responder_profile_display_incident.js"></script>
+  <script src="/js/responder_profile_join_incident.js"></script>
+
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -272,7 +330,7 @@
   <!--DISPLAY NAVIGATION ON MOBILE-->
   <script>
     $(".side-nav ul li").click(function () {
-      $(this).addClass("active").sibilings().removeClass("active");
+      $(this).addClass("active").siblings().removeClass("active");
     })
   </script>
 
@@ -303,6 +361,29 @@
     close.addEventListener("click", () => {
       aside.classList.remove("show");
     })
+  </script>
+
+  <!--Easter Egg, change font-->
+  <script>
+
+    let counter = 0; 
+
+    const logo = document.getElementById("logo"); 
+    const selectbody = document.getElementsByTagName("body")[0]; 
+
+
+    logo.addEventListener('click', toggleFont); 
+
+
+    function toggleFont(){
+      counter +=1; 
+
+      if(counter == 5) {
+          selectbody.style.fontFamily = "monospace"; 
+      }
+
+    }
+
   </script>
 
 </body>
