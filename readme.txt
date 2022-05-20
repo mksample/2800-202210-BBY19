@@ -3,8 +3,8 @@ Team Members:
 [Daniel Chellapan], [A01214203], [B], [May 13th]
 [Taylor Ji], [A01304056], [D], [May 13th]
 [Nash Baek], [A01243888], [D], [May 13th]
-This assignment is [80]% complete.
-[Profile picture uploading is not working at the moment. We ran out of time and haven't had time to impliment it. Admin also does not have a profile page right now, only a dashboard]
+This assignment is [90]% complete.
+[All milestone requirements are working but we didn't have time for styling the incidents, also create incident modal doesn't clear inputs on close]
 
 Users:                  Password
 admin@saveme.ca         test
