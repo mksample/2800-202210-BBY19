@@ -46,8 +46,8 @@
     <header>
       <!-- LOGO-->
       <div class="logo">
-        <img src="/imgs/saveme.jpg" width="40px" alt="logo" />
-        <h1>SaveMe</h1>
+        <img src="/imgs/saveme.jpg" width="40" alt="logo" />
+        <h2>SaveMe</h2>
       </div>
 
       <!--HAMBURGER MENU FOR MOBILE-->
@@ -129,10 +129,10 @@
 
 
 
-    <!-- SIDEBAR NAVIGATION -->
-    <aside class="sidebar">
+     <!-- SIDEBAR NAVIGATION -->
+     <aside class="sidebar">
       <!-- SIDEBAR CLOSE WHEN ON MOBILE-->
-      <h1>SaveMe<span class="close"><i class="material-icons">close</i></span></h1>
+      <h2>SaveMe<span class="close"><i class="material-icons">close</i></span></h2>
 
       <div class="user-side">
 
@@ -143,8 +143,8 @@
         </div>
         <!-- SIDE NAVIGATION USER INFORMATION-->
         <div class="user-info">
-          <div id="nameGroup">
-            <span id="sessionName" class="name">John Doe</span>
+
+          <span id="sessionName" class="name">John Doe</span>
 
             <span id="sessionEmail" class="email">JohnDoe@gmail.com</span>
 
@@ -198,15 +198,22 @@
             <li class="alert" title="Alert">
               <span><i class="material-icons">notifications</i></span>
             </li>
-            <li class="message" title="Message">
-              <span><i class="material-icons">message</i></span>
+            <li onclick="show(1)">
+              <span><i class="material-icons">person_outline</i></span>
+              <h3>Reviews</h3>
             </li>
-            <li class="set" title="Settings">
+            <li onclick="show(2)">
+              <span><i class="material-icons">timeline</i></span>
+              <h3>Comments</h3>
+            </li>
+            <li onclick="show(3)">
               <span><i class="material-icons">settings</i></span>
             </li>
           </ul>
-        </div>
+        </nav>
+      </div>
     </aside>
+
 
     <!-- DASHBOARD CONTENT -->
     <div class="main">
@@ -266,16 +273,20 @@
           Quia recusandae laudantium odio!
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
-        <div id="container">
-          <form id="upload-images-form">
-            <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-              multiple="multiple" />
-            <input id="submit" type="submit" value="Save profile image" />
-          </form>
-        </div>
-      </section>
+          sit sint corporis quo. Voluptas, natus corporis?
+          test</p>
+      
+          <div id="container">
+            <form id="upload-images-form">
+              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+                multiple="multiple" />
+              <input id="submit" type="submit" value="Save profile image" />
+            </form>
+          </div>
+        
 
+
+      </section>
 
     </div>
 

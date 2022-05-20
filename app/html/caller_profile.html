@@ -47,7 +47,7 @@
       <!-- LOGO-->
       <div class="logo">
         <img src="/imgs/saveme.jpg" width="40px" alt="logo" />
-        <h1>SaveMe</h1>
+        <h2>SaveMe</h2>
       </div>
 
 
@@ -90,19 +90,19 @@
     <div class="nav-mobile">
       <ul>
 
-        <li>
-          <span> <i class="material-icons">home</i></span>
+        <li onclick=show(0)>
+          <span><i class="material-icons">home</i></span>
           <h3>Home</h3>
         </li>
 
         <li>
           <span> <i class="material-icons">info</i></span>
-          <h3>About</h3>
+          <a href="/html/about_nav.html">About</a>
         </li>
 
         <li>
-          <span> <i class="material-icons">call</i></span>
-          <h3>Contact</h3>
+          <span><i class="material-icons">call</i></span>
+          <a href="/html/contact_nav.html">Contact</a>
         </li>
 
         <li class="active">
@@ -113,7 +113,7 @@
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
-            <input id="logginout" type="submit" value="Logout" />
+            <input id="logout-bt" type="submit" value="Logout" />
           </form>
         </li>
 
@@ -128,7 +128,7 @@
     <!-- SIDEBAR NAVIGATION -->
     <aside class="sidebar">
       <!-- SIDEBAR CLOSE WHEN ON MOBILE-->
-      <h1>SaveMe<span class="close"><i class="material-icons">close</i></span></h1>
+      <h2>SaveMe<span class="close"><i class="material-icons">close</i></span></h2>
 
       <div class="user-side">
 
@@ -160,11 +160,11 @@
               <h3>Profile</h3>
             </li>
             <li onclick="show(1)">
-              <span><i class="material-icons">star</i></span>
+              <span><i class="material-icons">person_outline</i></span>
               <h3>Dashboard</h3>
             </li>
             <li onclick="show(2)">
-              <span><i class="material-icons">comments</i></span>
+              <span><i class="material-icons">timeline</i></span>
               <h3>Reviews</h3>
             </li>
             <li onclick="show(3)">
@@ -173,20 +173,6 @@
             </li>
           </ul>
         </nav>
-      </div>
-      <!-- BOTTOM NAVIGATION ICONS-->
-      <div class="bt-nav">
-        <ul>
-          <li class="alert" title="Alert">
-            <span><i class="material-icons">notifications</i></span>
-          </li>
-          <li class="message" title="Message">
-            <span><i class="material-icons">message</i></span>
-          </li>
-          <li class="set" title="Settings">
-            <span><i class="material-icons">settings</i></span>
-          </li>
-        </ul>
       </div>
     </aside>
 
@@ -267,8 +253,15 @@
 
         </div>
       </section>
+      <section class="tabs">
+        <h1>Incident Log</h1>
 
-      <!-- SETTINGS TABS-->
+        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Quia recusandae laudantium odio!
+          Iusto velit laboriosam perferendis ab!
+          Aliquam ab odit animi autem cumque
+          sit sint corporis quo. Voluptas, natus corporis?</p>
+      </section>
       <section class="tabs">
         <h1>Settings</h1>
 
@@ -276,7 +269,9 @@
           Quia recusandae laudantium odio!
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
+          sit sint corporis quo. Voluptas, natus corporis?
+          test</p>
+
         <div id="container">
           <form id="upload-images-form">
             <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
@@ -284,6 +279,9 @@
             <input id="submit" type="submit" value="Save profile image" />
           </form>
         </div>
+
+
+
       </section>
 
     </div>
@@ -300,8 +298,44 @@
           <div id="callcontext"> </div>
           <br /><br />
           <form>
+            <!-- <label class="icon" for="email"><i class="icon-envelope "></i></label> -->
+            <input type="text" name="email" id="title" placeholder="Title"/>
+            <br>
+            <p>Please select one that desribes your situation </p>
+            <div class="Priority">
+              <input type="radio" value="URGENT" id="urgent" name="Priority"/>
+              <label for="urgent" class="radio" chec>Urgent</label>
+              <input type="radio" value="HIGH" id="high" name="Priority" />
+              <label for="high" class="radio">High</label>
+              <input type="radio" value="MEDIUM" id="medium" name="Priority" />
+              <label for="medium" class="radio">Medium</label>
+              <input type="radio" value="LOW" id="low" name="Priority" />
+              <label for="low" class="radio">Low</label>
+            </div>
+
+            <p>Please select one that descirbes the type of an incidnet</p>
+            <div class="InciType">
+              <input type="radio" value="HARASSMENT" id="harrasment" name="InciType" />
+              <label for="harrasment" class="radio" chec>Harrasment</label>
+              <input type="radio" value="SUSACTIVITY" id="susactivity" name="InciType" />
+              <label for="susactivity" class="radio">Suspicious Activity</label>
+              <input type="radio" value="VIOLENCE" id="violence" name="InciType" />
+              <label for="violence" class="radio">Violence</label>
+            </div>
+
+            <!-- <label class="icon" for="password"><i class="icon-shield"></i></label> -->
+            <input type="text" name="name" id="description" placeholder="Description" />
+
+            <div id="map"></div>
+            <div>user location: </div>
+            <p>user's latitude: </p>
+            <div id="user_lat"></div>
+            <p>user's longitude: </p>
+            <div id="user_lng"></div>
+
+
             <input type="button" class="callForHelpModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="submit" value="Submit" />
+            <input type="button" class="submitButton" id="callSubmit" value="Submit" />
           </form>
 
         </div>
@@ -317,8 +351,8 @@
           <div id="reportContext"> </div>
           <br /><br />
           <form>
-            <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="submit" value="Submit" />
+            <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" /> 
+            <input type="button" class="submitButton" id="submit" value="Submit" /> //
           </form>
 
         </div>
@@ -335,7 +369,7 @@
           <br /><br />
           <form>
             <input type="button" class="activeIncidentModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="submit" value="Submit" />
+            <input type="button" class="submitButton" id="submit" value="Submit" /> 
           </form>
 
         </div>
@@ -388,6 +422,8 @@
   <script src="/js/caller_profile_upload_photo.js"></script>
   <script src="/js/caller_profile_delete_incident.js"></script>
   <script src="/js/caller_profile_display_incident.js"></script>
+  <script src="/js/call_for_help.js"></script>
+
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -441,6 +477,80 @@
     close.addEventListener("click", () => {
       aside.classList.remove("show");
     })
+  </script>
+
+  <script>
+    // Note: This example requires that you consent to location sharing when
+    // prompted by your browser. If you see the error "The Geolocation service
+    // failed.", it means you probably did not give permission for the browser to
+    // locate you.
+    let map, infoWindow;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: {
+          lat: 49.2827,
+          lng: -123.1207
+        },
+        zoom: 11,
+      });
+      infoWindow = new google.maps.InfoWindow();
+
+      const locationButton = document.createElement("input");
+      const message = "SOS";
+      locationButton.type = "button";
+      locationButton.value = "SOS";
+      locationButton.id = "test"
+     
+      locationButton.classList.add("custom-map-control-button");
+      map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+      locationButton.addEventListener("click", () => {
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
+
+              console.log(pos);
+
+              infoWindow.setPosition(pos);
+              infoWindow.setContent(
+                "Incident occured. Your location has been shared to our responders. The closest responder to you will be there."
+              );
+              infoWindow.open(map);
+            
+              document.getElementById("user_lat").innerHTML = pos.lat;
+              document.getElementById("user_lng").innerHTML = pos.lng;
+              map.setCenter(pos);
+            },
+            () => {
+              handleLocationError(true, infoWindow, map.getCenter());
+            }
+          );
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      });
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(
+        browserHasGeolocation ?
+        "Error: The Geolocation service failed." :
+        "Error: Your browser doesn't support geolocation."
+      );
+      infoWindow.open(map);
+    }
+
+    window.initMap = initMap;
+  </script>
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8&callback=initMap">
   </script>
 
 
