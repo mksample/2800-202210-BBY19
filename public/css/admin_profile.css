@@ -367,13 +367,14 @@ aside .search-bar button {
     align-items: center;
 }
 
-.userpost {
+/* USER PROFILE DISPLAY STYLING */
+.userProfiles {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 20px;
 }
 
-.userpost .posts {
+.userProfiles .posts {
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -382,14 +383,14 @@ aside .search-bar button {
     font-size: 14px;
 }
 
-.userpost .posts:first-child {
+.userProfiles .posts:first-child {
     background: grey;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.userpost .posts:first-child span {
+.userProfiles .posts:first-child span {
     text-align: center;
     width: 70px;
     height: 70px;
@@ -401,16 +402,43 @@ aside .search-bar button {
     cursor: pointer;
 }
 
-.userpost .posts img {
+.userProfiles .posts img {
     width: 100%;
     height: 90%;
 }
 
-.userpost .posts p {
+.userProfiles .posts p {
     margin-left: 10px;
     line-height: 30px;
 }
 
+/* INCIDENT LOG STYLING */
+.incidentLog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+}
+
+.incidentLog .posts {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+.incidentLog .posts img {
+    width: 100%;
+    height: 90%;
+}
+
+.incidentLog .posts p {
+    margin-left: 10px;
+    line-height: 30px;
+}
+
+/* MODAL STYLING */
 .modal {
     display: none;
     position: fixed;
@@ -461,6 +489,26 @@ aside .search-bar button {
 }
 
 #deleteUserProfile {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins";
+}
+
+/* display incident modal content */
+.display-incident-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+#displayIncidentContent {
     display: flex;
     background-size: cover;
     background-repeat: no-repeat;
@@ -684,6 +732,115 @@ hr {
     cursor: pointer;
 }
 
+/* profile styling */
+
+#nameGroup {
+    display: inline;
+
+}
+
+#user_profile_section {
+    border: solid green;
+    text-align: center;
+
+}
+
+#detail_user_firstN {
+    display: inline;
+    font-weight: bold;
+}
+
+
+#detail_user_lastN {
+    display: inline;
+    font-weight: bold;
+}
+
+
+
+#detail_user_email {
+    display: inline;
+    font-weight: bold;
+}
+
+
+#detail_user_password {
+    display: inline;
+    font-weight: bold;
+}
+
+
+#detail_user_age {
+    font-weight: bold;
+}
+
+
+#detail_user_gender {
+    font-weight: bold;
+}
+
+
+#detail_user_cellphone {
+    font-weight: bold;
+}
+
+
+#edit {
+    padding: 5px;
+    outline: none;
+}
+
+#user_profile_image{
+    border: solid black;
+}
+
+#edit-button {
+    width: 80px;
+    padding: 5px;
+    margin: 0 3px;
+    background-color: #ff7e00;
+    outline: none;
+    border: 1px solid #ff7e00;
+    box-shadow: 2px 2px 2px #3f3f3f;
+}
+
+#edit-button:hover {
+    box-shadow: 2px 2px 3px;
+}
+
+#edit-button:active {
+    box-shadow: 1px 1px 3px;
+}
+
+#end-editing {
+    width: 80px;
+    padding: 5px;
+    margin: 0 3px;
+    background-color: #ff7e00;
+    outline: none;
+    border: 1px solid #ff7e00;
+    box-shadow: 2px 2px 2px #3f3f3f;
+}
+
+#end-editing:hover {
+    box-shadow: 2px 2px 3px;
+}
+
+#end-editing:active {
+    box-shadow: 1px 1px 3px;
+}
+
+.edit{
+    background-color: lightblue;
+}
+
+
+#editUserStatus{
+    color: red;
+    font-weight: bold;
+    
+}
+
 @media (max-width:900px) {
     header {
         width: 100%;
@@ -811,7 +968,11 @@ hr {
 }
 
 @media (max-width: 450px) {
-    .userpost .posts:first-child {
+    .userProfiles .posts:first-child {
+        height: 400px;
+    }
+
+    .incidentLog .posts:first-child {
         height: 400px;
     }
 

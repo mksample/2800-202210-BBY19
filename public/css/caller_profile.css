@@ -367,6 +367,7 @@ aside .search-bar button {
     align-items: center;
 }
 
+/* DASHBOARD STYLING */
 .userpost {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -390,6 +391,33 @@ aside .search-bar button {
 }
 
 .userpost .posts p {
+    margin-left: 10px;
+    line-height: 30px;
+}
+
+/* INCIDENT LOG STYLING */
+.incidentLog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+}
+
+.incidentLog .posts {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    text-align: center;
+}
+
+.incidentLog .posts img {
+    width: 100%;
+    height: 90%;
+}
+
+.incidentLog .posts p {
     margin-left: 10px;
     line-height: 30px;
 }
@@ -563,7 +591,7 @@ hr {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.edit-call-modal-content, .edit-report-modal-content, .edit-active-modal-content {
+.edit-call-modal-content, .edit-report-modal-content, .edit-active-modal-content, .delete-incident-modal-content {
     background-color: #ffffff;
     margin: 15% auto;
     padding: 20px;
@@ -605,6 +633,46 @@ hr {
     text-transform: uppercase;
     transition: transform 80ms ease-in;
     cursor: pointer;
+}
+
+/* delete incident modal styling */
+.delete-incident-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+#deleteIncidentContent {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins";
+}
+
+/* display incident modal styling */
+.display-incident-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+#displayIncidentContent {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins";
 }
 
 /* profile styling */

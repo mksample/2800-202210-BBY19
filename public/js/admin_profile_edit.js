@@ -12,6 +12,7 @@ async function prepareProfile() {
         } else {
             if (response.user.avatar != null) {
                 document.getElementById("detail_user_picture").src = response.user.avatar;
+                console.log("test");
             }
             document.getElementById("detail_user_firstN").innerHTML = response.user.firstName;
             document.getElementById("detail_user_lastN").innerHTML = response.user.lastName;
@@ -48,7 +49,6 @@ async function prepareProfile() {
             age: document.getElementById("detail_user_age").textContent,
             gender: document.getElementById("detail_user_gender").textContent,
             phoneNumber: document.getElementById("detail_user_cellphone").textContent,
-            role: document.getElementById("detail_user_role").textContent
         })
         if (response) {
             if (response.status == "fail") {

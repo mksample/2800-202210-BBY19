@@ -17,6 +17,29 @@
 </head>
 
 <body>
+  <!-- Templates -->
+  <template id="IncidentTemplate">
+    <div class="posts">
+      <div class="incident">
+        <span id="deleteIncidentButton" class="close">&times;</span>
+        <span id="incidentTitle">
+
+        </span>
+        <span id="incidentPriority">
+
+        </span>
+        <span id="incidentType">
+
+        </span>
+        <span id="incidentStatus">
+
+        </span>
+        <span id="incidentTimestamp">
+
+        </span>
+      </div>
+    </div>
+  </template>
 
   <!-- Main Container-->
   <div class="container">
@@ -134,15 +157,15 @@
           <ul>
             <li class="active" onclick="show(0)">
               <span><i class="material-icons">speed</i></span>
-              <h3>Profile</h3>
+              <h3>Dashboard</h3>
             </li>
             <li onclick="show(1)">
               <span><i class="material-icons">person_outline</i></span>
-              <h3>Dashboard</h3>
+              <h3>Profile</h3>
             </li>
             <li onclick="show(2)">
               <span><i class="material-icons">timeline</i></span>
-              <h3>Reviews</h3>
+              <h3>Incident Log</h3>
             </li>
             <li onclick="show(3)">
               <span><i class="material-icons">settings</i></span>
@@ -153,10 +176,10 @@
       </div>
     </aside>
 
-    <!-- PROFILE CONTENT -->
+    <!-- DASHBOARD TAB -->
     <div class="main">
       <section class="profile tabs">
-        <h1>User Dashboard</h1>
+        <h1>Dashboard</h1>
 
         <div id="profiles" class="userpost">
           <div class="posts">
@@ -183,10 +206,10 @@
         </div>
       </section>
 
-      <!-- DASHBOARD TABS-->
+      <!-- PROFILE TAB-->
       <section class="tabs">
         <div id="user_profile_pictue"></div>
-        <h1>User profile</h1>
+        <h1>Profile</h1>
         <div id="user_profile_section">
           <div id="container">
             <form id="upload-images-form">
@@ -197,7 +220,7 @@
           </div>
           <br><br>
           <form>
-            <img width="200" src="/imgs/saveme.jpg" alt="">
+            <img id="detail_user_picture" width="200" src="/imgs/saveme.jpg" alt="">
             <p>First Name: </p>
             <div class="edit" id="detail_user_firstN" reqired>bank</div>
             <p>Last Name: </p>
@@ -223,26 +246,12 @@
         </div>
       </section>
 
-      <!-- REVIEWS TABS-->
-      <section class="tabs">
-
-        <h1>Profile</h1>
-
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
-
-      </section>
+      <!-- INCIDENT LOG TAB-->
       <section class="tabs">
         <h1>Incident Log</h1>
+        <div id="incidents" class="incidentLog">
 
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
+        </div>
       </section>
       <section class="tabs">
         <h1>Settings</h1>
@@ -252,20 +261,9 @@
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
           sit sint corporis quo. Voluptas, natus corporis?
-          test</p>
-
-        <div id="container">
-          <form id="upload-images-form">
-            <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-              multiple="multiple" />
-            <input id="submit" type="submit" value="Save profile image" />
-          </form>
-        </div>
-
-
-
+          test
+        </p>
       </section>
-
     </div>
 
 
@@ -358,14 +356,52 @@
       </div>
     </div>
 
+    <!-- Delete incident modal -->
+    <div id="deleteIncidentModal" class="modal">
+      <div class="delete-incident-modal-content">
+        <div id="deleteIncidentContent">
+          <form>
+            <h2>Delete incident?</h2>
+            <span id="deleteIncidentStatus" class="modalStatus"></span>
+            <input type="button" class="cancelButton" id="deleteIncidentCancelButton" value="Cancel" />
+            <input type="button" class="submitButton" id="deleteIncidentSubmitButton" value="Delete" />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Display incident modal -->
+    <div id="displayIncidentModal" class="modal">
+      <div class="display-incident-modal-content">
+        <div id="displayIncidentContent">
+          <img id="displayIncidentImage" src="" alt="">
+          <p id="displayIncidentTitle"></p>
+          <p id="displayIncidentPriority"></p>
+          <p id="displayIncidentType"></p>
+          <p id="displayIncidentStatus"></p>
+          <p id="displayIncidentCallerID"></p>
+          <p id="displayIncidentDescription"></p>
+          <p id="displayIncidentLat"></p>
+          <p id="displayIncidentLon"></p>
+          <p id="displayIncidentTimestamp"></p>
+          <p id="displayIncidentResolutionComment"></p>
+        </div>
+        <div id="displayIncidentModalButtons">
+          <form>
+            <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
+          </form>
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- SCRIPT FOLDER-->
-  <script src="/js/caller_dashboard.js"></script>
   <script src="/js/caller_profile_edit.js"></script>
   <script src="/js/caller_profile.js"></script>
   <script src="/js/caller_profile_upload_photo.js"></script>
-  <script src="/js/call_for_help.js"></script>
-  
+  <script src="/js/caller_profile_delete_incident.js"></script>
+  <script src="/js/caller_profile_display_incident.js"></script>
+
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
