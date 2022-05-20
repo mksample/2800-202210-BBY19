@@ -67,7 +67,7 @@ ready(async function () {
     const text = document.getElementById('previewContents').value;
     console.log(text);
     console.log(phoneNumber);
-    location.href = 'sms:' + phoneNumber + (m == 'ios' ? '&' : '?') + 'body=' + encodeURIComponent("Timestamp: " + now + "\n\nHello!! This device is using " + m + ".\n\nAnd current location is https://goo.gl/maps/MvGWxmjaRUguGC8Y7");
+    location.href = 'sms:' + phoneNumber + (m == 'ios' ? '&' : '?') + 'body=' + encodeURIComponent(text);
     console.log("message sent to " + phoneNumber);
   }
 
