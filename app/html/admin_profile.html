@@ -76,7 +76,7 @@
       <div class="nav">
         <ul>
 
-          <li onclick= show(0)>
+          <li onclick=show(0)>
             <h3>Home</h3>
           </li>
 
@@ -105,7 +105,7 @@
     <div class="nav-mobile">
       <ul>
 
-        <li onclick= show(0)>
+        <li onclick=show(0)>
           <span><i class="material-icons">home</i></span>
           <h3>Home</h3>
         </li>
@@ -195,7 +195,7 @@
             </li>
             <li onclick="show(2)">
               <span><i class="material-icons">timeline</i></span>
-              <h3>Incident-Log</h3>
+              <h3>Incident Log</h3>
             </li>
             <li onclick="show(3)">
               <span><i class="material-icons">settings</i></span>
@@ -209,7 +209,7 @@
     <!-- DASHBOARD CONTENT -->
     <div class="main">
       <section class="profile tabs">
-        <h1>Your Posts</h1>
+        <h1>Users</h1>
         <div id="profiles" class="userProfiles">
           <div id="createUserButton" class="posts">
             <span><i class="material-icons">add</i></span>
@@ -217,24 +217,53 @@
         </div>
       </section>
 
-      <!-- CONTENT TABS-->
+      <!-- PROFILE TAB -->
       <section class="tabs">
-
+        <div id="user_profile_pictue"></div>
         <h1>Profile</h1>
-
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?</p>
-
+        <div id="user_profile_section">
+          <div id="container">
+            <form id="upload-images-form">
+              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+                multiple="multiple" />
+              <input id="submitProfilePhoto" type="submit" value="Save profile image" />
+            </form>
+          </div>
+          <br><br>
+          <form>
+            <img id="detail_user_picture" width="200" src="/imgs/saveme.jpg" alt="">
+            <p>First Name: </p>
+            <div class="edit" id="detail_user_firstN" reqired>bank</div>
+            <p>Last Name: </p>
+            <div class="edit" id="detail_user_lastN">name</div>
+            <p>Email: </p>
+            <div class="edit" id="detail_user_email">email</div>
+            <p>Password: </p>
+            <div class="edit" id="detail_user_password">name</div>
+            <p>Age: </p>
+            <div class="edit" id="detail_user_age">age</div>
+            <p>Gender: </p>
+            <div class="edit" id="detail_user_gender">gender</div>
+            <p>Phone Number: </p>
+            <div class="edit" id="detail_user_cellphone">number</div>
+            <p>Role: </p>
+            <div class="edit" id="detail_user_role">role</div>
+            <br><br>
+            <span id="editUserStatus" class="status"></span>
+            <br><br>
+            <button type="button" id="edit-button">Edit</button>
+            <button type="button" id="end-editing">Save</button>
+          </form>
+        </div>
       </section>
+      <!-- INCIDENT LOG TAB -->
       <section class="tabs">
         <h1>Incident Log</h1>
         <div id="incidents" class="incidentLog">
 
         </div>
       </section>
+      <!-- SETTINGS TAB -->
       <section class="tabs">
         <h1>Settings</h1>
 
@@ -243,23 +272,10 @@
           Iusto velit laboriosam perferendis ab!
           Aliquam ab odit animi autem cumque
           sit sint corporis quo. Voluptas, natus corporis?
-          test</p>
-      
-          <div id="container">
-            <form id="upload-images-form">
-              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-                multiple="multiple" />
-              <input id="submit" type="submit" value="Save profile image" />
-            </form>
-          </div>
-        
-
-
+          test
+        </p>
       </section>
-
-
     </div>
-
 
     <!-- MODALS -->
 
@@ -325,6 +341,7 @@
 
     </div>
 
+    <!-- Delete user modal -->
     <div id="deleteUserModal" class="modal">
       <div class="delete-user-modal-content">
         <div id="deleteUserProfile">
@@ -339,7 +356,7 @@
 
     </div>
 
-
+    <!-- Search modal -->
     <div id="searchModal" class="modal">
       <div class="edit-search-modal-content">
         <span class="searchModalClose">&times;</span>
@@ -357,15 +374,40 @@
       </div>
     </div>
 
+    <!-- Display incident modal -->
+    <div id="displayIncidentModal" class="modal">
+      <div class="display-incident-modal-content">
+        <div id="displayIncidentContent">
+          <img id="displayIncidentImage" src="" alt="">
+          <p id="displayIncidentTitle"></p>
+          <p id="displayIncidentPriority"></p>
+          <p id="displayIncidentType"></p>
+          <p id="displayIncidentStatus"></p>
+          <p id="displayIncidentCallerID"></p>
+          <p id="displayIncidentDescription"></p>
+          <p id="displayIncidentLat"></p>
+          <p id="displayIncidentLon"></p>
+          <p id="displayIncidentTimestamp"></p>
+          <p id="displayIncidentResolutionComment"></p>
+        </div>
+        <div id="displayIncidentModalButtons">
+          <form>
+            <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
+          </form>
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- SCRIPT FOLDER-->
   <script src="/js/admin_profile.js"></script>
-  <script src="/js/searchbar.js"></script>
+  <script src="/js/admin_profile_searchbar.js"></script>
   <script src="/js/admin_profile_edit_user.js"></script>
   <script src="/js/admin_profile_create_user.js"></script>
-
   <script src="/js/admin_profile_upload_photo.js"></script>
   <script src="/js/admin_profile_delete_user.js"></script>
+  <script src="/js/admin_profile_edit.js"></script>
+  <script src="/js/admin_profile_display_incident.js"></script>
 
 
   <!-- JQuery-->

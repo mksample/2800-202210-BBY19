@@ -179,11 +179,11 @@
               </li>
               <li onclick="show(1)">
                 <span><i class="material-icons">star</i></span>
-                <h3>Reviews</h3>
+                <h3>Profile</h3>
               </li>
               <li onclick="show(2)">
                 <span><i class="material-icons">comments</i></span>
-                <h3>Comments</h3>
+                <h3>Incident Log</h3>
               </li>
               <li onclick="show(3)">
                 <span><i class="material-icons">settings</i></span>
@@ -192,30 +192,9 @@
             </ul>
           </nav>
         </div>
-        <!-- BOTTOM NAVIGATION ICONS-->
-        <div class="bt-nav">
-          <ul>
-            <li class="alert" title="Alert">
-              <span><i class="material-icons">notifications</i></span>
-            </li>
-            <li onclick="show(1)">
-              <span><i class="material-icons">person_outline</i></span>
-              <h3>Reviews</h3>
-            </li>
-            <li onclick="show(2)">
-              <span><i class="material-icons">timeline</i></span>
-              <h3>Comments</h3>
-            </li>
-            <li onclick="show(3)">
-              <span><i class="material-icons">settings</i></span>
-            </li>
-          </ul>
-        </nav>
-      </div>
     </aside>
 
-
-    <!-- DASHBOARD CONTENT -->
+    <!-- DASHBOARD TAB -->
     <div class="main">
       <section id="dashboard" class="profile tabs">
         <h1>Incident Live Feed</h1>
@@ -224,7 +203,7 @@
         </div>
       </section>
 
-      <!-- CONTENT TABS-->
+      <!-- PROFILE TAB -->
       <section class="tabs">
         <h1>User profile</h1>
         <div id="user_profile_section">
@@ -236,7 +215,7 @@
             </form>
           </div>
           <br><br>
-          <img width="200" src="/imgs/saveme.jpg" alt="">
+          <img id="detail_user_picture" width="200" src="/imgs/saveme.jpg" alt="">
           <p>First Name: </p>
           <div class="edit" id="detail_user_firstN">bank</div>
           <p>Last Name: </p>
@@ -260,12 +239,14 @@
           <button type="button" id="end-editing">Save</button>
         </div>
       </section>
+      <!-- INCIDENT LOG TAB -->
       <section class="tabs">
-        <h1>Incident Live Feed</h1>
+        <h1>Incident Log</h1>
         <div id="incidentLog" class="incidentLog">
 
         </div>
       </section>
+      <!-- SETTINGS TAB -->
       <section class="tabs">
         <h1>Settings</h1>
 
@@ -275,17 +256,6 @@
           Aliquam ab odit animi autem cumque
           sit sint corporis quo. Voluptas, natus corporis?
           test</p>
-      
-          <div id="container">
-            <form id="upload-images-form">
-              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-                multiple="multiple" />
-              <input id="submit" type="submit" value="Save profile image" />
-            </form>
-          </div>
-        
-
-
       </section>
 
     </div>

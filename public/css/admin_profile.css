@@ -498,6 +498,26 @@ aside .search-bar button {
     font-family: "Poppins";
 }
 
+/* display incident modal content */
+.display-incident-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+#displayIncidentContent {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins";
+}
+
 #deleteUserProfile h2 {
     margin-top: 18px;
 }
@@ -710,6 +730,115 @@ hr {
     text-transform: uppercase;
     transition: transform 80ms ease-in;
     cursor: pointer;
+}
+
+/* profile styling */
+
+#nameGroup {
+    display: inline;
+
+}
+
+#user_profile_section {
+    border: solid green;
+    text-align: center;
+
+}
+
+#detail_user_firstN {
+    display: inline;
+    font-weight: bold;
+}
+
+
+#detail_user_lastN {
+    display: inline;
+    font-weight: bold;
+}
+
+
+
+#detail_user_email {
+    display: inline;
+    font-weight: bold;
+}
+
+
+#detail_user_password {
+    display: inline;
+    font-weight: bold;
+}
+
+
+#detail_user_age {
+    font-weight: bold;
+}
+
+
+#detail_user_gender {
+    font-weight: bold;
+}
+
+
+#detail_user_cellphone {
+    font-weight: bold;
+}
+
+
+#edit {
+    padding: 5px;
+    outline: none;
+}
+
+#user_profile_image{
+    border: solid black;
+}
+
+#edit-button {
+    width: 80px;
+    padding: 5px;
+    margin: 0 3px;
+    background-color: #ff7e00;
+    outline: none;
+    border: 1px solid #ff7e00;
+    box-shadow: 2px 2px 2px #3f3f3f;
+}
+
+#edit-button:hover {
+    box-shadow: 2px 2px 3px;
+}
+
+#edit-button:active {
+    box-shadow: 1px 1px 3px;
+}
+
+#end-editing {
+    width: 80px;
+    padding: 5px;
+    margin: 0 3px;
+    background-color: #ff7e00;
+    outline: none;
+    border: 1px solid #ff7e00;
+    box-shadow: 2px 2px 2px #3f3f3f;
+}
+
+#end-editing:hover {
+    box-shadow: 2px 2px 3px;
+}
+
+#end-editing:active {
+    box-shadow: 1px 1px 3px;
+}
+
+.edit{
+    background-color: lightblue;
+}
+
+
+#editUserStatus{
+    color: red;
+    font-weight: bold;
+    
 }
 
 @media (max-width:900px) {

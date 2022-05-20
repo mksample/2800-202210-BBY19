@@ -53,10 +53,16 @@ ready(async function () {
         incidentDisp.querySelector("#incidentType").innerHTML = incident.type;
         incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
         incidentDisp.querySelector("#incidentTimestamp").innerHTML = incident.timestamp;
-        incidentDisp.querySelector('.incident').setAttribute("id", incident.ID);
+        incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
 
         // appending the incident to the contentDOM
         contentDOM.appendChild(incidentDisp);
+
+        contentDOM.querySelector("#incident" + incident.ID).addEventListener("click", async function (e) {
+            e.stopImmediatePropagation();
+            prepareDisplayIncidentModal(incident);
+            openDisplayIncidentModal(incident, "displayIncidentModal", "displayIncidentCancelButton");
+        })
     }
 
     // Gets incidents from the database and adds them to the admin incident log.
@@ -120,8 +126,13 @@ ready(async function () {
     displaySessionUser();
 
     // DISPLAY INCIDENT LOG
-    showIncidents()
+    showIncidents();
 
+    // PREPARE PROFILE EDITING TAB (from admin_profile_edit.js)
+    prepareProfile();
+
+    // PREPARE SEARCH BAR (from admin_profile_searchbar.js)
+    prepareSearchBar();
 });
 
 function ready(callback) {

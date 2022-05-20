@@ -1183,7 +1183,7 @@ function validateEditUser(req) {
     if (!gender[0]) {
         return gender;
     }
-    let role = validRole(req.body.role == callerRole || req.body.role == responderRole || req.body.role == "");
+    let role = validRole(req.body.role == callerRole || req.body.role == responderRole || req.body.role == null);
     if (!role[0]) {
         return role;
     }

@@ -481,7 +481,7 @@ aside .search-bar button {
     border: solid black;
 }
 
-button {
+#edit-button {
     width: 80px;
     padding: 5px;
     margin: 0 3px;
@@ -491,11 +491,29 @@ button {
     box-shadow: 2px 2px 2px #3f3f3f;
 }
 
-button:hover {
+#edit-button:hover {
     box-shadow: 2px 2px 3px;
 }
 
-button:active {
+#edit-button:active {
+    box-shadow: 1px 1px 3px;
+}
+
+#end-editing {
+    width: 80px;
+    padding: 5px;
+    margin: 0 3px;
+    background-color: #ff7e00;
+    outline: none;
+    border: 1px solid #ff7e00;
+    box-shadow: 2px 2px 2px #3f3f3f;
+}
+
+#end-editing:hover {
+    box-shadow: 2px 2px 3px;
+}
+
+#end-editing:active {
     box-shadow: 1px 1px 3px;
 }
 

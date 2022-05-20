@@ -138,15 +138,16 @@ async function updateIncidentDisplay(incident) {
     contentDOM = document.getElementById("incidentLog");
     incidentDisp = contentDOM.querySelector("#incident" + incident.ID);
 
-    // Delete existing event listeners
-    let newIncidentDisp = incidentDisp.cloneNode(true);
-    incidentDisp.parentNode.replaceChild(newIncidentDisp, incidentDisp);
+    if (incidentDisp != null) {// Delete existing event listeners
+        let newIncidentDisp = incidentDisp.cloneNode(true);
+        incidentDisp.parentNode.replaceChild(newIncidentDisp, incidentDisp);
 
-    // Re-prepare event listeners and update display status
-    newIncidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
-    newIncidentDisp.addEventListener("click", async function (e) {
-        e.stopImmediatePropagation();
-        await prepareDisplayIncidentModal(incident);
-        openModal(incident, "displayIncidentModal", "displayIncidentCancelButton", "displayIncidentResolveButton", "displayIncidentResolveStatus", submitDisplayIncidentModal);
-    })
+        // Re-prepare event listeners and update display status
+        newIncidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
+        newIncidentDisp.addEventListener("click", async function (e) {
+            e.stopImmediatePropagation();
+            await prepareDisplayIncidentModal(incident);
+            openModal(incident, "displayIncidentModal", "displayIncidentCancelButton", "displayIncidentResolveButton", "displayIncidentResolveStatus", submitDisplayIncidentModal);
+        })
+    }
 }
