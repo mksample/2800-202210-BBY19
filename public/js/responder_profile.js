@@ -65,7 +65,7 @@ ready(async function () {
         }
 
         // Add an event listener to the display for displaying the incident.
-        contentDOM.querySelector("#incident" + incident.ID).addEventListener("click", async function (e) {
+        contentDOM.querySelector("#incident" + incident.ID).parentNode.addEventListener("click", async function (e) {
             e.stopImmediatePropagation();
             await prepareDisplayIncidentModal(incident);
             openModal(incident, "displayIncidentModal", "displayIncidentCancelButton", "displayIncidentResolveButton", "displayIncidentResolveStatus", submitDisplayIncidentModal);

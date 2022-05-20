@@ -17,9 +17,21 @@ async function getData(url) {
     return response.json();
 }
 
+async function postForm(url, form) {
+    const response = await fetch(url, {
+        method: 'POST',
+        mode: 'same-origin',
+        cache: 'default',
+        credentials: 'same-origin',
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: form
+    });
+    return response.json();
+}
+
 async function uploadImages(e) {
     e.preventDefault();
-    console.log("test2");
 
     const imageUpload = document.querySelector('#image-upload');
     const formData = new FormData();
@@ -47,7 +59,7 @@ async function uploadImages(e) {
                     console.log(response.msg);
                 } else {
                     let user = response.user;
-                    if (user.avatar != null) { 
+                    if (user.avatar != null) {
                         document.getElementById("userPicture").src = user.avatar;
                         document.getElementById("detail_user_picture").src = user.avatar;
                     }
@@ -57,4 +69,33 @@ async function uploadImages(e) {
     }).catch(function (err) {
         ("Error:", err)
     });
+}
+
+async function uploadImagesIncident(e, incident) {
+    e.preventDefault();
+
+    const imageUpload = document.querySelector('#image-upload-incident');
+    const formData = new FormData();
+
+    if (imageUpload.files.length == 0) {
+        return "";
+    } else {
+        for (let i = 0; i < imageUpload.files.length; i++) {
+            // put the images from the input into the form data
+            formData.append("files", imageUpload.files[i]);
+        }
+    }
+    formData.append("incidentID", incident.ID)
+
+    let image = "";
+    let response = await postForm("/upload-images-incident", formData)
+    if (response) {
+        if (response.status == "fail") {
+            console.log(response.msg);
+        } else {
+            console.log(response.msg);
+            image = response.image;
+        }
+    }
+    return image;
 }

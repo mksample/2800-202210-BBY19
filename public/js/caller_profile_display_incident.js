@@ -31,6 +31,12 @@ async function prepareDisplayIncidentModal(incident) {
     document.getElementById("displayIncidentStatus").innerHTML = incident.status;
     document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID
     document.getElementById("displayIncidentDescription").innerHTML = incident.description
+    if (incident.image) {
+        document.getElementById("displayIncidentImage").style.display = "";
+        document.getElementById("displayIncidentImage").src = incident.image;
+    } else {
+        document.getElementById("displayIncidentImage").style.display = "none";
+    }
     document.getElementById("displayIncidentLat").innerHTML = incident.lat;
     document.getElementById("displayIncidentLon").innerHTML = incident.lon;
     document.getElementById("displayIncidentTimestamp").innerHTML = incident.timestamp;

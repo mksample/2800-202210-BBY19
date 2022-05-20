@@ -44,8 +44,8 @@
   <!-- Main Container-->
   <div class="container">
     <header>
-       <!-- LOGO-->
-       <div id="logo">
+      <!-- LOGO-->
+      <div id="logo">
         <a href="/html/responder_profile.html">
           <img src="/imgs/saveme.jpg" width="40" alt="logo" />
         </a>
@@ -273,128 +273,134 @@
 
     <!-- Call for help modal -->
     <div id="callForHelpModal" class="modal">
-      <div class="edit-call-modal-content">
+      <div class="report-incident-modal-content">
         <div id="modalContents">
-          <h2>Call for help</h2>
-          <br /><br />
+          <h2>Report an Incident</h2>
           <div id="callcontext"> </div>
-          <br /><br />
           <form>
             <!-- <label class="icon" for="email"><i class="icon-envelope "></i></label> -->
             <input type="text" name="email" id="title" placeholder="Title" />
             <br>
-            <p>Please select one that desribes your situation </p>
-            <div class="Priority">
-              <input type="radio" value="URGENT" id="urgent" name="Priority" />
-              <label for="urgent" class="radio" chec>Urgent</label>
-              <input type="radio" value="HIGH" id="high" name="Priority" />
-              <label for="high" class="radio">High</label>
-              <input type="radio" value="MEDIUM" id="medium" name="Priority" />
-              <label for="medium" class="radio">Medium</label>
-              <input type="radio" value="LOW" id="low" name="Priority" />
-              <label for="low" class="radio">Low</label>
+            <p>Incident Priority</p>
+            <select id="Priority">
+              <option id="urgent" value="URGENT">Urgent</option>
+              <option id="high" value="HIGH">High</option>
+              <option id="medium" value="MEDIUM">Medium</option>
+              <option id="low" value="LOW">Low</option>
+            </select>
+
+            <p>Incident Type</p>
+            <select id="InciType">
+              <option id="harassment" value="HARASSMENT">Harassment</option>
+              <option id="susactivity" value="SUSACTIVITY">Suspicious Activity</option>
+              <option id="violence" value="VIOLENCE">Voilent Confrontation</option>
+            </select>
+
+            <div>
+              <input type="text" name="name" id="description" placeholder="Description" />
             </div>
 
-            <p>Please select one that descirbes the type of an incidnet</p>
-            <div class="InciType">
-              <input type="radio" value="HARASSMENT" id="harrasment" name="InciType" />
-              <label for="harrasment" class="radio" chec>Harrasment</label>
-              <input type="radio" value="SUSACTIVITY" id="susactivity" name="InciType" />
-              <label for="susactivity" class="radio">Suspicious Activity</label>
-              <input type="radio" value="VIOLENCE" id="violence" name="InciType" />
-              <label for="violence" class="radio">Violence</label>
+            <div>
+              <p>Upload Pictures</p>
+              <form id="upload-images-form-incident">
+                <input id="image-upload-incident" type="file" value="Upload Image"
+                  accept="image/png, image/gif, image/jpeg" multiple="multiple" />
+              </form>
             </div>
-
-            <!-- <label class="icon" for="password"><i class="icon-shield"></i></label> -->
-            <input type="text" name="name" id="description" placeholder="Description" />
 
             <div id="map"></div>
-            <div>user location: </div>
-            <p>user's latitude: </p>
-            <div id="user_lat"></div>
-            <p>user's longitude: </p>
-            <div id="user_lng"></div>
-
-
-            <input type="button" class="callForHelpModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="callSubmit" value="Submit" />
-          </form>
-
+            <div id="UserLocation">
+              <p>Your location: </p>
+              <label for="userLat">Latitude: </label>
+              <input name="userLat" type="text" id="user_lat">
+            </div>
+            <div>
+              <label for="userLng">Latitude: </label>
+              <input name="userLng" type="text" id="user_lng">
+            </div>
+            <span id="callForHelpModalStatus"></span>
+            <div>
+              <input type="button" class="callForHelpModalCancelButton" id="cancel" value="Cancel" />
+              <input type="button" class="submitButton" id="callSubmit" value="Submit" />
+            </div>
         </div>
       </div>
+      </form>
     </div>
+  </div>
+  </div>
 
-    <!-- Report Incident modal -->
-    <div id="reportIncidentModal" class="modal">
-      <div class="edit-report-modal-content">
-        <div id="modalContents">
-          <h2>Report incident</h2>
-          <br /><br />
-          <div id="reportContext"> </div>
-          <br /><br />
-          <form>
-            <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="submit" value="Submit" /> //
-          </form>
+  <!-- Report Incident modal -->
+  <div id="reportIncidentModal" class="modal">
+    <div class="edit-report-modal-content">
+      <div id="modalContents">
+        <h2>Report incident</h2>
+        <br /><br />
+        <div id="reportContext"> </div>
+        <br /><br />
+        <form>
+          <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" />
+          <input type="button" class="submitButton" id="submit" value="Submit" /> //
+        </form>
 
-        </div>
       </div>
     </div>
+  </div>
 
-    <!-- Active Incident modal -->
-    <div id="activeIncidentModal" class="modal">
-      <div class="edit-active-modal-content">
-        <div id="modalContents">
-          <h2>Active incident</h2>
-          <br /><br />
-          <div id="activeContext"> </div>
-          <br /><br />
-          <form>
-            <input type="button" class="activeIncidentModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="submit" value="Submit" />
-          </form>
+  <!-- Active Incident modal -->
+  <div id="activeIncidentModal" class="modal">
+    <div class="edit-active-modal-content">
+      <div id="modalContents">
+        <h2>Active incident</h2>
+        <br /><br />
+        <div id="activeContext"> </div>
+        <br /><br />
+        <form>
+          <input type="button" class="activeIncidentModalCancelButton" id="cancel" value="Cancel" />
+          <input type="button" class="submitButton" id="submit" value="Submit" />
+        </form>
 
-        </div>
       </div>
     </div>
+  </div>
 
-    <!-- Delete incident modal -->
-    <div id="deleteIncidentModal" class="modal">
-      <div class="delete-incident-modal-content">
-        <div id="deleteIncidentContent">
-          <form>
-            <h2>Delete incident?</h2>
-            <span id="deleteIncidentStatus" class="modalStatus"></span>
-            <input type="button" class="cancelButton" id="deleteIncidentCancelButton" value="Cancel" />
-            <input type="button" class="submitButton" id="deleteIncidentSubmitButton" value="Delete" />
-          </form>
-        </div>
+  <!-- Delete incident modal -->
+  <div id="deleteIncidentModal" class="modal">
+    <div class="delete-incident-modal-content">
+      <div id="deleteIncidentContent">
+        <form>
+          <h2>Delete incident?</h2>
+          <span id="deleteIncidentStatus" class="modalStatus"></span>
+          <input type="button" class="cancelButton" id="deleteIncidentCancelButton" value="Cancel" />
+          <input type="button" class="submitButton" id="deleteIncidentSubmitButton" value="Delete" />
+        </form>
       </div>
     </div>
+  </div>
 
-    <!-- Display incident modal -->
-    <div id="displayIncidentModal" class="modal">
-      <div class="display-incident-modal-content">
-        <div id="displayIncidentContent">
-          <img id="displayIncidentImage" src="" alt="">
-          <p id="displayIncidentTitle"></p>
-          <p id="displayIncidentPriority"></p>
-          <p id="displayIncidentType"></p>
-          <p id="displayIncidentStatus"></p>
-          <p id="displayIncidentCallerID"></p>
-          <p id="displayIncidentDescription"></p>
-          <p id="displayIncidentLat"></p>
-          <p id="displayIncidentLon"></p>
-          <p id="displayIncidentTimestamp"></p>
-          <p id="displayIncidentResolutionComment"></p>
-        </div>
-        <div id="displayIncidentModalButtons">
-          <form>
-            <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
-          </form>
-        </div>
+  <!-- Display incident modal -->
+  <div id="displayIncidentModal" class="modal">
+    <div class="display-incident-modal-content">
+      <div id="displayIncidentContent">
+        <p id="displayIncidentTitle"></p>
+        <p id="displayIncidentPriority"></p>
+        <p id="displayIncidentType"></p>
+        <p id="displayIncidentStatus"></p>
+        <p id="displayIncidentCallerID"></p>
+        <p id="displayIncidentDescription"></p>
+        <img id="displayIncidentImage" src="" width="300" alt="Incident Picture">
+        <p id="displayIncidentLat"></p>
+        <p id="displayIncidentLon"></p>
+        <p id="displayIncidentTimestamp"></p>
+        <p id="displayIncidentResolutionComment"></p>
+      </div>
+      <div id="displayIncidentModalButtons">
+        <form>
+          <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
+        </form>
       </div>
     </div>
+  </div>
 
   </div>
   <!-- SCRIPT FOLDER-->
@@ -498,9 +504,8 @@
       infoWindow = new google.maps.InfoWindow();
 
       const locationButton = document.createElement("input");
-      const message = "SOS";
       locationButton.type = "button";
-      locationButton.value = "SOS";
+      locationButton.value = "Get Location";
       locationButton.id = "test"
 
       locationButton.classList.add("custom-map-control-button");
@@ -523,8 +528,8 @@
               );
               infoWindow.open(map);
 
-              document.getElementById("user_lat").innerHTML = pos.lat;
-              document.getElementById("user_lng").innerHTML = pos.lng;
+              document.getElementById("user_lat").value = pos.lat;
+              document.getElementById("user_lng").value = pos.lng;
               map.setCenter(pos);
             },
             () => {
@@ -542,8 +547,8 @@
       infoWindow.setPosition(pos);
       infoWindow.setContent(
         browserHasGeolocation ?
-        "Error: The Geolocation service failed." :
-        "Error: Your browser doesn't support geolocation."
+          "Error: The Geolocation service failed." :
+          "Error: Your browser doesn't support geolocation."
       );
       infoWindow.open(map);
     }
@@ -552,7 +557,7 @@
   </script>
   <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8&callback=initMap">
-  </script>
+    </script>
 
 
 </body>
