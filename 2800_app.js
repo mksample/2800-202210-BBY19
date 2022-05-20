@@ -501,6 +501,7 @@ app.post('/upload-images', upload.array("files"), function (req, res) {
         let insertPicQuery = `UPDATE ` + userTable + ` SET avatar = '/profilePictures/` + req.files[i].filename + `' WHERE ID = ` + req.session.userID; // update query
 
         con.query(insertPicQuery, function (error, results) {
+            con.end(err => { if (err) { console.log(err) } });
             if (error) {
                 console.log(error);
                 res.send({ status: "fail", msg: "uploading image: " + error });
