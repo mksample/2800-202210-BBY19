@@ -367,6 +367,7 @@ aside .search-bar button {
     align-items: center;
 }
 
+/* DASHBOARD STYLING */
 .userpost {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -380,25 +381,7 @@ aside .search-bar button {
     cursor: pointer;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
     font-size: 14px;
-}
-
-.userpost .posts:first-child {
-    background: grey;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.userpost .posts:first-child span {
     text-align: center;
-    width: 70px;
-    height: 70px;
-    background: grey;
-    border-radius: 50%;
-    line-height: 70px;
-    color: #fff;
-    font-size: 30px;
-    cursor: pointer;
 }
 
 .userpost .posts img {
@@ -407,6 +390,33 @@ aside .search-bar button {
 }
 
 .userpost .posts p {
+    margin-left: 10px;
+    line-height: 30px;
+}
+
+/* INCIDENT LOG STYLING */
+.incidentLog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+}
+
+.incidentLog .posts {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    text-align: center;
+}
+
+.incidentLog .posts img {
+    width: 100%;
+    height: 90%;
+}
+
+.incidentLog .posts p {
     margin-left: 10px;
     line-height: 30px;
 }
@@ -471,7 +481,7 @@ aside .search-bar button {
     border: solid black;
 }
 
-button {
+#edit-button {
     width: 80px;
     padding: 5px;
     margin: 0 3px;
@@ -481,11 +491,29 @@ button {
     box-shadow: 2px 2px 2px #3f3f3f;
 }
 
-button:hover {
+#edit-button:hover {
     box-shadow: 2px 2px 3px;
 }
 
-button:active {
+#edit-button:active {
+    box-shadow: 1px 1px 3px;
+}
+
+#end-editing {
+    width: 80px;
+    padding: 5px;
+    margin: 0 3px;
+    background-color: #ff7e00;
+    outline: none;
+    border: 1px solid #ff7e00;
+    box-shadow: 2px 2px 2px #3f3f3f;
+}
+
+#end-editing:hover {
+    box-shadow: 2px 2px 3px;
+}
+
+#end-editing:active {
     box-shadow: 1px 1px 3px;
 }
 
@@ -498,6 +526,61 @@ button:active {
     color: red;
     font-weight: bold;
     
+}
+
+/* MODAL STYLING */
+.modal {
+    display: none;
+    position: fixed;
+    /* z-index controls the modal depth/whether it appears infront or behind something */
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* DISPLAY INCIDENT STYLING */
+.display-incident-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+#displayIncidentInformation {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins";
+}
+
+/* JOIN INCIDENT STYLING */
+.join-incident-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+#joinIncidentContent {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins";
 }
 
 
