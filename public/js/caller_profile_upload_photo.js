@@ -19,6 +19,7 @@ async function getData(url) {
 
 async function uploadImages(e) {
     e.preventDefault();
+    console.log("test2");
 
     const imageUpload = document.querySelector('#image-upload');
     const formData = new FormData();
@@ -40,7 +41,6 @@ async function uploadImages(e) {
 
     // now use fetch
     fetch("/upload-images", options).then(function (res) {
-        console.log(res);
         getData("/getUser").then(function (response) { // update user profile picture display
             if (response) {
                 if (response.status == "fail") {
@@ -49,6 +49,7 @@ async function uploadImages(e) {
                     let user = response.user;
                     if (user.avatar != null) { 
                         document.getElementById("userPicture").src = user.avatar;
+                        document.getElementById("detail_user_picture").src = user.avatar;
                     }
                 }
             }
