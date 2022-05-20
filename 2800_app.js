@@ -347,7 +347,6 @@ app.post("/adminEditUser", function (req, res) {
         WHERE ID = ` + req.body.userID;
 
         con.query(editUser, function (error, results) {
-            con.end(err => { if (err) { console.log(err) } });
             if (error) {
                 con.end(err => { if (err) { console.log(err) } });
                 if (error.code == duplicateError) {
