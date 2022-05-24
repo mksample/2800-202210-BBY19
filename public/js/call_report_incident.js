@@ -1,13 +1,13 @@
 "use strict";
 ready(async function () {
   // Listener for report incident
-  document.getElementById("incidentSubmit").addEventListener("click", async function (e) {
+  document.getElementById("callForHelpSubmitButton").addEventListener("click", async function (e) {
     console.log("submitted");
     let contactNumber="7786972351";
     checkM(checkMobile(),contactNumber);
   });
 
-  document.getElementById("preview").addEventListener("click", async function (e) {
+  document.getElementById("callForHelpPreviewButton").addEventListener("click", async function (e) {
     console.log("preview");
     document.getElementById("previewContents").innerText = ``;
     getUserLocation();

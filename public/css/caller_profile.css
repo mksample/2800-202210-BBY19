@@ -671,6 +671,16 @@ hr {
     font-family: "Poppins";
 }
 
+/* call for help styling */
+.call-help-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
 /* display incident modal styling */
 .display-incident-modal-content {
     background-color: #fefefe;
@@ -909,11 +919,11 @@ input[id=textContents] {
         margin: 20px 0px 20px 0px;
     }
 
-    #cancel {
+    .cancelButton {
         margin: 20px 0px 20px 0px;
     }
 
-    #preview {
+    .previewButton {
         margin: 20px 0px 20px 0px;
     }
 
@@ -931,11 +941,11 @@ input[id=textContents] {
 
     }
 
-    #cancel {
+    .cancelButton {
         margin: 20px 0px 20px 0px;
     }
 
-    #preview {
+    .previewButton {
         margin: 20px 0px 20px 0px;
     }
 

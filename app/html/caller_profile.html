@@ -269,64 +269,60 @@
 
     <!-- MODALS -->
 
-    <!-- Call for help modal -->
-    <div id="callForHelpModal" class="modal">
-      <div class="edit-call-modal-content">
+    <!-- REPORT INCIDENT MODAL -->
+    <div id="reportIncidentModal" class="modal">
+      <div class="report-incident-modal-content">
         <div id="modalContents">
-          <h2>Call for help</h2>
-          <br /><br />
-          <div id="callcontext"> </div>
-          <br /><br />
+          <h2>Report an Incident</h2>
           <form>
-            <!-- <label class="icon" for="email"><i class="icon-envelope "></i></label> -->
-            <input type="text" name="email" id="title" placeholder="Title" />
-            <br>
-            <p>Please select one that desribes your situation </p>
-            <div class="Priority">
-              <input type="radio" value="URGENT" id="urgent" name="Priority" />
-              <label for="urgent" class="radio" chec>Urgent</label>
-              <input type="radio" value="HIGH" id="high" name="Priority" />
-              <label for="high" class="radio">High</label>
-              <input type="radio" value="MEDIUM" id="medium" name="Priority" />
-              <label for="medium" class="radio">Medium</label>
-              <input type="radio" value="LOW" id="low" name="Priority" />
-              <label for="low" class="radio">Low</label>
+            <input type="text" id="reportIncidentTitle" placeholder="Title" />
+            <p>Incident Priority</p>
+            <select id="reportIncidentPriority">
+              <option value="URGENT">Urgent</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
+            </select>
+
+            <p>Incident Type</p>
+            <select id="reportIncidentType">
+              <option value="HARASSMENT">Harassment</option>
+              <option value="SUSACTIVITY">Suspicious Activity</option>
+              <option value="VIOLENCE">Voilent Confrontation</option>
+            </select>
+
+            <div>
+              <input type="text" id="reportIncidentDescription" placeholder="Description" />
             </div>
 
-            <p>Please select one that descirbes the type of an incidnet</p>
-            <div class="InciType">
-              <input type="radio" value="HARASSMENT" id="harrasment" name="InciType" />
-              <label for="harrasment" class="radio" chec>Harrasment</label>
-              <input type="radio" value="SUSACTIVITY" id="susactivity" name="InciType" />
-              <label for="susactivity" class="radio">Suspicious Activity</label>
-              <input type="radio" value="VIOLENCE" id="violence" name="InciType" />
-              <label for="violence" class="radio">Violence</label>
+            <div>
+              <p>Upload Pictures</p>
+              <form>
+                <input id="reportIncidentImageUpload" type="file" value="Upload Image"
+                  accept="image/png, image/gif, image/jpeg" multiple="multiple" />
+              </form>
             </div>
 
-            <!-- <label class="icon" for="password"><i class="icon-shield"></i></label> -->
-            <input type="text" name="name" id="description" placeholder="Description" />
+            <div id="reportIncidentMap" class="map"></div>
+            <p>Your location: </p>
+            <input name="reportIncidentLat" type="text" id="reportIncidentLat" placeholder="Latitude">
+            <input name="reportIncidentLon" type="text" id="reportIncidentLon" placeholder="Longitude">
 
-            <div id="map"></div>
-            <div>user location: </div>
-            <p>user's latitude: </p>
-            <div id="user_lat"></div>
-            <p>user's longitude: </p>
-            <div id="user_lng"></div>
-
-
-            <input type="button" class="callForHelpModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="callSubmit" value="Submit" />
+            <span id="reportIncidentStatus"></span>
+            <div>
+              <input type="button" class="cancelButton" id="reportIncidentCancelButton" value="Cancel" />
+              <input type="button" class="submitButton" id="reportIncidentSubmitButton" value="Submit" />
+            </div>
           </form>
-
         </div>
       </div>
     </div>
 
-    <!-- Report Incident modal -->
-    <div id="reportIncidentModal" class="modal">
-      <div class="edit-report-modal-content">
+    <!-- CALL FOR HELP MODAL -->
+    <div id="callForHelpModal" class="modal">
+      <div class="call-help-modal-content">
         <div id="modalContents">
-          <h2>Report incident</h2>
+          <h2>Call for Help</h2>
           <br /><br />
           <div id="reportContext"> </div>
           <br /><br />
@@ -335,14 +331,15 @@
             <p><textarea cols="40" rows="5" id="textContents" placeholder="Type your message in here."></textarea></p>
             <br />
             Preview
-            <p><textarea cols="40" rows="5" id="previewContents" placeholder="Push the preview button." readonly></textarea></p>
+            <p><textarea cols="40" rows="5" id="previewContents" placeholder="Push the preview button."
+                readonly></textarea></p>
             <br />
           </form>
-          <div id="status"></div>
+          <div id="callForHelpStatus"></div>
           <form>
-            <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="reportIncidentModalPreviewButton" id="preview" value="Preview" />
-            <input type="button" class="submitButton" id="incidentSubmit" value="Submit" />
+            <input type="button" class="cancelButton" id="callForHelpCancelButton" value="Cancel" />
+            <input type="button" class="submitButton" id="callForHelpPreviewButton" value="Preview" />
+            <input type="button" class="submitButton" id="callForHelpSubmitButton" value="Submit" />
           </form>
 
         </div>
@@ -417,6 +414,10 @@
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+  <!-- Google maps -->
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8&callback=initMap"></script>
+
   <!--DISPLAY NAVIGATION ON MOBILE-->
   <script>
     const tbtn = document.querySelectorAll(".side-nav ul li");
@@ -467,81 +468,6 @@
       aside.classList.remove("show");
     })
   </script>
-
-  <script>
-    // Note: This example requires that you consent to location sharing when
-    // prompted by your browser. If you see the error "The Geolocation service
-    // failed.", it means you probably did not give permission for the browser to
-    // locate you.
-    let map, infoWindow;
-
-    function initMap() {
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: {
-          lat: 49.2827,
-          lng: -123.1207
-        },
-        zoom: 11,
-      });
-      infoWindow = new google.maps.InfoWindow();
-
-      const locationButton = document.createElement("input");
-      const message = "SOS";
-      locationButton.type = "button";
-      locationButton.value = "SOS";
-      locationButton.id = "test"
-
-      locationButton.classList.add("custom-map-control-button");
-      map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-      locationButton.addEventListener("click", () => {
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              };
-
-              console.log(pos);
-
-              infoWindow.setPosition(pos);
-              infoWindow.setContent(
-                "Incident occured. Your location has been shared to our responders. The closest responder to you will be there."
-              );
-              infoWindow.open(map);
-
-              document.getElementById("user_lat").innerHTML = pos.lat;
-              document.getElementById("user_lng").innerHTML = pos.lng;
-              map.setCenter(pos);
-            },
-            () => {
-              handleLocationError(true, infoWindow, map.getCenter());
-            }
-          );
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      });
-    }
-
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-      infoWindow.setPosition(pos);
-      infoWindow.setContent(
-        browserHasGeolocation ?
-          "Error: The Geolocation service failed." :
-          "Error: Your browser doesn't support geolocation."
-      );
-      infoWindow.open(map);
-    }
-
-    window.initMap = initMap;
-  </script>
-  <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8&callback=initMap">
-    </script>
-
 
 </body>
 
