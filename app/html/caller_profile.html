@@ -92,7 +92,7 @@
     <div class="nav-mobile">
       <ul>
 
-        <li class ="active" onclick=show(0)>
+        <li class="active" onclick=show(0)>
           <span> <i class="material-icons">home</i></span>
           <h3>Home</h3>
         </li>
@@ -151,7 +151,7 @@
         <h2>General</h2>
         <nav>
           <ul>
-            <li class ="active" onclick="show(0)">
+            <li class="active" onclick="show(0)">
               <span><i class="material-icons">person_outline</i></span>
               <h3>Profile</h3>
             </li>
@@ -214,22 +214,22 @@
           </form>
         </div>
       </section>
-      
+
       <section class="profile tabs">
         <h1>Dashboard</h1>
 
         <div id="profiles" class="userpost">
           <div class="posts">
-            <div class="profile" id="callForHelp">
-              <img class="profilePicture" src="/imgs/call.png" width="40px" alt="logo">
-              <p class="ticketName">Call for help</p>
+            <div class="profile" id="reportIncident">
+              <img class="profilePicture" src="/imgs/report.png" width="40px" alt="logo">
+              <p class="ticketName">Report incident</p>
             </div>
           </div>
 
           <div class="posts">
-            <div class="profile" id="reportIncident">
-              <img class="profilePicture" src="/imgs/report.png" width="40px" alt="logo">
-              <p class="ticketName">Report incident</p>
+            <div class="profile" id="callForHelp">
+              <img class="profilePicture" src="/imgs/call.png" width="40px" alt="logo">
+              <p class="ticketName">Call for help</p>
             </div>
           </div>
 
@@ -264,78 +264,118 @@
     </div>
 
 
-    <!-- MODALS -->
+  </div>
+  <!-- MODALS -->
 
-    <!-- Call for help modal -->
-    <div id="callForHelpModal" class="modal">
-      <div class="report-incident-modal-content">
-        <div id="modalContents">
-          <h2>Report an Incident</h2>
-          <div id="callcontext"> </div>
-          <form>
-            <!-- <label class="icon" for="email"><i class="icon-envelope "></i></label> -->
-            <input type="text" name="email" id="title" placeholder="Title" />
-            <br>
-            <p>Incident Priority</p>
-            <select id="Priority">
-              <option id="urgent" value="URGENT">Urgent</option>
-              <option id="high" value="HIGH">High</option>
-              <option id="medium" value="MEDIUM">Medium</option>
-              <option id="low" value="LOW">Low</option>
-            </select>
+  <!-- REPORT INCIDENT MODAL -->
+  <div id="reportIncidentModal" class="modal">
+    <div class="report-incident-modal-content">
+      <div id="modalContents">
+        <h2>Report an Incident</h2>
+        <form>
+          <input type="text" id="reportIncidentTitle" placeholder="Title" />
+          <p>Incident Priority</p>
+          <select id="reportIncidentPriority">
+            <option value="URGENT">Urgent</option>
+            <option value="HIGH">High</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="LOW">Low</option>
+          </select>
 
-            <p>Incident Type</p>
-            <select id="InciType">
-              <option id="harassment" value="HARASSMENT">Harassment</option>
-              <option id="susactivity" value="SUSACTIVITY">Suspicious Activity</option>
-              <option id="violence" value="VIOLENCE">Voilent Confrontation</option>
-            </select>
+          <p>Incident Type</p>
+          <select id="reportIncidentType">
+            <option value="HARASSMENT">Harassment</option>
+            <option value="SUSACTIVITY">Suspicious Activity</option>
+            <option value="VIOLENCE">Voilent Confrontation</option>
+          </select>
 
-            <div>
-              <input type="text" name="name" id="description" placeholder="Description" />
-            </div>
+          <div>
+            <input type="text" id="reportIncidentDescription" placeholder="Description" />
+          </div>
 
-            <div>
-              <p>Upload Pictures</p>
-              <form id="upload-images-form-incident">
-                <input id="image-upload-incident" type="file" value="Upload Image"
-                  accept="image/png, image/gif, image/jpeg" multiple="multiple" />
-              </form>
-            </div>
+          <div>
+            <p>Upload Pictures</p>
+            <form>
+              <input id="reportIncidentImageUpload" type="file" value="Upload Image"
+                accept="image/png, image/gif, image/jpeg" multiple="multiple" />
+            </form>
+          </div>
 
-            <div id="map"></div>
-            <div id="UserLocation">
-              <p>Your location: </p>
-              <label for="userLat">Latitude: </label>
-              <input name="userLat" type="text" id="user_lat">
-            </div>
-            <div>
-              <label for="userLng">Latitude: </label>
-              <input name="userLng" type="text" id="user_lng">
-            </div>
-            <span id="callForHelpModalStatus"></span>
-            <div>
-              <input type="button" class="callForHelpModalCancelButton" id="cancel" value="Cancel" />
-              <input type="button" class="submitButton" id="callSubmit" value="Submit" />
-            </div>
-        </div>
+          <div id="reportIncidentMap" class="map"></div>
+          <p>Your location: </p>
+          <input name="reportIncidentLat" type="text" id="reportIncidentLat" placeholder="Latitude">
+          <input name="reportIncidentLon" type="text" id="reportIncidentLon" placeholder="Longitude">
+
+          <span id="reportIncidentStatus"></span>
+          <div>
+            <input type="button" class="cancelButton" id="reportIncidentCancelButton" value="Cancel" />
+            <input type="button" class="submitButton" id="reportIncidentSubmitButton" value="Submit" />
+          </div>
+        </form>
       </div>
-      </form>
     </div>
   </div>
+
+  <!-- EDIT INCIDENT MODAL -->
+  <div id="editIncidentModal" class="modal">
+    <div class="edit-incident-modal-content">
+      <div id="modalContents">
+        <h2>Edit Incident</h2>
+        <form>
+          <input type="text" id="editIncidentTitle" placeholder="Title" />
+          <p>Incident Priority</p>
+          <select id="editIncidentPriority">
+            <option value="URGENT">Urgent</option>
+            <option value="HIGH">High</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="LOW">Low</option>
+          </select>
+
+          <p>Incident Type</p>
+          <select id="editIncidentType">
+            <option value="HARASSMENT">Harassment</option>
+            <option value="SUSACTIVITY">Suspicious Activity</option>
+            <option value="VIOLENCE">Voilent Confrontation</option>
+          </select>
+
+          <div>
+            <input type="text" id="editIncidentDescription" placeholder="Description" />
+          </div>
+
+          <div>
+            <p>Upload Pictures</p>
+            <form>
+              <input id="editIncidentImageUpload" type="file" value="Upload Image"
+                accept="image/png, image/gif, image/jpeg" multiple="multiple" />
+            </form>
+          </div>
+
+          <img id="editIncidentImage" src="" width="300" alt="Incident Picture">
+
+          <div id="editIncidentMap" class="map"></div>
+          <p>Your location: </p>
+          <input name="editIncidentLat" type="text" id="editIncidentLat" placeholder="Latitude">
+          <input name="editIncidentLon" type="text" id="editIncidentLon" placeholder="Longitude">
+
+          <span id="editIncidentStatus"></span>
+          <div>
+            <input type="button" class="cancelButton" id="editIncidentCancelButton" value="Cancel" />
+            <input type="button" class="submitButton" id="editIncidentSubmitButton" value="Save" />
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <!-- Report Incident modal -->
-  <div id="reportIncidentModal" class="modal">
+  <div id="callForHelpModal" class="modal">
     <div class="edit-report-modal-content">
       <div id="modalContents">
-        <h2>Report incident</h2>
-        <br /><br />
-        <div id="reportContext"> </div>
-        <br /><br />
+        <h2>Call for Help</h2>
+        <span id="callForHelpStatus"></span>
         <form>
-          <input type="button" class="reportIncidentModalCancelButton" id="cancel" value="Cancel" />
-          <input type="button" class="submitButton" id="submit" value="Submit" /> //
+          <input type="button" class="cancelButton" id="callForHelpCancelButton" value="Cancel" />
+          <input type="button" class="submitButton" id="callForHelpSubmitButton" value="Submit" />
         </form>
 
       </div>
@@ -351,8 +391,8 @@
         <div id="activeContext"> </div>
         <br /><br />
         <form>
-          <input type="button" class="activeIncidentModalCancelButton" id="cancel" value="Cancel" />
-          <input type="button" class="submitButton" id="submit" value="Submit" />
+          <input type="button" class="cancelButton" id="activeIncidentCancelButton" value="Cancel" />
+          <input type="button" class="submitButton" id="activeIncidentSubmitButton" value="Submit" />
         </form>
 
       </div>
@@ -383,9 +423,8 @@
         <p id="displayIncidentStatus"></p>
         <p id="displayIncidentCallerID"></p>
         <p id="displayIncidentDescription"></p>
+        <div id="displayIncidentMap" class="map"></div>
         <img id="displayIncidentImage" src="" width="300" alt="Incident Picture">
-        <p id="displayIncidentLat"></p>
-        <p id="displayIncidentLon"></p>
         <p id="displayIncidentTimestamp"></p>
         <p id="displayIncidentResolutionComment"></p>
       </div>
@@ -399,15 +438,23 @@
 
   </div>
   <!-- SCRIPT FOLDER-->
-  <script src="/js/caller_profile_edit.js"></script>
+  <script src="/js/map.js"></script>
   <script src="/js/caller_profile.js"></script>
+  <script src="/js/caller_profile_edit.js"></script>
   <script src="/js/caller_profile_upload_photo.js"></script>
+  <script src="/js/caller_profile_report_incident.js"></script>
+  <script src="/js/caller_profile_call_for_help.js"></script>
   <script src="/js/caller_profile_delete_incident.js"></script>
+  <script src="/js/caller_profile_edit_incident.js"></script>
+  <script src="/js/caller_profile_updater.js"></script>
   <script src="/js/caller_profile_display_incident.js"></script>
 
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!-- Google maps -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8"></script>
 
   <!--DISPLAY NAVIGATION ON MOBILE-->
   <script>
@@ -480,79 +527,6 @@
 
     }
   </script>
-
-  <script>
-    // Note: This example requires that you consent to location sharing when
-    // prompted by your browser. If you see the error "The Geolocation service
-    // failed.", it means you probably did not give permission for the browser to
-    // locate you.
-    let map, infoWindow;
-
-    function initMap() {
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: {
-          lat: 49.2827,
-          lng: -123.1207
-        },
-        zoom: 11,
-      });
-      infoWindow = new google.maps.InfoWindow();
-
-      const locationButton = document.createElement("input");
-      locationButton.type = "button";
-      locationButton.value = "Get Location";
-      locationButton.id = "test"
-
-      locationButton.classList.add("custom-map-control-button");
-      map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-      locationButton.addEventListener("click", () => {
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              };
-
-              console.log(pos);
-
-              infoWindow.setPosition(pos);
-              infoWindow.setContent(
-                "Incident occured. Your location has been shared to our responders. The closest responder to you will be there."
-              );
-              infoWindow.open(map);
-
-              document.getElementById("user_lat").value = pos.lat;
-              document.getElementById("user_lng").value = pos.lng;
-              map.setCenter(pos);
-            },
-            () => {
-              handleLocationError(true, infoWindow, map.getCenter());
-            }
-          );
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      });
-    }
-
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-      infoWindow.setPosition(pos);
-      infoWindow.setContent(
-        browserHasGeolocation ?
-          "Error: The Geolocation service failed." :
-          "Error: Your browser doesn't support geolocation."
-      );
-      infoWindow.open(map);
-    }
-
-    window.initMap = initMap;
-  </script>
-  <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8&callback=initMap">
-    </script>
 
 
 </body>

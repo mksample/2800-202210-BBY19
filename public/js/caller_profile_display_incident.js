@@ -22,6 +22,7 @@ function openDisplayIncidentModal(incident, modalID, cancelButton) {
 
 // Prepares the display incident modal.
 async function prepareDisplayIncidentModal(incident) {
+    initDisplayMap(incident.lat, incident.lon, null, "displayIncidentMap");
     if (incident.image) {
         document.getElementById("displayIncidentImage").src = incident.image;
     }
@@ -37,8 +38,6 @@ async function prepareDisplayIncidentModal(incident) {
     } else {
         document.getElementById("displayIncidentImage").style.display = "none";
     }
-    document.getElementById("displayIncidentLat").innerHTML = incident.lat;
-    document.getElementById("displayIncidentLon").innerHTML = incident.lon;
     document.getElementById("displayIncidentTimestamp").innerHTML = incident.timestamp;
     if (incident.resolutionComment) {
         document.getElementById("displayIncidentResolutionComment").style.display = "";
