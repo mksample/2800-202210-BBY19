@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS COMP2800;
 use COMP2800;
 
-CREATE TABLE IF NOT EXISTS BBY_19_user (ID int NOT NULL AUTO_INCREMENT, email varchar(30) UNIQUE, password varchar(30), firstName varchar(30), lastName varchar(30), age int, gender varchar(30), phoneNumber varchar(30), role varchar(30), PRIMARY KEY (ID));
+CREATE TABLE IF NOT EXISTS BBY_19_user (ID int NOT NULL AUTO_INCREMENT, email varchar(30) UNIQUE, password varchar(30), firstName varchar(30), lastName varchar(30), age int, gender varchar(30), phoneNumber varchar(30), role varchar(30), avatar varchar(100), PRIMARY KEY (ID));
 CREATE TABLE BBY_19_incident (ID int NOT NULL AUTO_INCREMENT, title varchar(200), priority varchar(50), type varchar(100), status varchar(50), callerID int, description varchar(1000), image varchar(100), lat decimal(8,5), lon decimal(8,5), timestamp TIMESTAMP, resolutionComment varchar(1000), PRIMARY KEY (ID));
 CREATE TABLE BBY_19_responders (ID int NOT NULL AUTO_INCREMENT, responderID int, incidentID int NOT NULL REFERENCES incident(ID) ON DELETE CASCADE, PRIMARY KEY (ID));
 

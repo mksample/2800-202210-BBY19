@@ -16,7 +16,7 @@ ready(async function () {
         return response.json();
     }
 
-    // Creates profile displays, attaches event listeners to them, and appends them to the id="profiles" div.
+    // Creates profile displays, attaches event listeners to them, and appends them to the contentDOM.
     function createProfileDisplay(user, contentDOM) {
         // creating profile display
         let profile = document.getElementById("UserProfileTemplate").content.cloneNode(true);
@@ -26,6 +26,7 @@ ready(async function () {
         profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email
         profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;;
         profile.querySelector('.profile').setAttribute("id", user.ID);
+        profile.querySelector('.profile').user = user;
 
         // appending the profile to the contentDOM
         contentDOM.appendChild(profile);
@@ -54,11 +55,12 @@ ready(async function () {
         incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
         incidentDisp.querySelector("#incidentTimestamp").innerHTML = incident.timestamp;
         incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
+        incidentDisp.querySelector('.incident').incident = incident;
 
         // appending the incident to the contentDOM
         contentDOM.appendChild(incidentDisp);
 
-        contentDOM.querySelector("#incident" + incident.ID).addEventListener("click", async function (e) {
+        contentDOM.querySelector("#incident" + incident.ID).parentNode.addEventListener("click", async function (e) {
             e.stopImmediatePropagation();
             prepareDisplayIncidentModal(incident);
             openDisplayIncidentModal(incident, "displayIncidentModal", "displayIncidentCancelButton");
@@ -133,6 +135,9 @@ ready(async function () {
 
     // PREPARE SEARCH BAR (from admin_profile_searchbar.js)
     prepareSearchBar();
+
+    // RUN UPDATER
+    runUpdater();
 });
 
 function ready(callback) {

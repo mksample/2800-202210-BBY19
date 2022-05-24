@@ -22,6 +22,7 @@ function openDisplayIncidentModal(incident, modalID, cancelButton) {
 
 // Prepares the display incident modal.
 async function prepareDisplayIncidentModal(incident) {
+    initDisplayMap(incident.lat, incident.lon, null, "displayIncidentMap");
     if (incident.image) {
         document.getElementById("displayIncidentImage").src = incident.image;
     }
@@ -31,8 +32,12 @@ async function prepareDisplayIncidentModal(incident) {
     document.getElementById("displayIncidentStatus").innerHTML = incident.status;
     document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID
     document.getElementById("displayIncidentDescription").innerHTML = incident.description
-    document.getElementById("displayIncidentLat").innerHTML = incident.lat;
-    document.getElementById("displayIncidentLon").innerHTML = incident.lon;
+    if (incident.image) {
+        document.getElementById("displayIncidentImage").style.display = "";
+        document.getElementById("displayIncidentImage").src = incident.image;
+    } else {
+        document.getElementById("displayIncidentImage").style.display = "none";
+    }
     document.getElementById("displayIncidentTimestamp").innerHTML = incident.timestamp;
     if (incident.resolutionComment) {
         document.getElementById("displayIncidentResolutionComment").style.display = "";

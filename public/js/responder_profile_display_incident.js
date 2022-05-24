@@ -78,19 +78,32 @@ async function prepareDisplayIncidentModal(incident) {
                     joined = true;
                 }
             }
-            // If the user has not joined the incident, or if the incident is already resolved, don't display the resolve button or resolutionComment input box.
-            // Otherwise, make sure they're displayed
-            if (!joined || incident.status == "RESOLVED") {
+            // If the user has not joined the incident, display a join button, and hide resolution content, otherwise show resolution content and disable join button
+            if (!joined) {
                 document.getElementById("displayIncidentResolveButton").style.display = "none";
                 document.getElementById("displayIncidentResolutionCommentInput").style.display = "none";
+                document.getElementById("joinIncidentModalButton").style.display = "";
             } else {
                 document.getElementById("displayIncidentResolveButton").style.display = "";
                 document.getElementById("displayIncidentResolutionCommentInput").style.display = "";
+                document.getElementById("joinIncidentModalButton").value = "Responding"
+                document.getElementById("joinIncidentModalButton").disabled = true;
+            }
+
+            // If the incident has been resolved, display nothing
+            if (incident.status == "RESOLVED") {
+                document.getElementById("displayIncidentResolveButton").style.display = "none";
+                document.getElementById("displayIncidentResolutionCommentInput").style.display = "none";
+                document.getElementById("joinIncidentModalButton").style.display = "none";
             }
         }
     }
+    initDisplayMap(incident.lat, incident.lon, null, "displayIncidentMap");
     if (incident.image) {
+        document.getElementById("displayIncidentImage").style.display = "";
         document.getElementById("displayIncidentImage").src = incident.image;
+    } else {
+        document.getElementById("displayIncidentImage").style.display = "none";
     }
     document.getElementById("displayIncidentTitle").innerHTML = incident.title;
     document.getElementById("displayIncidentPriority").innerHTML = incident.priority;
@@ -98,8 +111,6 @@ async function prepareDisplayIncidentModal(incident) {
     document.getElementById("displayIncidentStatus").innerHTML = incident.status;
     document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID
     document.getElementById("displayIncidentDescription").innerHTML = incident.description
-    document.getElementById("displayIncidentLat").innerHTML = incident.lat;
-    document.getElementById("displayIncidentLon").innerHTML = incident.lon;
     document.getElementById("displayIncidentTimestamp").innerHTML = incident.timestamp;
     if (incident.resolutionComment) {
         document.getElementById("displayIncidentResolutionComment").style.display = ""
@@ -108,6 +119,12 @@ async function prepareDisplayIncidentModal(incident) {
         document.getElementById("displayIncidentResolutionComment").style.display = "none"
     }
     document.getElementById("displayIncidentResolutionCommentInput").value = "";
+
+    // Attach listener to join incident button
+    document.getElementById("joinIncidentModalButton").addEventListener("click", async function (e) {
+        e.stopImmediatePropagation();
+        openModal(incident, "joinIncidentModal", "joinIncidentCancelButton", "joinIncidentSubmitButton", "joinIncidentStatus", submitJoinIncidentModal);
+    })
 }
 
 // Submit function for the display incident modal. POSTS to /resolveIncident, returns true if successful, false if not.
@@ -142,18 +159,5 @@ async function updateIncidentDisplay(incident) {
 
     // Update the incidentLog incident display
     contentDOM = document.getElementById("incidentLog");
-    incidentDisp = contentDOM.querySelector("#incident" + incident.ID);
-
-    if (incidentDisp != null) {// Delete existing event listeners
-        let newIncidentDisp = incidentDisp.cloneNode(true);
-        incidentDisp.parentNode.replaceChild(newIncidentDisp, incidentDisp);
-
-        // Re-prepare event listeners and update display status
-        newIncidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
-        newIncidentDisp.addEventListener("click", async function (e) {
-            e.stopImmediatePropagation();
-            await prepareDisplayIncidentModal(incident);
-            openModal(incident, "displayIncidentModal", "displayIncidentCancelButton", "displayIncidentResolveButton", "displayIncidentResolveStatus", submitDisplayIncidentModal);
-        })
-    }
+    createIncidentDisplay(incident, contentDOM, replace, false);
 }

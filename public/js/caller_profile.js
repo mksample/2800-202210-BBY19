@@ -17,7 +17,7 @@ ready(async function () {
     }
 
     // Creates incident displays, attaches event listeners to them, and appends them to contentDOM.
-    function createIncidentDisplay(incident, contentDOM) {
+    function createIncidentDisplay(incident, contentDOM, appendFunction) {
         // Creating incident display
         let incidentDisp = document.getElementById("IncidentTemplate").content.cloneNode(true);
         incidentDisp.querySelector("#incidentTitle").innerHTML = incident.title;
@@ -26,6 +26,7 @@ ready(async function () {
         incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
         incidentDisp.querySelector("#incidentTimestamp").innerHTML = incident.timestamp;
         incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
+        incidentDisp.querySelector('.incident').incident = incident;
 
         // If the incident is not active, do not show a delete button. Otherwise add a listener.
         if (incident.status != "ACTIVE") {
@@ -38,80 +39,78 @@ ready(async function () {
         }
 
         // Append the incident display to the contentDOM.
-        contentDOM.appendChild(incidentDisp);
-
-
+        appendFunction(incidentDisp, contentDOM);
 
         // If the incident is not active, add an event listener for displaying it. Otherwise, add an event listener for editing it.
         if (incident.status != "ACTIVE") {
-            contentDOM.querySelector("#incident" + incident.ID).addEventListener("click", async function (e) {
+            contentDOM.querySelector("#incident" + incident.ID).parentNode.addEventListener("click", async function (e) {
                 e.stopImmediatePropagation();
-                prepareDisplayIncidentModal(incident);
+                await prepareDisplayIncidentModal(incident);
                 openDisplayIncidentModal(incident, "displayIncidentModal", "displayIncidentCancelButton");
             })
         } else {
-            // TODO: add edit incident event listener here
+            contentDOM.querySelector("#incident" + incident.ID).parentNode.addEventListener("click", async function (e) {
+                e.stopImmediatePropagation();
+                await prepareEditIncidentModal(incident);
+                openModal(incident, "editIncidentModal", "editIncidentCancelButton", "editIncidentSubmitButton", "editIncidentStatus", submitEditIncident);
+            })
         }
     }
 
-    // TEMPORARY UNTIL SWITCHED OVER TO STANDARD
-    function tempOpenModal(modalID) {
+    function appendAfter(incidentDisp, contentDOM) {
+        contentDOM.appendChild(incidentDisp);
+    }
+
+    // Opens a modal when given a user, modalID (what modal to use), and a save method.
+    // Save method is what happens when the modal is submitted, must return true or false if successful submission or not.
+    function openModal(incident, modalID, cancelButton, submitButton, status, saveMethod) {
         // get modal
         var modal = document.getElementById(modalID);
         modal.style.display = "block";
 
-        // // When the user clicks cancel button, closes the modal
-        // var cancel = document.getElementsByClassName("cancelButton")[0];
-        var cancel = document.getElementsByClassName(modalID + "CancelButton")[0];
+        // close modal when cancel button clicked
+        var cancel = document.getElementById(cancelButton);
         cancel.onclick = function () {
-            console.log("cancel button");
             modal.style.display = "none";
+            document.getElementById(status).innerHTML = ""; // clear status when closing
         }
 
+        var save = document.getElementById(submitButton);
+        save.onclick = async function () {
+            let success = await saveMethod(incident);
+            if (success) {
+                modal.style.display = "none";
+                document.getElementById(status).innerHTML = ""; // clear status when closing
+            }
+        }
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
+                document.getElementById(status).innerHTML = ""; // clear status when closing
             }
         }
     }
 
     // Prepares a callers dashboard
     async function prepareDashboard() {
-        document.getElementById("callForHelp").addEventListener("click", async function (e) {
-            console.log("callForHelp called");
-            tempOpenModal("callForHelpModal");
+        document.getElementById("reportIncident").addEventListener("click", async function () {
+            prepareCreateIncidentModal();
+            openModal(null, "reportIncidentModal", "reportIncidentCancelButton", "reportIncidentSubmitButton", "reportIncidentStatus", submitReportIncident)
         });
 
-        document.getElementById("reportIncident").addEventListener("click", async function (e) {
-            console.log("reportIncident called");
-            tempOpenModal("reportIncidentModal");
-        });
+        document.getElementById("callForHelp").addEventListener("click", function() {
+            openModal(null, "callForHelpModal", "callForHelpCancelButton", "callForHelpSubmitButton", "callForHelpStatus", submitCallForHelp);
+        })
+        // document.getElementById("reportIncident").addEventListener("click", async function (e) {
+        //     console.log("reportIncident called");
+        //     tempOpenModal("reportIncidentModal");
+        // });
 
-        document.getElementById("activeIncident").addEventListener("click", async function (e) {
-            console.log("activeIncident called");
-            tempOpenModal("activeIncidentModal");
-        });
-
-        // Listener for call for help
-        document.getElementById("callSubmit").addEventListener("click", async function (e) {
-            let response = await postData("/createIncident", {
-                title: document.getElementById("title").value,
-                priority: document.querySelector('input[name="Priority"]:checked').value,
-                type: document.querySelector('input[name="InciType"]:checked').value,
-                description: document.getElementById("description").value,
-                lat: document.getElementById("user_lat").textContent,
-                lon: document.getElementById("user_lng").textContent
-
-            })
-            if (response) {
-                if (response.status == "fail") {
-                    console.log(response.msg);
-                } else {
-                    console.log(response.msg);
-                }
-            }
-        });
+        // document.getElementById("activeIncident").addEventListener("click", async function (e) {
+        //     console.log("activeIncident called");
+        //     tempOpenModal("activeIncidentModal");
+        // });
     }
 
     // Gets incidents from the database and adds them to the caller incident log.
@@ -123,13 +122,13 @@ ready(async function () {
             } else {
                 let contentDOM = document.getElementById("incidents");
                 for (const incident of response.incidents) {
-                    createIncidentDisplay(incident, contentDOM);
+                    createIncidentDisplay(incident, contentDOM, appendAfter);
                 }
             }
         }
     }
 
-    // Gets incidents from the database and adds them to the caller dashboard if theyre active.
+    // Gets incidents from the database and adds them to the caller dashboard if theyre active or in progress.
     async function showActiveIncidents() {
         let response = await getData("/getIncidents");
         if (response) {
@@ -138,8 +137,8 @@ ready(async function () {
             } else {
                 let contentDOM = document.getElementById("profiles");
                 for (const incident of response.incidents) {
-                    if (incident.status == "ACTIVE") {
-                        createIncidentDisplay(incident, contentDOM);
+                    if (incident.status == "ACTIVE" || incident.status == "INPROGRESS") {
+                        createIncidentDisplay(incident, contentDOM, appendAfter);
                     }
                 }
             }
@@ -177,6 +176,9 @@ ready(async function () {
 
     // PREPARE DASHBOARD
     prepareDashboard();
+
+    // RUN UPDATER
+    runUpdater();
 });
 
 

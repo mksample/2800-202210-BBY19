@@ -3,7 +3,7 @@
 
 <head>
   <!-- Page Title-->
-  <title>User ProfilePage</title>
+  <title>Responder Profile Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -35,7 +35,7 @@
         <span id="incidentTimestamp">
 
         </span>
-        <input type="button" id="joinIncidentButton" value="Join +">
+        <input type="button" id="joinIncidentButton" value="Respond">
       </div>
     </div>
   </template>
@@ -45,8 +45,10 @@
   <div class="container">
     <header>
       <!-- LOGO-->
-      <div class="logo">
-        <img src="/imgs/saveme.jpg" width="40" alt="logo" />
+      <div id="logo">
+        <a href="/html/responder_profile.html">
+          <img src="/imgs/saveme.jpg" width="40" alt="logo" />
+        </a>
         <h2>SaveMe</h2>
       </div>
 
@@ -90,26 +92,20 @@
     <div class="nav-mobile">
       <ul>
 
-        <li>
+        <li class ="active" onclick=show(0)>
           <span> <i class="material-icons">home</i></span>
           <h3>Home</h3>
         </li>
 
         <li>
           <span> <i class="material-icons">info</i></span>
-          <h3>About</h3>
+          <a href="/html/about_nav.html">About</a>
         </li>
 
         <li>
           <span> <i class="material-icons">call</i></span>
-          <h3>Contact</h3>
+          <a href="/html/contact_nav.html">Contact</a>
         </li>
-
-        <li class="active">
-          <span> <i class="material-icons">account_circle</i></span>
-          <h3>Account</h3>
-        </li>
-
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
@@ -173,16 +169,16 @@
           <h2>General</h2>
           <nav>
             <ul>
-              <li class="active" onclick="show(0)">
+              <li class ="active" onclick="show(0)">
+                <span><i class="material-icons">person_outline</i></span>
+                <h3>Profile</h3>
+              </li>
+              <li onclick="show(1)">
                 <span><i class="material-icons">speed</i></span>
                 <h3>Dashboard</h3>
               </li>
-              <li onclick="show(1)">
-                <span><i class="material-icons">star</i></span>
-                <h3>Profile</h3>
-              </li>
               <li onclick="show(2)">
-                <span><i class="material-icons">comments</i></span>
+                <span><i class="material-icons">timeline</i></span>
                 <h3>Incident Log</h3>
               </li>
               <li onclick="show(3)">
@@ -192,17 +188,10 @@
             </ul>
           </nav>
         </div>
-    </aside>
+      </aside>
 
     <!-- DASHBOARD TAB -->
     <div class="main">
-      <section id="dashboard" class="profile tabs">
-        <h1>Incident Live Feed</h1>
-        <div id="incidents" class="userpost">
-
-        </div>
-      </section>
-
       <!-- PROFILE TAB -->
       <section class="tabs">
         <h1>User profile</h1>
@@ -239,6 +228,15 @@
           <button type="button" id="end-editing">Save</button>
         </div>
       </section>
+
+        <!-- DASHBOARD TAB -->
+      <section id="dashboard" class="profile tabs">
+        <h1>Incident Live Feed</h1>
+        <div id="incidents" class="userpost">
+
+        </div>
+      </section>
+
       <!-- INCIDENT LOG TAB -->
       <section class="tabs">
         <h1>Incident Log</h1>
@@ -264,21 +262,21 @@
     <div id="displayIncidentModal" class="modal">
       <div class="display-incident-modal-content">
         <div id="displayIncidentInformation">
-          <img id="displayIncidentImage" src="" alt="">
           <p id="displayIncidentTitle"></p>
           <p id="displayIncidentPriority"></p>
           <p id="displayIncidentType"></p>
           <p id="displayIncidentStatus"></p>
           <p id="displayIncidentCallerID"></p>
           <p id="displayIncidentDescription"></p>
-          <p id="displayIncidentLat"></p>
-          <p id="displayIncidentLon"></p>
+          <div id="displayIncidentMap" class="map"></div>
+          <img id="displayIncidentImage" src="" width="300" alt="">
           <p id="displayIncidentTimestamp"></p>
           <p id="displayIncidentResolutionComment"></p>
         </div>
         <div id="displayIncidentModalButtons">
           <form>
             <span id="displayIncidentResolveStatus" class="modalStatus"></span>
+            <input type="button" id="joinIncidentModalButton" value="Respond">
             <input type="text" id="displayIncidentResolutionCommentInput" placeholder="Resolution Comment">
             <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
             <input type="button" class="submitButton" id="displayIncidentResolveButton" value="Resolve" />
@@ -291,10 +289,10 @@
       <div class="join-incident-modal-content">
         <div id="joinIncidentContent">
           <form>
-            <h2>Join Incident?</h2>
+            <h2>Respond to Incident?</h2>
             <span id="joinIncidentStatus" class="modalStatus"></span>
             <input type="button" class="cancelButton" id="joinIncidentCancelButton" value="Cancel" />
-            <input type="button" class="submitButton" id="joinIncidentSubmitButton" value="Join" />
+            <input type="button" class="submitButton" id="joinIncidentSubmitButton" value="Respond" />
           </form>
         </div>
       </div>
@@ -304,12 +302,16 @@
 
   </div>
   <!-- SCRIPT FOLDER-->
+  <script src="/js/map.js"></script>
   <script src="/js/responder_profile.js"></script>
   <script src="/js/responder_profile_edit.js"></script>
   <script src="/js/responder_profile_upload_photo.js"></script>
   <script src="/js/responder_profile_display_incident.js"></script>
   <script src="/js/responder_profile_join_incident.js"></script>
+  <script src="/js/responder_profile_updater.js"></script>
 
+  <!-- Google maps -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -363,6 +365,29 @@
     close.addEventListener("click", () => {
       aside.classList.remove("show");
     })
+  </script>
+
+  <!--Easter Egg, change font-->
+  <script>
+
+    let counter = 0; 
+
+    const logo = document.getElementById("logo"); 
+    const selectbody = document.getElementsByTagName("body")[0]; 
+
+
+    logo.addEventListener('click', toggleFont); 
+
+
+    function toggleFont(){
+      counter +=1; 
+
+      if(counter == 5) {
+          selectbody.style.fontFamily = "monospace"; 
+      }
+
+    }
+
   </script>
 
 </body>

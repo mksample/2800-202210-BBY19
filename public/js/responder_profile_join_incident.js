@@ -85,13 +85,6 @@ async function submitJoinIncidentModal(incident) {
 
 // Updates an incident display in the dashboard and incident log.
 async function updateJoinIncident(incident) {
-    // Update the dashboard display.
-    let contentDOM = document.getElementById("incidents");
-    let incidentDisp = contentDOM.querySelector("#incident" + incident.ID);
-    incidentDisp.querySelector("#joinIncidentButton").value = "Joined";
-    incidentDisp.querySelector("#joinIncidentButton").disabled = true;
-    incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status; // update display with new status
-
     // Incident returned from /joinIncident doesn't have responderIDs, append the current session users ID.
     // There is a TODO on /joinIncident for this functionality. This is a temporary fix.
     let response = await getData("/getUser");
@@ -105,18 +98,92 @@ async function updateJoinIncident(incident) {
         }
     }
 
-    // Re-prepare event listeners with new incident information
-    let newIncidentDisp = incidentDisp.cloneNode(true);
-    incidentDisp.parentNode.replaceChild(newIncidentDisp, incidentDisp); // delete any existing event listeners
-    newIncidentDisp.querySelector("#joinIncidentButton").addEventListener("click", async function (e) {
-        e.stopImmediatePropagation();
-        openModal(incident, "joinIncidentModal", "joinIncidentCancelButton", "joinIncidentSubmitButton", "joinIncidentStatus", submitJoinIncidentModal);
-    })
-    newIncidentDisp.addEventListener("click", async function (e) {
+    // Update the dashboard display.
+    let contentDOM = document.getElementById("incidents");
+    createIncidentDisplay(incident, contentDOM, replace, true);
+
+    // Update the incident log display
+    contentDOM = document.getElementById("incidentLog");
+    createIncidentDisplay(incident, contentDOM, appendBefore, false);
+
+    // If clicked on from within display incident modal, update button and add listener for closing    
+    if (document.getElementById("displayIncidentModal").style.display == "block") {
+        document.getElementById("displayIncidentResolveButton").style.display = "";
+        document.getElementById("displayIncidentResolutionCommentInput").style.display = "";
+        document.getElementById("joinIncidentModalButton").value = "Responding"
+        document.getElementById("joinIncidentModalButton").disabled = true;
+        window.onclick = function (event) {
+            if (event.target == document.getElementById("displayIncidentModal")) {
+                document.getElementById("displayIncidentModal").style.display = "none";
+                document.getElementById("displayIncidentResolveStatus").innerHTML = "";
+            }
+        }
+    }
+
+}
+
+// Creates incident displays, attaches event listeners to them, and appends them to contentDOM.
+async function createIncidentDisplay(incident, contentDOM, appendMethod, joinButton) {
+    // creating incident display
+    let incidentDisp = document.getElementById("IncidentTemplate").content.cloneNode(true);
+    incidentDisp.querySelector("#incidentTitle").innerHTML = incident.title;
+    incidentDisp.querySelector("#incidentPriority").innerHTML = incident.priority;
+    incidentDisp.querySelector("#incidentType").innerHTML = incident.type;
+    incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
+    incidentDisp.querySelector("#incidentTimestamp").innerHTML = incident.timestamp;
+    incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
+    incidentDisp.querySelector('.incident').incident = incident;
+
+    // appending the incident to the contentDOM
+    appendMethod(incidentDisp, contentDOM);
+
+    // Query user for ID
+    let response = await getData("/getUser");
+    if (response) {
+        if (response.status == "fail") {
+            console.log(response.msg);
+        } else {
+            let joined = false
+            let user = response.user;
+            for (const responderID of incident.responderIDs) {
+                if (responderID == user.ID) {
+                    joined = true;
+                }
+            }
+            // If the user has already joined the incident, disable the join button.
+            if (joined) {
+                contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").value = "Responding"
+                contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").disabled = true;
+            }
+        }
+    }
+    if (incident.image) {
+        document.getElementById("displayIncidentImage").src = incident.image;
+    }
+
+    // Remove join button if needed. Otherwise attach event listener to it.
+    if (!joinButton) {
+        contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").style.display = "none";
+    } else {
+        contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").addEventListener("click", async function (e) {
+            e.stopImmediatePropagation();
+            openModal(incident, "joinIncidentModal", "joinIncidentCancelButton", "joinIncidentSubmitButton", "joinIncidentStatus", submitJoinIncidentModal);
+        })
+    }
+
+    // Add an event listener to the display for displaying the incident.
+    contentDOM.querySelector("#incident" + incident.ID).parentNode.addEventListener("click", async function (e) {
         e.stopImmediatePropagation();
         await prepareDisplayIncidentModal(incident);
         openModal(incident, "displayIncidentModal", "displayIncidentCancelButton", "displayIncidentResolveButton", "displayIncidentResolveStatus", submitDisplayIncidentModal);
     })
+}
 
-    // TODO: UPDATE INCIDENT LOG WITH UPDATED INCIDENT
+function replace(incidentDisp, contentDOM) {
+    let incident = contentDOM.querySelector("#" + incidentDisp.querySelector(".incident").id).parentNode;
+    incident.parentNode.replaceChild(incidentDisp, incident);
+}
+
+function appendBefore(incidentDisp, contentDOM) {
+    contentDOM.insertBefore(incidentDisp, contentDOM.firstChild)
 }

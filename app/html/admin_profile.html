@@ -59,8 +59,10 @@
   <div class="container">
     <header>
       <!-- LOGO-->
-      <div class="logo">
-        <img src="/imgs/saveme.jpg" width="40" alt="logo" />
+      <div id="logo">
+        <a href="/html/admin_profile.html">
+          <img src="/imgs/saveme.jpg" width="40" alt="logo" />
+        </a>
         <h2>SaveMe</h2>
       </div>
 
@@ -101,39 +103,33 @@
     </header>
 
 
-    <!-- BOTTOM NAVIGATION BAR MOBILE-->
-    <div class="nav-mobile">
-      <ul>
-
-        <li onclick=show(0)>
-          <span><i class="material-icons">home</i></span>
-          <h3>Home</h3>
-        </li>
-
-        <li>
-          <span> <i class="material-icons">info</i></span>
-          <a href="/html/about_nav.html">About</a>
-        </li>
-
-        <li>
-          <span><i class="material-icons">call</i></span>
-          <a href="/html/contact_nav.html">Contact</a>
-        </li>
-
-        <li class="active">
-          <span> <i class="material-icons">account_circle</i></span>
-          <h3>Account</h3>
-        </li>
-
-        <li>
-          <span> <i class="material-icons">logout</i></span>
-          <form action="/logout" method="get">
-            <input id="logout-bt" type="submit" value="Logout" />
-          </form>
-        </li>
-
-      </ul>
-    </div>
+      <!-- BOTTOM NAVIGATION BAR MOBILE-->
+      <div class="nav-mobile">
+        <ul>
+  
+          <li class ="active" onclick=show(0)>
+            <span> <i class="material-icons">home</i></span>
+            <h3>Home</h3>
+          </li>
+  
+          <li>
+            <span> <i class="material-icons">info</i></span>
+            <a href="/html/about_nav.html">About</a>
+          </li>
+  
+          <li>
+            <span> <i class="material-icons">call</i></span>
+            <a href="/html/contact_nav.html">Contact</a>
+          </li>
+          <li>
+            <span> <i class="material-icons">logout</i></span>
+            <form action="/logout" method="get">
+              <input id="logout" type="submit" value="Logout" />
+            </form>
+          </li>
+  
+        </ul>
+      </div>
 
 
     <!-- VERTICAL ICON NAVIGATION-->
@@ -186,12 +182,12 @@
         <nav>
           <ul>
             <li class="active" onclick="show(0)">
-              <span><i class="material-icons">speed</i></span>
-              <h3>Dashboard</h3>
-            </li>
-            <li onclick="show(1)">
               <span><i class="material-icons">person_outline</i></span>
               <h3>Profile</h3>
+            </li>
+            <li onclick="show(1)">
+              <span><i class="material-icons">speed</i></span>
+              <h3>Dashboard</h3>
             </li>
             <li onclick="show(2)">
               <span><i class="material-icons">timeline</i></span>
@@ -206,16 +202,7 @@
       </div>
     </aside>
 
-    <!-- DASHBOARD CONTENT -->
     <div class="main">
-      <section class="profile tabs">
-        <h1>Users</h1>
-        <div id="profiles" class="userProfiles">
-          <div id="createUserButton" class="posts">
-            <span><i class="material-icons">add</i></span>
-          </div>
-        </div>
-      </section>
 
       <!-- PROFILE TAB -->
       <section class="tabs">
@@ -256,6 +243,18 @@
           </form>
         </div>
       </section>
+
+
+      <!-- DASHBOARD CONTENT -->
+      <section class="profile tabs">
+        <h1>Users</h1>
+        <div id="profiles" class="userProfiles">
+          <div id="createUserButton" class="posts">
+            <span><i class="material-icons">add</i></span>
+          </div>
+        </div>
+      </section>
+
       <!-- INCIDENT LOG TAB -->
       <section class="tabs">
         <h1>Incident Log</h1>
@@ -378,13 +377,14 @@
     <div id="displayIncidentModal" class="modal">
       <div class="display-incident-modal-content">
         <div id="displayIncidentContent">
-          <img id="displayIncidentImage" src="" alt="">
           <p id="displayIncidentTitle"></p>
           <p id="displayIncidentPriority"></p>
           <p id="displayIncidentType"></p>
           <p id="displayIncidentStatus"></p>
           <p id="displayIncidentCallerID"></p>
           <p id="displayIncidentDescription"></p>
+          <div id="displayIncidentMap" class="map"></div>
+          <img id="displayIncidentImage" src="" width="300" alt="">
           <p id="displayIncidentLat"></p>
           <p id="displayIncidentLon"></p>
           <p id="displayIncidentTimestamp"></p>
@@ -400,6 +400,7 @@
 
   </div>
   <!-- SCRIPT FOLDER-->
+  <script src="/js/map.js"></script>
   <script src="/js/admin_profile.js"></script>
   <script src="/js/admin_profile_searchbar.js"></script>
   <script src="/js/admin_profile_edit_user.js"></script>
@@ -408,7 +409,10 @@
   <script src="/js/admin_profile_delete_user.js"></script>
   <script src="/js/admin_profile_edit.js"></script>
   <script src="/js/admin_profile_display_incident.js"></script>
+  <script src="/js/admin_profile_updater.js"></script>
 
+  <!-- Google maps -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -462,6 +466,27 @@
     close.addEventListener("click", () => {
       aside.classList.remove("show");
     })
+  </script>
+
+  <!--Easter Egg, change font-->
+  <script>
+    let counter = 0;
+
+    const logo = document.getElementById("logo");
+    const selectbody = document.getElementsByTagName("body")[0];
+
+
+    logo.addEventListener('click', toggleFont);
+
+
+    function toggleFont() {
+      counter += 1;
+
+      if (counter == 5) {
+        selectbody.style.fontFamily = "monospace";
+      }
+
+    }
   </script>
 
 </body>

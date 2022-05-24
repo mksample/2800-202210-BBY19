@@ -17,7 +17,7 @@ ready(async function () {
     }
 
     // Creates incident displays, attaches event listeners to them, and appends them to contentDOM.
-    async function createIncidentDisplay(incident, contentDOM, joinButton) {
+    async function createIncidentDisplay(incident, contentDOM, appendMethod, joinButton) {
         // creating incident display
         let incidentDisp = document.getElementById("IncidentTemplate").content.cloneNode(true);
         incidentDisp.querySelector("#incidentTitle").innerHTML = incident.title;
@@ -26,9 +26,10 @@ ready(async function () {
         incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
         incidentDisp.querySelector("#incidentTimestamp").innerHTML = incident.timestamp;
         incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
+        incidentDisp.querySelector('.incident').incident = incident;
 
         // appending the incident to the contentDOM
-        contentDOM.appendChild(incidentDisp);
+        appendMethod(incidentDisp, contentDOM);
 
         // Query user for ID
         let response = await getData("/getUser");
@@ -45,7 +46,7 @@ ready(async function () {
                 }
                 // If the user has already joined the incident, disable the join button.
                 if (joined) {
-                    contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").value = "Joined"
+                    contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").value = "Responding"
                     contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").disabled = true;
                 } 
             }
@@ -56,7 +57,7 @@ ready(async function () {
 
         // Remove join button if needed. Otherwise attach event listener to it.
         if (!joinButton) {
-            contentDOM.querySelector("#incident" + incident.ID).removeChild(contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton"));
+            contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").style.display = "none";
         } else {
             contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").addEventListener("click", async function (e) {
                 e.stopImmediatePropagation();
@@ -65,11 +66,15 @@ ready(async function () {
         }
 
         // Add an event listener to the display for displaying the incident.
-        contentDOM.querySelector("#incident" + incident.ID).addEventListener("click", async function (e) {
+        contentDOM.querySelector("#incident" + incident.ID).parentNode.addEventListener("click", async function (e) {
             e.stopImmediatePropagation();
             await prepareDisplayIncidentModal(incident);
             openModal(incident, "displayIncidentModal", "displayIncidentCancelButton", "displayIncidentResolveButton", "displayIncidentResolveStatus", submitDisplayIncidentModal);
         })
+    }
+
+    function appendAfter(incidentDisp, contentDOM) {
+        contentDOM.appendChild(incidentDisp);
     }
 
     // Gets incidents from the database and adds them to the responder dashboard.
@@ -81,13 +86,13 @@ ready(async function () {
             } else {
                 let contentDOM = document.getElementById("incidents");
                 for (const incident of response.incidents) {
-                    await createIncidentDisplay(incident, contentDOM, true);
+                    await createIncidentDisplay(incident, contentDOM, appendAfter, true);
                 }
             }
         }
     }
 
-    // Gets incidents from the database and adds them to the responder dashboard.
+    // Gets incidents from the database and adds them incident log.
     async function showIncidentLog() {
         let response = await getData("/getIncidents");
         if (response) {
@@ -96,7 +101,7 @@ ready(async function () {
             } else {
                 let contentDOM = document.getElementById("incidentLog");
                 for (const incident of response.incidents) {
-                    createIncidentDisplay(incident, contentDOM, false); // dont display a join button in the incidentLog
+                    createIncidentDisplay(incident, contentDOM, appendAfter, false); // dont display a join button in the incidentLog
                 }
             }
         }
@@ -130,6 +135,9 @@ ready(async function () {
 
     // PREPARE USER PROFILE (from responder_profile_edit.js)
     prepareProfile();
+
+    // RUN UPDATER
+    runUpdater();
 });
 
 

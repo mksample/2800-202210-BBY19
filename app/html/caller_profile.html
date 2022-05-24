@@ -45,8 +45,10 @@
   <div class="container">
     <header>
       <!-- LOGO-->
-      <div class="logo">
-        <img src="/imgs/saveme.jpg" width="40px" alt="logo" />
+      <div id="logo">
+        <a href="/html/responder_profile.html">
+          <img src="/imgs/saveme.jpg" width="40" alt="logo" />
+        </a>
         <h2>SaveMe</h2>
       </div>
 
@@ -90,8 +92,8 @@
     <div class="nav-mobile">
       <ul>
 
-        <li onclick=show(0)>
-          <span><i class="material-icons">home</i></span>
+        <li class="active" onclick=show(0)>
+          <span> <i class="material-icons">home</i></span>
           <h3>Home</h3>
         </li>
 
@@ -101,19 +103,13 @@
         </li>
 
         <li>
-          <span><i class="material-icons">call</i></span>
+          <span> <i class="material-icons">call</i></span>
           <a href="/html/contact_nav.html">Contact</a>
         </li>
-
-        <li class="active">
-          <span> <i class="material-icons">account_circle</i></span>
-          <h3>Account</h3>
-        </li>
-
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
-            <input id="logout-bt" type="submit" value="Logout" />
+            <input id="logout" type="submit" value="Logout" />
           </form>
         </li>
 
@@ -156,12 +152,12 @@
         <nav>
           <ul>
             <li class="active" onclick="show(0)">
-              <span><i class="material-icons">speed</i></span>
-              <h3>Dashboard</h3>
-            </li>
-            <li onclick="show(1)">
               <span><i class="material-icons">person_outline</i></span>
               <h3>Profile</h3>
+            </li>
+            <li onclick="show(1)">
+              <span><i class="material-icons">speed</i></span>
+              <h3>Dashboard</h3>
             </li>
             <li onclick="show(2)">
               <span><i class="material-icons">timeline</i></span>
@@ -178,33 +174,6 @@
 
     <!-- DASHBOARD TAB -->
     <div class="main">
-      <section class="profile tabs">
-        <h1>Dashboard</h1>
-
-        <div id="profiles" class="userpost">
-          <div class="posts">
-            <div class="profile" id="callForHelp">
-              <img class="profilePicture" src="/imgs/call.png" width="40px" alt="logo">
-              <p class="ticketName">Call for help</p>
-            </div>
-          </div>
-
-          <div class="posts">
-            <div class="profile" id="reportIncident">
-              <img class="profilePicture" src="/imgs/report.png" width="40px" alt="logo">
-              <p class="ticketName">Report incident</p>
-            </div>
-          </div>
-
-          <div class="posts">
-            <div class="profile" id="activeIncident">
-              <img class="profilePicture" src="/imgs/incident.png" width="40px" alt="logo">
-              <p class="ticketName">Active incident</p>
-            </div>
-          </div>
-
-        </div>
-      </section>
 
       <!-- PROFILE TAB-->
       <section class="tabs">
@@ -246,6 +215,34 @@
         </div>
       </section>
 
+      <section class="profile tabs">
+        <h1>Dashboard</h1>
+
+        <div id="profiles" class="userpost">
+          <div class="posts">
+            <div class="profile" id="reportIncident">
+              <img class="profilePicture" src="/imgs/report.png" width="40px" alt="logo">
+              <p class="ticketName">Report incident</p>
+            </div>
+          </div>
+
+          <div class="posts">
+            <div class="profile" id="callForHelp">
+              <img class="profilePicture" src="/imgs/call.png" width="40px" alt="logo">
+              <p class="ticketName">Call for help</p>
+            </div>
+          </div>
+
+          <div class="posts">
+            <div class="profile" id="activeIncident">
+              <img class="profilePicture" src="/imgs/incident.png" width="40px" alt="logo">
+              <p class="ticketName">Active incident</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       <!-- INCIDENT LOG TAB-->
       <section class="tabs">
         <h1>Incident Log</h1>
@@ -267,56 +264,108 @@
     </div>
 
 
-    <!-- MODALS -->
+  </div>
+  <!-- MODALS -->
 
-    <!-- REPORT INCIDENT MODAL -->
-    <div id="reportIncidentModal" class="modal">
-      <div class="report-incident-modal-content">
-        <div id="modalContents">
-          <h2>Report an Incident</h2>
-          <form>
-            <input type="text" id="reportIncidentTitle" placeholder="Title" />
-            <p>Incident Priority</p>
-            <select id="reportIncidentPriority">
-              <option value="URGENT">Urgent</option>
-              <option value="HIGH">High</option>
-              <option value="MEDIUM">Medium</option>
-              <option value="LOW">Low</option>
-            </select>
+  <!-- REPORT INCIDENT MODAL -->
+  <div id="reportIncidentModal" class="modal">
+    <div class="report-incident-modal-content">
+      <div id="modalContents">
+        <h2>Report an Incident</h2>
+        <form>
+          <input type="text" id="reportIncidentTitle" placeholder="Title" />
+          <p>Incident Priority</p>
+          <select id="reportIncidentPriority">
+            <option value="URGENT">Urgent</option>
+            <option value="HIGH">High</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="LOW">Low</option>
+          </select>
 
-            <p>Incident Type</p>
-            <select id="reportIncidentType">
-              <option value="HARASSMENT">Harassment</option>
-              <option value="SUSACTIVITY">Suspicious Activity</option>
-              <option value="VIOLENCE">Voilent Confrontation</option>
-            </select>
+          <p>Incident Type</p>
+          <select id="reportIncidentType">
+            <option value="HARASSMENT">Harassment</option>
+            <option value="SUSACTIVITY">Suspicious Activity</option>
+            <option value="VIOLENCE">Voilent Confrontation</option>
+          </select>
 
-            <div>
-              <input type="text" id="reportIncidentDescription" placeholder="Description" />
-            </div>
+          <div>
+            <input type="text" id="reportIncidentDescription" placeholder="Description" />
+          </div>
 
-            <div>
-              <p>Upload Pictures</p>
-              <form>
-                <input id="reportIncidentImageUpload" type="file" value="Upload Image"
-                  accept="image/png, image/gif, image/jpeg" multiple="multiple" />
-              </form>
-            </div>
+          <div>
+            <p>Upload Pictures</p>
+            <form>
+              <input id="reportIncidentImageUpload" type="file" value="Upload Image"
+                accept="image/png, image/gif, image/jpeg" multiple="multiple" />
+            </form>
+          </div>
 
-            <div id="reportIncidentMap" class="map"></div>
-            <p>Your location: </p>
-            <input name="reportIncidentLat" type="text" id="reportIncidentLat" placeholder="Latitude">
-            <input name="reportIncidentLon" type="text" id="reportIncidentLon" placeholder="Longitude">
+          <div id="reportIncidentMap" class="map"></div>
+          <p>Your location: </p>
+          <input name="reportIncidentLat" type="text" id="reportIncidentLat" placeholder="Latitude">
+          <input name="reportIncidentLon" type="text" id="reportIncidentLon" placeholder="Longitude">
 
-            <span id="reportIncidentStatus"></span>
-            <div>
-              <input type="button" class="cancelButton" id="reportIncidentCancelButton" value="Cancel" />
-              <input type="button" class="submitButton" id="reportIncidentSubmitButton" value="Submit" />
-            </div>
-          </form>
-        </div>
+          <span id="reportIncidentStatus"></span>
+          <div>
+            <input type="button" class="cancelButton" id="reportIncidentCancelButton" value="Cancel" />
+            <input type="button" class="submitButton" id="reportIncidentSubmitButton" value="Submit" />
+          </div>
+        </form>
       </div>
     </div>
+  </div>
+
+  <!-- EDIT INCIDENT MODAL -->
+  <div id="editIncidentModal" class="modal">
+    <div class="edit-incident-modal-content">
+      <div id="modalContents">
+        <h2>Edit Incident</h2>
+        <form>
+          <input type="text" id="editIncidentTitle" placeholder="Title" />
+          <p>Incident Priority</p>
+          <select id="editIncidentPriority">
+            <option value="URGENT">Urgent</option>
+            <option value="HIGH">High</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="LOW">Low</option>
+          </select>
+
+          <p>Incident Type</p>
+          <select id="editIncidentType">
+            <option value="HARASSMENT">Harassment</option>
+            <option value="SUSACTIVITY">Suspicious Activity</option>
+            <option value="VIOLENCE">Voilent Confrontation</option>
+          </select>
+
+          <div>
+            <input type="text" id="editIncidentDescription" placeholder="Description" />
+          </div>
+
+          <div>
+            <p>Upload Pictures</p>
+            <form>
+              <input id="editIncidentImageUpload" type="file" value="Upload Image"
+                accept="image/png, image/gif, image/jpeg" multiple="multiple" />
+            </form>
+          </div>
+
+          <img id="editIncidentImage" src="" width="300" alt="Incident Picture">
+
+          <div id="editIncidentMap" class="map"></div>
+          <p>Your location: </p>
+          <input name="editIncidentLat" type="text" id="editIncidentLat" placeholder="Latitude">
+          <input name="editIncidentLon" type="text" id="editIncidentLon" placeholder="Longitude">
+
+          <span id="editIncidentStatus"></span>
+          <div>
+            <input type="button" class="cancelButton" id="editIncidentCancelButton" value="Cancel" />
+            <input type="button" class="submitButton" id="editIncidentSubmitButton" value="Save" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
     <!-- CALL FOR HELP MODAL -->
     <div id="callForHelpModal" class="modal">
@@ -342,81 +391,82 @@
             <input type="button" class="submitButton" id="callForHelpSubmitButton" value="Submit" />
           </form>
 
-        </div>
       </div>
     </div>
+  </div>
 
-    <!-- Active Incident modal -->
-    <div id="activeIncidentModal" class="modal">
-      <div class="edit-active-modal-content">
-        <div id="modalContents">
-          <h2>Active incident</h2>
-          <br /><br />
-          <div id="activeContext"> </div>
-          <br /><br />
-          <form>
-            <input type="button" class="activeIncidentModalCancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="submit" value="Submit" />
-          </form>
+  <!-- Active Incident modal -->
+  <div id="activeIncidentModal" class="modal">
+    <div class="edit-active-modal-content">
+      <div id="modalContents">
+        <h2>Active incident</h2>
+        <br /><br />
+        <div id="activeContext"> </div>
+        <br /><br />
+        <form>
+          <input type="button" class="cancelButton" id="activeIncidentCancelButton" value="Cancel" />
+          <input type="button" class="submitButton" id="activeIncidentSubmitButton" value="Submit" />
+        </form>
 
-        </div>
       </div>
     </div>
+  </div>
 
-    <!-- Delete incident modal -->
-    <div id="deleteIncidentModal" class="modal">
-      <div class="delete-incident-modal-content">
-        <div id="deleteIncidentContent">
-          <form>
-            <h2>Delete incident?</h2>
-            <span id="deleteIncidentStatus" class="modalStatus"></span>
-            <input type="button" class="cancelButton" id="deleteIncidentCancelButton" value="Cancel" />
-            <input type="button" class="submitButton" id="deleteIncidentSubmitButton" value="Delete" />
-          </form>
-        </div>
+  <!-- Delete incident modal -->
+  <div id="deleteIncidentModal" class="modal">
+    <div class="delete-incident-modal-content">
+      <div id="deleteIncidentContent">
+        <form>
+          <h2>Delete incident?</h2>
+          <span id="deleteIncidentStatus" class="modalStatus"></span>
+          <input type="button" class="cancelButton" id="deleteIncidentCancelButton" value="Cancel" />
+          <input type="button" class="submitButton" id="deleteIncidentSubmitButton" value="Delete" />
+        </form>
       </div>
     </div>
+  </div>
 
-    <!-- Display incident modal -->
-    <div id="displayIncidentModal" class="modal">
-      <div class="display-incident-modal-content">
-        <div id="displayIncidentContent">
-          <img id="displayIncidentImage" src="" alt="">
-          <p id="displayIncidentTitle"></p>
-          <p id="displayIncidentPriority"></p>
-          <p id="displayIncidentType"></p>
-          <p id="displayIncidentStatus"></p>
-          <p id="displayIncidentCallerID"></p>
-          <p id="displayIncidentDescription"></p>
-          <p id="displayIncidentLat"></p>
-          <p id="displayIncidentLon"></p>
-          <p id="displayIncidentTimestamp"></p>
-          <p id="displayIncidentResolutionComment"></p>
-        </div>
-        <div id="displayIncidentModalButtons">
-          <form>
-            <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
-          </form>
-        </div>
+  <!-- Display incident modal -->
+  <div id="displayIncidentModal" class="modal">
+    <div class="display-incident-modal-content">
+      <div id="displayIncidentContent">
+        <p id="displayIncidentTitle"></p>
+        <p id="displayIncidentPriority"></p>
+        <p id="displayIncidentType"></p>
+        <p id="displayIncidentStatus"></p>
+        <p id="displayIncidentCallerID"></p>
+        <p id="displayIncidentDescription"></p>
+        <div id="displayIncidentMap" class="map"></div>
+        <img id="displayIncidentImage" src="" width="300" alt="Incident Picture">
+        <p id="displayIncidentTimestamp"></p>
+        <p id="displayIncidentResolutionComment"></p>
+      </div>
+      <div id="displayIncidentModalButtons">
+        <form>
+          <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
+        </form>
       </div>
     </div>
+  </div>
 
   </div>
   <!-- SCRIPT FOLDER-->
-  <script src="/js/caller_profile_edit.js"></script>
+  <script src="/js/map.js"></script>
   <script src="/js/caller_profile.js"></script>
+  <script src="/js/caller_profile_edit.js"></script>
   <script src="/js/caller_profile_upload_photo.js"></script>
-  <script src="/js/call_for_help.js"></script>
-  <script src="/js/call_report_incident.js"></script>
+  <script src="/js/caller_profile_report_incident.js"></script>
+  <script src="/js/caller_profile_call_for_help.js"></script>
   <script src="/js/caller_profile_delete_incident.js"></script>
+  <script src="/js/caller_profile_edit_incident.js"></script>
+  <script src="/js/caller_profile_updater.js"></script>
   <script src="/js/caller_profile_display_incident.js"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
   <!-- Google maps -->
-  <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8&callback=initMap"></script>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8"></script>
 
   <!--DISPLAY NAVIGATION ON MOBILE-->
   <script>
@@ -468,6 +518,28 @@
       aside.classList.remove("show");
     })
   </script>
+
+  <!--Easter Egg, change font-->
+  <script>
+    let counter = 0;
+
+    const logo = document.getElementById("logo");
+    const selectbody = document.getElementsByTagName("body")[0];
+
+
+    logo.addEventListener('click', toggleFont);
+
+
+    function toggleFont() {
+      counter += 1;
+
+      if (counter == 5) {
+        selectbody.style.fontFamily = "monospace";
+      }
+
+    }
+  </script>
+
 
 </body>
 
