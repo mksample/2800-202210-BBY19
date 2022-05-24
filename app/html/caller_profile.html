@@ -367,16 +367,29 @@
     </div>
   </div>
 
-  <!-- Report Incident modal -->
-  <div id="callForHelpModal" class="modal">
-    <div class="edit-report-modal-content">
-      <div id="modalContents">
-        <h2>Call for Help</h2>
-        <span id="callForHelpStatus"></span>
-        <form>
-          <input type="button" class="cancelButton" id="callForHelpCancelButton" value="Cancel" />
-          <input type="button" class="submitButton" id="callForHelpSubmitButton" value="Submit" />
-        </form>
+    <!-- CALL FOR HELP MODAL -->
+    <div id="callForHelpModal" class="modal">
+      <div class="call-help-modal-content">
+        <div id="modalContents">
+          <h2>Call for Help</h2>
+          <br /><br />
+          <div id="reportContext"> </div>
+          <br /><br />
+          <form>
+            Message
+            <p><textarea cols="40" rows="5" id="textContents" placeholder="Type your message in here."></textarea></p>
+            <br />
+            Preview
+            <p><textarea cols="40" rows="5" id="previewContents" placeholder="Push the preview button."
+                readonly></textarea></p>
+            <br />
+          </form>
+          <div id="callForHelpStatus"></div>
+          <form>
+            <input type="button" class="cancelButton" id="callForHelpCancelButton" value="Cancel" />
+            <input type="button" class="submitButton" id="callForHelpPreviewButton" value="Preview" />
+            <input type="button" class="submitButton" id="callForHelpSubmitButton" value="Submit" />
+          </form>
 
       </div>
     </div>
@@ -448,7 +461,6 @@
   <script src="/js/caller_profile_edit_incident.js"></script>
   <script src="/js/caller_profile_updater.js"></script>
   <script src="/js/caller_profile_display_incident.js"></script>
-
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

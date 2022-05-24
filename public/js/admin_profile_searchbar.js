@@ -148,7 +148,7 @@ async function prepareSearchBar() {
   });
 
   // Listener for the edit button for get the selected item from radio button
-  document.querySelector("#edit").addEventListener("click", async function (e) {
+  document.querySelector("#searchEdit").addEventListener("click", async function (e) {
     var obj_length = document.getElementsByName("contact").length;
     for (var i = 0; i < obj_length; i++) {
       if (document.getElementsByName("contact")[i].checked == true) {

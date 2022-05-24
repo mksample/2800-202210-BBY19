@@ -535,6 +535,22 @@ hr {
     cursor: pointer;
 }
 
+#preview {
+    font-family: "Poppins";
+    border-radius: 10px;
+    border: 1px solid #FE3C00;
+    background-color: #FE3C00;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin: 20px 8px 20px 100px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
 .submitButton {
     font-family: "Poppins";
     border-radius: 10px;
@@ -544,7 +560,7 @@ hr {
     font-size: 12px;
     font-weight: bold;
     padding: 10px 30px;
-    margin: 20px 8px 20px 340px;
+    margin: 20px 8px 20px 100px;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
@@ -643,6 +659,16 @@ hr {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+/* call for help styling */
+.call-help-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
 }
 
 /* display incident modal styling */
@@ -776,6 +802,13 @@ button:active {
     
 }
 
+input[id=textContents] {
+    width: 100%;
+    height: 100px;
+    text-align:left;
+    vertical-align: top;
+  }
+
 @media (max-width:900px) {
     header {
         width: 100%;
@@ -905,10 +938,14 @@ button:active {
     /* modal */
 
     .submitButton {
-        margin: 20px 0px 20px 85px;
+        margin: 20px 0px 20px 0px;
     }
 
-    #cancel {
+    .cancelButton {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .previewButton {
         margin: 20px 0px 20px 0px;
     }
 
@@ -922,11 +959,15 @@ button:active {
     /* modal */
 
     .submitButton {
-        margin: 20px 0px 20px 15px;
+        margin: 20px 0px 20px 0px;
 
     }
 
-    #cancel {
+    .cancelButton {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .previewButton {
         margin: 20px 0px 20px 0px;
     }
 
