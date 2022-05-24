@@ -32,6 +32,8 @@ async function prepareDisplayIncidentModal(incident) {
     document.getElementById("displayIncidentStatus").innerHTML = incident.status;
     document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID
     document.getElementById("displayIncidentDescription").innerHTML = incident.description
+    document.getElementById("displayIncidentLat").innerHTML = "Latitude: " + incident.lat;
+    document.getElementById("displayIncidentLon").innerHTML = "Longitude: "+ incident.lon;
     if (incident.image) {
         document.getElementById("displayIncidentImage").style.display = "";
         document.getElementById("displayIncidentImage").src = incident.image;

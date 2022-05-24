@@ -100,17 +100,9 @@ ready(async function () {
         });
 
         document.getElementById("callForHelp").addEventListener("click", function() {
+            prepareCallForHelpModal();
             openModal(null, "callForHelpModal", "callForHelpCancelButton", "callForHelpSubmitButton", "callForHelpStatus", submitCallForHelp);
         })
-        // document.getElementById("reportIncident").addEventListener("click", async function (e) {
-        //     console.log("reportIncident called");
-        //     tempOpenModal("reportIncidentModal");
-        // });
-
-        // document.getElementById("activeIncident").addEventListener("click", async function (e) {
-        //     console.log("activeIncident called");
-        //     tempOpenModal("activeIncidentModal");
-        // });
     }
 
     // Gets incidents from the database and adds them to the caller incident log.

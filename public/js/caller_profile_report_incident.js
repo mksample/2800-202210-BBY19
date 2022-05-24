@@ -42,7 +42,7 @@ function updateReportIncident(incident, image) {
     if (image) {
         incident.image = image;
     }
-    createIncidentDisplay(incident, document.getElementById("profiles"), appendAfterActiveIncident); // dashboard
+    createIncidentDisplay(incident, document.getElementById("profiles"), appendAfterCallForHelp); // dashboard
     createIncidentDisplay(incident, document.getElementById("incidents"), appendBefore); // incident log
 }
 
@@ -93,6 +93,6 @@ function appendAfter(incidentDisp, contentDOM) {
 }
 
 // Appends after the active incident button.
-function appendAfterActiveIncident(incidentDisp, contentDOM) {
-    contentDOM.insertBefore(incidentDisp, document.getElementById("activeIncident").parentNode.nextSibling)
+function appendAfterCallForHelp(incidentDisp, contentDOM) {
+    contentDOM.insertBefore(incidentDisp, document.getElementById("callForHelp").parentNode.nextSibling)
 }

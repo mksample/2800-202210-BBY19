@@ -233,13 +233,6 @@
             </div>
           </div>
 
-          <div class="posts">
-            <div class="profile" id="activeIncident">
-              <img class="profilePicture" src="/imgs/incident.png" width="40px" alt="logo">
-              <p class="ticketName">Active incident</p>
-            </div>
-          </div>
-
         </div>
       </section>
 
@@ -309,7 +302,7 @@
           <span id="reportIncidentStatus"></span>
           <div>
             <input type="button" class="cancelButton" id="reportIncidentCancelButton" value="Cancel" />
-            <input type="button" class="submitButton" id="reportIncidentSubmitButton" value="Submit" />
+            <input type="button" class="submitButton" id="reportIncidentSubmitButton" value="Report" />
           </div>
         </form>
       </div>
@@ -394,23 +387,6 @@
     </div>
   </div>
 
-  <!-- Active Incident modal -->
-  <div id="activeIncidentModal" class="modal">
-    <div class="edit-active-modal-content">
-      <div id="modalContents">
-        <h2>Active incident</h2>
-        <br /><br />
-        <div id="activeContext"> </div>
-        <br /><br />
-        <form>
-          <input type="button" class="cancelButton" id="activeIncidentCancelButton" value="Cancel" />
-          <input type="button" class="submitButton" id="activeIncidentSubmitButton" value="Submit" />
-        </form>
-
-      </div>
-    </div>
-  </div>
-
   <!-- Delete incident modal -->
   <div id="deleteIncidentModal" class="modal">
     <div class="delete-incident-modal-content">
@@ -436,6 +412,9 @@
         <p id="displayIncidentCallerID"></p>
         <p id="displayIncidentDescription"></p>
         <div id="displayIncidentMap" class="map"></div>
+        <p>Your location: </p>
+        <p id="displayIncidentLat"></p>
+        <p id="displayIncidentLon"></p>
         <img id="displayIncidentImage" src="" width="300" alt="Incident Picture">
         <p id="displayIncidentTimestamp"></p>
         <p id="displayIncidentResolutionComment"></p>
