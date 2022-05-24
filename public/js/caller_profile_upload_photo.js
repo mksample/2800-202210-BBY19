@@ -71,10 +71,7 @@ async function uploadImages(e) {
     });
 }
 
-async function uploadImagesIncident(e, incident) {
-    e.preventDefault();
-
-    const imageUpload = document.querySelector('#image-upload-incident');
+async function uploadImagesIncident(incident, imageUpload) {
     const formData = new FormData();
 
     if (imageUpload.files.length == 0) {

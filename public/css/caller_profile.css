@@ -438,12 +438,6 @@ aside .search-bar button {
     flex-direction: column;
 }
 
-#map {
-    height: 600px;
-    width: 100%;
-}
-
-
 #test{
     width: 15%;
     background-color: #ff7e00;
@@ -583,9 +577,9 @@ hr {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-#map {
-    width: 70%;
-    height: 300px;
+.map {
+    height: 350px;
+    width: 100%;
 }
 
 .report-incident-modal-content, .edit-report-modal-content, .edit-active-modal-content, .delete-incident-modal-content {
@@ -669,6 +663,25 @@ hr {
     align-items: center;
     flex-direction: column;
     font-family: "Poppins";
+}
+
+/* edit incident modal styling */
+.edit-incident-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+#editIncidentContent {
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 /* profile styling */

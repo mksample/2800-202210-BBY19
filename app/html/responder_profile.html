@@ -35,7 +35,7 @@
         <span id="incidentTimestamp">
 
         </span>
-        <input type="button" id="joinIncidentButton" value="Join +">
+        <input type="button" id="joinIncidentButton" value="Respond">
       </div>
     </div>
   </template>
@@ -268,15 +268,15 @@
           <p id="displayIncidentStatus"></p>
           <p id="displayIncidentCallerID"></p>
           <p id="displayIncidentDescription"></p>
+          <div id="displayIncidentMap" class="map"></div>
           <img id="displayIncidentImage" src="" width="300" alt="">
-          <p id="displayIncidentLat"></p>
-          <p id="displayIncidentLon"></p>
           <p id="displayIncidentTimestamp"></p>
           <p id="displayIncidentResolutionComment"></p>
         </div>
         <div id="displayIncidentModalButtons">
           <form>
             <span id="displayIncidentResolveStatus" class="modalStatus"></span>
+            <input type="button" id="joinIncidentModalButton" value="Respond">
             <input type="text" id="displayIncidentResolutionCommentInput" placeholder="Resolution Comment">
             <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
             <input type="button" class="submitButton" id="displayIncidentResolveButton" value="Resolve" />
@@ -289,10 +289,10 @@
       <div class="join-incident-modal-content">
         <div id="joinIncidentContent">
           <form>
-            <h2>Join Incident?</h2>
+            <h2>Respond to Incident?</h2>
             <span id="joinIncidentStatus" class="modalStatus"></span>
             <input type="button" class="cancelButton" id="joinIncidentCancelButton" value="Cancel" />
-            <input type="button" class="submitButton" id="joinIncidentSubmitButton" value="Join" />
+            <input type="button" class="submitButton" id="joinIncidentSubmitButton" value="Respond" />
           </form>
         </div>
       </div>
@@ -302,12 +302,16 @@
 
   </div>
   <!-- SCRIPT FOLDER-->
+  <script src="/js/map.js"></script>
   <script src="/js/responder_profile.js"></script>
   <script src="/js/responder_profile_edit.js"></script>
   <script src="/js/responder_profile_upload_photo.js"></script>
   <script src="/js/responder_profile_display_incident.js"></script>
   <script src="/js/responder_profile_join_incident.js"></script>
+  <script src="/js/responder_profile_updater.js"></script>
 
+  <!-- Google maps -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

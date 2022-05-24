@@ -78,6 +78,7 @@ function createProfileDisplay(user, contentDOM) {
     profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email
     profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;;
     profile.querySelector('.profile').setAttribute("id", user.ID);
+    profile.querySelector('.profile').user = user;
 
     // appending the profile to the contentDOM
     contentDOM.appendChild(profile);

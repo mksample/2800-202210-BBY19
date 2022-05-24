@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+.map {
+    height: 350px;
+    width: 100%;
+}
+
 /* background image for the body */
 body {
     overflow-x: hidden;
