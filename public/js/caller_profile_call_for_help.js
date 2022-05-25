@@ -1,4 +1,6 @@
 "use strict";
+
+let contactNumber;
 function submitCallForHelp() {
     let contactNumber = document.getElementById("callForHelpNumberInput").value;
     console.log(contactNumber);
@@ -10,6 +12,15 @@ function prepareCallForHelpModal() {
     document.getElementById("previewContents").value = "";
     document.getElementById("textContents").value = "";
     document.getElementById("callForHelpPreviewButton").onclick = async function () {
+        let response = await getData("/getUser");
+        if (response) {
+            if (response.status == "fail") {
+                console.log(response.msg);
+            } else {
+                contactNumber = response.user.contactNumber;
+                document.getElementById("contactNumber").innerHTML = contactNumber; // TODO change this to registered number from database
+            }
+        }
         previewCallForHelp();
     };
 }
@@ -26,8 +37,8 @@ function updateText(la, lo) {
     let timeStamp = today.toLocaleString();
     const messageText = document.getElementById('textContents').value;
     let previewText = `Current time: ` + timeStamp + ` \n` + messageText + ` \n` + `https://maps.google.co.kr/?ll=` + latitude + `,` + longitude;
-
-    document.getElementById("previewContents").innerText = previewText;
+    console.log(previewText);
+    document.getElementById("previewContents").value = previewText;
 }
 
 function checkMobile() {
