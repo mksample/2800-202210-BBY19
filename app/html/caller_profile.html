@@ -264,30 +264,41 @@
   <div id="reportIncidentModal" class="modal">
     <div class="report-incident-modal-content">
       <div id="modalContents">
-        <h2>Report an Incident</h2>
+        <h2 id="reportTitle">Report an Incident</h2>
         <form>
+          <hr>
+          <div class="input">
+          <label>Title: </label>
           <input type="text" id="reportIncidentTitle" placeholder="Title" />
-          <p>Incident Priority</p>
+          </div>
+          <div class="input">
+          <label>Incident Priority</label>
           <select id="reportIncidentPriority">
             <option value="URGENT">Urgent</option>
             <option value="HIGH">High</option>
             <option value="MEDIUM">Medium</option>
             <option value="LOW">Low</option>
           </select>
+          </div>
 
-          <p>Incident Type</p>
+          <div class="input">
+          <label>Incident Type</label>
           <select id="reportIncidentType">
             <option value="HARASSMENT">Harassment</option>
             <option value="SUSACTIVITY">Suspicious Activity</option>
             <option value="VIOLENCE">Voilent Confrontation</option>
           </select>
-
-          <div>
-            <input type="text" id="reportIncidentDescription" placeholder="Description" />
           </div>
 
-          <div>
-            <p>Upload Pictures</p>
+          <div class="input">
+          <label>Description: </label>
+          <p><textarea cols="40" rows="5" id="reportIncidentDescription" placeholder="Description."></textarea></p>
+
+            <!-- <input type="text" id="reportIncidentDescription" placeholder="Description" /> -->
+          </div>
+
+          <div id="incident_picture">
+            <label>Upload Pictures</label>
             <form>
               <input id="reportIncidentImageUpload" type="file" value="Upload Image"
                 accept="image/png, image/gif, image/jpeg" multiple="multiple" />
@@ -295,10 +306,11 @@
           </div>
 
           <div id="reportIncidentMap" class="map"></div>
+          <div id="user_location">
           <p>Your location: </p>
           <input name="reportIncidentLat" type="text" id="reportIncidentLat" placeholder="Latitude">
           <input name="reportIncidentLon" type="text" id="reportIncidentLon" placeholder="Longitude">
-
+          </div>
           <span id="reportIncidentStatus"></span>
           <div>
             <input type="button" class="cancelButton" id="reportIncidentCancelButton" value="Cancel" />
