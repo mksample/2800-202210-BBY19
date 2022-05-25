@@ -97,6 +97,12 @@ function compare(incident1, incident2) {
     if (incident1.type != incident2.type) {
         return true;
     }
+    if (incident1.lat != incident2.lat) {
+        return true;
+    }
+    if (incident1.lon != incident2.lon) {
+        return true;
+    }
     return false;
 }
 
