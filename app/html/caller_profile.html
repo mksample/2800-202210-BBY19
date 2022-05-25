@@ -68,11 +68,11 @@
           </li>
 
           <li>
-            <a href="/html/about_nav.html">About</a>
+            <a href="/html/about_page.html">About</a>
           </li>
 
           <li>
-            <a href="/html/contact_nav.html">Contact</a>
+            <a href="/html/contact_page.html">Contact</a>
           </li>
 
           <li>
@@ -99,17 +99,23 @@
 
         <li>
           <span> <i class="material-icons">info</i></span>
-          <a href="/html/about_nav.html">About</a>
+          <a href="/html/about_page.html">About</a>
         </li>
 
         <li>
-          <span> <i class="material-icons">call</i></span>
-          <a href="/html/contact_nav.html">Contact</a>
+          <span><i class="material-icons">call</i></span>
+          <a href="/html/contact_page.html">Contact</a>
         </li>
+
+        <li class="active">
+          <span> <i class="material-icons">account_circle</i></span>
+          <h3>Account</h3>
+        </li>
+
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
-            <input id="logout" type="submit" value="Logout" />
+            <input id="logout-bt" type="submit" value="Logout" />
           </form>
         </li>
 
@@ -177,42 +183,44 @@
 
       <!-- PROFILE TAB-->
       <section class="tabs">
-        <div id="user_profile_pictue"></div>
         <h1>Profile</h1>
         <div id="user_profile_section">
-          <br><br>
           <form>
-            <img id="detail_user_picture" width="200" src="/imgs/saveme.jpg" alt="">
-            <p>First Name: </p>
-            <div class="edit" id="detail_user_firstN" reqired>bank</div>
-            <p>Last Name: </p>
-            <div class="edit" id="detail_user_lastN">name</div>
-            <p>Email: </p>
-            <div class="edit" id="detail_user_email">email</div>
-            <p>Password: </p>
-            <div class="edit" id="detail_user_password">name</div>
-            <p>Age: </p>
-            <div class="edit" id="detail_user_age">age</div>
-            <p>Gender: </p>
-            <div class="edit" id="detail_user_gender">gender</div>
-            <p>Phone Number: </p>
-            <div class="edit" id="detail_user_cellphone">number</div>
-            <p>Role: </p>
-            <div class="edit" id="detail_user_role">role</div>
-            <br><br>
-            <span id="editUserStatus" class="status"></span>
-            <br><br>
-            <button type="button" id="edit-button">Edit</button>
-            <button type="button" id="end-editing">Save</button>
+              <img id="detail_user_picture" width="200" alt="">
+              <div class="edit">First Name:
+                <input type="text" name="name" id="detail_user_firstN" placeholder="Name" required />
+              </div>
+              <div class="edit">Last Name:
+               <input type="text" name="name" id="detail_user_lastN" placeholder="Name" required />
+              </div>
+              <div class="edit">Email:
+                <input type="text" name="name" id="detail_user_email" placeholder="Name" required />
+              </div>
+             <div class="edit">Password:
+                <input type="text" name="name" id="detail_user_password" placeholder="Name" required />
+              </div>
+              <div class="edit">Age:
+                <input type="text" name="name" id="detail_user_age" placeholder="Name" required />
+              </div>
+              <div class="edit">Gender:
+                <input type="text" name="name" id="detail_user_gender" placeholder="Name" required />
+              </div>
+             <div class="edit">Phone:
+                <input type="text" name="name" id="detail_user_cellphone" placeholder="Name" required />
+             </div>
+             <span id="editUserStatus" class="status"></span>
+              <div id="btn-container">
+                <button type="button" id="edit-button">Edit</button>
+                <button type="button" id="end-editing">Save</button>
+              </div> 
           </form>
-          <div id="container">
-            <form id="upload-images-form">
-              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-                multiple="multiple" />
-              <input id="submitProfilePhoto" type="submit" value="Save profile image" />
-            </form>
-          </div>
         </div>
+        <div id="img-container">
+          <form id="upload-images-form">
+            <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+              multiple="multiple" />
+            <input id="submitProfilePhoto" type="submit" value="Save profile image" />
+          </form>
       </section>
 
       <section class="profile tabs">
@@ -221,7 +229,7 @@
         <div id="profiles" class="userpost">
           <div class="posts">
             <div class="profile" id="reportIncident">
-              <img class="profilePicture" src="/imgs/report.png" width="40px" alt="logo">
+              <img class="profilePicture" src="/imgs/report.png" width="40" alt="logo">
               <p class="ticketName">Report incident</p>
             </div>
           </div>
@@ -370,7 +378,6 @@
         </form>
       </div>
     </div>
-  </div>
 
   <!-- CALL FOR HELP MODAL -->
   <div id="callForHelpModal" class="modal">
@@ -399,21 +406,20 @@
         </form>
       </div>
     </div>
-  </div>
 
-  <!-- Delete incident modal -->
-  <div id="deleteIncidentModal" class="modal">
-    <div class="delete-incident-modal-content">
-      <div id="deleteIncidentContent">
-        <form>
-          <h2>Delete incident?</h2>
-          <span id="deleteIncidentStatus" class="modalStatus"></span>
-          <input type="button" class="cancelButton" id="deleteIncidentCancelButton" value="Cancel" />
-          <input type="button" class="submitButton" id="deleteIncidentSubmitButton" value="Delete" />
-        </form>
+    <!-- Delete incident modal -->
+    <div id="deleteIncidentModal" class="modal">
+      <div class="delete-incident-modal-content">
+        <div id="deleteIncidentContent">
+          <form>
+            <h2>Delete incident?</h2>
+            <span id="deleteIncidentStatus" class="modalStatus"></span>
+            <input type="button" class="cancelButton" id="deleteIncidentCancelButton" value="Cancel" />
+            <input type="button" class="submitButton" id="deleteIncidentSubmitButton" value="Delete" />
+          </form>
+        </div>
       </div>
     </div>
-  </div>
 
   <!-- Display incident modal -->
   <div id="displayIncidentModal" class="modal">
@@ -439,7 +445,6 @@
         </form>
       </div>
     </div>
-  </div>
 
   </div>
   <!-- SCRIPT FOLDER-->
