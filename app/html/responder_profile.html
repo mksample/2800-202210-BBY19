@@ -7,6 +7,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Set favicon -->
+  <link href="imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
+
   <!-- Our StyleSheet-->
   <link rel="stylesheet" href="/css/responder_profile.css">
 
@@ -35,7 +38,7 @@
         <span id="incidentTimestamp">
 
         </span>
-        <input type="button" id="joinIncidentButton" value="Respond">
+        <input type="button" class="joinButton" id="joinIncidentButton" value="Respond">
       </div>
     </div>
   </template>
@@ -282,7 +285,7 @@
         <div id="displayIncidentModalButtons">
           <form>
             <span id="displayIncidentResolveStatus" class="modalStatus"></span>
-            <input type="button" id="joinIncidentModalButton" value="Respond">
+            <input type="button" class="joinButton" id="joinIncidentModalButton" value="Respond">
             <input type="text" id="displayIncidentResolutionCommentInput" placeholder="Resolution Comment">
             <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
             <input type="button" class="submitButton" id="displayIncidentResolveButton" value="Resolve" />

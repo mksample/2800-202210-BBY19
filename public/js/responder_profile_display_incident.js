@@ -83,10 +83,18 @@ async function prepareDisplayIncidentModal(incident) {
                 document.getElementById("displayIncidentResolveButton").style.display = "none";
                 document.getElementById("displayIncidentResolutionCommentInput").style.display = "none";
                 document.getElementById("joinIncidentModalButton").style.display = "";
+                document.getElementById("joinIncidentModalButton").value = "Respond";
+                document.getElementById("joinIncidentModalButton").style.border = "1px solid #FE3C00";
+                document.getElementById("joinIncidentModalButton").style.backgroundColor = "#FE3C00";
+                document.getElementById("joinIncidentModalButton").style.cursor = "pointer"
+                document.getElementById("joinIncidentModalButton").disabled = false;
             } else {
                 document.getElementById("displayIncidentResolveButton").style.display = "";
                 document.getElementById("displayIncidentResolutionCommentInput").style.display = "";
                 document.getElementById("joinIncidentModalButton").value = "Responding";
+                document.getElementById("joinIncidentModalButton").style.border = "1px solid #71e027";
+                document.getElementById("joinIncidentModalButton").style.backgroundColor = "#71e027";
+                document.getElementById("joinIncidentModalButton").style.cursor = "default"
                 document.getElementById("joinIncidentModalButton").disabled = true;
             }
 
@@ -121,10 +129,10 @@ async function prepareDisplayIncidentModal(incident) {
     document.getElementById("displayIncidentResolutionCommentInput").value = "";
 
     // Attach listener to join incident button
-    document.getElementById("joinIncidentModalButton").addEventListener("click", async function (e) {
+    document.getElementById("joinIncidentModalButton").onclick = function (e) {
         e.stopImmediatePropagation();
         openModal(incident, "joinIncidentModal", "joinIncidentCancelButton", "joinIncidentSubmitButton", "joinIncidentStatus", submitJoinIncidentModal);
-    });
+    };
 }
 
 // Submit function for the display incident modal. POSTS to /resolveIncident, returns true if successful, false if not.

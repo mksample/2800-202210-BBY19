@@ -72,7 +72,7 @@ const genderOther = "other";
 
 // incident status types
 const activeStatus = "ACTIVE";
-const inProgressStatus = "INPROGRESS";
+const RESPONDINGStatus = "RESPONDING";
 const resolvedStatus = "RESOLVED";
 
 // incident priority types
@@ -808,7 +808,7 @@ app.get("/getIncidents", function (req, res) {
 // responderIDs (int array) - IDs of the users who responded to the incident.
 app.get("/getResponderIncidents", function (req, res) {
     if (req.session.role == responderRole) {
-        let query = "SELECT * FROM " + incidentTable + ` WHERE status = '` + activeStatus + `' OR status = '` + inProgressStatus + `' ORDER BY timestamp DESC`; // get all active or in progess incidents
+        let query = "SELECT * FROM " + incidentTable + ` WHERE status = '` + activeStatus + `' OR status = '` + RESPONDINGStatus + `' ORDER BY timestamp DESC`; // get all active or in progess incidents
 
         // query for getting responder IDs
         let responderIDQuery = `SELECT responderID
@@ -927,7 +927,7 @@ app.post("/joinIncident", function (req, res) {
             console.log("joining incident: " + error);
             res.send({ status: "fail", msg: "joining incident: " + error });
         } else {
-            query = "UPDATE " + incidentTable + " SET status = '" + inProgressStatus + "' WHERE ID = " + req.body.incidentID;
+            query = "UPDATE " + incidentTable + " SET status = '" + RESPONDINGStatus + "' WHERE ID = " + req.body.incidentID;
             con.query(query, function (error, results) {
                 if (error) {
                     con.end(err => { if (err) { console.log(err); } });

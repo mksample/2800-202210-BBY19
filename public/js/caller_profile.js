@@ -20,11 +20,12 @@ ready(async function () {
     function createIncidentDisplay(incident, contentDOM, appendFunction) {
         // Creating incident display
         let incidentDisp = document.getElementById("IncidentTemplate").content.cloneNode(true);
+        var date = new Date(Date.parse(incident.timestamp));
         incidentDisp.querySelector("#incidentTitle").innerHTML = incident.title;
-        incidentDisp.querySelector("#incidentPriority").innerHTML = incident.priority;
-        incidentDisp.querySelector("#incidentType").innerHTML = incident.type;
-        incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
-        incidentDisp.querySelector("#incidentTimestamp").innerHTML = incident.timestamp;
+        incidentDisp.querySelector("#incidentPriority").innerHTML = "Priority: " + incident.priority;
+        incidentDisp.querySelector("#incidentType").innerHTML = "Type: " + incident.type;
+        incidentDisp.querySelector("#incidentStatus").innerHTML = "Status: " + incident.status;
+        incidentDisp.querySelector("#incidentTimestamp").innerHTML = date.toLocaleString('en-US', { timeZone: 'PST' });
         incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
         incidentDisp.querySelector('.incident').incident = incident;
 
@@ -99,7 +100,7 @@ ready(async function () {
             openModal(null, "reportIncidentModal", "reportIncidentCancelButton", "reportIncidentSubmitButton", "reportIncidentStatus", submitReportIncident);
         });
 
-        document.getElementById("callForHelp").addEventListener("click", function() {
+        document.getElementById("callForHelp").addEventListener("click", function () {
             prepareCallForHelpModal();
             openModal(null, "callForHelpModal", "callForHelpCancelButton", "callForHelpSubmitButton", "callForHelpStatus", submitCallForHelp);
         });
@@ -129,7 +130,7 @@ ready(async function () {
             } else {
                 let contentDOM = document.getElementById("profiles");
                 for (const incident of response.incidents) {
-                    if (incident.status == "ACTIVE" || incident.status == "INPROGRESS") {
+                    if (incident.status == "ACTIVE" || incident.status == "RESPONDING") {
                         createIncidentDisplay(incident, contentDOM, appendAfter);
                     }
                 }
@@ -155,19 +156,19 @@ ready(async function () {
     }
 
     // DISPLAY SESSION USER INFO
-    displaySessionUser();
+    await displaySessionUser();
 
     // DISPLAY INCIDENT LOG
-    showIncidentLog();
+    await showIncidentLog();
 
     // DISPLAY ACTIVE INCIDENTS ON DASHBOARD
-    showActiveIncidents();
+    await showActiveIncidents();
 
     // PREPARE PROFILE TAB (from caller_profile_edit.js)
-    prepareProfile();
+    await prepareProfile();
 
     // PREPARE DASHBOARD
-    prepareDashboard();
+    await prepareDashboard();
 
     // RUN UPDATER
     runUpdater();

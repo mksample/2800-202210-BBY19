@@ -47,13 +47,14 @@ ready(async function () {
 
     // Creates incident displays, attaches event listeners to them, and appends them to the contentDOM.
     function createIncidentDisplay(incident, contentDOM) {
-        // creating incident display
+        // Creating incident display
         let incidentDisp = document.getElementById("IncidentTemplate").content.cloneNode(true);
+        var date = new Date(Date.parse(incident.timestamp));
         incidentDisp.querySelector("#incidentTitle").innerHTML = incident.title;
-        incidentDisp.querySelector("#incidentPriority").innerHTML = incident.priority;
-        incidentDisp.querySelector("#incidentType").innerHTML = incident.type;
-        incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
-        incidentDisp.querySelector("#incidentTimestamp").innerHTML = incident.timestamp;
+        incidentDisp.querySelector("#incidentPriority").innerHTML = "Priority: " + incident.priority;
+        incidentDisp.querySelector("#incidentType").innerHTML = "Type: " + incident.type;
+        incidentDisp.querySelector("#incidentStatus").innerHTML = "Status: " + incident.status;
+        incidentDisp.querySelector("#incidentTimestamp").innerHTML = date.toLocaleString('en-US', { timeZone: 'PST' });
         incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
         incidentDisp.querySelector('.incident').incident = incident;
 
@@ -122,19 +123,19 @@ ready(async function () {
     });
 
     // DISPLAY USER PROFILES
-    showUsers();
+    await showUsers();
 
     // DISPLAY SESSION USER INFO
-    displaySessionUser();
+    await displaySessionUser();
 
     // DISPLAY INCIDENT LOG
-    showIncidents();
+    await showIncidents();
 
     // PREPARE PROFILE EDITING TAB (from admin_profile_edit.js)
-    prepareProfile();
+    await prepareProfile();
 
     // PREPARE SEARCH BAR (from admin_profile_searchbar.js)
-    prepareSearchBar();
+    await prepareSearchBar();
 
     // RUN UPDATER
     runUpdater();

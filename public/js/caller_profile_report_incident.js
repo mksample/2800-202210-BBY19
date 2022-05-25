@@ -49,11 +49,12 @@ function updateReportIncident(incident, image) {
 function createIncidentDisplay(incident, contentDOM, appendFunction) {
     // Creating incident display
     let incidentDisp = document.getElementById("IncidentTemplate").content.cloneNode(true);
+    var date = new Date(Date.parse(incident.timestamp));
     incidentDisp.querySelector("#incidentTitle").innerHTML = incident.title;
-    incidentDisp.querySelector("#incidentPriority").innerHTML = incident.priority;
-    incidentDisp.querySelector("#incidentType").innerHTML = incident.type;
-    incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
-    incidentDisp.querySelector("#incidentTimestamp").innerHTML = incident.timestamp;
+    incidentDisp.querySelector("#incidentPriority").innerHTML = "Priority: " + incident.priority;
+    incidentDisp.querySelector("#incidentType").innerHTML = "Type: " + incident.type;
+    incidentDisp.querySelector("#incidentStatus").innerHTML = "Status: " + incident.status;
+    incidentDisp.querySelector("#incidentTimestamp").innerHTML = date.toLocaleString('en-US', { timeZone: 'PST' });
     incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
     incidentDisp.querySelector('.incident').incident = incident;
 
