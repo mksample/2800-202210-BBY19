@@ -363,11 +363,19 @@ aside .search-bar button {
     align-items: center;
 }
 
-/* USER PROFILE DISPLAY STYLING */
+/* DASHBOARD/INCIDENT LOG STYLING */
 .userProfiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+    justify-items: center;
+}
+
+.incidentLog {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 20px;
+    justify-items: center;
 }
 
 .userProfiles .posts {
@@ -375,8 +383,11 @@ aside .search-bar button {
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15), 0 4px 5px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    text-align: center;
+    height: 400px;
+    width: 300px;
 }
 
 .userProfiles .posts:first-child {
@@ -398,21 +409,41 @@ aside .search-bar button {
     cursor: pointer;
 }
 
-.userProfiles .posts img {
-    width: 100%;
-    height: 90%;
-}
-
-.userProfiles .posts p {
-    margin-left: 10px;
-    line-height: 30px;
-}
-
-/* INCIDENT LOG STYLING */
-.incidentLog {
+.profile {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 20px;
+    grid-template-columns: 100%;
+    grid-template-rows: 10% 70% 10% 10%;
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    padding: 5px;
+}
+
+.profile #deleteProfileButton {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    text-align: right;
+}
+
+.profile .profilePicture {
+    height: 100%;
+    width: 100%;
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+    overflow: hidden;
+}
+
+.profile .profileEmail {
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.profile .profileRole {
+    grid-column: 1 / span 1;
+    grid-row: 4 / span 1;
+    font-size: 16px;
 }
 
 .incidentLog .posts {
@@ -420,18 +451,84 @@ aside .search-bar button {
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15), 0 4px 5px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    text-align: center;
+    height: 250px;
+    width: 200px;
 }
 
 .incidentLog .posts img {
     width: 100%;
-    height: 90%;
+    height: 80%;
 }
 
 .incidentLog .posts p {
     margin-left: 10px;
     line-height: 30px;
+}
+
+.incident {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    grid-template-rows: 22.5% 22.5% 22.5% 22.5% 10%;
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    padding: 5px;
+}
+
+.incident #deleteIncidentButton {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.incident #incidentTitle {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    text-align: center;
+    overflow: scroll;
+    font-weight: bold;
+}
+
+.incident #incidentPriority {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 1;
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.incident #incidentType {
+    grid-column: 1 / span 2;
+    grid-row: 4 / span 1;
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.incident #incidentStatus {
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 1;
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.incident #incidentTimestamp {
+    grid-column: 1 / span 2;
+    grid-row: 5 / span 1;
+    font-size: 16px;
+}
+
+.incidentClose {
+    color: #aaaaaa;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.incidentClose:hover,
+.incidentClose:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /* MODAL STYLING */

@@ -18,13 +18,14 @@ ready(async function () {
 
     // Creates incident displays, attaches event listeners to them, and appends them to contentDOM.
     async function createIncidentDisplay(incident, contentDOM, appendMethod, joinButton) {
-        // creating incident display
+        // Creating incident display
         let incidentDisp = document.getElementById("IncidentTemplate").content.cloneNode(true);
+        var date = new Date(Date.parse(incident.timestamp));
         incidentDisp.querySelector("#incidentTitle").innerHTML = incident.title;
-        incidentDisp.querySelector("#incidentPriority").innerHTML = incident.priority;
-        incidentDisp.querySelector("#incidentType").innerHTML = incident.type;
-        incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
-        incidentDisp.querySelector("#incidentTimestamp").innerHTML = incident.timestamp;
+        incidentDisp.querySelector("#incidentPriority").innerHTML = "Priority: " + incident.priority;
+        incidentDisp.querySelector("#incidentType").innerHTML = "Type: " + incident.type;
+        incidentDisp.querySelector("#incidentStatus").innerHTML = "Status: " + incident.status;
+        incidentDisp.querySelector("#incidentTimestamp").innerHTML = date.toLocaleString('en-US', { timeZone: 'PST' });
         incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
         incidentDisp.querySelector('.incident').incident = incident;
 
@@ -47,6 +48,9 @@ ready(async function () {
                 // If the user has already joined the incident, disable the join button.
                 if (joined) {
                     contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").value = "Responding";
+                    contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").style.border = "1px solid #71e027";
+                    contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").style.backgroundColor = "#71e027";
+                    contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").style.cursor = "default"
                     contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").disabled = true;
                 } 
             }
@@ -125,16 +129,16 @@ ready(async function () {
     }
 
     // DISPLAY SESSION USER INFO
-    displaySessionUser();
+    await displaySessionUser();
 
     // DISPLAY DASHBOARD
-    showIncidents();
+    await showIncidents();
 
     // DISPLAY INCIDENT LOG
-    showIncidentLog();
+    await showIncidentLog();
 
     // PREPARE USER PROFILE (from responder_profile_edit.js)
-    prepareProfile();
+    await prepareProfile();
 
     // RUN UPDATER
     runUpdater();
