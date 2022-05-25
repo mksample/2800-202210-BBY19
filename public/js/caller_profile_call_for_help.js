@@ -1,26 +1,21 @@
 "use strict";
 
-let contactNumber;
 function submitCallForHelp() {
     let contactNumber = document.getElementById("callForHelpNumberInput").value;
-    console.log(contactNumber);
-    checkM(checkMobile(), contactNumber);
+    document.getElementById("callForHelpStatus").innerHTML = ``;
+    if (contactNumber == `` || contactNumber.length != 10 || isNaN(contactNumber)) {
+        document.getElementById("callForHelpStatus").innerHTML = "Please input valid phone number.";
+    } else {
+        document.getElementById("callForHelpStatus").innerHTML = ``;
+        checkM(checkMobile(), contactNumber);
+    }
 }
 
 function prepareCallForHelpModal() {
-    document.getElementById("callForHelpNumberInput").value = "";
-    document.getElementById("previewContents").value = "";
-    document.getElementById("textContents").value = "";
+    document.getElementById("callForHelpNumberInput").value = ``;
+    document.getElementById("previewContents").value = ``;
+    document.getElementById("textContents").value = ``;
     document.getElementById("callForHelpPreviewButton").onclick = async function () {
-        let response = await getData("/getUser");
-        if (response) {
-            if (response.status == "fail") {
-                console.log(response.msg);
-            } else {
-                contactNumber = response.user.contactNumber;
-                document.getElementById("contactNumber").innerHTML = contactNumber; // TODO change this to registered number from database
-            }
-        }
         previewCallForHelp();
     };
 }
@@ -37,7 +32,6 @@ function updateText(la, lo) {
     let timeStamp = today.toLocaleString();
     const messageText = document.getElementById('textContents').value;
     let previewText = `Current time: ` + timeStamp + ` \n` + messageText + ` \n` + `https://maps.google.co.kr/?ll=` + latitude + `,` + longitude;
-    console.log(previewText);
     document.getElementById("previewContents").value = previewText;
 }
 
@@ -45,15 +39,12 @@ function checkMobile() {
     // Get userAgent
     var varUA = navigator.userAgent.toLowerCase();
     if (varUA.indexOf('android') > -1) {
-        document.getElementById("callForHelpStatus").innerHTML = "android";
         return "android";
     } else if (varUA.indexOf("iphone") > -1 || varUA.indexOf("ipad") > -1 || varUA.indexOf("ipod") > -1) {
         //For iOS
-        document.getElementById("callForHelpStatus").innerHTML = "ios";
         return "ios";
     } else {
         //For other OS
-        document.getElementById("callForHelpStatus").innerHTML = "others";
         return "other";
     }
 }
@@ -76,5 +67,10 @@ function getUserLocation() {
 function checkM(m, contactNumber) {
     let phoneNumber = contactNumber;
     const text = document.getElementById('previewContents').value;
-    location.href = 'sms:' + phoneNumber + (m == 'ios' ? '&' : '?') + 'body=' + encodeURIComponent(text);
+    if (text == ``) {
+        document.getElementById("callForHelpStatus").innerHTML = "Please preview the text before submission.";
+    } else {
+        document.getElementById("callForHelpStatus").innerHTML = ``;
+        location.href = 'sms:' + phoneNumber + (m == 'ios' ? '&' : '?') + 'body=' + encodeURIComponent(text);
+    }
 }
