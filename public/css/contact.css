@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 *{
     margin:0; 
     padding:0; 
@@ -7,9 +9,13 @@
 
 body {
     height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Poppins";
     display: grid;
     place-items: center;
+    background: url(/imgs/background2.jpg);
+    align-items: center;
+    justify-content: center;
+
 }
 
 h1{
@@ -19,7 +25,7 @@ h1{
 form {
     display: flex;
     flex-direction: column;
-    width: 24rem;
+    width: 22rem;
     gap:1rem; 
 }
 
@@ -27,7 +33,7 @@ input,
 select, 
 textarea{
     padding:1.4rem; 
-    background: transparent;
+    background: white;
     border: 1px solid black; 
 }
 
@@ -36,9 +42,26 @@ textarea{
 }
 
 button {
-    width:8rem; 
-    padding: 1.4rem; 
-    cursor: pointer; 
-    background: #673de6;
+    background-color: rgb(10, 136, 177);
+    border: none;
     color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+
+
+#back-btn {
+  background-color: rgb(10, 136, 177);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 20px;
 }

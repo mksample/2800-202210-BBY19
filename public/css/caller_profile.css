@@ -53,7 +53,7 @@ header img {
 #logo h2 {
     color: #d63b00;
     font-weight: 100;
-    font-size: 1.5em;
+    font-size: 30px;
     cursor: pointer;
 }
 
@@ -76,8 +76,9 @@ header .nav ul li {
 
 header .nav ul li h3 {
     text-transform: uppercase;
-    font-size: 15px;
+    font-size: 20px;
     color: #d63b00;
+   
 }
 
 header .nav ul li h3:hover{
@@ -94,9 +95,9 @@ header .nav ul li:hover {
 /* styling for the links*/
 a:link {
     color: red;
-    font-size: 15px;
-    font-weight: bold;
+    font-size: 20px;
     text-transform: uppercase;
+    font-weight: 600;
 }
 
 a {
@@ -122,8 +123,10 @@ a:hover {
     background-color: white;
     border-style: none;
     color: #d63b00;
-    font-size:15px;
+    font-size:20px;
     text-transform: uppercase;
+    font-weight: 600;
+    font-family: "Poppins";
 }
 
 /* hamburger menu on mobile*/
@@ -734,51 +737,85 @@ hr {
 }
 
 #user_profile_section {
-    border: solid green;
-    text-align: center;
+    display: flex;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    background-color: lightblue;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    align-items: center;
+    justify-content: center;
+}
 
+
+.edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#user_profile_section:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 #detail_user_firstN {
     display: inline;
     font-weight: bold;
+    margin-left: 10px;
 }
 
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 #detail_user_lastN {
     display: inline;
     font-weight: bold;
+    margin-left: 10px;
 }
-
-
 
 #detail_user_email {
     display: inline;
     font-weight: bold;
+    margin-left: 50px;
 }
 
 
 #detail_user_password {
     display: inline;
     font-weight: bold;
+    margin-left: 15px;
 }
 
 
 #detail_user_age {
+    display: inline;
     font-weight: bold;
+    margin-left: 60px;
 }
 
 
 #detail_user_gender {
+    display: inline;
     font-weight: bold;
+    margin-left: 32px;
 }
 
 
 #detail_user_cellphone {
+    display: inline;
     font-weight: bold;
+    margin-left: 40px;
 }
 
-
+#detail_user_role {
+    display: inline;
+    font-weight: bold;
+    margin-left: 170px;
+}
 #edit {
     padding: 5px;
     outline: none;
@@ -788,34 +825,56 @@ hr {
     border: solid black;
 }
 
-button {
+#detail_user_picture {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+    margin-bottom: 10px; 
+}
+
+#edit-button {
     width: 80px;
     padding: 5px;
-    margin: 0 3px;
-    background-color: #ff7e00;
+    background-color: white;
     outline: none;
-    border: 1px solid #ff7e00;
+    border: 1px solid white;
     box-shadow: 2px 2px 2px #3f3f3f;
 }
 
-button:hover {
+#btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+#end-editing {
+    width: 80px;
+    margin-left: 5px;
+    background-color: white;
+    outline: none;
+    border: 1px solid white;
+    box-shadow: 2px 2px 2px #3f3f3f;
+}
+
+#edit-button:hover {
     box-shadow: 2px 2px 3px;
 }
 
-button:active {
+#edit-button:active {
     box-shadow: 1px 1px 3px;
 }
 
-
-.edit{
-    background-color: lightblue;
+#end-editing:hover {
+    box-shadow: 2px 2px 3px;
 }
 
+#end-editing:active {
+    box-shadow: 1px 1px 3px;
+}
 
-#editUserStatus{
-    color: red;
-    font-weight: bold;
-    
+#img-container {
+    display: flex;
+    justify-content: center;
 }
 
 input[id=textContents] {
@@ -826,6 +885,15 @@ input[id=textContents] {
   }
 
 @media (max-width:900px) {
+
+    body {
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: auto;
+        height: 100%;
+        overflow: hidden;
+    }
     header {
         width: 100%;
         box-shadow: unset;
@@ -897,7 +965,7 @@ input[id=textContents] {
         color: white;
     }
 
-    #logout{
+    #logout {
         margin-left: 20px;
         font-size: 20px;
     }
@@ -991,4 +1059,9 @@ input[id=textContents] {
         margin: 20px 0px 20px 15px;
 
     }
+
+    #user_profile_section {
+        width: 100%;
+    }
+
 }
