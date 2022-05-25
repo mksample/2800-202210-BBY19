@@ -429,7 +429,7 @@ aside .search-bar button {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-#modalContents {
+.modalContents {
     display: flex;
     background-size: cover;
     background-repeat: no-repeat;

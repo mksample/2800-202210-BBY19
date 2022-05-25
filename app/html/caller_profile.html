@@ -92,7 +92,7 @@
     <div class="nav-mobile">
       <ul>
 
-        <li class="active" onclick=show(0)>
+        <li class="active" onclick="show(1)">
           <span> <i class="material-icons">home</i></span>
           <h3>Home</h3>
         </li>
@@ -263,7 +263,7 @@
   <!-- REPORT INCIDENT MODAL -->
   <div id="reportIncidentModal" class="modal">
     <div class="report-incident-modal-content">
-      <div id="modalContents">
+      <div class="modalContents">
         <h2>Report an Incident</h2>
         <form>
           <input type="text" id="reportIncidentTitle" placeholder="Title" />
@@ -312,7 +312,7 @@
   <!-- EDIT INCIDENT MODAL -->
   <div id="editIncidentModal" class="modal">
     <div class="edit-incident-modal-content">
-      <div id="modalContents">
+      <div class="modalContents">
         <h2>Edit Incident</h2>
         <form>
           <input type="text" id="editIncidentTitle" placeholder="Title" />
@@ -363,7 +363,7 @@
   <!-- CALL FOR HELP MODAL -->
   <div id="callForHelpModal" class="modal">
     <div class="call-help-modal-content">
-      <div id="modalContents">
+      <div class="modalContents">
         <h2>Call for Help</h2>
         <br /><br />
         <div id="reportContext"> </div>
@@ -417,7 +417,7 @@
         <p>Your location: </p>
         <p id="displayIncidentLat"></p>
         <p id="displayIncidentLon"></p>
-        <img id="displayIncidentImage" src="" width="300" alt="Incident Picture">
+        <img id="displayIncidentImage" src="anything" width="300" alt="Incident Picture">
         <p id="displayIncidentTimestamp"></p>
         <p id="displayIncidentResolutionComment"></p>
       </div>
@@ -429,7 +429,7 @@
     </div>
   </div>
 
-  </div>
+
   <!-- SCRIPT FOLDER-->
   <script src="/js/map.js"></script>
   <script src="/js/caller_profile.js"></script>
