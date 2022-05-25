@@ -587,6 +587,10 @@ hr {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+#reportIncidentTitle{
+    width: 78%;
+}
+
 #reportTitle{
     font-size: 32px;
     font-weight: 300;
