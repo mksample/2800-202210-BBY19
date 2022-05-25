@@ -10,14 +10,14 @@ function openDisplayIncidentModal(incident, modalID, cancelButton) {
     var cancel = document.getElementById(cancelButton);
     cancel.onclick = function () {
         modal.style.display = "none";
-    }
+    };
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
-    }
+    };
 }
 
 // Prepares the display incident modal.
@@ -33,8 +33,8 @@ async function prepareDisplayIncidentModal(incident) {
     document.getElementById("displayIncidentPriority").innerHTML = incident.priority;
     document.getElementById("displayIncidentType").innerHTML = incident.type;
     document.getElementById("displayIncidentStatus").innerHTML = incident.status;
-    document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID
-    document.getElementById("displayIncidentDescription").innerHTML = incident.description
+    document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID;
+    document.getElementById("displayIncidentDescription").innerHTML = incident.description;
     document.getElementById("displayIncidentTimestamp").innerHTML = incident.timestamp;
     if (incident.resolutionComment) {
         document.getElementById("displayIncidentResolutionComment").style.display = "";

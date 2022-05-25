@@ -23,8 +23,8 @@ ready(async function () {
         if (user.avatar != null) {
             profile.querySelector(".profilePicture").src = user.avatar;
         }
-        profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email
-        profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;;
+        profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email;
+        profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;
         profile.querySelector('.profile').setAttribute("id", user.ID);
         profile.querySelector('.profile').user = user;
 
@@ -36,13 +36,13 @@ ready(async function () {
             e.stopImmediatePropagation();
             prepareEditUserModal(user);
             openModal(user, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitEditUserModal);
-        })
+        });
 
         // when delete button clicked on, show delete profile modal
         document.getElementById(user.ID).querySelector(".close").addEventListener("click", async function (e) {
             e.stopImmediatePropagation();
             openModal(user, "deleteUserModal", "deleteUserCancelButton", "deleteUserSubmitButton", "deleteUserStatus", submitDeleteUserModal);
-        })
+        });
     }
 
     // Creates incident displays, attaches event listeners to them, and appends them to the contentDOM.
@@ -64,7 +64,7 @@ ready(async function () {
             e.stopImmediatePropagation();
             prepareDisplayIncidentModal(incident);
             openDisplayIncidentModal(incident, "displayIncidentModal", "displayIncidentCancelButton");
-        })
+        });
     }
 
     // Gets incidents from the database and adds them to the admin incident log.
@@ -119,7 +119,7 @@ ready(async function () {
     document.getElementById("createUserButton").addEventListener("click", function (e) {
         prepareCreateUserModal();
         openModal(null, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitCreateUserModal);
-    })
+    });
 
     // DISPLAY USER PROFILES
     showUsers();
@@ -143,9 +143,7 @@ ready(async function () {
 function ready(callback) {
     if (document.readyState != "loading") {
         callback();
-        console.log("ready state is 'complete'");
     } else {
         document.addEventListener("DOMContentLoaded", callback);
-        console.log("Listener was invoked");
     }
 }

@@ -180,13 +180,6 @@
         <div id="user_profile_pictue"></div>
         <h1>Profile</h1>
         <div id="user_profile_section">
-          <div id="container">
-            <form id="upload-images-form">
-              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-                multiple="multiple" />
-              <input id="submitProfilePhoto" type="submit" value="Save profile image" />
-            </form>
-          </div>
           <br><br>
           <form>
             <img id="detail_user_picture" width="200" src="/imgs/saveme.jpg" alt="">
@@ -212,6 +205,13 @@
             <button type="button" id="edit-button">Edit</button>
             <button type="button" id="end-editing">Save</button>
           </form>
+          <div id="container">
+            <form id="upload-images-form">
+              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+                multiple="multiple" />
+              <input id="submitProfilePhoto" type="submit" value="Save profile image" />
+            </form>
+          </div>
         </div>
       </section>
 
@@ -230,13 +230,6 @@
             <div class="profile" id="callForHelp">
               <img class="profilePicture" src="/imgs/call.png" width="40px" alt="logo">
               <p class="ticketName">Call for help</p>
-            </div>
-          </div>
-
-          <div class="posts">
-            <div class="profile" id="activeIncident">
-              <img class="profilePicture" src="/imgs/incident.png" width="40px" alt="logo">
-              <p class="ticketName">Active incident</p>
             </div>
           </div>
 
@@ -309,7 +302,7 @@
           <span id="reportIncidentStatus"></span>
           <div>
             <input type="button" class="cancelButton" id="reportIncidentCancelButton" value="Cancel" />
-            <input type="button" class="submitButton" id="reportIncidentSubmitButton" value="Submit" />
+            <input type="button" class="submitButton" id="reportIncidentSubmitButton" value="Report" />
           </div>
         </form>
       </div>
@@ -354,8 +347,8 @@
 
           <div id="editIncidentMap" class="map"></div>
           <p>Your location: </p>
-          <input name="editIncidentLat" type="text" id="editIncidentLat" placeholder="Latitude">
-          <input name="editIncidentLon" type="text" id="editIncidentLon" placeholder="Longitude">
+          <input name="editIncidentLat" type="text" id="editIncidentLat" placeholder="Latitude"/>
+          <input name="editIncidentLon" type="text" id="editIncidentLon" placeholder="Longitude"/>
 
           <span id="editIncidentStatus"></span>
           <div>
@@ -376,10 +369,12 @@
         <div id="reportContext"> </div>
         <br /><br />
         <form>
-          Message
+          <h2> Number</h2>
+          <input id="callForHelpNumberInput" placeholder="Contact Number"/>
+          <h2>Message</h2>
           <p><textarea cols="40" rows="5" id="textContents" placeholder="Type your message in here."></textarea></p>
           <br />
-          Preview
+          <h2>Preview</h2>
           <p><textarea cols="40" rows="5" id="previewContents" placeholder="Push the preview button."
               readonly></textarea></p>
           <br />
@@ -390,23 +385,6 @@
           <input type="button" class="submitButton" id="callForHelpPreviewButton" value="Preview" />
           <input type="button" class="submitButton" id="callForHelpSubmitButton" value="Submit" />
         </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Active Incident modal -->
-  <div id="activeIncidentModal" class="modal">
-    <div class="edit-active-modal-content">
-      <div id="modalContents">
-        <h2>Active incident</h2>
-        <br /><br />
-        <div id="activeContext"> </div>
-        <br /><br />
-        <form>
-          <input type="button" class="cancelButton" id="activeIncidentCancelButton" value="Cancel" />
-          <input type="button" class="submitButton" id="activeIncidentSubmitButton" value="Submit" />
-        </form>
-
       </div>
     </div>
   </div>
@@ -436,6 +414,9 @@
         <p id="displayIncidentCallerID"></p>
         <p id="displayIncidentDescription"></p>
         <div id="displayIncidentMap" class="map"></div>
+        <p>Your location: </p>
+        <p id="displayIncidentLat"></p>
+        <p id="displayIncidentLon"></p>
         <img id="displayIncidentImage" src="" width="300" alt="Incident Picture">
         <p id="displayIncidentTimestamp"></p>
         <p id="displayIncidentResolutionComment"></p>

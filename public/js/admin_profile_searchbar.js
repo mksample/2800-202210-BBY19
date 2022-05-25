@@ -1,14 +1,4 @@
 "use strict";
-const sqlAuthentication = { // sql connection settings
-  host: "127.0.0.1", // for Mac os, type 127.0.0.1
-  user: "root",
-  password: "",
-  multipleStatements: true,
-  database: "COMP2800" // Database name
-}
-
-const userTable = "BBY_19_user"; // Table name
-
 async function postData(url, data) {
   const response = await fetch(url, {
     method: 'POST',
@@ -58,14 +48,14 @@ function openSearchModal(modalID) {
   var span = document.getElementsByClassName("searchModalClose")[0];
   span.onclick = function () {
     modal.style.display = "none";
-  }
+  };
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
       document.getElementById("searchList").innerHTML = "";
     }
-  }
+  };
 }
 
 function createSearchList(user) {
@@ -104,7 +94,7 @@ function openModalEdit(user, modalID, cancelButton, submitButton, status, saveMe
   cancel.onclick = function () {
     modal.style.display = "none";
     document.getElementById(status).innerHTML = ""; // clear status when closing
-  }
+  };
 
   var save = document.getElementById(submitButton);
   save.onclick = async function () {
@@ -113,14 +103,14 @@ function openModalEdit(user, modalID, cancelButton, submitButton, status, saveMe
       modal.style.display = "none";
       document.getElementById(status).innerHTML = ""; // clear status when closing
     }
-  }
+  };
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
       document.getElementById(status).innerHTML = ""; // clear status when closing
     }
-  }
+  };
 }
 
 async function prepareSearchBar() {
@@ -137,7 +127,6 @@ async function prepareSearchBar() {
       if (response.status == "fail") {
         console.log(response.msg);
       } else {
-        // console.log(response.users);
         document.getElementById("searchList").innerHTML = "";
         for (const user of response.users) {
           openSearchModal("searchModal");
@@ -182,14 +171,4 @@ async function prepareSearchBar() {
     var modal = document.getElementById("searchModal");
     modal.style.display = "none";
   });
-}
-
-function ready(callback) {
-  if (document.readyState != "loading") {
-    callback();
-    console.log("ready state is 'complete'");
-  } else {
-    document.addEventListener("DOMContentLoaded", callback);
-    console.log("Listener was invoked");
-  }
 }

@@ -37,7 +37,7 @@ ready(async function () {
             if (response.status == "fail") {
                 console.log(response.msg);
             } else {
-                let joined = false
+                let joined = false;
                 let user = response.user;
                 for (const responderID of incident.responderIDs) {
                     if (responderID == user.ID) {
@@ -46,7 +46,7 @@ ready(async function () {
                 }
                 // If the user has already joined the incident, disable the join button.
                 if (joined) {
-                    contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").value = "Responding"
+                    contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").value = "Responding";
                     contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").disabled = true;
                 } 
             }
@@ -62,7 +62,7 @@ ready(async function () {
             contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").addEventListener("click", async function (e) {
                 e.stopImmediatePropagation();
                 openModal(incident, "joinIncidentModal", "joinIncidentCancelButton", "joinIncidentSubmitButton", "joinIncidentStatus", submitJoinIncidentModal);
-            })
+            });
         }
 
         // Add an event listener to the display for displaying the incident.
@@ -70,7 +70,7 @@ ready(async function () {
             e.stopImmediatePropagation();
             await prepareDisplayIncidentModal(incident);
             openModal(incident, "displayIncidentModal", "displayIncidentCancelButton", "displayIncidentResolveButton", "displayIncidentResolveStatus", submitDisplayIncidentModal);
-        })
+        });
     }
 
     function appendAfter(incidentDisp, contentDOM) {
@@ -144,9 +144,7 @@ ready(async function () {
 function ready(callback) {
     if (document.readyState != "loading") {
         callback();
-        console.log("ready state is 'complete'");
     } else {
         document.addEventListener("DOMContentLoaded", callback);
-        console.log("Listener was invoked");
     }
 }

@@ -48,13 +48,12 @@ async function prepareProfile() {
             age: document.getElementById("detail_user_age").textContent,
             gender: document.getElementById("detail_user_gender").textContent,
             phoneNumber: document.getElementById("detail_user_cellphone").textContent,
-        })
+        });
         if (response) {
             if (response.status == "fail") {
                 console.log(response.msg);
                 document.getElementById("editUserStatus").innerHTML = response.displayMsg; // display edit user failure
             } else {
-                console.log(response.msg);
                 for (let i = 0; i < paragraph.length; i++) {
                     paragraph[i].contentEditable = false;
                     paragraph[i].style.backgroundColor = "lightblue";

@@ -54,6 +54,6 @@ async function uploadImages(e) {
             }
         });
     }).catch(function (err) {
-        ("Error:", err)
+        ("Error:", err);
     });
 }

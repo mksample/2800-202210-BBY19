@@ -15,39 +15,39 @@ const localSqlAuthentication = { // sql connection settings
     password: "",
     multipleStatements: true,
     database: "COMP2800"
-}
+};
 const remoteSqlAuthentication = {
     host: "us-cdbr-east-05.cleardb.net",
     user: "b65b151c88c296",
     password: "70fc390d",
     multipleStatements: "true",
     database: "heroku_b395e55ab1671ee"
-}
+};
 
 const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
 
 
 // storing image at images
-const profileUploadPath = "public/imgs/userProfile"
+const profileUploadPath = "public/imgs/userProfile";
 const profileStorage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, profileUploadPath)
+        callback(null, profileUploadPath);
     },
     filename: function (req, file, callback) {
         let filename = "user-" + req.session.userID + "." + file.originalname.split('.').pop();
-        callback(null, filename)
+        callback(null, filename);
     }
 });
 const profileUpload = multer({ storage: profileStorage });
 
-const incidentUploadPath = "public/imgs/incidentImages"
+const incidentUploadPath = "public/imgs/incidentImages";
 const incidentStorage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, incidentUploadPath)
+        callback(null, incidentUploadPath);
     },
     filename: function (req, file, callback) {
         let filename = "incident-" + Date.now() + "." + file.originalname.split('.').pop();
-        callback(null, filename)
+        callback(null, filename);
     }
 });
 const incidentUpload = multer({ storage: incidentStorage });
@@ -142,8 +142,8 @@ app.get("/profile", async function (req, res) {
 
 // Signup page
 app.get("/signup", function (req, res) {
-    let doc = fs.readFileSync("./app/html/create_user.html", "utf8")
-    res.send(doc)
+    let doc = fs.readFileSync("./app/html/create_user.html", "utf8");
+    res.send(doc);
 });
 
 ///////////////////////////////////////
@@ -187,7 +187,7 @@ function authenticate(email, pwd, callback) {
     con.query(
         "SELECT * FROM " + userTable + " WHERE email = ? AND password = ?", [email, pwd],
         function (error, results) {
-            con.end(err => { if (err) { console.log(err) } });
+            con.end(err => { if (err) { console.log(err); } });
             if (error) {
                 console.log(error);
             }
@@ -206,7 +206,7 @@ app.get("/logout", function (req, res) {
     if (req.session) {
         req.session.destroy(function (error) {
             if (error) {
-                res.status(400).send("Unable to log out")
+                res.status(400).send("Unable to log out");
             } else {
                 res.redirect("/");
             }
@@ -249,7 +249,7 @@ app.post("/createUser", function (req, res) {
 
         con.query(addUser, function (error, results) {
             if (error) {
-                con.end(err => { if (err) { console.log(err) } });
+                con.end(err => { if (err) { console.log(err); } });
                 if (error.code == duplicateError) {
                     displayMsg = "User with this email already exists";
                 } else {
@@ -258,22 +258,21 @@ app.post("/createUser", function (req, res) {
                 }
                 res.send({ status: "fail", msg: "creating user: " + error, displayMsg: displayMsg });
             } else {
-                console.log(req.body);
                 con.query(`SELECT * FROM ` + userTable + ` WHERE email = '` + req.body.email + `'`, function (error, results) {
-                    con.end(err => { if (err) { console.log(err) } });
+                    con.end(err => { if (err) { console.log(err); } });
                     if (error) {
-                        console.log(error)
+                        console.log(error);
                         res.send({ status: "fail", msg: "creating user: " + error, displayMsg: "Database error" });
                     } else {
                         res.send({ status: "success", msg: "user created", user: results[0] });
                     }
-                })
+                });
             }
         });
     } else {
         res.send({ status: "fail", msg: "creating user: invalid input", displayMsg: displayMsg });
     }
-})
+});
 
 // Edit the profile of the current session user. Role is not editable. POST params are safe to be left blank.
 // POST params:
@@ -302,7 +301,7 @@ app.post("/editUser", function (req, res) {
 
         con.query(editUser, function (error, results) {
             if (error) {
-                con.end(err => { if (err) { console.log(err) } });
+                con.end(err => { if (err) { console.log(err); } });
                 if (error.code == duplicateError) {
                     displayMsg = "User with this email already exists";
                 } else {
@@ -312,7 +311,7 @@ app.post("/editUser", function (req, res) {
                 res.send({ status: "fail", msg: "editing user: " + error, displayMsg: displayMsg });
             } else {
                 con.query(`SELECT * FROM ` + userTable + ` WHERE ID = ` + req.session.userID, function (error, results) { // used session.
-                    con.end(err => { if (err) { console.log(err) } });
+                    con.end(err => { if (err) { console.log(err); } });
 
                     if (error || !results) {
                         res.send({ status: "fail", msg: "editing user: failed to fetch updated user", displayMsg: "Database error" });
@@ -325,7 +324,7 @@ app.post("/editUser", function (req, res) {
     } else {
         res.send({ status: "fail", msg: "editing user: invalid input", displayMsg: displayMsg });
     }
-})
+});
 
 // Edit the profile of any user. Role is editable. POST params are safe to be left blank.
 // POST params:
@@ -361,7 +360,7 @@ app.post("/adminEditUser", function (req, res) {
 
         con.query(editUser, function (error, results) {
             if (error) {
-                con.end(err => { if (err) { console.log(err) } });
+                con.end(err => { if (err) { console.log(err); } });
                 if (error.code == duplicateError) {
                     displayMsg = "User with this email already exists";
                 } else {
@@ -371,7 +370,7 @@ app.post("/adminEditUser", function (req, res) {
                 res.send({ status: "fail", msg: "editing user (admin): " + error, displayMsg: displayMsg });
             } else {
                 con.query(`SELECT * FROM ` + userTable + ` WHERE ID = ` + req.body.userID, function (error, results) {
-                    con.end(err => { if (err) { console.log(err) } });
+                    con.end(err => { if (err) { console.log(err); } });
                     if (error || !results) {
                         res.send({ status: "fail", msg: "editing user (admin): failed to fetch updated user", displayMsg: "Database error" });
                     } else {
@@ -383,7 +382,7 @@ app.post("/adminEditUser", function (req, res) {
     } else {
         res.send({ status: "fail", msg: "editing user (admin): invalid input", displayMsg: displayMsg });
     }
-})
+});
 
 // Get user request.
 // Returns the current session user.
@@ -394,15 +393,15 @@ app.get("/getUser", function (req, res) {
     const getUser = `SELECT * FROM ` + userTable + ` WHERE ID = ` + req.session.userID;
 
     con.query(getUser, function (error, results) {
-        con.end(err => { if (err) { console.log(err) } });
+        con.end(err => { if (err) { console.log(err); } });
         if (error) {
             console.log("getting user: " + error);
-            res.send({ status: "fail", msg: "getting user: " + error })
+            res.send({ status: "fail", msg: "getting user: " + error });
         } else {
-            res.send({ status: "success", msg: "user retrieved", user: results[0] })
+            res.send({ status: "success", msg: "user retrieved", user: results[0] });
         }
-    })
-})
+    });
+});
 
 // Get users request (session must be admin).
 // Returns all users except the current session user.
@@ -414,18 +413,18 @@ app.get("/getUsers", function (req, res) {
         const getUser = `SELECT * FROM ` + userTable + ` WHERE ID != ` + req.session.userID;
 
         con.query(getUser, function (error, results) {
-            con.end(err => { if (err) { console.log(err) } });
+            con.end(err => { if (err) { console.log(err); } });
             if (error) {
                 console.log("getting users: " + error);
-                res.send({ status: "fail", msg: "getting users: " + error })
+                res.send({ status: "fail", msg: "getting users: " + error });
             } else {
-                res.send({ status: "success", msg: "users retrieved", users: results })
+                res.send({ status: "success", msg: "users retrieved", users: results });
             }
-        })
+        });
     } else {
-        res.send({ status: "fail", msg: "getting users: requesting user is not admin" })
+        res.send({ status: "fail", msg: "getting users: requesting user is not admin" });
     }
-})
+});
 
 // Delete user request.
 // POST params: 
@@ -442,7 +441,7 @@ app.post("/deleteUser", function (req, res) {
         return;
     }
 
-    let displayMsg = "Database error"
+    let displayMsg = "Database error";
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
@@ -459,48 +458,48 @@ app.post("/deleteUser", function (req, res) {
 
     con.query(getRoleQuery, function (error, results) {
         if (error) {
-            con.end(err => { if (err) { console.log(err) } });
+            con.end(err => { if (err) { console.log(err); } });
             console.log(error);
             res.send({ status: "fail", msg: "getting user role: " + error, displayMsg: displayMsg });
         } else {
             if (results.role == adminRole) {
                 con.query(adminCountQuery, function (error, results) {
                     if (error) {
-                        con.end(err => { if (err) { console.log(err) } });
+                        con.end(err => { if (err) { console.log(err); } });
                         console.log(error);
                         res.send({ status: "fail", msg: "querying admin count: " + error, displayMsg: displayMsg });
                     } else {
                         if (results[0]["admin_count"] > 1) {
                             con.query(deleteUserQuery, function (error, results) {
-                                con.end(err => { if (err) { console.log(err) } });
+                                con.end(err => { if (err) { console.log(err); } });
                                 if (error) {
                                     console.log(error);
                                     res.send({ status: "fail", msg: "deleting user: " + error, displayMsg: displayMsg });
                                 } else {
                                     res.send({ status: "success", msg: "user deleted" });
                                 }
-                            })
+                            });
                         } else {
-                            con.end(err => { if (err) { console.log(err) } });
+                            con.end(err => { if (err) { console.log(err); } });
                             console.log("tried to delete last admin");
                             res.send({ status: "fail", msg: "deleting user: cannot delete last admin", displayMsg: "Cannot delete last admin" });
                         }
                     }
-                })
+                });
             } else {
                 con.query(deleteUserQuery, function (error, results) {
-                    con.end(err => { if (err) { console.log(err) } });
+                    con.end(err => { if (err) { console.log(err); } });
                     if (error) {
                         console.log(error);
                         res.send({ status: "fail", msg: "deleting user: " + error, displayMsg: displayMsg });
                     } else {
                         res.send({ status: "success", msg: "user deleted" });
                     }
-                })
+                });
             }
         }
-    })
-})
+    });
+});
 
 
 
@@ -509,19 +508,18 @@ app.post('/upload-images', profileUpload.array("files"), function (req, res) {
         const mysql = require("mysql2");
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
-        console.log(req.files[i]);
 
         let insertPicQuery = `UPDATE ` + userTable + ` SET avatar = '/profilePictures/` + req.files[i].filename + `' WHERE ID = ` + req.session.userID; // update query
 
         con.query(insertPicQuery, function (error, results) {
-            con.end(err => { if (err) { console.log(err) } });
+            con.end(err => { if (err) { console.log(err); } });
             if (error) {
                 console.log(error);
                 res.send({ status: "fail", msg: "uploading image: " + error });
             } else {
                 res.send({ status: "success", msg: "image uploaded successfully", avatar: `/profilePictures/` + req.files[i].filename });
             }
-        })
+        });
     }
 });
 
@@ -530,19 +528,18 @@ app.post('/upload-images-incident', incidentUpload.array("files"), function (req
         const mysql = require("mysql2");
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
-        console.log(req.files[i]);
 
         let insertPicQuery = `UPDATE ` + incidentTable + ` SET image = '/incidentImages/` + req.files[i].filename + `' WHERE ID = ` + req.body.incidentID; // update query
 
         con.query(insertPicQuery, function (error, results) {
-            con.end(err => { if (err) { console.log(err) } });
+            con.end(err => { if (err) { console.log(err); } });
             if (error) {
                 console.log(error);
                 res.send({ status: "fail", msg: "uploading image: " + error });
             } else {
                 res.send({ status: "success", msg: "image uploaded successfully", image: `/incidentImages/` + req.files[i].filename });
             }
-        })
+        });
     }
 });
 
@@ -563,7 +560,7 @@ app.post("/getUsersKeyword", function (req, res) {
         con.query(getUser, function (error, results) {
             con.end(err => {
                 if (err) {
-                    console.log(err)
+                    console.log(err);
                 }
             });
             if (error) {
@@ -571,22 +568,22 @@ app.post("/getUsersKeyword", function (req, res) {
                 res.send({
                     status: "fail",
                     msg: "getting users: " + error
-                })
+                });
             } else {
                 res.send({
                     status: "success",
                     msg: "users retrieved",
                     users: results
-                })
+                });
             }
-        })
+        });
     } else {
         res.send({
             status: "fail",
             msg: "getting users: requesting user is not admin"
-        })
+        });
     }
-})
+});
 
 // Search the keyword from database when using search bar.
 app.post("/getUsersKeywordExact", function (req, res) {
@@ -598,7 +595,7 @@ app.post("/getUsersKeywordExact", function (req, res) {
         con.query(getUser, function (error, results) {
             con.end(err => {
                 if (err) {
-                    console.log(err)
+                    console.log(err);
                 }
             });
             if (error) {
@@ -606,22 +603,22 @@ app.post("/getUsersKeywordExact", function (req, res) {
                 res.send({
                     status: "fail",
                     msg: "getting users: " + error
-                })
+                });
             } else {
                 res.send({
                     status: "success",
                     msg: "users retrieved",
                     users: results
-                })
+                });
             }
-        })
+        });
     } else {
         res.send({
             status: "fail",
             msg: "getting users: requesting user is not admin"
-        })
+        });
     }
-})
+});
 
 
 ///////////////////////////////////////////
@@ -664,25 +661,25 @@ app.post("/createIncident", function (req, res) {
 
         con.query(addUser, function (error, results) {
             if (error) {
-                con.end(err => { if (err) { console.log(err) } });
+                con.end(err => { if (err) { console.log(err); } });
                 console.log("creating incident: " + error);
                 res.send({ status: "fail", msg: "creating incident: " + error, displayMsg: "Database error" });
             } else {
                 con.query(`SELECT * FROM ` + incidentTable + ` WHERE callerID = ` + req.session.userID + ` AND title = '` + req.body.title + `' ORDER BY timestamp DESC`, function (error, results) {
-                    con.end(err => { if (err) { console.log(err) } });
+                    con.end(err => { if (err) { console.log(err); } });
                     if (error) {
-                        console.log(error)
+                        console.log(error);
                         res.send({ status: "fail", msg: "getting created incident: " + error, displayMsg: "Database error" });
                     } else {
                         res.send({ status: "success", msg: "incident created", incident: results[0] });
                     }
-                })
+                });
             }
         });
     } else {
         res.send({ status: "fail", msg: "creating incident: invalid input", displayMsg: displayMsg });
     }
-})
+});
 
 // Delete incident request. User needs to be a caller to delete it.
 // Returns a status ("success" or "fail"), a status message (internal, not for display).
@@ -703,22 +700,22 @@ app.post("/deleteIncident", function (req, res) {
 
     con.query(deleteRespondersQuery, function (error, results) {
         if (error) {
-            con.end(err => { if (err) { console.log(err) } });
+            con.end(err => { if (err) { console.log(err); } });
             console.log("deleting responders: " + error);
             res.send({ status: "fail", msg: "deleting responders: " + error });
         } else {
             con.query(deleteIncidentQuery, function (error, results) {
-                con.end(err => { if (err) { console.log(err) } });
+                con.end(err => { if (err) { console.log(err); } });
                 if (error) {
                     console.log("deleting incident: " + error);
                     res.send({ status: "fail", msg: "deleting incident: " + error });
                 } else {
                     res.send({ status: "success", msg: "incident deleted" });
                 }
-            })
+            });
         }
-    })
-})
+    });
+});
 
 // Gets incidents based on the current session user
 // Returns an array of incidents.
@@ -755,25 +752,25 @@ app.get("/getIncidents", function (req, res) {
     FROM ` + incidentTable + `
     JOIN ` + respondersTable + `
     ON ` + incidentTable + `.ID = ` + respondersTable + `.IncidentID
-    WHERE ` + incidentTable + `.ID = ` // append incident ID here
+    WHERE ` + incidentTable + `.ID = `; // append incident ID here
 
     const mysql = require("mysql2");
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
     con.query(query, function (error, incidentResults) {
         if (error) {
-            con.end(err => { if (err) { console.log(err) } });
+            con.end(err => { if (err) { console.log(err); } });
             console.log("getting incidents: " + error);
             res.send({ status: "fail", msg: "getting incidents: " + error });
         } else {
             if (incidentResults.length < 1) {
-                con.end(err => { if (err) { console.log(err) } });
-                res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults }) // return incidents
+                con.end(err => { if (err) { console.log(err); } });
+                res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults }); // return incidents
             } else {
                 for (let i = 0; i < incidentResults.length; i++) { // for each incident get all responder IDs associated with that incident
                     con.query(responderIDQuery + incidentResults[i].ID, function (error, responderResults) { // append incident ID onto end of responderIDQuery
                         if (error) {
-                            con.end(err => { if (err) { console.log(err) } });
+                            con.end(err => { if (err) { console.log(err); } });
                             console.log("getting responderIDs: " + error);
                             res.send({ status: "fail", msg: "getting responder IDs: " + error });
                             return;
@@ -785,15 +782,15 @@ app.get("/getIncidents", function (req, res) {
                             incidentResults[i].responderIDs = responderIDs; // append responder IDs to incident
                         }
                         if (i + 1 == incidentResults.length) { // if done processing the final incident send response
-                            con.end(err => { if (err) { console.log(err) } });
-                            res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults }) // return incidents
+                            con.end(err => { if (err) { console.log(err); } });
+                            res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults }); // return incidents
                         }
-                    })
+                    });
                 }
             }
         }
     });
-})
+});
 
 // Gets active or in progress incidents, only accessible by responders.
 // Returns an array of incidents.
@@ -818,21 +815,21 @@ app.get("/getResponderIncidents", function (req, res) {
     FROM ` + incidentTable + `
     JOIN ` + respondersTable + `
     ON ` + incidentTable + `.ID = ` + respondersTable + `.IncidentID
-    WHERE ` + incidentTable + `.ID = ` // append incident ID here
+    WHERE ` + incidentTable + `.ID = `; // append incident ID here
 
         const mysql = require("mysql2");
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
         con.query(query, function (error, incidentResults) {
             if (error) {
-                con.end(err => { if (err) { console.log(err) } });
+                con.end(err => { if (err) { console.log(err); } });
                 console.log("getting responder incidents: " + error);
                 res.send({ status: "fail", msg: "getting responder incidents: " + error });
             } else {
                 for (let i = 0; i < incidentResults.length; i++) { // for each incident get all responder IDs associated with that incident
                     con.query(responderIDQuery + incidentResults[i].ID, function (error, responderResults) { // append incident ID onto end of responderIDQuery
                         if (error) {
-                            con.end(err => { if (err) { console.log(err) } });
+                            con.end(err => { if (err) { console.log(err); } });
                             console.log("getting responderIDs: " + error);
                             res.send({ status: "fail", msg: "getting responder IDs: " + error });
                             return;
@@ -844,17 +841,17 @@ app.get("/getResponderIncidents", function (req, res) {
                             incidentResults[i].responderIDs = responderIDs; // append responder IDs to incident
                         }
                         if (i + 1 == incidentResults.length) { // if done processing the final incident send response
-                            con.end(err => { if (err) { console.log(err) } });
-                            res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults }) // return incidents
+                            con.end(err => { if (err) { console.log(err); } });
+                            res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults }); // return incidents
                         }
-                    })
+                    });
                 }
             }
         });
     } else {
         res.send({ status: "fail", msg: "getting responder incidents: user is not a responder" });
     }
-})
+});
 
 // Edit an incident the session user created.  is not editable. POST params are safe to be left blank.
 // POST params:
@@ -889,13 +886,13 @@ app.post("/editIncident", function (req, res) {
 
         con.query(editIncident, function (error, results) {
             if (error) {
-                con.end(err => { if (err) { console.log(err) } });
+                con.end(err => { if (err) { console.log(err); } });
                 console.log(error);
                 displayMsg = "Database error";
                 res.send({ status: "fail", msg: "editing incident: " + error, displayMsg: displayMsg });
             } else {
                 con.query(`SELECT * FROM ` + incidentTable + ` WHERE ID = ` + req.body.incidentID, function (error, results) {
-                    con.end(err => { if (err) { console.log(err) } });
+                    con.end(err => { if (err) { console.log(err); } });
                     if (error || !results) {
                         res.send({ status: "fail", msg: "editing incident: failed to fetch updated incident", displayMsg: "Database error" });
                     } else {
@@ -907,7 +904,7 @@ app.post("/editIncident", function (req, res) {
     } else {
         res.send({ status: "fail", msg: "editing incident: invalid input", displayMsg: displayMsg });
     }
-})
+});
 
 // Join incident request. User needs to be a responder to join it.
 // Returns a status ("success" or "fail"), a status message (internal, not for display).
@@ -923,35 +920,35 @@ app.post("/joinIncident", function (req, res) {
     const con = mysql.createConnection(sqlAuthentication);
     con.connect();
 
-    let query = "INSERT INTO " + respondersTable + " (responderID, incidentID) VALUES (" + req.session.userID + ", " + req.body.incidentID + ");"
+    let query = "INSERT INTO " + respondersTable + " (responderID, incidentID) VALUES (" + req.session.userID + ", " + req.body.incidentID + ");";
     con.query(query, function (error, results) {
         if (error) {
-            con.end(err => { if (err) { console.log(err) } });
+            con.end(err => { if (err) { console.log(err); } });
             console.log("joining incident: " + error);
             res.send({ status: "fail", msg: "joining incident: " + error });
         } else {
             query = "UPDATE " + incidentTable + " SET status = '" + inProgressStatus + "' WHERE ID = " + req.body.incidentID;
             con.query(query, function (error, results) {
                 if (error) {
-                    con.end(err => { if (err) { console.log(err) } });
+                    con.end(err => { if (err) { console.log(err); } });
                     console.log("updating incidents table: " + error);
                     res.send({ status: "fail", msg: "updating incidents table: " + error });
                 } else {
                     query = "SELECT * FROM " + incidentTable + " WHERE ID = " + req.body.incidentID;
                     con.query(query, function (error, results) {
-                        con.end(err => { if (err) { console.log(err) } });
+                        con.end(err => { if (err) { console.log(err); } });
                         if (error) {
                             console.log("getting joined incident: " + error);
                             res.send({ status: "fail", msg: "getting joined incident: " + error });
                         } else {
                             res.send({ status: "success", msg: "incident joined", incident: results[0] });
                         }
-                    })
+                    });
                 }
-            })
+            });
         }
-    })
-})
+    });
+});
 
 // Resolve incident request. User needs to have responded to the incident for them to resolve it.
 // Returns a status ("success" or "fail"), a status message (internal, not for display).
@@ -984,7 +981,7 @@ app.post("/resolveIncident", function (req, res) {
 
         con.query(responderQuery, function (error, results) {
             if (error) {
-                con.end(err => { if (err) { console.log(err) } });
+                con.end(err => { if (err) { console.log(err); } });
                 console.log("getting responder IDs: " + error);
                 res.send({ status: "fail", msg: "getting responder IDs: " + error });
             } else {
@@ -995,35 +992,35 @@ app.post("/resolveIncident", function (req, res) {
                     }
                 }
                 if (!valid) {
-                    con.end(err => { if (err) { console.log(err) } });
+                    con.end(err => { if (err) { console.log(err); } });
                     console.log("resolving incident: user did not respond to this incident");
                     res.send({ status: "fail", msg: "resolving incident: user did not respond to this incident" });
                 } else {
                     con.query(resolveQuery, function (error, results) {
                         if (error) {
-                            con.end(err => { if (err) { console.log(err) } });
+                            con.end(err => { if (err) { console.log(err); } });
                             console.log("resolving incident: " + error);
                             res.send({ status: "fail", msg: "resolving incident: " + error });
                         } else {
                             let query = "SELECT * FROM " + incidentTable + " WHERE ID = " + req.body.incidentID;
                             con.query(query, function (error, results) {
-                                con.end(err => { if (err) { console.log(err) } });
+                                con.end(err => { if (err) { console.log(err); } });
                                 if (error) {
                                     console.log("getting resolved incident: " + error);
                                     res.send({ status: "fail", msg: "getting resolved incident: " + error });
                                 } else {
                                     res.send({ status: "success", msg: "incident resolved", incident: results[0] });
                                 }
-                            })
+                            });
                         }
-                    })
+                    });
                 }
             }
-        })
+        });
     } else {
         res.send({ status: "fail", msg: "creating incident: invalid input", displayMsg: displayMsg });
     }
-})
+});
 
 
 
@@ -1119,7 +1116,7 @@ function validRole(condition) {
 
 // validation for creating a user
 function validateCreateUser(req) {
-    let email = validEmail(req.body.email.match(validEmailRegex))
+    let email = validEmail(req.body.email.match(validEmailRegex));
     if (!email[0]) {
         return email;
     }
@@ -1156,7 +1153,7 @@ function validateCreateUser(req) {
 
 // validation for creating a user (admin)
 function validateAdminCreateUser(req) {
-    let email = validEmail(req.body.email.match(validEmailRegex))
+    let email = validEmail(req.body.email.match(validEmailRegex));
     if (!email[0]) {
         return email;
     }
@@ -1270,7 +1267,7 @@ function validateDeleteUser(req) {
     if (!ID[0]) {
         return ID;
     }
-    return [true, null]
+    return [true, null];
 }
 
 // INCIDENT
@@ -1415,12 +1412,12 @@ function init() {
         multipleStatements: sqlAuthentication.multipleStatements,
     });
     con.connect();
-    con.end(err => { if (err) { console.log(err) } });
+    con.end(err => { if (err) { console.log(err); } });
     console.log("Listening on port " + port + "!");
 }
 
 
 
 // RUN SERVER
-let port = process.env.PORT || 8000
+let port = process.env.PORT || 8000;
 app.listen(port, init);

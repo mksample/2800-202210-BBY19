@@ -43,7 +43,6 @@ async function runUpdater() {
     for (const newDashboardIncident of newDashboardIncidents) {
         let dashboardIncident = dashboardDOM.querySelector("#incident" + newDashboardIncident.ID);
         if (dashboardIncident && compare(dashboardIncident.incident, newDashboardIncident)) {
-            console.log("incident updated");
             createIncidentDisplay(newDashboardIncident, dashboardDOM, replace, true);
         } else if (!dashboardIncident) {
             createIncidentDisplay(newDashboardIncident, dashboardDOM, appendBefore, true);
@@ -60,7 +59,6 @@ async function runUpdater() {
             }
         }
         if (!found) {
-            console.log("incident deleted");
             dashboardDOM.removeChild(currentDashboardIncident);
         }
     }
@@ -69,7 +67,6 @@ async function runUpdater() {
     for (const newIncidentLogIncident of newIncidentLogIncidents) {
         let incidentLogIncident = incidentLogDOM.querySelector("#incident" + newIncidentLogIncident.ID);
         if (incidentLogIncident && compare(incidentLogIncident.incident, newIncidentLogIncident)) {
-            console.log("incident updated");
             createIncidentDisplay(newIncidentLogIncident, incidentLogDOM, replace, false);
         }
     }

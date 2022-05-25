@@ -23,7 +23,7 @@ function initMap(initLat, initLon, zoom, elementID, clickable, geolocation, setM
         // Create custom button
         locationButton.type = "button";
         locationButton.value = "Get Location";
-        locationButton.id = "reportIncidentLocationButton"
+        locationButton.id = "reportIncidentLocationButton";
 
         // Add button
         locationButton.classList.add("custom-map-control-button");

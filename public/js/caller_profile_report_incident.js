@@ -9,14 +9,13 @@ async function submitReportIncident(incident) {
         description: document.getElementById("reportIncidentDescription").value,
         lat: document.getElementById("reportIncidentLat").value,
         lon: document.getElementById("reportIncidentLon").value
-    })
+    });
     if (response) {
         if (response.status == "fail") {
             console.log(response.msg);
             document.getElementById("reportIncidentStatus").innerHTML = response.displayMsg;
             return false;
         } else {
-            console.log(response.msg);
             let incident = response.incident;
             let image = await uploadImagesIncident(response.incident, document.getElementById("reportIncidentImageUpload"));
             updateReportIncident(incident, image);
@@ -42,7 +41,7 @@ function updateReportIncident(incident, image) {
     if (image) {
         incident.image = image;
     }
-    createIncidentDisplay(incident, document.getElementById("profiles"), appendAfterActiveIncident); // dashboard
+    createIncidentDisplay(incident, document.getElementById("profiles"), appendAfterCallForHelp); // dashboard
     createIncidentDisplay(incident, document.getElementById("incidents"), appendBefore); // incident log
 }
 
@@ -65,7 +64,7 @@ function createIncidentDisplay(incident, contentDOM, appendFunction) {
         incidentDisp.querySelector("#deleteIncidentButton").addEventListener("click", async function (e) {
             e.stopImmediatePropagation();
             openModal(incident, "deleteIncidentModal", "deleteIncidentCancelButton", "deleteIncidentSubmitButton", "deleteIncidentStatus", submitDeleteIncidentModal);
-        })
+        });
     }
 
     // Append the incident display to the contentDOM.
@@ -77,13 +76,13 @@ function createIncidentDisplay(incident, contentDOM, appendFunction) {
             e.stopImmediatePropagation();
             await prepareDisplayIncidentModal(incident);
             openDisplayIncidentModal(incident, "displayIncidentModal", "displayIncidentCancelButton");
-        })
+        });
     } else {
         contentDOM.querySelector("#incident" + incident.ID).parentNode.addEventListener("click", async function (e) {
             e.stopImmediatePropagation();
             await prepareEditIncidentModal(incident);
             openModal(incident, "editIncidentModal", "editIncidentCancelButton", "editIncidentSubmitButton", "editIncidentStatus", submitEditIncident);
-        })
+        });
     }
 }
 
@@ -93,6 +92,6 @@ function appendAfter(incidentDisp, contentDOM) {
 }
 
 // Appends after the active incident button.
-function appendAfterActiveIncident(incidentDisp, contentDOM) {
-    contentDOM.insertBefore(incidentDisp, document.getElementById("activeIncident").parentNode.nextSibling)
+function appendAfterCallForHelp(incidentDisp, contentDOM) {
+    contentDOM.insertBefore(incidentDisp, document.getElementById("callForHelp").parentNode.nextSibling);
 }

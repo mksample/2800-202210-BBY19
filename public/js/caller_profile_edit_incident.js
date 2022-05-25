@@ -12,14 +12,13 @@ async function submitEditIncident(incident) {
         description: document.getElementById("editIncidentDescription").value,
         lat: document.getElementById("editIncidentLat").value,
         lon: document.getElementById("editIncidentLon").value
-    })
+    });
     if (response) {
         if (response.status == "fail") {
             console.log(response.msg);
             document.getElementById("editIncidentStatus").innerHTML = response.displayMsg;
             return false;
         } else {
-            console.log(response.msg);
             let incident = response.incident;
             updateEditIncidents(incident, image);
         }
