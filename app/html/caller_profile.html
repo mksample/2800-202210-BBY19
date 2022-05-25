@@ -189,33 +189,33 @@
         <h1>Profile</h1>
         <div id="user_profile_section">
           <form>
-              <img id="detail_user_picture" width="200" alt="">
-              <div class="edit">First Name:
-                <input type="text" name="name" id="detail_user_firstN" placeholder="Name" required />
-              </div>
-              <div class="edit">Last Name:
-               <input type="text" name="name" id="detail_user_lastN" placeholder="Name" required />
-              </div>
-              <div class="edit">Email:
-                <input type="text" name="name" id="detail_user_email" placeholder="Name" required />
-              </div>
-             <div class="edit">Password:
-                <input type="text" name="name" id="detail_user_password" placeholder="Name" required />
-              </div>
-              <div class="edit">Age:
-                <input type="text" name="name" id="detail_user_age" placeholder="Name" required />
-              </div>
-              <div class="edit">Gender:
-                <input type="text" name="name" id="detail_user_gender" placeholder="Name" required />
-              </div>
-             <div class="edit">Phone:
-                <input type="text" name="name" id="detail_user_cellphone" placeholder="Name" required />
-             </div>
-             <span id="editUserStatus" class="status"></span>
-              <div id="btn-container">
-                <button type="button" id="edit-button">Edit</button>
-                <button type="button" id="end-editing">Save</button>
-              </div> 
+            <img id="detail_user_picture" width="200" alt="">
+            <div class="edit">First Name:
+              <input type="text" name="name" id="detail_user_firstN" placeholder="Name" required />
+            </div>
+            <div class="edit">Last Name:
+              <input type="text" name="name" id="detail_user_lastN" placeholder="Name" required />
+            </div>
+            <div class="edit">Email:
+              <input type="text" name="name" id="detail_user_email" placeholder="Name" required />
+            </div>
+            <div class="edit">Password:
+              <input type="text" name="name" id="detail_user_password" placeholder="Name" required />
+            </div>
+            <div class="edit">Age:
+              <input type="text" name="name" id="detail_user_age" placeholder="Name" required />
+            </div>
+            <div class="edit">Gender:
+              <input type="text" name="name" id="detail_user_gender" placeholder="Name" required />
+            </div>
+            <div class="edit">Phone:
+              <input type="text" name="name" id="detail_user_cellphone" placeholder="Name" required />
+            </div>
+            <span id="editUserStatus" class="status"></span>
+            <div id="btn-container">
+              <button type="button" id="edit-button">Edit</button>
+              <button type="button" id="end-editing">Save</button>
+            </div>
           </form>
         </div>
         <div id="img-container">
@@ -279,31 +279,31 @@
         <form>
           <hr>
           <div class="input">
-          <label>Title: </label>
-          <input type="text" id="reportIncidentTitle" placeholder="Title" />
+            <label>Title: </label>
+            <input type="text" id="reportIncidentTitle" placeholder="Title" />
           </div>
           <div class="input">
-          <label>Incident Priority</label>
-          <select id="reportIncidentPriority">
-            <option value="URGENT">Urgent</option>
-            <option value="HIGH">High</option>
-            <option value="MEDIUM">Medium</option>
-            <option value="LOW">Low</option>
-          </select>
-          </div>
-
-          <div class="input">
-          <label>Incident Type</label>
-          <select id="reportIncidentType">
-            <option value="HARASSMENT">Harassment</option>
-            <option value="SUSACTIVITY">Suspicious Activity</option>
-            <option value="VIOLENCE">Voilent Confrontation</option>
-          </select>
+            <label>Incident Priority</label>
+            <select id="reportIncidentPriority">
+              <option value="URGENT">Urgent</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
+            </select>
           </div>
 
           <div class="input">
-          <label>Description: </label>
-          <p><textarea cols="40" rows="5" id="reportIncidentDescription" placeholder="Description."></textarea></p>
+            <label>Incident Type</label>
+            <select id="reportIncidentType">
+              <option value="HARASSMENT">Harassment</option>
+              <option value="SUSACTIVITY">Suspicious Activity</option>
+              <option value="VIOLENCE">Voilent Confrontation</option>
+            </select>
+          </div>
+
+          <div class="input">
+            <label>Description: </label>
+            <p><textarea cols="40" rows="5" id="reportIncidentDescription" placeholder="Description."></textarea></p>
 
             <!-- <input type="text" id="reportIncidentDescription" placeholder="Description" /> -->
           </div>
@@ -318,9 +318,9 @@
 
           <div id="reportIncidentMap" class="map"></div>
           <div id="user_location">
-          <p>Your location: </p>
-          <input name="reportIncidentLat" type="text" id="reportIncidentLat" placeholder="Latitude">
-          <input name="reportIncidentLon" type="text" id="reportIncidentLon" placeholder="Longitude">
+            <p>Your location: </p>
+            <input name="reportIncidentLat" type="text" id="reportIncidentLat" placeholder="Latitude">
+            <input name="reportIncidentLon" type="text" id="reportIncidentLon" placeholder="Longitude">
           </div>
           <span id="reportIncidentStatus"></span>
           <div>
@@ -370,8 +370,8 @@
 
           <div id="editIncidentMap" class="map"></div>
           <p>Your location: </p>
-          <input name="editIncidentLat" type="text" id="editIncidentLat" placeholder="Latitude"/>
-          <input name="editIncidentLon" type="text" id="editIncidentLon" placeholder="Longitude"/>
+          <input name="editIncidentLat" type="text" id="editIncidentLat" placeholder="Latitude" />
+          <input name="editIncidentLon" type="text" id="editIncidentLon" placeholder="Longitude" />
 
           <span id="editIncidentStatus"></span>
           <div>
@@ -381,6 +381,7 @@
         </form>
       </div>
     </div>
+  </div>
 
   <!-- CALL FOR HELP MODAL -->
   <div id="callForHelpModal" class="modal">
@@ -392,7 +393,7 @@
         <br /><br />
         <form>
           <h2> Number</h2>
-          <input type="text" id="callForHelpNumberInput" placeholder="Contact Number"/>
+          <input type="text" id="callForHelpNumberInput" placeholder="Contact Number" />
           <h2>Message</h2>
           <p><textarea cols="40" rows="5" id="textContents" placeholder="Type your message in here."></textarea></p>
           <br />
@@ -409,20 +410,21 @@
         </form>
       </div>
     </div>
+  </div>
 
-    <!-- Delete incident modal -->
-    <div id="deleteIncidentModal" class="modal">
-      <div class="delete-incident-modal-content">
-        <div id="deleteIncidentContent">
-          <form>
-            <h2>Delete incident?</h2>
-            <span id="deleteIncidentStatus" class="modalStatus"></span>
-            <input type="button" class="cancelButton" id="deleteIncidentCancelButton" value="Cancel" />
-            <input type="button" class="submitButton" id="deleteIncidentSubmitButton" value="Delete" />
-          </form>
-        </div>
+  <!-- Delete incident modal -->
+  <div id="deleteIncidentModal" class="modal">
+    <div class="delete-incident-modal-content">
+      <div id="deleteIncidentContent">
+        <form>
+          <h2>Delete incident?</h2>
+          <span id="deleteIncidentStatus" class="modalStatus"></span>
+          <input type="button" class="cancelButton" id="deleteIncidentCancelButton" value="Cancel" />
+          <input type="button" class="submitButton" id="deleteIncidentSubmitButton" value="Delete" />
+        </form>
       </div>
     </div>
+  </div>
 
   <!-- Display incident modal -->
   <div id="displayIncidentModal" class="modal">
