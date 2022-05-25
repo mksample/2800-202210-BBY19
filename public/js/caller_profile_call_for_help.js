@@ -12,15 +12,6 @@ function prepareCallForHelpModal() {
     document.getElementById("previewContents").value = "";
     document.getElementById("textContents").value = "";
     document.getElementById("callForHelpPreviewButton").onclick = async function () {
-        let response = await getData("/getUser");
-        if (response) {
-            if (response.status == "fail") {
-                console.log(response.msg);
-            } else {
-                contactNumber = response.user.contactNumber;
-                document.getElementById("contactNumber").innerHTML = contactNumber; // TODO change this to registered number from database
-            }
-        }
         previewCallForHelp();
     };
 }
