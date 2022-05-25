@@ -30,7 +30,6 @@ async function runUpdater() {
     for (const newDashboardIncident of newIncidents) {
         let dashboardIncident = dashboardDOM.querySelector("#incident" + newDashboardIncident.ID);
         if (dashboardIncident && compare(dashboardIncident.incident, newDashboardIncident)) {
-            console.log("incident updated");
             createIncidentDisplay(newDashboardIncident, dashboardDOM, replace);
         }
     }
@@ -39,7 +38,6 @@ async function runUpdater() {
     for (const newIncidentLogIncident of newIncidents) {
         let incidentLogIncident = incidentLogDOM.querySelector("#incident" + newIncidentLogIncident.ID);
         if (incidentLogIncident && compare(incidentLogIncident.incident, newIncidentLogIncident)) {
-            console.log("incident updated");
             createIncidentDisplay(newIncidentLogIncident, incidentLogDOM, replace);
         }
     }

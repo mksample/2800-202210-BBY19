@@ -40,7 +40,6 @@ async function runUpdater() {
     for (const newUser of newUsers) {
         let user = document.getElementById(newUser.ID);
         if (user && compareUser(user.user, newUser)) {
-            console.log("user updated");
             createProfileDisplay(newUser, document.getElementById("userProfiles"), replaceUser);
         }
     }
@@ -49,7 +48,6 @@ async function runUpdater() {
     for (const newIncident of newIncidents) {
         let incident = document.getElementById("incident" + newIncident.ID);
         if (incident && compareIncident(incident.incident, newIncident)) {
-            console.log("incident updated");
             createIncidentDisplay(newIncident, document.getElementById("incidents"), replaceIncident);
         }
     }
@@ -122,26 +120,26 @@ function createProfileDisplay(user, contentDOM, appendMethod) {
     if (user.avatar != null) {
         profile.querySelector(".profilePicture").src = user.avatar;
     }
-    profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email
-    profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;;
+    profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email;
+    profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;
     profile.querySelector('.profile').setAttribute("id", user.ID);
     profile.querySelector('.profile').user = user;
 
     // appending the profile
-    appendMethod(profile)
+    appendMethod(profile);
 
     // when profile clicked on, prepare and show edit profile modal
     document.getElementById(user.ID).addEventListener("click", async function (e) {
         e.stopImmediatePropagation();
         prepareEditUserModal(user);
         openModal(user, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitEditUserModal);
-    })
+    });
 
     // when delete button clicked on, show delete profile modal
     document.getElementById(user.ID).querySelector(".close").addEventListener("click", async function (e) {
         e.stopImmediatePropagation();
         openModal(user, "deleteUserModal", "deleteUserCancelButton", "deleteUserSubmitButton", "deleteUserStatus", submitDeleteUserModal);
-    })
+    });
 }
 
 // Creates incident displays, attaches event listeners to them, and appends with a provided append method.
@@ -163,7 +161,7 @@ function createIncidentDisplay(incident, contentDOM, appendMethod) {
         e.stopImmediatePropagation();
         prepareDisplayIncidentModal(incident);
         openDisplayIncidentModal(incident, "displayIncidentModal", "displayIncidentCancelButton");
-    })
+    });
 }
 
 // Append method. Replaces a user with a an updated version.

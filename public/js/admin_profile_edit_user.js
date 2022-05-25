@@ -44,7 +44,7 @@ function openModal(user, modalID, cancelButton, submitButton, status, saveMethod
     cancel.onclick = function () {
         modal.style.display = "none";
         document.getElementById(status).innerHTML = ""; // clear status when closing
-    }
+    };
 
     var save = document.getElementById(submitButton);
     save.onclick = async function () {
@@ -53,14 +53,14 @@ function openModal(user, modalID, cancelButton, submitButton, status, saveMethod
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
 }
 
 // Sets input values in the edit user modal to users current values.
@@ -102,7 +102,6 @@ async function submitEditUserModal(user) {
             document.getElementById("editUserStatus").innerHTML = response.displayMsg; // display edit user failure
             return false;
         } else {
-            console.log(response.msg);
             updateProfileDisplay(response.user); // update profile display with edited info
         }
     }
@@ -116,8 +115,8 @@ async function updateProfileDisplay(user) {
     if (user.avatar != null) {
         profile.querySelector(".profilePicture").src = user.avatar;
     }
-    profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email
-    profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;;
+    profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email;
+    profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;
 
     // re-prepare event listeners
     let newProfile = profile.cloneNode(true);
@@ -126,11 +125,11 @@ async function updateProfileDisplay(user) {
         e.stopImmediatePropagation();
         prepareEditUserModal(user);
         openModal(user, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitEditUserModal);
-    })
+    });
 
     // when delete button clicked on, show delete profile modal
     newProfile.querySelector(".close").addEventListener("click", async function (e) {
         e.stopImmediatePropagation();
         openModal(user, "deleteUserModal", "deleteUserCancelButton", "deleteUserSubmitButton", "deleteUserStatus", submitDeleteUserModal);
-    })
+    });
 }

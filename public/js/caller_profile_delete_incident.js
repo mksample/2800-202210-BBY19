@@ -28,7 +28,7 @@ function openModal(incident, modalID, cancelButton, submitButton, status, saveMe
     cancel.onclick = function () {
         modal.style.display = "none";
         document.getElementById(status).innerHTML = ""; // clear status when closing
-    }
+    };
 
     var save = document.getElementById(submitButton);
     save.onclick = async function () {
@@ -37,14 +37,14 @@ function openModal(incident, modalID, cancelButton, submitButton, status, saveMe
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
 }
 
 // Submit function for the delete incident modal. POSTS to /deleteIncident, returns true if successful, false if not.
@@ -60,7 +60,6 @@ async function submitDeleteIncidentModal(incident) {
             console.log(response.msg);
             return false;
         } else {
-            console.log(response.msg);
             updateDeleteIncident(incident);
         }
     }

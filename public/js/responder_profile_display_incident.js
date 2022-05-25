@@ -44,7 +44,7 @@ function openModal(incident, modalID, cancelButton, submitButton, status, saveMe
     cancel.onclick = function () {
         modal.style.display = "none";
         document.getElementById(status).innerHTML = ""; // clear status when closing
-    }
+    };
 
     var save = document.getElementById(submitButton);
     save.onclick = async function () {
@@ -53,14 +53,14 @@ function openModal(incident, modalID, cancelButton, submitButton, status, saveMe
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
 }
 
 // Prepares the display incident modal.
@@ -71,7 +71,7 @@ async function prepareDisplayIncidentModal(incident) {
         if (response.status == "fail") {
             console.log(response.msg);
         } else {
-            let joined = false
+            let joined = false;
             let user = response.user;
             for (const responderID of incident.responderIDs) {
                 if (responderID == user.ID) {
@@ -86,7 +86,7 @@ async function prepareDisplayIncidentModal(incident) {
             } else {
                 document.getElementById("displayIncidentResolveButton").style.display = "";
                 document.getElementById("displayIncidentResolutionCommentInput").style.display = "";
-                document.getElementById("joinIncidentModalButton").value = "Responding"
+                document.getElementById("joinIncidentModalButton").value = "Responding";
                 document.getElementById("joinIncidentModalButton").disabled = true;
             }
 
@@ -109,14 +109,14 @@ async function prepareDisplayIncidentModal(incident) {
     document.getElementById("displayIncidentPriority").innerHTML = incident.priority;
     document.getElementById("displayIncidentType").innerHTML = incident.type;
     document.getElementById("displayIncidentStatus").innerHTML = incident.status;
-    document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID
-    document.getElementById("displayIncidentDescription").innerHTML = incident.description
+    document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID;
+    document.getElementById("displayIncidentDescription").innerHTML = incident.description;
     document.getElementById("displayIncidentTimestamp").innerHTML = incident.timestamp;
     if (incident.resolutionComment) {
-        document.getElementById("displayIncidentResolutionComment").style.display = ""
+        document.getElementById("displayIncidentResolutionComment").style.display = "";
         document.getElementById("displayIncidentResolutionComment").innerHTML = incident.resolutionComment;
     } else {
-        document.getElementById("displayIncidentResolutionComment").style.display = "none"
+        document.getElementById("displayIncidentResolutionComment").style.display = "none";
     }
     document.getElementById("displayIncidentResolutionCommentInput").value = "";
 
@@ -124,7 +124,7 @@ async function prepareDisplayIncidentModal(incident) {
     document.getElementById("joinIncidentModalButton").addEventListener("click", async function (e) {
         e.stopImmediatePropagation();
         openModal(incident, "joinIncidentModal", "joinIncidentCancelButton", "joinIncidentSubmitButton", "joinIncidentStatus", submitJoinIncidentModal);
-    })
+    });
 }
 
 // Submit function for the display incident modal. POSTS to /resolveIncident, returns true if successful, false if not.
@@ -142,7 +142,6 @@ async function submitDisplayIncidentModal(incident) {
             document.getElementById("displayIncidentResolveStatus").innerHTML = response.displayMsg; // display resolve failure
             return false;
         } else {
-            console.log(response.msg);
             response.incident.responderIDs = incident.responderIDs;
             updateIncidentDisplay(response.incident); // update profile display with edited info
         }

@@ -45,7 +45,7 @@ function openModal(user, modalID, cancelButton, submitButton, status, saveMethod
     cancel.onclick = function () {
         modal.style.display = "none";
         document.getElementById(status).innerHTML = ""; // clear status when closing
-    }
+    };
 
     var save = document.getElementById(submitButton);
     save.onclick = async function () {
@@ -54,27 +54,26 @@ function openModal(user, modalID, cancelButton, submitButton, status, saveMethod
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
 }
 
 // Submit function for the delete user modal. POSTS to /deleteUser, returns true if successful, false if not.
 // Removes the deleted profile display on success.
 async function submitDeleteUserModal(user) {
-    let response = await postData("/deleteUser", {ID: user.ID})
+    let response = await postData("/deleteUser", {ID: user.ID});
     if (response) {
         if (response.status == "fail") {
             console.log(response.msg);
             document.getElementById("deleteUserStatus").innerHTML = response.displayMsg;
             return false;
         } else {
-            console.log(response.msg);
             let contentDOM = document.getElementById("profiles");
             let profile = document.getElementById(user.ID);
             contentDOM.removeChild(profile.parentNode); // remove profile display

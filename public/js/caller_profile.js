@@ -35,7 +35,7 @@ ready(async function () {
             incidentDisp.querySelector("#deleteIncidentButton").addEventListener("click", async function (e) {
                 e.stopImmediatePropagation();
                 openModal(incident, "deleteIncidentModal", "deleteIncidentCancelButton", "deleteIncidentSubmitButton", "deleteIncidentStatus", submitDeleteIncidentModal);
-            })
+            });
         }
 
         // Append the incident display to the contentDOM.
@@ -47,13 +47,13 @@ ready(async function () {
                 e.stopImmediatePropagation();
                 await prepareDisplayIncidentModal(incident);
                 openDisplayIncidentModal(incident, "displayIncidentModal", "displayIncidentCancelButton");
-            })
+            });
         } else {
             contentDOM.querySelector("#incident" + incident.ID).parentNode.addEventListener("click", async function (e) {
                 e.stopImmediatePropagation();
                 await prepareEditIncidentModal(incident);
                 openModal(incident, "editIncidentModal", "editIncidentCancelButton", "editIncidentSubmitButton", "editIncidentStatus", submitEditIncident);
-            })
+            });
         }
     }
 
@@ -73,7 +73,7 @@ ready(async function () {
         cancel.onclick = function () {
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
-        }
+        };
 
         var save = document.getElementById(submitButton);
         save.onclick = async function () {
@@ -82,27 +82,27 @@ ready(async function () {
                 modal.style.display = "none";
                 document.getElementById(status).innerHTML = ""; // clear status when closing
             }
-        }
+        };
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
                 document.getElementById(status).innerHTML = ""; // clear status when closing
             }
-        }
+        };
     }
 
     // Prepares a callers dashboard
     async function prepareDashboard() {
         document.getElementById("reportIncident").addEventListener("click", async function () {
             prepareCreateIncidentModal();
-            openModal(null, "reportIncidentModal", "reportIncidentCancelButton", "reportIncidentSubmitButton", "reportIncidentStatus", submitReportIncident)
+            openModal(null, "reportIncidentModal", "reportIncidentCancelButton", "reportIncidentSubmitButton", "reportIncidentStatus", submitReportIncident);
         });
 
         document.getElementById("callForHelp").addEventListener("click", function() {
             prepareCallForHelpModal();
             openModal(null, "callForHelpModal", "callForHelpCancelButton", "callForHelpSubmitButton", "callForHelpStatus", submitCallForHelp);
-        })
+        });
     }
 
     // Gets incidents from the database and adds them to the caller incident log.
@@ -177,10 +177,8 @@ ready(async function () {
 function ready(callback) {
     if (document.readyState != "loading") {
         callback();
-        console.log("ready state is 'complete'");
     } else {
         document.addEventListener("DOMContentLoaded", callback);
-        console.log("Listener was invoked");
     }
 }
 

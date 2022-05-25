@@ -44,7 +44,7 @@ function openModal(incident, modalID, cancelButton, submitButton, status, saveMe
     cancel.onclick = function () {
         modal.style.display = "none";
         document.getElementById(status).innerHTML = ""; // clear status when closing
-    }
+    };
 
     var save = document.getElementById(submitButton);
     save.onclick = async function () {
@@ -53,14 +53,14 @@ function openModal(incident, modalID, cancelButton, submitButton, status, saveMe
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
 }
 
 // Submit function for the join incident modal. POSTS to /joinIncident, returns true if successful, false if not.
@@ -76,7 +76,6 @@ async function submitJoinIncidentModal(incident) {
             console.log(response.msg);
             return false;
         } else {
-            console.log(response.msg);
             updateJoinIncident(response.incident); // update incident display
         }
     }
@@ -110,14 +109,14 @@ async function updateJoinIncident(incident) {
     if (document.getElementById("displayIncidentModal").style.display == "block") {
         document.getElementById("displayIncidentResolveButton").style.display = "";
         document.getElementById("displayIncidentResolutionCommentInput").style.display = "";
-        document.getElementById("joinIncidentModalButton").value = "Responding"
+        document.getElementById("joinIncidentModalButton").value = "Responding";
         document.getElementById("joinIncidentModalButton").disabled = true;
         window.onclick = function (event) {
             if (event.target == document.getElementById("displayIncidentModal")) {
                 document.getElementById("displayIncidentModal").style.display = "none";
                 document.getElementById("displayIncidentResolveStatus").innerHTML = "";
             }
-        }
+        };
     }
 
 }
@@ -143,7 +142,7 @@ async function createIncidentDisplay(incident, contentDOM, appendMethod, joinBut
         if (response.status == "fail") {
             console.log(response.msg);
         } else {
-            let joined = false
+            let joined = false;
             let user = response.user;
             for (const responderID of incident.responderIDs) {
                 if (responderID == user.ID) {
@@ -152,7 +151,7 @@ async function createIncidentDisplay(incident, contentDOM, appendMethod, joinBut
             }
             // If the user has already joined the incident, disable the join button.
             if (joined) {
-                contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").value = "Responding"
+                contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").value = "Responding";
                 contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").disabled = true;
             }
         }
@@ -168,7 +167,7 @@ async function createIncidentDisplay(incident, contentDOM, appendMethod, joinBut
         contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").addEventListener("click", async function (e) {
             e.stopImmediatePropagation();
             openModal(incident, "joinIncidentModal", "joinIncidentCancelButton", "joinIncidentSubmitButton", "joinIncidentStatus", submitJoinIncidentModal);
-        })
+        });
     }
 
     // Add an event listener to the display for displaying the incident.
@@ -176,7 +175,7 @@ async function createIncidentDisplay(incident, contentDOM, appendMethod, joinBut
         e.stopImmediatePropagation();
         await prepareDisplayIncidentModal(incident);
         openModal(incident, "displayIncidentModal", "displayIncidentCancelButton", "displayIncidentResolveButton", "displayIncidentResolveStatus", submitDisplayIncidentModal);
-    })
+    });
 }
 
 function replace(incidentDisp, contentDOM) {
@@ -185,5 +184,5 @@ function replace(incidentDisp, contentDOM) {
 }
 
 function appendBefore(incidentDisp, contentDOM) {
-    contentDOM.insertBefore(incidentDisp, contentDOM.firstChild)
+    contentDOM.insertBefore(incidentDisp, contentDOM.firstChild);
 }

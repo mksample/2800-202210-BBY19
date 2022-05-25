@@ -180,13 +180,6 @@
         <div id="user_profile_pictue"></div>
         <h1>Profile</h1>
         <div id="user_profile_section">
-          <div id="container">
-            <form id="upload-images-form">
-              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-                multiple="multiple" />
-              <input id="submitProfilePhoto" type="submit" value="Save profile image" />
-            </form>
-          </div>
           <br><br>
           <form>
             <img id="detail_user_picture" width="200" src="/imgs/saveme.jpg" alt="">
@@ -212,6 +205,13 @@
             <button type="button" id="edit-button">Edit</button>
             <button type="button" id="end-editing">Save</button>
           </form>
+          <div id="container">
+            <form id="upload-images-form">
+              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
+                multiple="multiple" />
+              <input id="submitProfilePhoto" type="submit" value="Save profile image" />
+            </form>
+          </div>
         </div>
       </section>
 
@@ -347,8 +347,8 @@
 
           <div id="editIncidentMap" class="map"></div>
           <p>Your location: </p>
-          <input name="editIncidentLat" type="text" id="editIncidentLat" placeholder="Latitude">
-          <input name="editIncidentLon" type="text" id="editIncidentLon" placeholder="Longitude">
+          <input name="editIncidentLat" type="text" id="editIncidentLat" placeholder="Latitude"/>
+          <input name="editIncidentLon" type="text" id="editIncidentLon" placeholder="Longitude"/>
 
           <span id="editIncidentStatus"></span>
           <div>
@@ -369,10 +369,12 @@
         <div id="reportContext"> </div>
         <br /><br />
         <form>
-          Message
+          <h2> Number</h2>
+          <input id="callForHelpNumberInput" placeholder="Contact Number"/>
+          <h2>Message</h2>
           <p><textarea cols="40" rows="5" id="textContents" placeholder="Type your message in here."></textarea></p>
           <br />
-          Preview
+          <h2>Preview</h2>
           <p><textarea cols="40" rows="5" id="previewContents" placeholder="Push the preview button."
               readonly></textarea></p>
           <br />

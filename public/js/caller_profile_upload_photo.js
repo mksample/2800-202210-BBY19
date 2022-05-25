@@ -67,7 +67,7 @@ async function uploadImages(e) {
             }
         });
     }).catch(function (err) {
-        ("Error:", err)
+        ("Error:", err);
     });
 }
 
@@ -82,15 +82,14 @@ async function uploadImagesIncident(incident, imageUpload) {
             formData.append("files", imageUpload.files[i]);
         }
     }
-    formData.append("incidentID", incident.ID)
+    formData.append("incidentID", incident.ID);
 
     let image = "";
-    let response = await postForm("/upload-images-incident", formData)
+    let response = await postForm("/upload-images-incident", formData);
     if (response) {
         if (response.status == "fail") {
             console.log(response.msg);
         } else {
-            console.log(response.msg);
             image = response.image;
         }
     }
