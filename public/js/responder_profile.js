@@ -52,7 +52,7 @@ ready(async function () {
                     contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").style.backgroundColor = "#71e027";
                     contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").style.cursor = "default"
                     contentDOM.querySelector("#incident" + incident.ID).querySelector("#joinIncidentButton").disabled = true;
-                } 
+                }
             }
         }
         if (incident.image) {
@@ -89,8 +89,10 @@ ready(async function () {
                 console.log(response.msg);
             } else {
                 let contentDOM = document.getElementById("incidents");
-                for (const incident of response.incidents) {
-                    await createIncidentDisplay(incident, contentDOM, appendAfter, true);
+                if (response.incidents.length > 0) {
+                    for (const incident of response.incidents) {
+                        await createIncidentDisplay(incident, contentDOM, appendAfter, true);
+                    }
                 }
             }
         }
@@ -104,8 +106,10 @@ ready(async function () {
                 console.log(response.msg);
             } else {
                 let contentDOM = document.getElementById("incidentLog");
-                for (const incident of response.incidents) {
-                    createIncidentDisplay(incident, contentDOM, appendAfter, false); // dont display a join button in the incidentLog
+                if (response.incidents.length > 0) {
+                    for (const incident of response.incidents) {
+                        createIncidentDisplay(incident, contentDOM, appendAfter, false); // dont display a join button in the incidentLog
+                    }
                 }
             }
         }
