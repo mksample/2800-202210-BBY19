@@ -50,7 +50,7 @@ async function prepareProfile() {
             } else {
                 for (let i = 0; i < input.length; i++) {
                     input[i].contentEditable = false;
-                    input[i].style.color = "grey"
+                    input[i].style.color = "grey";
                     document.getElementById("editUserStatus").innerHTML = "";
                 }
             }
