@@ -326,27 +326,37 @@
     <div class="edit-incident-modal-content">
       <div id="modalContents">
         <h2>Edit Incident</h2>
-        <form>
+        <form id="edit-incident-info">
+          <hr>
+          <div class ="editIncidentContent">
+          <label>Title:</label>
           <input type="text" id="editIncidentTitle" placeholder="Title" />
-          <p>Incident Priority</p>
-          <select id="editIncidentPriority">
-            <option value="URGENT">Urgent</option>
-            <option value="HIGH">High</option>
-            <option value="MEDIUM">Medium</option>
-            <option value="LOW">Low</option>
-          </select>
-
-          <p>Incident Type</p>
-          <select id="editIncidentType">
-            <option value="HARASSMENT">Harassment</option>
-            <option value="SUSACTIVITY">Suspicious Activity</option>
-            <option value="VIOLENCE">Violent Confrontation</option>
-          </select>
-
-          <div>
-            <input type="text" id="editIncidentDescription" placeholder="Description" />
           </div>
 
+          <div class ="editIncidentContent">
+            <label>Incident Priority:</label>
+            <select id="editIncidentPriority">
+              <option value="URGENT">Urgent</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
+            </select>
+          </div>
+
+          <div class ="editIncidentContent">
+            <label id="incitype">Incident Type:</label>
+            <select id="editIncidentType">
+              <option value="HARASSMENT">Harassment</option>
+              <option value="SUSACTIVITY">Suspicious Activity</option>
+              <option value="VIOLENCE">Voilent Confrontation</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Description</label>
+            <p><textarea cols="40" rows="5" id="editIncidentDescription" placeholder="Description."></textarea></p>
+          </div>
+          
           <div>
             <p>Upload Pictures</p>
             <form>

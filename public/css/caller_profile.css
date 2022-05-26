@@ -779,13 +779,20 @@ hr {
     text-align: center;
 }
 
-#editIncidentContent {
-    display: flex;
-    background-size: cover;
-    background-repeat: no-repeat;
-    justify-content: center;
+#edit-incident-info {
+    font-weight: bold;
+    margin-top: 5%;
+    text-align: left;
     align-items: center;
-    flex-direction: column;
+}
+
+
+.editIncidentContent {
+   margin-bottom: 10px;
+}
+
+.editIncidentContent label {
+    gap: 20px; 
 }
 
 /* profile styling */
@@ -943,9 +950,14 @@ input[id=textContents] {
     vertical-align: top;
 }
 
-  .editable{
+.editable {
       color: #797979;
-  }
+}
+
+textarea {  
+   font-family:"Poppins";  
+   font-size: 12px;   
+}
 
 @media (max-width:900px) {
 
