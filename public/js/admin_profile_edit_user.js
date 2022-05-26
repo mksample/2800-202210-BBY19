@@ -128,7 +128,7 @@ async function updateProfileDisplay(user) {
     });
 
     // when delete button clicked on, show delete profile modal
-    newProfile.querySelector(".close").addEventListener("click", async function (e) {
+    newProfile.querySelector(".delete").addEventListener("click", async function (e) {
         e.stopImmediatePropagation();
         openModal(user, "deleteUserModal", "deleteUserCancelButton", "deleteUserSubmitButton", "deleteUserStatus", submitDeleteUserModal);
     });

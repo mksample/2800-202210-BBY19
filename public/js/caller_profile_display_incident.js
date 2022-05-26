@@ -26,6 +26,7 @@ async function prepareDisplayIncidentModal(incident) {
     if (incident.image) {
         document.getElementById("displayIncidentImage").src = incident.image;
     }
+    var date = new Date(Date.parse(incident.timestamp));
     document.getElementById("displayIncidentTitle").innerHTML = incident.title;
     document.getElementById("displayIncidentPriority").innerHTML = incident.priority;
     document.getElementById("displayIncidentType").innerHTML = incident.type;
@@ -40,7 +41,7 @@ async function prepareDisplayIncidentModal(incident) {
     } else {
         document.getElementById("displayIncidentImage").style.display = "none";
     }
-    document.getElementById("displayIncidentTimestamp").innerHTML = incident.timestamp;
+    document.getElementById("displayIncidentTimestamp").innerHTML = date.toLocaleString('en-US', { timeZone: 'PST' });
     if (incident.resolutionComment) {
         document.getElementById("displayIncidentResolutionComment").style.display = "";
         document.getElementById("displayIncidentResolutionComment").innerHTML = incident.resolutionComment;

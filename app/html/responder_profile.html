@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Set favicon -->
-  <link href="imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="/imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
 
   <!-- Our StyleSheet-->
   <link rel="stylesheet" href="/css/responder_profile.css">
@@ -95,7 +95,7 @@
     <div class="nav-mobile">
       <ul>
 
-        <li class ="active" onclick=show(0)>
+        <li class="active" onclick=show(0)>
           <span> <i class="material-icons">home</i></span>
           <h3>Home</h3>
         </li>
@@ -128,8 +128,8 @@
 
 
 
-     <!-- SIDEBAR NAVIGATION -->
-     <aside class="sidebar">
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
       <!-- SIDEBAR CLOSE WHEN ON MOBILE-->
       <h2>SaveMe<span class="close"><i class="material-icons">close</i></span></h2>
 
@@ -145,53 +145,39 @@
 
           <span id="sessionName" class="name">John Doe</span>
 
-            <span id="sessionEmail" class="email">JohnDoe@gmail.com</span>
+          <span id="sessionEmail" class="email">JohnDoe@gmail.com</span>
 
-            <span class="status">Online</span>
-
-          </div>
+          <span class="status">Online</span>
 
         </div>
 
-        <!-- SIDE NAVIGATION SEARCH BAR-->
-        <div class="search-bar">
-          <form>
-            <div class="search">
+      </div>
 
-              <input type="text" placeholder="Search Profile...">
-
-              <button type="submit"><span><i class="material-icons">search</i></span></button>
-
-            </div>
-
-          </form>
-        </div>
-
-        <!-- SIDE NAVIGATION GENERAL-->
-        <div class="side-nav">
-          <h2>General</h2>
-          <nav>
-            <ul>
-              <li class ="active" onclick="show(0)">
-                <span><i class="material-icons">person_outline</i></span>
-                <h3>Profile</h3>
-              </li>
-              <li onclick="show(1)">
-                <span><i class="material-icons">speed</i></span>
-                <h3>Dashboard</h3>
-              </li>
-              <li onclick="show(2)">
-                <span><i class="material-icons">timeline</i></span>
-                <h3>Incident Log</h3>
-              </li>
-              <li onclick="show(3)">
-                <span><i class="material-icons">settings</i></span>
-                <h3>Settings</h3>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </aside>
+      <!-- SIDE NAVIGATION GENERAL-->
+      <div class="side-nav">
+        <h2>General</h2>
+        <nav>
+          <ul>
+            <li class="active" onclick="show(0)">
+              <span><i class="material-icons">person_outline</i></span>
+              <h3>Profile</h3>
+            </li>
+            <li onclick="show(1)">
+              <span><i class="material-icons">speed</i></span>
+              <h3>Dashboard</h3>
+            </li>
+            <li onclick="show(2)">
+              <span><i class="material-icons">timeline</i></span>
+              <h3>Incident Log</h3>
+            </li>
+            <li onclick="show(3)">
+              <span><i class="material-icons">settings</i></span>
+              <h3>Settings</h3>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
 
     <!-- DASHBOARD TAB -->
     <div class="main">
@@ -200,45 +186,44 @@
         <h1>Profile</h1>
         <div id="user_profile_section">
           <form>
-              <img id="detail_user_picture" width="200" alt="">
-              <div class="edit">First Name:
-                <input type="text" name="name" id="detail_user_firstN" placeholder="Name" required />
-              </div>
-              <div class="edit">Last Name:
-               <input type="text" name="name" id="detail_user_lastN" placeholder="Name" required />
-              </div>
-              <div class="edit">Email:
-                <input type="text" name="name" id="detail_user_email" placeholder="Name" required />
-              </div>
-             <div class="edit">Password:
-                <input type="text" name="name" id="detail_user_password" placeholder="Name" required />
-              </div>
-              <div class="edit">Age:
-                <input type="text" name="name" id="detail_user_age" placeholder="Name" required />
-              </div>
-              <div class="edit">Gender:
-                <input type="text" name="name" id="detail_user_gender" placeholder="Name" required />
-              </div>
-             <div class="edit">Phone:
-                <input type="text" name="name" id="detail_user_cellphone" placeholder="Name" required />
-             </div>
-             <span id="editUserStatus" class="status"></span>
-              <div id="btn-container">
-                <button type="button" id="edit-button">Edit</button>
-                <button type="button" id="end-editing">Save</button>
-              </div> 
+            <img id="detail_user_picture" width="200" alt="">
+            <div class="edit">First Name:
+              <input type="text" name="name" id="detail_user_firstN" placeholder="Name" required />
+            </div>
+            <div class="edit">Last Name:
+              <input type="text" name="name" id="detail_user_lastN" placeholder="Name" required />
+            </div>
+            <div class="edit">Email:
+              <input type="text" name="name" id="detail_user_email" placeholder="Name" required />
+            </div>
+            <div class="edit">Password:
+              <input type="text" name="name" id="detail_user_password" placeholder="Name" required />
+            </div>
+            <div class="edit">Age:
+              <input type="text" name="name" id="detail_user_age" placeholder="Name" required />
+            </div>
+            <div class="edit">Gender:
+              <input type="text" name="name" id="detail_user_gender" placeholder="Name" required />
+            </div>
+            <div class="edit">Phone:
+              <input type="text" name="name" id="detail_user_cellphone" placeholder="Name" required />
+            </div>
+            <span id="editUserStatus" class="status"></span>
+            <div id="btn-container">
+              <button type="button" id="edit-button">Edit</button>
+              <button type="button" id="end-editing">Save</button>
+            </div>
           </form>
         </div>
         <div id="img-container">
           <form id="upload-images-form">
-            <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-              multiple="multiple" />
+            <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg" />
             <input id="submitProfilePhoto" type="submit" value="Save profile image" />
           </form>
         </div>
       </section>
 
-        <!-- DASHBOARD TAB -->
+      <!-- DASHBOARD TAB -->
       <section id="dashboard" class="profile tabs">
         <h1>Incident Live Feed</h1>
         <div id="incidents" class="userpost">
@@ -278,6 +263,9 @@
           <p id="displayIncidentCallerID"></p>
           <p id="displayIncidentDescription"></p>
           <div id="displayIncidentMap" class="map"></div>
+          <p>Location: </p>
+          <p id="displayIncidentLat"></p>
+          <p id="displayIncidentLon"></p>
           <img id="displayIncidentImage" src="" width="300" alt="">
           <p id="displayIncidentTimestamp"></p>
           <p id="displayIncidentResolutionComment"></p>
@@ -379,20 +367,20 @@
   <!--Easter Egg, change font-->
   <script>
 
-    let counter = 0; 
+    let counter = 0;
 
-    const logo = document.getElementById("logo"); 
-    const selectbody = document.getElementsByTagName("body")[0]; 
-
-
-    logo.addEventListener('click', toggleFont); 
+    const logo = document.getElementById("logo");
+    const selectbody = document.getElementsByTagName("body")[0];
 
 
-    function toggleFont(){
-      counter +=1; 
+    logo.addEventListener('click', toggleFont);
 
-      if(counter == 5) {
-          selectbody.style.fontFamily = "monospace"; 
+
+    function toggleFont() {
+      counter += 1;
+
+      if (counter == 5) {
+        selectbody.style.fontFamily = "monospace";
       }
 
     }
