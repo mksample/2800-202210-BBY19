@@ -879,6 +879,10 @@ aside .name {
     cursor: pointer;
 }
 
+.editable{
+    color: #797979;
+}
+
 @media (max-width:900px) {
     body {
         background-size: auto;
