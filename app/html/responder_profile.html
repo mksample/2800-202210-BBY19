@@ -260,21 +260,19 @@
           <p id="displayIncidentPriority"></p>
           <p id="displayIncidentType"></p>
           <p id="displayIncidentStatus"></p>
-          <p id="displayIncidentCallerID"></p>
           <p id="displayIncidentDescription"></p>
           <div id="displayIncidentMap" class="map"></div>
-          <p>Location: </p>
-          <p id="displayIncidentLat"></p>
-          <p id="displayIncidentLon"></p>
+          <span id="displayIncidentLat"></span>
+          <span id="displayIncidentLon"></span>
           <img id="displayIncidentImage" src="" width="300" alt="">
           <p id="displayIncidentTimestamp"></p>
           <p id="displayIncidentResolutionComment"></p>
+          <textarea id="displayIncidentResolutionCommentInput" placeholder="Resolution Comment"></textarea>
         </div>
         <div id="displayIncidentModalButtons">
           <form>
             <span id="displayIncidentResolveStatus" class="modalStatus"></span>
             <input type="button" class="joinButton" id="joinIncidentModalButton" value="Respond">
-            <input type="text" id="displayIncidentResolutionCommentInput" placeholder="Resolution Comment">
             <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
             <input type="button" class="submitButton" id="displayIncidentResolveButton" value="Resolve" />
           </form>

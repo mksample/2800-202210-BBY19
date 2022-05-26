@@ -963,7 +963,7 @@ input[id=textContents] {
     height: 100px;
     text-align:left;
     vertical-align: top;
-  }
+}
 
   .editable{
       color: #797979;
@@ -977,7 +977,8 @@ input[id=textContents] {
         -o-background-size: cover;
         background-size: auto;
         height: 100%;
-        overflow: hidden;
+        overflow: scroll;
+        background-repeat: repeat;
     }
     header {
         width: 100%;
