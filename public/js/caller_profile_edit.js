@@ -26,7 +26,9 @@ async function prepareProfile() {
     edit_button.addEventListener("click", function () {
         for (let i = 0; i < input.length; i++) {
             input[i].readOnly = false;
+            input[i].style.color = "black"
             input[2].readOnly = true; // email address cannot be changed, except admin
+            input[2].style.color = "grey"
         }
 
     });
@@ -48,6 +50,7 @@ async function prepareProfile() {
             } else {
                 for (let i = 0; i < input.length; i++) {
                     input[i].contentEditable = false;
+                    input[i].style.color = "grey"
                     document.getElementById("editUserStatus").innerHTML = "";
                 }
             }
