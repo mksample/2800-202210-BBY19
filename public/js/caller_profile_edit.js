@@ -1,9 +1,8 @@
 "use strict";
 // Prepares a users profile tab
 async function prepareProfile() {
-    const paragraph = document.getElementsByClassName("edit");
+    const input = document.getElementsByClassName("editable");
     const edit_button = document.getElementById("edit-button");
-    const end_button = document.getElementById("end-editing");
 
     let response = await getData("/getUser");
     if (response) {
@@ -23,11 +22,13 @@ async function prepareProfile() {
         }
     }
 
-    edit_button.addEventListener("click", function () {
 
-        for (let i = 0; i < paragraph.length; i++) {
-            paragraph[i].contentEditable = true;
-            paragraph[2].contentEditable = false; // email address cannot be changed, except admin
+    edit_button.addEventListener("click", function () {
+        for (let i = 0; i < input.length; i++) {
+            input[i].readOnly = false;
+            input[i].style.color = "black"
+            input[2].readOnly = true; // email address cannot be changed, except admin
+            input[2].style.color = "grey"
         }
 
     });
@@ -47,8 +48,9 @@ async function prepareProfile() {
                 console.log(response.msg);
                 document.getElementById("editUserStatus").innerHTML = response.displayMsg; // display edit user failure
             } else {
-                for (let i = 0; i < paragraph.length; i++) {
-                    paragraph[i].contentEditable = false;
+                for (let i = 0; i < input.length; i++) {
+                    input[i].contentEditable = false;
+                    input[i].style.color = "grey"
                     document.getElementById("editUserStatus").innerHTML = "";
                 }
             }

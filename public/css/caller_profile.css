@@ -965,6 +965,10 @@ input[id=textContents] {
     vertical-align: top;
   }
 
+  .editable{
+      color: #797979;
+  }
+
 @media (max-width:900px) {
 
     body {
