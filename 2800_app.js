@@ -5,9 +5,6 @@ const sanitizeHtml = require("sanitize-html");
 const app = express();
 const fs = require("fs");
 const multer = require("multer"); // storing images
-const readline = require('readline');
-const { JSDOM } = require('jsdom');
-const { connected } = require("process");
 
 const localSqlAuthentication = { // sql connection settings
     host: "127.0.0.1",// for Mac os, type 127.0.0.1
