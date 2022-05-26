@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Set favicon -->
-  <link href="imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="/imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
 
   <!-- Our StyleSheet-->
   <link rel="stylesheet" href="/css/admin_profile.css">
@@ -24,7 +24,7 @@
   <template id="UserProfileTemplate">
     <div class="posts">
       <div class="profile">
-        <span id="deleteProfileButton" class="close">&times;</span>
+        <span id="deleteProfileButton" class="delete">&times;</span>
         <img class="profilePicture" src="/imgs/saveme.jpg" alt="logo" />
         <span class="profileEmail">
 
@@ -243,8 +243,7 @@
         </div>
         <div id="img-container">
           <form id="upload-images-form">
-            <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-              multiple="multiple" />
+            <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg" />
             <input id="submitProfilePhoto" type="submit" value="Save profile image" />
           </form>
         </div>
@@ -389,6 +388,9 @@
           <p id="displayIncidentCallerID"></p>
           <p id="displayIncidentDescription"></p>
           <div id="displayIncidentMap" class="map"></div>
+          <p>Location: </p>
+          <p id="displayIncidentLat"></p>
+          <p id="displayIncidentLon"></p>
           <img id="displayIncidentImage" src="" width="300" alt="">
           <p id="displayIncidentLat"></p>
           <p id="displayIncidentLon"></p>

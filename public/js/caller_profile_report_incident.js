@@ -28,8 +28,8 @@ async function submitReportIncident(incident) {
 function prepareCreateIncidentModal() {
     initMap(null, null, null, "reportIncidentMap", true, true, false, "reportIncidentLat", "reportIncidentLon");
     document.getElementById("reportIncidentTitle").value = ""; 
-    document.getElementById("reportIncidentPriority").value = "URGENT";
-    document.getElementById("reportIncidentType").value = "HARASSMENT";
+    document.getElementById("reportIncidentPriority").value = "NONE";
+    document.getElementById("reportIncidentType").value = "NONE";
     document.getElementById("reportIncidentDescription").value = "";
     document.getElementById("reportIncidentLat").value = "";
     document.getElementById("reportIncidentLon").value = "";

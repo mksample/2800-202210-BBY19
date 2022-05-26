@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Set favicon -->
-  <link href="imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="/imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
 
   <!-- Our StyleSheet-->
   <link rel="stylesheet" href="/css/caller_profile.css">
@@ -220,8 +220,7 @@
         </div>
         <div id="img-container">
           <form id="upload-images-form">
-            <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-              multiple="multiple" />
+            <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg" />
             <input id="submitProfilePhoto" type="submit" value="Save profile image" />
           </form>
       </section>
@@ -285,6 +284,7 @@
           <div class="input">
             <label>Incident Priority</label>
             <select id="reportIncidentPriority">
+              <option value="NONE">Select</option>
               <option value="URGENT">Urgent</option>
               <option value="HIGH">High</option>
               <option value="MEDIUM">Medium</option>
@@ -295,6 +295,7 @@
           <div class="input">
             <label>Incident Type</label>
             <select id="reportIncidentType">
+              <option value="NONE">Select</option>
               <option value="HARASSMENT">Harassment</option>
               <option value="SUSACTIVITY">Suspicious Activity</option>
               <option value="VIOLENCE">Voilent Confrontation</option>
@@ -311,8 +312,7 @@
           <div id="incident_picture">
             <label>Upload Pictures</label>
             <form>
-              <input id="reportIncidentImageUpload" type="file" value="Upload Image"
-                accept="image/png, image/gif, image/jpeg" multiple="multiple" />
+              <input id="reportIncidentImageUpload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg" />
             </form>
           </div>
 
@@ -361,8 +361,7 @@
           <div>
             <p>Upload Pictures</p>
             <form>
-              <input id="editIncidentImageUpload" type="file" value="Upload Image"
-                accept="image/png, image/gif, image/jpeg" multiple="multiple" />
+              <input id="editIncidentImageUpload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"/>
             </form>
           </div>
 
