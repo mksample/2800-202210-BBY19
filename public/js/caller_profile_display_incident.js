@@ -41,7 +41,7 @@ async function prepareDisplayIncidentModal(incident) {
     } else {
         document.getElementById("displayIncidentImage").style.display = "none";
     }
-    document.getElementById("displayIncidentTimestamp").innerHTML = date.toLocaleString('en-US', { timeZone: 'PST' });
+    document.getElementById("displayIncidentTimestamp").innerHTML = date.toLocaleString('en-US');
     if (incident.resolutionComment) {
         document.getElementById("displayIncidentResolutionComment").style.display = "";
         document.getElementById("displayIncidentResolutionComment").innerHTML = incident.resolutionComment;
