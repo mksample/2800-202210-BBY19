@@ -28,8 +28,8 @@ async function submitReportIncident(incident) {
 function prepareCreateIncidentModal() {
     initMap(null, null, null, "reportIncidentMap", true, true, false, "reportIncidentLat", "reportIncidentLon");
     document.getElementById("reportIncidentTitle").value = ""; 
-    document.getElementById("reportIncidentPriority").value = "URGENT";
-    document.getElementById("reportIncidentType").value = "HARASSMENT";
+    document.getElementById("reportIncidentPriority").value = "NONE";
+    document.getElementById("reportIncidentType").value = "NONE";
     document.getElementById("reportIncidentDescription").value = "";
     document.getElementById("reportIncidentLat").value = "";
     document.getElementById("reportIncidentLon").value = "";
@@ -54,7 +54,7 @@ function createIncidentDisplay(incident, contentDOM, appendFunction) {
     incidentDisp.querySelector("#incidentPriority").innerHTML = "Priority: " + incident.priority;
     incidentDisp.querySelector("#incidentType").innerHTML = "Type: " + incident.type;
     incidentDisp.querySelector("#incidentStatus").innerHTML = "Status: " + incident.status;
-    incidentDisp.querySelector("#incidentTimestamp").innerHTML = date.toLocaleString('en-US', { timeZone: 'PST' });
+    incidentDisp.querySelector("#incidentTimestamp").innerHTML = date.toLocaleString('en-US');
     incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
     incidentDisp.querySelector('.incident').incident = incident;
 

@@ -166,8 +166,11 @@ aside h2 {
 /* The Close Button */
 .close {
     color: #aaaaaa;
+    float: right;
     font-size: 28px;
     font-weight: bold;
+    margin-right: 5px;
+    display: none;
 }
 
 .close:hover,
@@ -213,44 +216,6 @@ aside .name {
     font-weight: 900;
 }
 
-
-/* Styling for search bar */
-aside .search-bar {
-    border-top: 1px solid lightblue;
-    padding: 20px;
-}
-
-aside .search-bar .search {
-    position: relative;
-    display: flex;
-    width: 100%;
-}
-
-aside .search-bar input {
-    display: block;
-    width: 100%;
-    padding: 6px 12px;
-    font-size: 1rem;
-    line-height: 1.5;
-    border: 1px solid lightblue;
-    border-radius: 4px 0 0 4px;
-    outline: none;
-    font-family: "open sans", serif;
-    font-weight: 900;
-    color: rgb(10, 89, 116);
-}
-
-aside .search-bar button {
-    padding: 6px 12px;
-    font-size: 1rem;
-    border-radius: 0 4px 4px 0;
-    border: 1px solid  lightblue;
-    background: #d63b00; 
-    color: white;
-    outline: none;
-    cursor: pointer;
-    border-left: 0;
-}
 
 /* Styling for tabs section in the sidebar */
 .side-nav {
@@ -396,7 +361,6 @@ aside .search-bar button {
     line-height: 30px;
 }
 
-
 .incident {
     display: grid;
     grid-template-columns: 90% 10%;
@@ -416,7 +380,7 @@ aside .search-bar button {
     grid-column: 1 / span 1;
     grid-row: 1 / span 1;
     text-align: center;
-    overflow: scroll;
+    overflow: hidden;
     font-weight: bold;
 }
 
@@ -689,8 +653,15 @@ hr {
 #reportIncidentStatus{
     margin-top: 2%;
     color: red;
-
 }
+
+#editUserStatus{
+    color: red;
+    font-weight: bold;
+    display: table;
+    margin: 0 auto;
+}
+
 
 .report-incident-modal-content, .edit-report-modal-content, .edit-active-modal-content, .delete-incident-modal-content {
     background-color: #fefefe;
@@ -970,6 +941,10 @@ input[id=textContents] {
     height: 100px;
     text-align:left;
     vertical-align: top;
+}
+
+  .editable{
+      color: #797979;
   }
 
 @media (max-width:900px) {
@@ -980,7 +955,8 @@ input[id=textContents] {
         -o-background-size: cover;
         background-size: auto;
         height: 100%;
-        overflow: hidden;
+        overflow: scroll;
+        background-repeat: repeat;
     }
     header {
         width: 100%;

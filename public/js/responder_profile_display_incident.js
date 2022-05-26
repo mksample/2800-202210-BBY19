@@ -91,6 +91,7 @@ async function prepareDisplayIncidentModal(incident) {
             } else {
                 document.getElementById("displayIncidentResolveButton").style.display = "";
                 document.getElementById("displayIncidentResolutionCommentInput").style.display = "";
+                document.getElementById("joinIncidentModalButton").style.display = "";
                 document.getElementById("joinIncidentModalButton").value = "Responding";
                 document.getElementById("joinIncidentModalButton").style.border = "1px solid #71e027";
                 document.getElementById("joinIncidentModalButton").style.backgroundColor = "#71e027";
@@ -106,6 +107,7 @@ async function prepareDisplayIncidentModal(incident) {
             }
         }
     }
+    var date = new Date(Date.parse(incident.timestamp));
     initDisplayMap(incident.lat, incident.lon, null, "displayIncidentMap");
     if (incident.image) {
         document.getElementById("displayIncidentImage").style.display = "";
@@ -114,12 +116,13 @@ async function prepareDisplayIncidentModal(incident) {
         document.getElementById("displayIncidentImage").style.display = "none";
     }
     document.getElementById("displayIncidentTitle").innerHTML = incident.title;
-    document.getElementById("displayIncidentPriority").innerHTML = incident.priority;
-    document.getElementById("displayIncidentType").innerHTML = incident.type;
-    document.getElementById("displayIncidentStatus").innerHTML = incident.status;
-    document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID;
+    document.getElementById("displayIncidentPriority").innerHTML = "Priority: " + incident.priority;
+    document.getElementById("displayIncidentType").innerHTML = "Type: " + incident.type;
+    document.getElementById("displayIncidentStatus").innerHTML = "Status: " + incident.status;
     document.getElementById("displayIncidentDescription").innerHTML = incident.description;
-    document.getElementById("displayIncidentTimestamp").innerHTML = incident.timestamp;
+    document.getElementById("displayIncidentLat").innerHTML = "Latitude: " + incident.lat;
+    document.getElementById("displayIncidentLon").innerHTML = "Longitude: "+ incident.lon;
+    document.getElementById("displayIncidentTimestamp").innerHTML = date.toLocaleString('en-US');
     if (incident.resolutionComment) {
         document.getElementById("displayIncidentResolutionComment").style.display = "";
         document.getElementById("displayIncidentResolutionComment").innerHTML = incident.resolutionComment;

@@ -39,7 +39,7 @@ ready(async function () {
         });
 
         // when delete button clicked on, show delete profile modal
-        document.getElementById(user.ID).querySelector(".close").addEventListener("click", async function (e) {
+        document.getElementById(user.ID).querySelector(".delete").addEventListener("click", async function (e) {
             e.stopImmediatePropagation();
             openModal(user, "deleteUserModal", "deleteUserCancelButton", "deleteUserSubmitButton", "deleteUserStatus", submitDeleteUserModal);
         });
@@ -54,7 +54,7 @@ ready(async function () {
         incidentDisp.querySelector("#incidentPriority").innerHTML = "Priority: " + incident.priority;
         incidentDisp.querySelector("#incidentType").innerHTML = "Type: " + incident.type;
         incidentDisp.querySelector("#incidentStatus").innerHTML = "Status: " + incident.status;
-        incidentDisp.querySelector("#incidentTimestamp").innerHTML = date.toLocaleString('en-US', { timeZone: 'PST' });
+        incidentDisp.querySelector("#incidentTimestamp").innerHTML = date.toLocaleString('en-US');
         incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
         incidentDisp.querySelector('.incident').incident = incident;
 

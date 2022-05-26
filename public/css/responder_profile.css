@@ -6,11 +6,6 @@
     box-sizing: border-box;
 }
 
-.map {
-    height: 350px;
-    width: 100%;
-}
-
 /* background image for the body */
 body {
     overflow-x: hidden;
@@ -30,7 +25,7 @@ li {
 /* contains logo, top nav bar */
 header {
     display: flex;
-    background-color: white; 
+    background-color: white;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 0 100px rgba(0, 0, 0, .15), 0 4px 5px rgba(0, 0, 0, 0.3);
@@ -83,10 +78,10 @@ header .nav ul li h3 {
     text-transform: uppercase;
     font-size: 20px;
     color: #d63b00;
-   
+
 }
 
-header .nav ul li h3:hover{
+header .nav ul li h3:hover {
     color: rgb(10, 89, 116);
     text-decoration: underline;
 }
@@ -97,6 +92,7 @@ header .nav ul li:hover {
     background: lightblue;
     box-shadow: 0 -4px 0px #d63b00 inset;
 }
+
 /* styling for the links*/
 a:link {
     color: #d63b00;
@@ -128,7 +124,7 @@ a:hover {
     background-color: white;
     border-style: none;
     color: #d63b00;
-    font-size:20px;
+    font-size: 20px;
     text-transform: uppercase;
     font-weight: 600;
     font-family: "Poppins";
@@ -160,6 +156,7 @@ aside {
     overflow: auto;
     z-index: 10;
 }
+
 /* Side-bar heading*/
 aside h2 {
     padding: 20px;
@@ -174,6 +171,7 @@ aside h2 {
     font-size: 28px;
     font-weight: bold;
     margin-right: 5px;
+    display: none;
 }
 
 .close:hover,
@@ -185,7 +183,7 @@ aside h2 {
 
 aside .user-side {
     padding: 20px;
-    border-top: 1px solid lightblue; 
+    border-top: 1px solid lightblue;
 }
 
 /* User uploaded image */
@@ -220,44 +218,6 @@ aside .name {
 }
 
 
-/* Styling for search bar */
-aside .search-bar {
-    border-top: 1px solid lightblue;
-    padding: 20px;
-}
-
-aside .search-bar .search {
-    position: relative;
-    display: flex;
-    width: 100%;
-}
-
-aside .search-bar input {
-    display: block;
-    width: 100%;
-    padding: 6px 12px;
-    font-size: 1rem;
-    line-height: 1.5;
-    border: 1px solid lightblue;
-    border-radius: 4px 0 0 4px;
-    outline: none;
-    font-family: "open sans", serif;
-    font-weight: 900;
-    color: rgb(10, 89, 116);
-}
-
-aside .search-bar button {
-    padding: 6px 12px;
-    font-size: 1rem;
-    border-radius: 0 4px 4px 0;
-    border: 1px solid  lightblue;
-    background: #d63b00; 
-    color: white;
-    outline: none;
-    cursor: pointer;
-    border-left: 0;
-}
-
 /* Styling for tabs section in the sidebar */
 .side-nav {
     border-top: 1px solid lightblue;
@@ -286,7 +246,7 @@ aside .search-bar button {
 
 .side-nav ul li:active,
 .side-nav ul li:hover {
-    background:#e1f2f7;
+    background: #e1f2f7;
 }
 
 .side-nav ul li span {
@@ -370,33 +330,6 @@ aside .search-bar button {
     line-height: 30px;
 }
 
-/* INCIDENT LOG STYLING */
-.incidentLog {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 20px;
-}
-
-.incidentLog .posts {
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-    font-size: 20px;
-    text-align: center;
-}
-
-.incidentLog .posts img {
-    width: 100%;
-    height: 90%;
-}
-
-.incidentLog .posts p {
-    margin-left: 10px;
-    line-height: 30px;
-}
-
 /* profile styling */
 
 #nameGroup {
@@ -406,7 +339,7 @@ aside .search-bar button {
 
 #user_profile_section {
     display: flex;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     background-color: lightblue;
     width: 50%;
     margin-right: auto;
@@ -424,7 +357,7 @@ aside .search-bar button {
 }
 
 #user_profile_section:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 #detail_user_firstN {
@@ -484,12 +417,13 @@ aside .search-bar button {
     font-weight: bold;
     margin-left: 170px;
 }
+
 #edit {
     padding: 5px;
     outline: none;
 }
 
-#user_profile_image{
+#user_profile_image {
     border: solid black;
 }
 
@@ -498,7 +432,7 @@ aside .search-bar button {
     margin-left: auto;
     margin-right: auto;
     width: 25%;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
 #edit-button {
@@ -546,11 +480,13 @@ aside .search-bar button {
 }
 
 
-#editUserStatus{
+#editUserStatus {
     color: red;
     font-weight: bold;
-    
+    display: table;
+    margin: 0 auto;
 }
+
 
 /* DASHBOARD/INCIDENT LOG STYLING */
 .userpost {
@@ -612,10 +548,20 @@ aside .search-bar button {
 }
 
 
-.incident {
+.userpost .incident {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 18.5% 18.5% 18.5% 18.5% 10% 16%;
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    padding: 5px;
+}
+
+.incidentLog .incident {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    grid-template-rows: 22.5% 22.5% 22.5% 22.5% 10%;
     height: 100%;
     width: 100%;
     text-align: left;
@@ -631,7 +577,7 @@ aside .search-bar button {
     grid-column: 1 / span 1;
     grid-row: 1 / span 1;
     text-align: center;
-    overflow: scroll;
+    overflow: hidden;
     font-weight: bold;
 }
 
@@ -692,22 +638,150 @@ aside .search-bar button {
 
 /* DISPLAY INCIDENT STYLING */
 .display-incident-modal-content {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 90% 10%;
     background-color: #fefefe;
     margin: 0% auto;
     padding: 0px;
     border: 1px solid #888;
     width: 80%;
+    height: 90%;
     text-align: center;
 }
 
 #displayIncidentInformation {
-    display: flex;
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    display: grid;
+    grid-template-columns: 33% 34% 33%;
+    grid-template-rows: 5% 5% 9% 30% 5% 30% 5% 3% 8%;
     background-size: cover;
     background-repeat: no-repeat;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     font-family: "Poppins";
+    justify-items: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#displayIncidentInformation #displayIncidentTitle {
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 1;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#displayIncidentInformation #displayIncidentStatus {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#displayIncidentInformation #displayIncidentPriority {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#displayIncidentInformation #displayIncidentType {
+    grid-column: 3 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#displayIncidentInformation #displayIncidentDescription {
+    grid-column: 1 / span 3;
+    grid-row: 3 / span 1;
+    margin-bottom: auto;
+    width: 60%;
+    height: 100%;
+}
+
+#displayIncidentInformation .map {
+    grid-column: 1 / span 3;
+    grid-row: 4 / span 1;
+    width: 100%;
+    height: 100%;
+}
+
+#displayIncidentInformation #displayIncidentLat {
+    grid-column: 1 / span 1;
+    grid-row: 5 / span 1;
+    margin-left: auto;
+}
+
+#displayIncidentInformation #displayIncidentLon {
+    grid-column: 3 / span 1;
+    grid-row: 5 / span 1;
+    margin-right: auto;
+}
+
+#displayIncidentInformation img {
+    grid-column: 1 / span 3;
+    grid-row: 6 / span 1;
+    height: 100%;
+}
+
+#displayIncidentInformation #displayIncidentTimestamp {
+    grid-column: 1 / span 3;
+    grid-row: 7 / span 1;
+}
+
+#displayIncidentInformation #displayIncidentResolutionComment {
+    grid-column: 1 / span 3;
+    grid-row: 8 / span 1;
+}
+
+#displayIncidentInformation #displayIncidentResolutionCommentInput {
+    grid-column: 1 / span 3;
+    grid-row: 9 / span 1;
+    width: 50%;
+    height: 100%;
+    font-family: "Poppins";
+}
+
+#displayIncidentModalButtons {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#displayIncidentModalButtons form {
+    display: grid;
+    grid-template-columns: 33% 34% 33%;
+    grid-template-rows: 30% 70%;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    justify-items: center;
+    align-items: center;
+}
+
+
+#displayIncidentModalButtons #displayIncidentResolveStatus {
+    color: #FE3C00;
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 1;
+}
+
+#displayIncidentModalButtons #joinIncidentModalButton {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+    margin: 0px;
+    width: 50%;
+    margin: 10px;
+}
+
+#displayIncidentModalButtons #displayIncidentCancelButton {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+    margin: 0px;
+    width: 50%;
+    margin: 10px;
+}
+
+#displayIncidentModalButtons #displayIncidentResolveButton {
+    grid-column: 3 / span 1;
+    grid-row: 2 / span 1;
+    margin: 0px;
+    width: 50%;
+    margin: 10px;
 }
 
 /* JOIN INCIDENT STYLING */
@@ -805,13 +879,14 @@ aside .search-bar button {
     cursor: pointer;
 }
 
-
 @media (max-width:900px) {
     body {
         background-size: auto;
         height: 100%;
-        overflow: hidden;
+        overflow: scroll;
+        background-repeat: repeat;
     }
+
     header {
         width: 100%;
         box-shadow: unset;
@@ -915,7 +990,7 @@ aside .search-bar button {
         top: 70px;
         z-index: 20;
         position: relative;
-        overflow: hidden; 
+        overflow: hidden;
         box-shadow: unset;
         width: 0;
         border-top: 1px solid #e9e9e9;
@@ -943,6 +1018,26 @@ aside .search-bar button {
         padding: 10px;
         font-size: 20px;
     }
+
+    /* DISPLAY INCIDENT STYLING */
+    #displayIncidentInformation #displayIncidentTitle {
+        grid-column: 1 / span 3;
+        grid-row: 1 / span 1;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #displayIncidentInformation {
+        font-size: 15px;
+    }
+
+    #displayIncidentInformation #displayIncidentLat {
+        font-size: 11px;
+    }
+    
+    #displayIncidentInformation #displayIncidentLon {
+        font-size: 11px;
+    }
 }
 
 @media (max-width: 450px) {
@@ -952,5 +1047,26 @@ aside .search-bar button {
 
     #user_profile_section {
         width: 100%;
+    }
+
+    /* DISPLAY INCIDENT STYLING */
+    .display-incident-modal-content {
+        height: 97%;
+        width: 94%;
+    }
+
+    #displayIncidentModalButtons #joinIncidentModalButton {
+        padding: 10px 10px;
+        width: 90%;
+    }
+    
+    #displayIncidentModalButtons #displayIncidentCancelButton {
+        padding: 10px 10px;
+        width: 90%;
+    }   
+    
+    #displayIncidentModalButtons #displayIncidentResolveButton {
+        padding: 10px 10px;
+        width: 90%;
     }
 }

@@ -11,6 +11,22 @@
     width: 100%;
 }
 
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 5px;
+    display: none;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 /* background image for the body */
 body {
     overflow-x: hidden;
@@ -167,8 +183,8 @@ aside h2 {
     font-weight: 100;
 }
 
-/* The Close Button */
-.close {
+/* The Delete Button */
+.delete {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
@@ -176,8 +192,8 @@ aside h2 {
     margin-right: 5px;
 }
 
-.close:hover,
-.close:focus {
+.delete:hover,
+.delete:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
@@ -467,7 +483,7 @@ aside .search-bar button {
     grid-column: 1 / span 1;
     grid-row: 1 / span 1;
     text-align: center;
-    overflow: scroll;
+    overflow: hidden;
     font-weight: bold;
 }
 
@@ -949,12 +965,11 @@ hr {
     justify-content: center;
 }
 
-
-
 #editUserStatus{
     color: red;
     font-weight: bold;
-    
+    display: table;
+    margin: 0 auto;
 }
 
 @media (max-width:900px) {
@@ -962,7 +977,8 @@ hr {
     body {
         background-size: auto;
         height: 100%;
-        overflow: hidden;
+        overflow: scroll;
+        background-repeat: repeat;
     }
 
     header {
