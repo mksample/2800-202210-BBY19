@@ -122,7 +122,7 @@ async function prepareDisplayIncidentModal(incident) {
     document.getElementById("displayIncidentDescription").innerHTML = incident.description;
     document.getElementById("displayIncidentLat").innerHTML = "Latitude: " + incident.lat;
     document.getElementById("displayIncidentLon").innerHTML = "Longitude: "+ incident.lon;
-    document.getElementById("displayIncidentTimestamp").innerHTML = date.toLocaleString('en-US', { timeZone: 'PST' });
+    document.getElementById("displayIncidentTimestamp").innerHTML = date.toLocaleString('en-US');
     if (incident.resolutionComment) {
         document.getElementById("displayIncidentResolutionComment").style.display = "";
         document.getElementById("displayIncidentResolutionComment").innerHTML = incident.resolutionComment;
