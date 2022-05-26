@@ -34,7 +34,7 @@ const profileStorage = multer.diskStorage({
         callback(null, profileUploadPath);
     },
     filename: function (req, file, callback) {
-        let filename = "user-" + req.session.userID + "." + file.originalname.split('.').pop();
+        let filename = "user-" + Date.now() + "." + file.originalname.split('.').pop();
         callback(null, filename);
     }
 });
@@ -826,25 +826,30 @@ app.get("/getResponderIncidents", function (req, res) {
                 console.log("getting responder incidents: " + error);
                 res.send({ status: "fail", msg: "getting responder incidents: " + error });
             } else {
-                for (let i = 0; i < incidentResults.length; i++) { // for each incident get all responder IDs associated with that incident
-                    con.query(responderIDQuery + incidentResults[i].ID, function (error, responderResults) { // append incident ID onto end of responderIDQuery
-                        if (error) {
-                            con.end(err => { if (err) { console.log(err); } });
-                            console.log("getting responderIDs: " + error);
-                            res.send({ status: "fail", msg: "getting responder IDs: " + error });
-                            return;
-                        } else {
-                            let responderIDs = [];
-                            for (const result of responderResults) {
-                                responderIDs.push(result.responderID);
+                if (incidentResults.length > 0) {
+                    for (let i = 0; i < incidentResults.length; i++) { // for each incident get all responder IDs associated with that incident
+                        con.query(responderIDQuery + incidentResults[i].ID, function (error, responderResults) { // append incident ID onto end of responderIDQuery
+                            if (error) {
+                                con.end(err => { if (err) { console.log(err); } });
+                                console.log("getting responderIDs: " + error);
+                                res.send({ status: "fail", msg: "getting responder IDs: " + error });
+                                return;
+                            } else {
+                                let responderIDs = [];
+                                for (const result of responderResults) {
+                                    responderIDs.push(result.responderID);
+                                }
+                                incidentResults[i].responderIDs = responderIDs; // append responder IDs to incident
                             }
-                            incidentResults[i].responderIDs = responderIDs; // append responder IDs to incident
-                        }
-                        if (i + 1 == incidentResults.length) { // if done processing the final incident send response
-                            con.end(err => { if (err) { console.log(err); } });
-                            res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults }); // return incidents
-                        }
-                    });
+                            if (i + 1 == incidentResults.length) { // if done processing the final incident send response
+                                con.end(err => { if (err) { console.log(err); } });
+                                res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults }); // return incidents
+                            }
+                        });
+                    }
+                } else {
+                    con.end(err => { if (err) { console.log(err); } });
+                    res.send({ status: "success", msg: "incidents retrieved", incidents: incidentResults }); // return incidents
                 }
             }
         });
@@ -879,7 +884,7 @@ app.post("/editIncident", function (req, res) {
     title = IfNull(` + (req.body.title ? "'" + req.body.title + "'" : "NULL") + `, title),
     priority = IfNull(` + (req.body.priority ? "'" + req.body.priority + "'" : "NULL") + `, priority),
     type = IfNull(` + (req.body.type ? "'" + req.body.type + "'" : "NULL") + `, type),
-    description = IfNull(` + (req.body.description ? "'" + req.body.description + "'": "NULL") + `, description),
+    description = IfNull(` + (req.body.description ? "'" + req.body.description + "'" : "NULL") + `, description),
     lat = IfNull(` + (req.body.lat ? "'" + req.body.lat + "'" : "NULL") + `, lat),
     lon = IfNull(` + (req.body.lon ? "'" + req.body.lon + "'" : "NULL") + `, lon)
     WHERE ID = ` + req.body.incidentID;

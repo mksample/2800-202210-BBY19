@@ -1,7 +1,7 @@
 "use strict";
 
 const run = true;
-const time = 5000; // how often the updater runs in ms.
+const time = 30000; // how often the updater runs in ms.
 
 // Gets users from the database.
 async function getUsers() {
