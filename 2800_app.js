@@ -5,9 +5,6 @@ const sanitizeHtml = require("sanitize-html");
 const app = express();
 const fs = require("fs");
 const multer = require("multer"); // storing images
-const readline = require('readline');
-const { JSDOM } = require('jsdom');
-const { connected } = require("process");
 
 const localSqlAuthentication = { // sql connection settings
     host: "127.0.0.1",// for Mac os, type 127.0.0.1
@@ -237,15 +234,15 @@ app.post("/createUser", function (req, res) {
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
         const addUser = `INSERT INTO ` + userTable + ` (email, password, firstName, lastName, age, gender, phoneNumber, role)
-    VALUES ('` + req.body.email +
-            `', '` + req.body.password +
-            `', '` + req.body.firstName +
-            `', '` + req.body.lastName +
-            `', '` + req.body.age +
-            `', '` + req.body.gender +
-            `', '` + req.body.phoneNumber +
-            `', '` + req.body.role +
-            `');`;
+    VALUES ("` + req.body.email +
+            `", "` + req.body.password +
+            `", "` + req.body.firstName +
+            `", "` + req.body.lastName +
+            `", "` + req.body.age +
+            `", "` + req.body.gender +
+            `", "` + req.body.phoneNumber +
+            `", "` + req.body.role +
+            `");`;
 
         con.query(addUser, function (error, results) {
             if (error) {
@@ -258,7 +255,7 @@ app.post("/createUser", function (req, res) {
                 }
                 res.send({ status: "fail", msg: "creating user: " + error, displayMsg: displayMsg });
             } else {
-                con.query(`SELECT * FROM ` + userTable + ` WHERE email = '` + req.body.email + `'`, function (error, results) {
+                con.query(`SELECT * FROM ` + userTable + ` WHERE email = "` + req.body.email + `"`, function (error, results) {
                     con.end(err => { if (err) { console.log(err); } });
                     if (error) {
                         console.log(error);
@@ -291,12 +288,12 @@ app.post("/editUser", function (req, res) {
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
         const editUser = `UPDATE ` + userTable + ` SET
-    password = IfNull(` + (req.body.password ? "'" + req.body.password + "'" : "NULL") + `, password),
-    firstName = IfNull(` + (req.body.firstName ? "'" + req.body.firstName + "'" : "NULL") + `, firstName),
-    lastName = IfNull(` + (req.body.lastName ? "'" + req.body.lastName + "'" : "NULL") + `, lastName),
+    password = IfNull(` + (req.body.password ? `"` + req.body.password + `"` : "NULL") + `, password),
+    firstName = IfNull(` + (req.body.firstName ? `"` + req.body.firstName + `"` : "NULL") + `, firstName),
+    lastName = IfNull(` + (req.body.lastName ? `"` + req.body.lastName + `"` : "NULL") + `, lastName),
     age = IfNull(` + (req.body.age ? req.body.age : "NULL") + `, age),
-    gender = IfNull(` + (req.body.gender ? "'" + req.body.gender + "'" : "NULL") + `, gender),
-    phoneNumber = IfNull(` + (req.body.phoneNumber ? "'" + req.body.phoneNumber + "'" : "NULL") + `, phoneNumber)
+    gender = IfNull(` + (req.body.gender ? `"` + req.body.gender + `"` : "NULL") + `, gender),
+    phoneNumber = IfNull(` + (req.body.phoneNumber ? `"` + req.body.phoneNumber + `"` : "NULL") + `, phoneNumber)
     WHERE ID = ` + req.session.userID;
 
         con.query(editUser, function (error, results) {
@@ -348,14 +345,14 @@ app.post("/adminEditUser", function (req, res) {
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
         const editUser = `UPDATE ` + userTable + ` SET
-        email = IfNull(` + (req.body.email ? "'" + req.body.email + "'" : "NULL") + `, email),
-        password = IfNull(` + (req.body.password ? "'" + req.body.password + "'" : "NULL") + `, password),
-        firstName = IfNull(` + (req.body.firstName ? "'" + req.body.firstName + "'" : "NULL") + `, firstName),
-        lastName = IfNull(` + (req.body.lastName ? "'" + req.body.lastName + "'" : "NULL") + `, lastName),
+        email = IfNull(` + (req.body.email ? `"` + req.body.email + `"` : "NULL") + `, email),
+        password = IfNull(` + (req.body.password ? `"` + req.body.password + `"` : "NULL") + `, password),
+        firstName = IfNull(` + (req.body.firstName ? `"` + req.body.firstName + `"` : "NULL") + `, firstName),
+        lastName = IfNull(` + (req.body.lastName ? `"` + req.body.lastName + `"` : "NULL") + `, lastName),
         age = IfNull(` + (req.body.age ? req.body.age : "NULL") + `, age),
-        gender = IfNull(` + (req.body.gender ? "'" + req.body.gender + "'" : "NULL") + `, gender),
-        phoneNumber = IfNull(` + (req.body.phoneNumber ? "'" + req.body.phoneNumber + "'" : "NULL") + `, phoneNumber),
-        role = IfNull(` + (req.body.role ? "'" + req.body.role + "'" : "NULL") + `, role)
+        gender = IfNull(` + (req.body.gender ? `"` + req.body.gender + `"` : "NULL") + `, gender),
+        phoneNumber = IfNull(` + (req.body.phoneNumber ? `"` + req.body.phoneNumber + `"` : "NULL") + `, phoneNumber),
+        role = IfNull(` + (req.body.role ? `"` + req.body.role + `"` : "NULL") + `, role)
         WHERE ID = ` + req.body.userID;
 
         con.query(editUser, function (error, results) {
@@ -550,11 +547,11 @@ app.post("/getUsersKeyword", function (req, res) {
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
         var keyword;
-        if (req.body.keyword == '') {
-            // If there's empty search keyword, it intentionally induces search results to be lost.
-            keyword = `'%EmptySearchKeyword%'`;
+        if (req.body.keyword == "") {
+            // If there"s empty search keyword, it intentionally induces search results to be lost.
+            keyword = `"%EmptySearchKeyword%"`;
         } else {
-            keyword = `'%` + req.body.keyword + `%'`;
+            keyword = `"%` + req.body.keyword + `%"`;
         }
         const getUser = `SELECT * FROM ` + userTable + ` WHERE ID != ` + req.session.userID + ` AND email LIKE ` + keyword + ` OR firstName LIKE ` + keyword + ` OR lastName LIKE ` + keyword;
         con.query(getUser, function (error, results) {
@@ -648,24 +645,24 @@ app.post("/createIncident", function (req, res) {
         const mysql = require("mysql2");
         const con = mysql.createConnection(sqlAuthentication);
         con.connect();
-        const addUser = `INSERT INTO ` + incidentTable + ` (title, priority, type, status, callerID, description, lat, lon, timestamp)
-    VALUES ('` + req.body.title +
-            `', '` + req.body.priority +
-            `', '` + req.body.type +
-            `', '` + activeStatus +
-            `', '` + req.session.userID +
-            `', '` + req.body.description +
-            `', '` + req.body.lat +
-            `', '` + req.body.lon +
-            `', CURRENT_TIMESTAMP);`;
+        const createIncident = `INSERT INTO ` + incidentTable + ` (title, priority, type, status, callerID, description, lat, lon, timestamp)
+    VALUES ("` + req.body.title +
+            `", "` + req.body.priority +
+            `", "` + req.body.type +
+            `", "` + activeStatus +
+            `", "` + req.session.userID +
+            `", "` + req.body.description +
+            `", "` + req.body.lat +
+            `", "` + req.body.lon +
+            `", CURRENT_TIMESTAMP);`;
 
-        con.query(addUser, function (error, results) {
+        con.query(createIncident, function (error, results) {
             if (error) {
                 con.end(err => { if (err) { console.log(err); } });
                 console.log("creating incident: " + error);
                 res.send({ status: "fail", msg: "creating incident: " + error, displayMsg: "Database error" });
             } else {
-                con.query(`SELECT * FROM ` + incidentTable + ` WHERE callerID = ` + req.session.userID + ` AND title = '` + req.body.title + `' ORDER BY timestamp DESC`, function (error, results) {
+                con.query(`SELECT * FROM ` + incidentTable + ` WHERE callerID = ` + req.session.userID + ` AND title = "` + req.body.title + `" ORDER BY timestamp DESC`, function (error, results) {
                     con.end(err => { if (err) { console.log(err); } });
                     if (error) {
                         console.log(error);
@@ -808,7 +805,7 @@ app.get("/getIncidents", function (req, res) {
 // responderIDs (int array) - IDs of the users who responded to the incident.
 app.get("/getResponderIncidents", function (req, res) {
     if (req.session.role == responderRole) {
-        let query = "SELECT * FROM " + incidentTable + ` WHERE status = '` + activeStatus + `' OR status = '` + RESPONDINGStatus + `' ORDER BY timestamp DESC`; // get all active or in progess incidents
+        let query = "SELECT * FROM " + incidentTable + ` WHERE status = "` + activeStatus + `" OR status = "` + RESPONDINGStatus + `" ORDER BY timestamp DESC`; // get all active or in progess incidents
 
         // query for getting responder IDs
         let responderIDQuery = `SELECT responderID
@@ -881,12 +878,12 @@ app.post("/editIncident", function (req, res) {
         con.connect();
 
         let editIncident = `UPDATE ` + incidentTable + ` SET
-    title = IfNull(` + (req.body.title ? "'" + req.body.title + "'" : "NULL") + `, title),
-    priority = IfNull(` + (req.body.priority ? "'" + req.body.priority + "'" : "NULL") + `, priority),
-    type = IfNull(` + (req.body.type ? "'" + req.body.type + "'" : "NULL") + `, type),
-    description = IfNull(` + (req.body.description ? "'" + req.body.description + "'" : "NULL") + `, description),
-    lat = IfNull(` + (req.body.lat ? "'" + req.body.lat + "'" : "NULL") + `, lat),
-    lon = IfNull(` + (req.body.lon ? "'" + req.body.lon + "'" : "NULL") + `, lon)
+    title = IfNull(` + (req.body.title ? `"` + req.body.title + `"` : "NULL") + `, title),
+    priority = IfNull(` + (req.body.priority ? `"` + req.body.priority + `"` : "NULL") + `, priority),
+    type = IfNull(` + (req.body.type ? `"` + req.body.type + `"` : "NULL") + `, type),
+    description = IfNull(` + (req.body.description ? `"` + req.body.description + `"` : "NULL") + `, description),
+    lat = IfNull(` + (req.body.lat ? `"` + req.body.lat + `"` : "NULL") + `, lat),
+    lon = IfNull(` + (req.body.lon ? `"` + req.body.lon + `"` : "NULL") + `, lon)
     WHERE ID = ` + req.body.incidentID;
 
         con.query(editIncident, function (error, results) {
@@ -981,7 +978,7 @@ app.post("/resolveIncident", function (req, res) {
         WHERE ` + incidentTable + `.ID = ` + req.body.incidentID;
 
         let resolveQuery = `UPDATE ` + incidentTable + ` 
-        SET resolutionComment = '` + req.body.resolutionComment + `', status = '` + resolvedStatus + `' 
+        SET resolutionComment = "` + req.body.resolutionComment + `", status = "` + resolvedStatus + `" 
         WHERE ID = ` + req.body.incidentID;
 
         con.query(responderQuery, function (error, results) {
