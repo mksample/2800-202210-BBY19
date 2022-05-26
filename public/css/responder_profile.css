@@ -219,28 +219,6 @@ aside .name {
     font-weight: 900;
 }
 
-/* Styling for online circle */
-aside .mail,
-aside .status {
-    font-size: 14px;
-}
-
-aside .status {
-    margin-top: 3px;
-    position: relative;
-    margin-left: 10px;
-}
-
-aside .status::before {
-    content: '';
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    background: lightgreen;
-    border-radius: 50%;
-    left: -10px;
-    top: 5.5px;
-}
 
 /* Styling for search bar */
 aside .search-bar {
