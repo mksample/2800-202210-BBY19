@@ -44,7 +44,7 @@ function openModal(incident, modalID, cancelButton, submitButton, status, saveMe
     cancel.onclick = function () {
         modal.style.display = "none";
         document.getElementById(status).innerHTML = ""; // clear status when closing
-    }
+    };
 
     var save = document.getElementById(submitButton);
     save.onclick = async function () {
@@ -53,14 +53,14 @@ function openModal(incident, modalID, cancelButton, submitButton, status, saveMe
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
 }
 
 // Prepares the display incident modal.
@@ -71,24 +71,44 @@ async function prepareDisplayIncidentModal(incident) {
         if (response.status == "fail") {
             console.log(response.msg);
         } else {
-            let joined = false
+            let joined = false;
             let user = response.user;
             for (const responderID of incident.responderIDs) {
                 if (responderID == user.ID) {
                     joined = true;
                 }
             }
-            // If the user has not joined the incident, or if the incident is already resolved, don't display the resolve button or resolutionComment input box.
-            // Otherwise, make sure they're displayed
-            if (!joined || incident.status == "RESOLVED") {
+            // If the user has not joined the incident, display a join button, and hide resolution content, otherwise show resolution content and disable join button
+            if (!joined) {
                 document.getElementById("displayIncidentResolveButton").style.display = "none";
                 document.getElementById("displayIncidentResolutionCommentInput").style.display = "none";
+                document.getElementById("joinIncidentModalButton").style.display = "";
+                document.getElementById("joinIncidentModalButton").value = "Respond";
+                document.getElementById("joinIncidentModalButton").style.border = "1px solid #FE3C00";
+                document.getElementById("joinIncidentModalButton").style.backgroundColor = "#FE3C00";
+                document.getElementById("joinIncidentModalButton").style.cursor = "pointer"
+                document.getElementById("joinIncidentModalButton").disabled = false;
             } else {
                 document.getElementById("displayIncidentResolveButton").style.display = "";
                 document.getElementById("displayIncidentResolutionCommentInput").style.display = "";
+                document.getElementById("joinIncidentModalButton").style.display = "";
+                document.getElementById("joinIncidentModalButton").value = "Responding";
+                document.getElementById("joinIncidentModalButton").style.border = "1px solid #71e027";
+                document.getElementById("joinIncidentModalButton").style.backgroundColor = "#71e027";
+                document.getElementById("joinIncidentModalButton").style.cursor = "default"
+                document.getElementById("joinIncidentModalButton").disabled = true;
+            }
+
+            // If the incident has been resolved, display nothing
+            if (incident.status == "RESOLVED") {
+                document.getElementById("displayIncidentResolveButton").style.display = "none";
+                document.getElementById("displayIncidentResolutionCommentInput").style.display = "none";
+                document.getElementById("joinIncidentModalButton").style.display = "none";
             }
         }
     }
+    var date = new Date(Date.parse(incident.timestamp));
+    initDisplayMap(incident.lat, incident.lon, null, "displayIncidentMap");
     if (incident.image) {
         document.getElementById("displayIncidentImage").style.display = "";
         document.getElementById("displayIncidentImage").src = incident.image;
@@ -96,21 +116,26 @@ async function prepareDisplayIncidentModal(incident) {
         document.getElementById("displayIncidentImage").style.display = "none";
     }
     document.getElementById("displayIncidentTitle").innerHTML = incident.title;
-    document.getElementById("displayIncidentPriority").innerHTML = incident.priority;
-    document.getElementById("displayIncidentType").innerHTML = incident.type;
-    document.getElementById("displayIncidentStatus").innerHTML = incident.status;
-    document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID
-    document.getElementById("displayIncidentDescription").innerHTML = incident.description
-    document.getElementById("displayIncidentLat").innerHTML = incident.lat;
-    document.getElementById("displayIncidentLon").innerHTML = incident.lon;
-    document.getElementById("displayIncidentTimestamp").innerHTML = incident.timestamp;
+    document.getElementById("displayIncidentPriority").innerHTML = "Priority: " + incident.priority;
+    document.getElementById("displayIncidentType").innerHTML = "Type: " + incident.type;
+    document.getElementById("displayIncidentStatus").innerHTML = "Status: " + incident.status;
+    document.getElementById("displayIncidentDescription").innerHTML = incident.description;
+    document.getElementById("displayIncidentLat").innerHTML = "Latitude: " + incident.lat;
+    document.getElementById("displayIncidentLon").innerHTML = "Longitude: "+ incident.lon;
+    document.getElementById("displayIncidentTimestamp").innerHTML = date.toLocaleString('en-US');
     if (incident.resolutionComment) {
-        document.getElementById("displayIncidentResolutionComment").style.display = ""
+        document.getElementById("displayIncidentResolutionComment").style.display = "";
         document.getElementById("displayIncidentResolutionComment").innerHTML = incident.resolutionComment;
     } else {
-        document.getElementById("displayIncidentResolutionComment").style.display = "none"
+        document.getElementById("displayIncidentResolutionComment").style.display = "none";
     }
     document.getElementById("displayIncidentResolutionCommentInput").value = "";
+
+    // Attach listener to join incident button
+    document.getElementById("joinIncidentModalButton").onclick = function (e) {
+        e.stopImmediatePropagation();
+        openModal(incident, "joinIncidentModal", "joinIncidentCancelButton", "joinIncidentSubmitButton", "joinIncidentStatus", submitJoinIncidentModal);
+    };
 }
 
 // Submit function for the display incident modal. POSTS to /resolveIncident, returns true if successful, false if not.
@@ -128,7 +153,6 @@ async function submitDisplayIncidentModal(incident) {
             document.getElementById("displayIncidentResolveStatus").innerHTML = response.displayMsg; // display resolve failure
             return false;
         } else {
-            console.log(response.msg);
             response.incident.responderIDs = incident.responderIDs;
             updateIncidentDisplay(response.incident); // update profile display with edited info
         }
@@ -145,18 +169,5 @@ async function updateIncidentDisplay(incident) {
 
     // Update the incidentLog incident display
     contentDOM = document.getElementById("incidentLog");
-    incidentDisp = contentDOM.querySelector("#incident" + incident.ID);
-
-    if (incidentDisp != null) {// Delete existing event listeners
-        let newIncidentDisp = incidentDisp.cloneNode(true);
-        incidentDisp.parentNode.replaceChild(newIncidentDisp, incidentDisp);
-
-        // Re-prepare event listeners and update display status
-        newIncidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
-        newIncidentDisp.addEventListener("click", async function (e) {
-            e.stopImmediatePropagation();
-            await prepareDisplayIncidentModal(incident);
-            openModal(incident, "displayIncidentModal", "displayIncidentCancelButton", "displayIncidentResolveButton", "displayIncidentResolveStatus", submitDisplayIncidentModal);
-        })
-    }
+    createIncidentDisplay(incident, contentDOM, replace, false);
 }

@@ -16,16 +16,17 @@ ready(async function () {
         return response.json();
     }
 
-    // Creates profile displays, attaches event listeners to them, and appends them to the id="profiles" div.
+    // Creates profile displays, attaches event listeners to them, and appends them to the contentDOM.
     function createProfileDisplay(user, contentDOM) {
         // creating profile display
         let profile = document.getElementById("UserProfileTemplate").content.cloneNode(true);
         if (user.avatar != null) {
             profile.querySelector(".profilePicture").src = user.avatar;
         }
-        profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email
-        profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;;
+        profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email;
+        profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;
         profile.querySelector('.profile').setAttribute("id", user.ID);
+        profile.querySelector('.profile').user = user;
 
         // appending the profile to the contentDOM
         contentDOM.appendChild(profile);
@@ -35,25 +36,27 @@ ready(async function () {
             e.stopImmediatePropagation();
             prepareEditUserModal(user);
             openModal(user, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitEditUserModal);
-        })
+        });
 
         // when delete button clicked on, show delete profile modal
-        document.getElementById(user.ID).querySelector(".close").addEventListener("click", async function (e) {
+        document.getElementById(user.ID).querySelector(".delete").addEventListener("click", async function (e) {
             e.stopImmediatePropagation();
             openModal(user, "deleteUserModal", "deleteUserCancelButton", "deleteUserSubmitButton", "deleteUserStatus", submitDeleteUserModal);
-        })
+        });
     }
 
     // Creates incident displays, attaches event listeners to them, and appends them to the contentDOM.
     function createIncidentDisplay(incident, contentDOM) {
-        // creating incident display
+        // Creating incident display
         let incidentDisp = document.getElementById("IncidentTemplate").content.cloneNode(true);
+        var date = new Date(Date.parse(incident.timestamp));
         incidentDisp.querySelector("#incidentTitle").innerHTML = incident.title;
-        incidentDisp.querySelector("#incidentPriority").innerHTML = incident.priority;
-        incidentDisp.querySelector("#incidentType").innerHTML = incident.type;
-        incidentDisp.querySelector("#incidentStatus").innerHTML = incident.status;
-        incidentDisp.querySelector("#incidentTimestamp").innerHTML = incident.timestamp;
+        incidentDisp.querySelector("#incidentPriority").innerHTML = "Priority: " + incident.priority;
+        incidentDisp.querySelector("#incidentType").innerHTML = "Type: " + incident.type;
+        incidentDisp.querySelector("#incidentStatus").innerHTML = "Status: " + incident.status;
+        incidentDisp.querySelector("#incidentTimestamp").innerHTML = date.toLocaleString('en-US');
         incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
+        incidentDisp.querySelector('.incident').incident = incident;
 
         // appending the incident to the contentDOM
         contentDOM.appendChild(incidentDisp);
@@ -62,7 +65,7 @@ ready(async function () {
             e.stopImmediatePropagation();
             prepareDisplayIncidentModal(incident);
             openDisplayIncidentModal(incident, "displayIncidentModal", "displayIncidentCancelButton");
-        })
+        });
     }
 
     // Gets incidents from the database and adds them to the admin incident log.
@@ -117,30 +120,31 @@ ready(async function () {
     document.getElementById("createUserButton").addEventListener("click", function (e) {
         prepareCreateUserModal();
         openModal(null, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitCreateUserModal);
-    })
+    });
 
     // DISPLAY USER PROFILES
-    showUsers();
+    await showUsers();
 
     // DISPLAY SESSION USER INFO
-    displaySessionUser();
+    await displaySessionUser();
 
     // DISPLAY INCIDENT LOG
-    showIncidents();
+    await showIncidents();
 
     // PREPARE PROFILE EDITING TAB (from admin_profile_edit.js)
-    prepareProfile();
+    await prepareProfile();
 
     // PREPARE SEARCH BAR (from admin_profile_searchbar.js)
-    prepareSearchBar();
+    await prepareSearchBar();
+
+    // RUN UPDATER
+    runUpdater();
 });
 
 function ready(callback) {
     if (document.readyState != "loading") {
         callback();
-        console.log("ready state is 'complete'");
     } else {
         document.addEventListener("DOMContentLoaded", callback);
-        console.log("Listener was invoked");
     }
 }

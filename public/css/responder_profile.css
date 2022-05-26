@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+textarea {
+    width: 100%;
+    height: 100%;
+}
+
 /* background image for the body */
 body {
     overflow-x: hidden;
@@ -25,7 +30,7 @@ li {
 /* contains logo, top nav bar */
 header {
     display: flex;
-    background-color: white; 
+    background-color: white;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 0 100px rgba(0, 0, 0, .15), 0 4px 5px rgba(0, 0, 0, 0.3);
@@ -70,17 +75,18 @@ header .nav ul {
 
 header .nav ul li {
     padding: 26px 20px 24px 20px;
-    transition: all .4s ease;
+    transition: all .2s ease;
     cursor: pointer;
 }
 
 header .nav ul li h3 {
     text-transform: uppercase;
-    font-size: 15px;
+    font-size: 20px;
     color: #d63b00;
+
 }
 
-header .nav ul li h3:hover{
+header .nav ul li h3:hover {
     color: rgb(10, 89, 116);
     text-decoration: underline;
 }
@@ -91,12 +97,13 @@ header .nav ul li:hover {
     background: lightblue;
     box-shadow: 0 -4px 0px #d63b00 inset;
 }
+
 /* styling for the links*/
 a:link {
-    color: red;
-    font-size: 15px;
-    font-weight: bold;
+    color: #d63b00;
+    font-size: 20px;
     text-transform: uppercase;
+    font-weight: 600;
 }
 
 a {
@@ -122,9 +129,10 @@ a:hover {
     background-color: white;
     border-style: none;
     color: #d63b00;
-    font-size:15px;
+    font-size: 20px;
     text-transform: uppercase;
-    font-weight: lighter;
+    font-weight: 600;
+    font-family: "Poppins";
 }
 
 /* hamburger menu on mobile*/
@@ -153,6 +161,7 @@ aside {
     overflow: auto;
     z-index: 10;
 }
+
 /* Side-bar heading*/
 aside h2 {
     padding: 20px;
@@ -167,6 +176,7 @@ aside h2 {
     font-size: 28px;
     font-weight: bold;
     margin-right: 5px;
+    display: none;
 }
 
 .close:hover,
@@ -178,7 +188,7 @@ aside h2 {
 
 aside .user-side {
     padding: 20px;
-    border-top: 1px solid lightblue; 
+    border-top: 1px solid lightblue;
 }
 
 /* User uploaded image */
@@ -212,66 +222,6 @@ aside .name {
     font-weight: 900;
 }
 
-/* Styling for online circle */
-aside .mail,
-aside .status {
-    font-size: 14px;
-}
-
-aside .status {
-    margin-top: 3px;
-    position: relative;
-    margin-left: 10px;
-}
-
-aside .status::before {
-    content: '';
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    background: lightgreen;
-    border-radius: 50%;
-    left: -10px;
-    top: 5.5px;
-}
-
-/* Styling for search bar */
-aside .search-bar {
-    border-top: 1px solid lightblue;
-    padding: 20px;
-}
-
-aside .search-bar .search {
-    position: relative;
-    display: flex;
-    width: 100%;
-}
-
-aside .search-bar input {
-    display: block;
-    width: 100%;
-    padding: 6px 12px;
-    font-size: 1rem;
-    line-height: 1.5;
-    border: 1px solid lightblue;
-    border-radius: 4px 0 0 4px;
-    outline: none;
-    font-family: "open sans", serif;
-    font-weight: 900;
-    color: rgb(10, 89, 116);
-}
-
-aside .search-bar button {
-    padding: 6px 12px;
-    font-size: 1rem;
-    border-radius: 0 4px 4px 0;
-    border: 1px solid  lightblue;
-    background: #d63b00; 
-    color: white;
-    outline: none;
-    cursor: pointer;
-    border-left: 0;
-}
 
 /* Styling for tabs section in the sidebar */
 .side-nav {
@@ -295,13 +245,13 @@ aside .search-bar button {
     padding: 8px 0px 8px 20px;
     margin-bottom: 10px;
     cursor: pointer;
-    transition: all .4s ease;
+    transition: all .2s ease;
     color: rgb(10, 89, 116);
 }
 
 .side-nav ul li:active,
 .side-nav ul li:hover {
-    background:#e1f2f7;
+    background: #e1f2f7;
 }
 
 .side-nav ul li span {
@@ -385,11 +335,199 @@ aside .search-bar button {
     line-height: 30px;
 }
 
-/* INCIDENT LOG STYLING */
+/* profile styling */
+
+#nameGroup {
+    display: inline;
+
+}
+
+#user_profile_section {
+    display: flex;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: lightblue;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#user_profile_section:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+#detail_user_firstN {
+    display: inline;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#detail_user_lastN {
+    display: inline;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+#detail_user_email {
+    display: inline;
+    font-weight: bold;
+    margin-left: 50px;
+}
+
+
+#detail_user_password {
+    display: inline;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+
+#detail_user_age {
+    display: inline;
+    font-weight: bold;
+    margin-left: 60px;
+}
+
+
+#detail_user_gender {
+    display: inline;
+    font-weight: bold;
+    margin-left: 32px;
+}
+
+
+#detail_user_cellphone {
+    display: inline;
+    font-weight: bold;
+    margin-left: 40px;
+}
+
+#detail_user_role {
+    display: inline;
+    font-weight: bold;
+    margin-left: 170px;
+}
+
+#edit {
+    padding: 5px;
+    outline: none;
+}
+
+#user_profile_image {
+    border: solid black;
+}
+
+#detail_user_picture {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+    margin-bottom: 10px;
+}
+
+#edit-button {
+    width: 80px;
+    padding: 5px;
+    background-color: white;
+    outline: none;
+    border: 1px solid white;
+    box-shadow: 2px 2px 2px #3f3f3f;
+}
+
+#btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+#end-editing {
+    width: 80px;
+    margin-left: 5px;
+    background-color: white;
+    outline: none;
+    border: 1px solid white;
+    box-shadow: 2px 2px 2px #3f3f3f;
+}
+
+#edit-button:hover {
+    box-shadow: 2px 2px 3px;
+}
+
+#edit-button:active {
+    box-shadow: 1px 1px 3px;
+}
+
+#end-editing:hover {
+    box-shadow: 2px 2px 3px;
+}
+
+#end-editing:active {
+    box-shadow: 1px 1px 3px;
+}
+
+#img-container {
+    display: flex;
+    justify-content: center;
+}
+
+
+#editUserStatus {
+    color: red;
+    font-weight: bold;
+    display: table;
+    margin: 0 auto;
+}
+
+
+/* DASHBOARD/INCIDENT LOG STYLING */
+.userpost {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+    justify-items: center;
+}
+
 .incidentLog {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 20px;
+    justify-items: center;
+}
+
+.userpost .posts {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15), 0 4px 5px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    text-align: center;
+    height: 300px;
+    width: 200px;
+}
+
+.userpost .posts img {
+    width: 100%;
+    height: 90%;
+}
+
+.userpost .posts p {
+    margin-left: 10px;
+    line-height: 30px;
 }
 
 .incidentLog .posts {
@@ -397,9 +535,11 @@ aside .search-bar button {
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15), 0 4px 5px rgba(0, 0, 0, 0.3);
     font-size: 20px;
     text-align: center;
+    height: 250px;
+    width: 200px;
 }
 
 .incidentLog .posts img {
@@ -412,111 +552,78 @@ aside .search-bar button {
     line-height: 30px;
 }
 
-#nameGroup {
-    display: inline;
 
+.userpost .incident {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 18.5% 18.5% 18.5% 18.5% 10% 16%;
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    padding: 5px;
 }
 
-#user_profile_section {
-    border: solid green;
+.incidentLog .incident {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    grid-template-rows: 22.5% 22.5% 22.5% 22.5% 10%;
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    padding: 5px;
+}
+
+.incident #joinIncidentButton {
+    grid-column: 1 / span 1;
+    grid-row: 6 / span 1;
+}
+
+.incident #incidentTitle {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
     text-align: center;
-
-}
-
-#detail_user_firstN {
-    display: inline;
+    overflow: hidden;
     font-weight: bold;
 }
 
+.incident #incidentPriority {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 1;
+    font-size: 16px;
+    padding-top: 5px;
+}
 
-#detail_user_lastN {
-    display: inline;
+.incident #incidentType {
+    grid-column: 1 / span 2;
+    grid-row: 4 / span 1;
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.incident #incidentStatus {
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 1;
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.incident #incidentTimestamp {
+    grid-column: 1 / span 2;
+    grid-row: 5 / span 1;
+    font-size: 16px;
+}
+
+.incidentClose {
+    color: #aaaaaa;
+    font-size: 22px;
     font-weight: bold;
 }
 
-
-
-#detail_user_email {
-    display: inline;
-    font-weight: bold;
-}
-
-
-#detail_user_password {
-    display: inline;
-    font-weight: bold;
-}
-
-
-#detail_user_age {
-    font-weight: bold;
-}
-
-
-#detail_user_gender {
-    font-weight: bold;
-}
-
-
-#detail_user_cellphone {
-    font-weight: bold;
-}
-
-
-#edit {
-    padding: 5px;
-    outline: none;
-}
-
-#user_profile_image{
-    border: solid black;
-}
-
-#edit-button {
-    width: 80px;
-    padding: 5px;
-    margin: 0 3px;
-    background-color: #ff7e00;
-    outline: none;
-    border: 1px solid #ff7e00;
-    box-shadow: 2px 2px 2px #3f3f3f;
-}
-
-#edit-button:hover {
-    box-shadow: 2px 2px 3px;
-}
-
-#edit-button:active {
-    box-shadow: 1px 1px 3px;
-}
-
-#end-editing {
-    width: 80px;
-    padding: 5px;
-    margin: 0 3px;
-    background-color: #ff7e00;
-    outline: none;
-    border: 1px solid #ff7e00;
-    box-shadow: 2px 2px 2px #3f3f3f;
-}
-
-#end-editing:hover {
-    box-shadow: 2px 2px 3px;
-}
-
-#end-editing:active {
-    box-shadow: 1px 1px 3px;
-}
-
-
-.edit{
-    background-color: lightblue;
-}
-
-#editUserStatus{
-    color: red;
-    font-weight: bold;
-    
+.incidentClose:hover,
+.incidentClose:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /* MODAL STYLING */
@@ -536,32 +643,165 @@ aside .search-bar button {
 
 /* DISPLAY INCIDENT STYLING */
 .display-incident-modal-content {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 90% 10%;
     background-color: #fefefe;
     margin: 0% auto;
     padding: 0px;
     border: 1px solid #888;
     width: 80%;
+    height: 90%;
     text-align: center;
 }
 
 #displayIncidentInformation {
-    display: flex;
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    display: grid;
+    grid-template-columns: 33% 34% 33%;
+    grid-template-rows: 5% 5% 9% 30% 5% 30% 5% 3% 8%;
     background-size: cover;
     background-repeat: no-repeat;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     font-family: "Poppins";
+    justify-items: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#displayIncidentInformation #displayIncidentTitle {
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 1;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#displayIncidentInformation #displayIncidentStatus {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#displayIncidentInformation #displayIncidentPriority {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#displayIncidentInformation #displayIncidentType {
+    grid-column: 3 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#displayIncidentInformation #displayIncidentDescription {
+    grid-column: 1 / span 3;
+    grid-row: 3 / span 1;
+    margin-bottom: auto;
+    width: 60%;
+    height: 100%;
+}
+
+#displayIncidentInformation .map {
+    grid-column: 1 / span 3;
+    grid-row: 4 / span 1;
+    width: 100%;
+    height: 100%;
+}
+
+#displayIncidentInformation #displayIncidentLat {
+    grid-column: 1 / span 1;
+    grid-row: 5 / span 1;
+    margin-left: auto;
+}
+
+#displayIncidentInformation #displayIncidentLon {
+    grid-column: 3 / span 1;
+    grid-row: 5 / span 1;
+    margin-right: auto;
+}
+
+#displayIncidentInformation img {
+    grid-column: 1 / span 3;
+    grid-row: 6 / span 1;
+    height: 100%;
+}
+
+#displayIncidentInformation #displayIncidentTimestamp {
+    grid-column: 1 / span 3;
+    grid-row: 7 / span 1;
+}
+
+#displayIncidentInformation #displayIncidentResolutionComment {
+    grid-column: 1 / span 3;
+    grid-row: 8 / span 1;
+}
+
+#displayIncidentInformation #displayIncidentResolutionCommentInput {
+    grid-column: 1 / span 3;
+    grid-row: 9 / span 1;
+    width: 50%;
+    height: 100%;
+    font-family: "Poppins";
+}
+
+#displayIncidentModalButtons {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#displayIncidentModalButtons form {
+    display: grid;
+    grid-template-columns: 33% 34% 33%;
+    grid-template-rows: 30% 70%;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    justify-items: center;
+    align-items: center;
+}
+
+
+#displayIncidentModalButtons #displayIncidentResolveStatus {
+    color: #FE3C00;
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 1;
+}
+
+#displayIncidentModalButtons #joinIncidentModalButton {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+    margin: 0px;
+    width: 50%;
+    margin: 10px;
+}
+
+#displayIncidentModalButtons #displayIncidentCancelButton {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+    margin: 0px;
+    width: 50%;
+    margin: 10px;
+}
+
+#displayIncidentModalButtons #displayIncidentResolveButton {
+    grid-column: 3 / span 1;
+    grid-row: 2 / span 1;
+    margin: 0px;
+    width: 50%;
+    margin: 10px;
 }
 
 /* JOIN INCIDENT STYLING */
 .join-incident-modal-content {
+    position: fixed;
     background-color: #fefefe;
     margin: 0% auto;
     padding: 0px;
     border: 1px solid #888;
-    width: 80%;
+    width: 430px;
+    height: 180px;
     text-align: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #joinIncidentContent {
@@ -573,8 +813,89 @@ aside .search-bar button {
     flex-direction: column;
 }
 
+#joinIncidentContent h2 {
+    margin-top: 18px;
+}
+
+#joinIncidentContent .submitButton {
+    margin: 50px 8px 20px 50px;
+}
+
+/* BUTTON STYLING */
+.cancelButton {
+    font-family: "Poppins";
+    border-radius: 10px;
+    border: 1px solid #FE3C00;
+    background-color: #FE3C00;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin: 20px 8px 20px 0px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+.submitButton {
+    font-family: "Poppins";
+    border-radius: 10px;
+    border: 1px solid #FE3C00;
+    background-color: #FE3C00;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin: 20px 8px 20px 100px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+.joinButton {
+    font-family: "Poppins";
+    border-radius: 10px;
+    border: 1px solid #FE3C00;
+    background-color: #FE3C00;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+.display-incident-modal-content .joinButton {
+    font-family: "Poppins";
+    border-radius: 10px;
+    border: 1px solid #FE3C00;
+    background-color: #FE3C00;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin: 20px 8px 20px 100px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+.editable{
+    color: #797979;
+}
 
 @media (max-width:900px) {
+    body {
+        background-size: auto;
+        height: 100%;
+        overflow: scroll;
+        background-repeat: repeat;
+    }
+
     header {
         width: 100%;
         box-shadow: unset;
@@ -591,17 +912,16 @@ aside .search-bar button {
 
     .nav-mobile {
         display: block;
-        position: absolute;
+        position: fixed;
         left: 0;
         z-index: 500;
         background: #fff;
         padding: 10px;
-        transition: all .4s ease-in-out;
+        transition: all .2s ease-in-out;
         border-top: 1px solid #e9e9e9;
         width: 100%;
         bottom: 0;
         top: 105%;
-
     }
 
     .nav-mobile ul {
@@ -615,7 +935,7 @@ aside .search-bar button {
         padding: 10px;
         margin-top: 5px;
         cursor: pointer;
-        transition: all .4s ease;
+        transition: all .2s ease;
     }
 
     .nav-mobile ul li.active,
@@ -647,9 +967,16 @@ aside .search-bar button {
         color: white;
     }
 
-    #logout{
+    #logout-btm-nav {
         margin-left: 20px;
         font-size: 20px;
+        background-color: white;
+        border-style: none;
+        color: #d63b00;
+        font-size:20px;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-family: "Poppins";
     }
 
     .vert-bar {
@@ -672,7 +999,7 @@ aside .search-bar button {
         top: 70px;
         z-index: 20;
         position: relative;
-        overflow: hidden; 
+        overflow: hidden;
         box-shadow: unset;
         width: 0;
         border-top: 1px solid #e9e9e9;
@@ -700,10 +1027,55 @@ aside .search-bar button {
         padding: 10px;
         font-size: 20px;
     }
+
+    /* DISPLAY INCIDENT STYLING */
+    #displayIncidentInformation #displayIncidentTitle {
+        grid-column: 1 / span 3;
+        grid-row: 1 / span 1;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #displayIncidentInformation {
+        font-size: 15px;
+    }
+
+    #displayIncidentInformation #displayIncidentLat {
+        font-size: 11px;
+    }
+    
+    #displayIncidentInformation #displayIncidentLon {
+        font-size: 11px;
+    }
 }
 
 @media (max-width: 450px) {
     .userpost .posts:first-child {
         height: 400px;
+    }
+
+    #user_profile_section {
+        width: 100%;
+    }
+
+    /* DISPLAY INCIDENT STYLING */
+    .display-incident-modal-content {
+        height: 97%;
+        width: 94%;
+    }
+
+    #displayIncidentModalButtons #joinIncidentModalButton {
+        padding: 10px 10px;
+        width: 90%;
+    }
+    
+    #displayIncidentModalButtons #displayIncidentCancelButton {
+        padding: 10px 10px;
+        width: 90%;
+    }   
+    
+    #displayIncidentModalButtons #displayIncidentResolveButton {
+        padding: 10px 10px;
+        width: 90%;
     }
 }

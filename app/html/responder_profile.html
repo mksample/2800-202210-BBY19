@@ -7,6 +7,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Set favicon -->
+  <link href="/imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
+
   <!-- Our StyleSheet-->
   <link rel="stylesheet" href="/css/responder_profile.css">
 
@@ -35,7 +38,7 @@
         <span id="incidentTimestamp">
 
         </span>
-        <input type="button" id="joinIncidentButton" value="Join +">
+        <input type="button" class="joinButton" id="joinIncidentButton" value="Respond">
       </div>
     </div>
   </template>
@@ -68,11 +71,11 @@
           </li>
 
           <li>
-            <a href="/html/about_nav.html">About</a>
+            <a href="/html/about_page.html">About</a>
           </li>
 
           <li>
-            <a href="/html/contact_nav.html">Contact</a>
+            <a href="/html/contact_page.html">Contact</a>
           </li>
 
           <li>
@@ -92,24 +95,24 @@
     <div class="nav-mobile">
       <ul>
 
-        <li class ="active" onclick=show(0)>
+        <li class="active" onclick=show(0)>
           <span> <i class="material-icons">home</i></span>
           <h3>Home</h3>
         </li>
 
         <li>
           <span> <i class="material-icons">info</i></span>
-          <a href="/html/about_nav.html">About</a>
+          <a href="/html/about_page.html">About</a>
         </li>
 
         <li>
           <span> <i class="material-icons">call</i></span>
-          <a href="/html/contact_nav.html">Contact</a>
+          <a href="/html/contact_page.html">Contact</a>
         </li>
         <li>
           <span> <i class="material-icons">logout</i></span>
           <form action="/logout" method="get">
-            <input id="logout" type="submit" value="Logout" />
+            <input id="logout-btm-nav" type="submit" value="Logout" />
           </form>
         </li>
 
@@ -125,8 +128,8 @@
 
 
 
-     <!-- SIDEBAR NAVIGATION -->
-     <aside class="sidebar">
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
       <!-- SIDEBAR CLOSE WHEN ON MOBILE-->
       <h2>SaveMe<span class="close"><i class="material-icons">close</i></span></h2>
 
@@ -142,94 +145,89 @@
 
           <span id="sessionName" class="name">John Doe</span>
 
-            <span id="sessionEmail" class="email">JohnDoe@gmail.com</span>
+          <span id="sessionEmail" class="email">JohnDoe@gmail.com</span>
 
-            <span class="status">Online</span>
-
-          </div>
 
         </div>
 
-        <!-- SIDE NAVIGATION SEARCH BAR-->
-        <div class="search-bar">
-          <form>
-            <div class="search">
+      </div>
 
-              <input type="text" placeholder="Search Profile...">
 
-              <button type="submit"><span><i class="material-icons">search</i></span></button>
+      <!-- SIDE NAVIGATION GENERAL-->
+      <div class="side-nav">
+        <h2>General</h2>
+        <nav>
+          <ul>
+            <li class="active" onclick="show(0)">
+              <span><i class="material-icons">person_outline</i></span>
+              <h3>Profile</h3>
+            </li>
+            <li onclick="show(1)">
+              <span><i class="material-icons">speed</i></span>
+              <h3>Dashboard</h3>
+            </li>
+            <li onclick="show(2)">
+              <span><i class="material-icons">timeline</i></span>
+              <h3>Incident Log</h3>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
 
-            </div>
-
-          </form>
-        </div>
-
-        <!-- SIDE NAVIGATION GENERAL-->
-        <div class="side-nav">
-          <h2>General</h2>
-          <nav>
-            <ul>
-              <li class ="active" onclick="show(0)">
-                <span><i class="material-icons">person_outline</i></span>
-                <h3>Profile</h3>
-              </li>
-              <li onclick="show(1)">
-                <span><i class="material-icons">speed</i></span>
-                <h3>Dashboard</h3>
-              </li>
-              <li onclick="show(2)">
-                <span><i class="material-icons">timeline</i></span>
-                <h3>Incident Log</h3>
-              </li>
-              <li onclick="show(3)">
-                <span><i class="material-icons">settings</i></span>
-                <h3>Settings</h3>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </aside>
 
     <!-- DASHBOARD TAB -->
     <div class="main">
       <!-- PROFILE TAB -->
       <section class="tabs">
-        <h1>User profile</h1>
+        <h1>Profile</h1>
         <div id="user_profile_section">
-          <div id="container">
-            <form id="upload-images-form">
-              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-                multiple="multiple" />
-              <input id="submit" type="submit" value="Save profile image" />
-            </form>
-          </div>
-          <br><br>
-          <img id="detail_user_picture" width="200" src="/imgs/saveme.jpg" alt="">
-          <p>First Name: </p>
-          <div class="edit" id="detail_user_firstN">bank</div>
-          <p>Last Name: </p>
-          <div class="edit" id="detail_user_lastN">name</div>
-          <p>Email: </p>
-          <div class="edit" id="detail_user_email">email</div>
-          <p>Password: </p>
-          <div class="edit" id="detail_user_password">name</div>
-          <p>Age: </p>
-          <div class="edit" id="detail_user_age">age</div>
-          <p>Gender: </p>
-          <div class="edit" id="detail_user_gender">gender</div>
-          <p>Phone Number: </p>
-          <div class="edit" id="detail_user_cellphone">number</div>
-          <p>Role: </p>
-          <div class="edit" id="detail_user_role">role</div>
-          <br><br>
-          <span id="editUserStatus" class="status"></span>
-          <br><br>
-          <button type="button" id="edit-button">Edit</button>
-          <button type="button" id="end-editing">Save</button>
+          <form>
+            <img id="detail_user_picture" src="/imgs/saveme.jpg" width="200" alt="">
+            <div class="edit">First Name:
+              <input type="text" name="name" class="editable" id="detail_user_firstN" placeholder="Name" readonly
+                required />
+            </div>
+            <div class="edit">Last Name:
+              <input type="text" name="name" class="editable" id="detail_user_lastN" placeholder="Name" readonly
+                required />
+            </div>
+            <div class="edit">Email:
+              <input type="text" name="name" class="editable" id="detail_user_email" placeholder="Name" readonly
+                required />
+            </div>
+            <div class="edit">Password:
+              <input type="text" name="name" class="editable" id="detail_user_password" placeholder="Name" readonly
+                required />
+            </div>
+            <div class="edit">Age:
+              <input type="text" name="name" class="editable" id="detail_user_age" placeholder="Name" readonly
+                required />
+            </div>
+            <div class="edit">Gender:
+              <input type="text" name="name" class="editable" id="detail_user_gender" placeholder="Name" readonly
+                required />
+            </div>
+            <div class="edit">Phone:
+              <input type="text" name="name" class="editable" id="detail_user_cellphone" placeholder="Name" readonly
+                required />
+            </div>
+            <span id="editUserStatus" class="status"></span>
+            <div id="btn-container">
+              <button type="button" id="edit-button">Edit</button>
+              <button type="button" id="end-editing">Save</button>
+            </div>
+          </form>
+        </div>
+        <div id="img-container">
+          <form id="upload-images-form">
+            <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg" />
+            <input id="submitProfilePhoto" type="submit" value="Save profile image" />
+          </form>
         </div>
       </section>
 
-        <!-- DASHBOARD TAB -->
+      <!-- DASHBOARD TAB -->
       <section id="dashboard" class="profile tabs">
         <h1>Incident Live Feed</h1>
         <div id="incidents" class="userpost">
@@ -244,18 +242,6 @@
 
         </div>
       </section>
-      <!-- SETTINGS TAB -->
-      <section class="tabs">
-        <h1>Settings</h1>
-
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?
-          test</p>
-      </section>
-
     </div>
 
     <!-- MODALS -->
@@ -266,18 +252,19 @@
           <p id="displayIncidentPriority"></p>
           <p id="displayIncidentType"></p>
           <p id="displayIncidentStatus"></p>
-          <p id="displayIncidentCallerID"></p>
           <p id="displayIncidentDescription"></p>
+          <div id="displayIncidentMap" class="map"></div>
+          <span id="displayIncidentLat"></span>
+          <span id="displayIncidentLon"></span>
           <img id="displayIncidentImage" src="" width="300" alt="">
-          <p id="displayIncidentLat"></p>
-          <p id="displayIncidentLon"></p>
           <p id="displayIncidentTimestamp"></p>
           <p id="displayIncidentResolutionComment"></p>
+          <textarea id="displayIncidentResolutionCommentInput" placeholder="Resolution Comment"></textarea>
         </div>
         <div id="displayIncidentModalButtons">
           <form>
             <span id="displayIncidentResolveStatus" class="modalStatus"></span>
-            <input type="text" id="displayIncidentResolutionCommentInput" placeholder="Resolution Comment">
+            <input type="button" class="joinButton" id="joinIncidentModalButton" value="Respond">
             <input type="button" class="cancelButton" id="displayIncidentCancelButton" value="Back" />
             <input type="button" class="submitButton" id="displayIncidentResolveButton" value="Resolve" />
           </form>
@@ -289,10 +276,10 @@
       <div class="join-incident-modal-content">
         <div id="joinIncidentContent">
           <form>
-            <h2>Join Incident?</h2>
+            <h2>Respond to Incident?</h2>
             <span id="joinIncidentStatus" class="modalStatus"></span>
             <input type="button" class="cancelButton" id="joinIncidentCancelButton" value="Cancel" />
-            <input type="button" class="submitButton" id="joinIncidentSubmitButton" value="Join" />
+            <input type="button" class="submitButton" id="joinIncidentSubmitButton" value="Respond" />
           </form>
         </div>
       </div>
@@ -302,12 +289,16 @@
 
   </div>
   <!-- SCRIPT FOLDER-->
+  <script src="/js/map.js"></script>
   <script src="/js/responder_profile.js"></script>
   <script src="/js/responder_profile_edit.js"></script>
   <script src="/js/responder_profile_upload_photo.js"></script>
   <script src="/js/responder_profile_display_incident.js"></script>
   <script src="/js/responder_profile_join_incident.js"></script>
+  <script src="/js/responder_profile_updater.js"></script>
 
+  <!-- Google maps -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -366,20 +357,20 @@
   <!--Easter Egg, change font-->
   <script>
 
-    let counter = 0; 
+    let counter = 0;
 
-    const logo = document.getElementById("logo"); 
-    const selectbody = document.getElementsByTagName("body")[0]; 
-
-
-    logo.addEventListener('click', toggleFont); 
+    const logo = document.getElementById("logo");
+    const selectbody = document.getElementsByTagName("body")[0];
 
 
-    function toggleFont(){
-      counter +=1; 
+    logo.addEventListener('click', toggleFont);
 
-      if(counter == 5) {
-          selectbody.style.fontFamily = "monospace"; 
+
+    function toggleFont() {
+      counter += 1;
+
+      if (counter == 5) {
+        selectbody.style.fontFamily = "monospace";
       }
 
     }

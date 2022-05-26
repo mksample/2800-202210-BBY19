@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+textarea {
+    width: 100%;
+    height: 100%;
+}
+
 /* background image for the body */
 body {
     overflow-x: hidden;
@@ -53,7 +58,7 @@ header img {
 #logo h2 {
     color: #d63b00;
     font-weight: 100;
-    font-size: 1.5em;
+    font-size: 30px;
     cursor: pointer;
 }
 
@@ -70,14 +75,15 @@ header .nav ul {
 
 header .nav ul li {
     padding: 26px 20px 24px 20px;
-    transition: all .4s ease;
+    transition: all .2s ease;
     cursor: pointer;
 }
 
 header .nav ul li h3 {
     text-transform: uppercase;
-    font-size: 15px;
+    font-size: 20px;
     color: #d63b00;
+   
 }
 
 header .nav ul li h3:hover{
@@ -93,10 +99,10 @@ header .nav ul li:hover {
 }
 /* styling for the links*/
 a:link {
-    color: red;
-    font-size: 15px;
-    font-weight: bold;
+    color: #d63b00;
+    font-size: 20px;
     text-transform: uppercase;
+    font-weight: 600;
 }
 
 a {
@@ -122,8 +128,10 @@ a:hover {
     background-color: white;
     border-style: none;
     color: #d63b00;
-    font-size:15px;
+    font-size:20px;
     text-transform: uppercase;
+    font-weight: 600;
+    font-family: "Poppins";
 }
 
 /* hamburger menu on mobile*/
@@ -167,6 +175,7 @@ aside h2 {
     font-size: 28px;
     font-weight: bold;
     margin-right: 5px;
+    display: none;
 }
 
 .close:hover,
@@ -212,66 +221,6 @@ aside .name {
     font-weight: 900;
 }
 
-/* Styling for online circle */
-aside .mail,
-aside .status {
-    font-size: 14px;
-}
-
-aside .status {
-    margin-top: 3px;
-    position: relative;
-    margin-left: 10px;
-}
-
-aside .status::before {
-    content: '';
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    background: lightgreen;
-    border-radius: 50%;
-    left: -10px;
-    top: 5.5px;
-}
-
-/* Styling for search bar */
-aside .search-bar {
-    border-top: 1px solid lightblue;
-    padding: 20px;
-}
-
-aside .search-bar .search {
-    position: relative;
-    display: flex;
-    width: 100%;
-}
-
-aside .search-bar input {
-    display: block;
-    width: 100%;
-    padding: 6px 12px;
-    font-size: 1rem;
-    line-height: 1.5;
-    border: 1px solid lightblue;
-    border-radius: 4px 0 0 4px;
-    outline: none;
-    font-family: "open sans", serif;
-    font-weight: 900;
-    color: rgb(10, 89, 116);
-}
-
-aside .search-bar button {
-    padding: 6px 12px;
-    font-size: 1rem;
-    border-radius: 0 4px 4px 0;
-    border: 1px solid  lightblue;
-    background: #d63b00; 
-    color: white;
-    outline: none;
-    cursor: pointer;
-    border-left: 0;
-}
 
 /* Styling for tabs section in the sidebar */
 .side-nav {
@@ -295,7 +244,7 @@ aside .search-bar button {
     padding: 8px 0px 8px 20px;
     margin-bottom: 10px;
     cursor: pointer;
-    transition: all .4s ease;
+    transition: all .2s ease;
     color: rgb(10, 89, 116);
 }
 
@@ -358,22 +307,31 @@ aside .search-bar button {
     align-items: center;
 }
 
-/* DASHBOARD STYLING */
+/* DASHBOARD/INCIDENT LOG STYLING */
 .userpost {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 20px;
+    justify-items: center;
 }
 
+.incidentLog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+    justify-items: center;
+}
 
 .userpost .posts {
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15), 0 4px 5px rgba(0, 0, 0, 0.3);
     font-size: 20px;
     text-align: center;
+    height: 250px;
+    width: 200px;
 }
 
 .userpost .posts img {
@@ -386,21 +344,16 @@ aside .search-bar button {
     line-height: 30px;
 }
 
-/* INCIDENT LOG STYLING */
-.incidentLog {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 20px;
-}
-
 .incidentLog .posts {
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15), 0 4px 5px rgba(0, 0, 0, 0.3);
     font-size: 20px;
     text-align: center;
+    height: 250px;
+    width: 200px;
 }
 
 .incidentLog .posts img {
@@ -411,6 +364,69 @@ aside .search-bar button {
 .incidentLog .posts p {
     margin-left: 10px;
     line-height: 30px;
+}
+
+.incident {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    grid-template-rows: 22.5% 22.5% 22.5% 22.5% 10%;
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    padding: 5px;
+}
+
+.incident #deleteIncidentButton {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.incident #incidentTitle {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    text-align: center;
+    overflow: hidden;
+    font-weight: bold;
+}
+
+.incident #incidentPriority {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 1;
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.incident #incidentType {
+    grid-column: 1 / span 2;
+    grid-row: 4 / span 1;
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.incident #incidentStatus {
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 1;
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.incident #incidentTimestamp {
+    grid-column: 1 / span 2;
+    grid-row: 5 / span 1;
+    font-size: 16px;
+}
+
+.incidentClose {
+    color: #aaaaaa;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.incidentClose:hover,
+.incidentClose:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /* modal styling */
@@ -436,18 +452,6 @@ aside .search-bar button {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-#map {
-    height: 600px;
-    width: 100%;
-}
-
-
-#test{
-    width: 15%;
-    background-color: #ff7e00;
-    
 }
 
 
@@ -525,7 +529,39 @@ hr {
     border: solid 0px #cbc9c9;
 }
 
-#cancel {
+.cancelButton {
+    font-family: "Poppins";
+    border-radius: 10px;
+    border: 1px solid #FE3C00;
+    background-color: #FE3C00;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin: 20px 8px 20px 0px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+#preview {
+    font-family: "Poppins";
+    border-radius: 10px;
+    border: 1px solid #FE3C00;
+    background-color: #FE3C00;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin: 20px 8px 20px 100px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+.cancelButton {
     font-family: "Poppins";
     border-radius: 10px;
     border: 1px solid #FE3C00;
@@ -550,7 +586,7 @@ hr {
     font-size: 12px;
     font-weight: bold;
     padding: 10px 30px;
-    margin: 20px 8px 20px 340px;
+    margin: 20px 8px 20px 100px;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
@@ -583,10 +619,54 @@ hr {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-#map {
-    width: 70%;
-    height: 300px;
+#reportIncidentTitle{
+    width: 78%;
 }
+
+#reportTitle{
+    font-size: 32px;
+    font-weight: 300;
+    color: #4c4c4c;
+    text-align: center;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.input{
+    font-weight: bold;
+    margin-top: 5%;
+    text-align: left;
+}
+
+#incident_picture{
+    margin-top: 5%;
+}
+
+.map {
+    height: 350px;
+    width: 100%;
+}
+
+#user_location{
+    margin-top: 2%;
+}
+
+#reportIncidentMap{
+    margin-top: 3%;
+}
+
+#reportIncidentStatus{
+    margin-top: 2%;
+    color: red;
+}
+
+#editUserStatus{
+    color: red;
+    font-weight: bold;
+    display: table;
+    margin: 0 auto;
+}
+
 
 .report-incident-modal-content, .edit-report-modal-content, .edit-active-modal-content, .delete-incident-modal-content {
     background-color: #fefefe;
@@ -634,12 +714,17 @@ hr {
 
 /* delete incident modal styling */
 .delete-incident-modal-content {
+    position: fixed;
     background-color: #fefefe;
     margin: 0% auto;
     padding: 0px;
     border: 1px solid #888;
-    width: 80%;
+    width: 430px;
+    height: 180px;
     text-align: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #deleteIncidentContent {
@@ -649,6 +734,24 @@ hr {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+#deleteIncidentContent h2 {
+    margin-top: 18px;
+}
+
+#deleteIncidentContent .submitButton {
+    margin: 50px 8px 20px 50px;
+}
+
+/* call for help styling */
+.call-help-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
 }
 
 /* display incident modal styling */
@@ -671,6 +774,34 @@ hr {
     font-family: "Poppins";
 }
 
+/* edit incident modal styling */
+.edit-incident-modal-content {
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+#edit-incident-info {
+    font-weight: bold;
+    margin-top: 5%;
+    text-align: left;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+.editIncidentContent {
+   margin-bottom: 10px;
+}
+
+.editIncidentContent label {
+    gap: 20px; 
+}
+
 /* profile styling */
 
 #nameGroup {
@@ -679,51 +810,85 @@ hr {
 }
 
 #user_profile_section {
-    border: solid green;
-    text-align: center;
+    display: flex;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    background-color: lightblue;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    align-items: center;
+    justify-content: center;
+}
 
+
+.edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#user_profile_section:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 #detail_user_firstN {
     display: inline;
     font-weight: bold;
+    margin-left: 10px;
 }
 
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 #detail_user_lastN {
     display: inline;
     font-weight: bold;
+    margin-left: 10px;
 }
-
-
 
 #detail_user_email {
     display: inline;
     font-weight: bold;
+    margin-left: 50px;
 }
 
 
 #detail_user_password {
     display: inline;
     font-weight: bold;
+    margin-left: 15px;
 }
 
 
 #detail_user_age {
+    display: inline;
     font-weight: bold;
+    margin-left: 60px;
 }
 
 
 #detail_user_gender {
+    display: inline;
     font-weight: bold;
+    margin-left: 32px;
 }
 
 
 #detail_user_cellphone {
+    display: inline;
     font-weight: bold;
+    margin-left: 40px;
 }
 
-
+#detail_user_role {
+    display: inline;
+    font-weight: bold;
+    margin-left: 170px;
+}
 #edit {
     padding: 5px;
     outline: none;
@@ -733,37 +898,85 @@ hr {
     border: solid black;
 }
 
-button {
+#detail_user_picture {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+    margin-bottom: 10px; 
+}
+
+#edit-button {
     width: 80px;
     padding: 5px;
-    margin: 0 3px;
-    background-color: #ff7e00;
+    background-color: white;
     outline: none;
-    border: 1px solid #ff7e00;
+    border: 1px solid white;
     box-shadow: 2px 2px 2px #3f3f3f;
 }
 
-button:hover {
+#btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+#end-editing {
+    width: 80px;
+    margin-left: 5px;
+    background-color: white;
+    outline: none;
+    border: 1px solid white;
+    box-shadow: 2px 2px 2px #3f3f3f;
+}
+
+#edit-button:hover {
     box-shadow: 2px 2px 3px;
 }
 
-button:active {
+#edit-button:active {
     box-shadow: 1px 1px 3px;
 }
 
-
-.edit{
-    background-color: lightblue;
+#end-editing:hover {
+    box-shadow: 2px 2px 3px;
 }
 
+#end-editing:active {
+    box-shadow: 1px 1px 3px;
+}
 
-#editUserStatus{
-    color: red;
-    font-weight: bold;
-    
+#img-container {
+    display: flex;
+    justify-content: center;
+}
+
+input[id=textContents] {
+    width: 100%;
+    height: 100px;
+    text-align:left;
+    vertical-align: top;
+}
+
+.editable {
+      color: #797979;
+}
+
+textarea {  
+   font-family:"Poppins";  
+   font-size: 12px;   
 }
 
 @media (max-width:900px) {
+
+    body {
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: auto;
+        height: 100%;
+        overflow: scroll;
+        background-repeat: repeat;
+    }
     header {
         width: 100%;
         box-shadow: unset;
@@ -785,7 +998,7 @@ button:active {
         z-index: 500;
         background: #fff;
         padding: 10px;
-        transition: all .4s ease-in-out;
+        transition: all .2s ease-in-out;
         border-top: 1px solid #e9e9e9;
         width: 100%;
         bottom: 0;
@@ -803,7 +1016,7 @@ button:active {
         padding: 10px;
         margin-top: 5px;
         cursor: pointer;
-        transition: all .4s ease;
+        transition: all .2s ease;
     }
 
     .nav-mobile ul li.active,
@@ -835,9 +1048,16 @@ button:active {
         color: white;
     }
 
-    #logout{
+    #logout-btm-nav {
         margin-left: 20px;
         font-size: 20px;
+        background-color: white;
+        border-style: none;
+        color: #d63b00;
+        font-size:20px;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-family: "Poppins";
     }
 
     .vert-bar {
@@ -892,10 +1112,14 @@ button:active {
     /* modal */
 
     .submitButton {
-        margin: 20px 0px 20px 85px;
+        margin: 20px 0px 20px 0px;
     }
 
-    #cancel {
+    .cancelButton {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .previewButton {
         margin: 20px 0px 20px 0px;
     }
 
@@ -909,16 +1133,24 @@ button:active {
     /* modal */
 
     .submitButton {
-        margin: 20px 0px 20px 15px;
+        margin: 20px 0px 20px 0px;
 
     }
 
-    #cancel {
+    .cancelButton {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .previewButton {
         margin: 20px 0px 20px 0px;
     }
 
     #submit {
         margin: 20px 0px 20px 15px;
 
+    }
+
+    #user_profile_section {
+        width: 100%;
     }
 }

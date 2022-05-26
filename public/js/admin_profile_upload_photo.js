@@ -23,10 +23,7 @@ async function uploadImages(e) {
     const imageUpload = document.querySelector('#image-upload');
     const formData = new FormData();
 
-    for (let i = 0; i < imageUpload.files.length; i++) {
-        // put the images from the input into the form data
-        formData.append("files", imageUpload.files[i]);
-    }
+    formData.append("files", imageUpload.files[0]);
 
     const options = {
         method: 'POST',
@@ -54,6 +51,6 @@ async function uploadImages(e) {
             }
         });
     }).catch(function (err) {
-        ("Error:", err)
+        ("Error:", err);
     });
 }

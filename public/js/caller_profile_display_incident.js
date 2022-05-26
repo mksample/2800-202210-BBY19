@@ -10,36 +10,38 @@ function openDisplayIncidentModal(incident, modalID, cancelButton) {
     var cancel = document.getElementById(cancelButton);
     cancel.onclick = function () {
         modal.style.display = "none";
-    }
+    };
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
-    }
+    };
 }
 
 // Prepares the display incident modal.
 async function prepareDisplayIncidentModal(incident) {
+    initDisplayMap(incident.lat, incident.lon, null, "displayIncidentMap");
     if (incident.image) {
         document.getElementById("displayIncidentImage").src = incident.image;
     }
+    var date = new Date(Date.parse(incident.timestamp));
     document.getElementById("displayIncidentTitle").innerHTML = incident.title;
     document.getElementById("displayIncidentPriority").innerHTML = incident.priority;
     document.getElementById("displayIncidentType").innerHTML = incident.type;
     document.getElementById("displayIncidentStatus").innerHTML = incident.status;
-    document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID
-    document.getElementById("displayIncidentDescription").innerHTML = incident.description
+    document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID;
+    document.getElementById("displayIncidentDescription").innerHTML = incident.description;
+    document.getElementById("displayIncidentLat").innerHTML = "Latitude: " + incident.lat;
+    document.getElementById("displayIncidentLon").innerHTML = "Longitude: "+ incident.lon;
     if (incident.image) {
         document.getElementById("displayIncidentImage").style.display = "";
         document.getElementById("displayIncidentImage").src = incident.image;
     } else {
         document.getElementById("displayIncidentImage").style.display = "none";
     }
-    document.getElementById("displayIncidentLat").innerHTML = incident.lat;
-    document.getElementById("displayIncidentLon").innerHTML = incident.lon;
-    document.getElementById("displayIncidentTimestamp").innerHTML = incident.timestamp;
+    document.getElementById("displayIncidentTimestamp").innerHTML = date.toLocaleString('en-US');
     if (incident.resolutionComment) {
         document.getElementById("displayIncidentResolutionComment").style.display = "";
         document.getElementById("displayIncidentResolutionComment").innerHTML = incident.resolutionComment;

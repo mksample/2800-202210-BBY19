@@ -49,7 +49,7 @@ function openModal(user, modalID, cancelButton, submitButton, status, saveMethod
     cancel.onclick = function () {
         modal.style.display = "none";
         document.getElementById(status).innerHTML = ""; // clear status when closing
-    }
+    };
 
     var save = document.getElementById(submitButton);
     save.onclick = async function () {
@@ -58,14 +58,14 @@ function openModal(user, modalID, cancelButton, submitButton, status, saveMethod
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
             document.getElementById(status).innerHTML = ""; // clear status when closing
         }
-    }
+    };
 }
 
 // Creates profile displays, attaches event listeners to them, and appends them to the id="profiles" div.
@@ -75,9 +75,10 @@ function createProfileDisplay(user, contentDOM) {
     if (user.avatar != null) {
         profile.querySelector(".profilePicture").src = user.avatar;
     }
-    profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email
-    profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;;
+    profile.querySelector(".profileEmail").innerHTML = "Email: " + user.email;
+    profile.querySelector(".profileRole").innerHTML = "Role: " + user.role;
     profile.querySelector('.profile').setAttribute("id", user.ID);
+    profile.querySelector('.profile').user = user;
 
     // appending the profile to the contentDOM
     contentDOM.appendChild(profile);
@@ -87,13 +88,13 @@ function createProfileDisplay(user, contentDOM) {
         e.stopImmediatePropagation();
         prepareEditUserModal(user);
         openModal(user, "editUserModal", "editUserCancelButton", "editUserSubmitButton", "editUserStatus", submitEditUserModal);
-    })
+    });
 
     // when delete button clicked on, show delete profile modal
-    document.getElementById(user.ID).querySelector(".close").addEventListener("click", async function (e) {
+    document.getElementById(user.ID).querySelector(".delete").addEventListener("click", async function (e) {
         e.stopImmediatePropagation();
         openModal(user, "deleteUserModal", "deleteUserCancelButton", "deleteUserSubmitButton", "deleteUserStatus", submitDeleteUserModal);
-    })
+    });
 }
 
 // Sets input values in the edit user modal to blank values and default radio button values.
@@ -130,7 +131,6 @@ async function submitCreateUserModal(user) {
             document.getElementById("editUserStatus").innerHTML = response.displayMsg; // display create user failure
             return false;
         } else {
-            console.log(response.msg);
             createProfileDisplay(response.user, document.getElementById("profiles")); 
         }
     }

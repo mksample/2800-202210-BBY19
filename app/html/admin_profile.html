@@ -7,6 +7,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Set favicon -->
+  <link href="/imgs/saveme.ico" rel="shortcut icon" type="image/x-icon">
+
   <!-- Our StyleSheet-->
   <link rel="stylesheet" href="/css/admin_profile.css">
 
@@ -21,14 +24,14 @@
   <template id="UserProfileTemplate">
     <div class="posts">
       <div class="profile">
-        <span id="deleteProfileButton" class="close">&times;</span>
-        <img class="profilePicture" src="/imgs/saveme.jpg" width="40px" alt="logo" />
-        <p class="profileEmail">
+        <span id="deleteProfileButton" class="delete">&times;</span>
+        <img class="profilePicture" src="/imgs/saveme.jpg" alt="logo" />
+        <span class="profileEmail">
 
-        </p>
-        <p class="profileRole">
+        </span>
+        <span class="profileRole">
 
-        </p>
+        </span>
       </div>
     </div>
   </template>
@@ -83,16 +86,16 @@
           </li>
 
           <li>
-            <a href="/html/about_nav.html">About</a>
+            <a href="/html/about_page.html">About</a>
           </li>
 
           <li>
-            <a href="/html/contact_nav.html">Contact</a>
+            <a href="/html/contact_page.html">Contact</a>
           </li>
 
           <li>
             <form action="/logout" method="get">
-              <input id="logout" type="submit" value="Log-out" />
+              <input id="logout" type="submit" value="Logout" />
             </form>
           </li>
 
@@ -102,34 +105,33 @@
 
     </header>
 
+  <!-- BOTTOM NAVIGATION BAR MOBILE-->
+  <div class="nav-mobile">
+    <ul>
 
-      <!-- BOTTOM NAVIGATION BAR MOBILE-->
-      <div class="nav-mobile">
-        <ul>
-  
-          <li class ="active" onclick=show(0)>
-            <span> <i class="material-icons">home</i></span>
-            <h3>Home</h3>
-          </li>
-  
-          <li>
-            <span> <i class="material-icons">info</i></span>
-            <a href="/html/about_nav.html">About</a>
-          </li>
-  
-          <li>
-            <span> <i class="material-icons">call</i></span>
-            <a href="/html/contact_nav.html">Contact</a>
-          </li>
-          <li>
-            <span> <i class="material-icons">logout</i></span>
-            <form action="/logout" method="get">
-              <input id="logout" type="submit" value="Logout" />
-            </form>
-          </li>
-  
-        </ul>
-      </div>
+      <li class ="active" onclick=show(0)>
+        <span> <i class="material-icons">home</i></span>
+        <h3>Home</h3>
+      </li>
+
+      <li>
+        <span> <i class="material-icons">info</i></span>
+        <a href="/html/about_page.html">About</a>
+      </li>
+
+      <li>
+        <span> <i class="material-icons">call</i></span>
+        <a href="/html/contact_page.html">Contact</a>
+      </li>
+      <li>
+        <span> <i class="material-icons">logout</i></span>
+        <form action="/logout" method="get">
+          <input id="logout-btm-nav" type="submit" value="Logout" />
+        </form>
+      </li>
+
+    </ul>
+  </div>
 
 
     <!-- VERTICAL ICON NAVIGATION-->
@@ -158,8 +160,6 @@
           <span id="sessionName" class="name">John Doe</span>
 
           <span id="sessionEmail" class="email">JohnDoe@gmail.com</span>
-
-          <span class="status">Online</span>
 
         </div>
 
@@ -193,10 +193,6 @@
               <span><i class="material-icons">timeline</i></span>
               <h3>Incident Log</h3>
             </li>
-            <li onclick="show(3)">
-              <span><i class="material-icons">settings</i></span>
-              <h3>Settings</h3>
-            </li>
           </ul>
         </nav>
       </div>
@@ -206,40 +202,42 @@
 
       <!-- PROFILE TAB -->
       <section class="tabs">
-        <div id="user_profile_pictue"></div>
         <h1>Profile</h1>
         <div id="user_profile_section">
-          <div id="container">
-            <form id="upload-images-form">
-              <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg"
-                multiple="multiple" />
-              <input id="submitProfilePhoto" type="submit" value="Save profile image" />
-            </form>
-          </div>
-          <br><br>
           <form>
-            <img id="detail_user_picture" width="200" src="/imgs/saveme.jpg" alt="">
-            <p>First Name: </p>
-            <div class="edit" id="detail_user_firstN" reqired>bank</div>
-            <p>Last Name: </p>
-            <div class="edit" id="detail_user_lastN">name</div>
-            <p>Email: </p>
-            <div class="edit" id="detail_user_email">email</div>
-            <p>Password: </p>
-            <div class="edit" id="detail_user_password">name</div>
-            <p>Age: </p>
-            <div class="edit" id="detail_user_age">age</div>
-            <p>Gender: </p>
-            <div class="edit" id="detail_user_gender">gender</div>
-            <p>Phone Number: </p>
-            <div class="edit" id="detail_user_cellphone">number</div>
-            <p>Role: </p>
-            <div class="edit" id="detail_user_role">role</div>
-            <br><br>
-            <span id="editUserStatus" class="status"></span>
-            <br><br>
-            <button type="button" id="edit-button">Edit</button>
-            <button type="button" id="end-editing">Save</button>
+              <img id="detail_user_picture" src="/imgs/saveme.jpg" width="200" alt="">
+              <div class="edit">First Name:
+                <input type="text" name="name" id="detail_user_firstN" placeholder="Name" required />
+              </div>
+              <div class="edit">Last Name:
+               <input type="text" name="name" id="detail_user_lastN" placeholder="Name" required />
+              </div>
+              <div class="edit">Email:
+                <input type="text" name="name" id="detail_user_email" placeholder="Name" required />
+              </div>
+             <div class="edit">Password:
+                <input type="text" name="name" id="detail_user_password" placeholder="Name" required />
+              </div>
+              <div class="edit">Age:
+                <input type="text" name="name" id="detail_user_age" placeholder="Name" required />
+              </div>
+              <div class="edit">Gender:
+                <input type="text" name="name" id="detail_user_gender" placeholder="Name" required />
+              </div>
+             <div class="edit">Phone:
+                <input type="text" name="name" id="detail_user_cellphone" placeholder="Name" required />
+             </div>
+             <span id="editUserStatus" class="status"></span>
+              <div id="btn-container">
+                <button type="button" id="edit-button">Edit</button>
+                <button type="button" id="end-editing">Save</button>
+              </div> 
+          </form>
+        </div>
+        <div id="img-container">
+          <form id="upload-images-form">
+            <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg" />
+            <input id="submitProfilePhoto" type="submit" value="Save profile image" />
           </form>
         </div>
       </section>
@@ -261,18 +259,6 @@
         <div id="incidents" class="incidentLog">
 
         </div>
-      </section>
-      <!-- SETTINGS TAB -->
-      <section class="tabs">
-        <h1>Settings</h1>
-
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?
-          test
-        </p>
       </section>
     </div>
 
@@ -352,7 +338,6 @@
           </form>
         </div>
       </div>
-
     </div>
 
     <!-- Search modal -->
@@ -366,7 +351,7 @@
           <br /><br />
           <form>
             <input type="button" class="cancelButton" id="cancel" value="Cancel" />
-            <input type="button" class="submitButton" id="edit" value="Edit" />
+            <input type="button" class="submitButton" id="searchEdit" value="Edit" />
           </form>
 
         </div>
@@ -383,6 +368,10 @@
           <p id="displayIncidentStatus"></p>
           <p id="displayIncidentCallerID"></p>
           <p id="displayIncidentDescription"></p>
+          <div id="displayIncidentMap" class="map"></div>
+          <p>Location: </p>
+          <p id="displayIncidentLat"></p>
+          <p id="displayIncidentLon"></p>
           <img id="displayIncidentImage" src="" width="300" alt="">
           <p id="displayIncidentLat"></p>
           <p id="displayIncidentLon"></p>
@@ -399,6 +388,7 @@
 
   </div>
   <!-- SCRIPT FOLDER-->
+  <script src="/js/map.js"></script>
   <script src="/js/admin_profile.js"></script>
   <script src="/js/admin_profile_searchbar.js"></script>
   <script src="/js/admin_profile_edit_user.js"></script>
@@ -407,7 +397,10 @@
   <script src="/js/admin_profile_delete_user.js"></script>
   <script src="/js/admin_profile_edit.js"></script>
   <script src="/js/admin_profile_display_incident.js"></script>
+  <script src="/js/admin_profile_updater.js"></script>
 
+  <!-- Google maps -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdF0gCXSvOcoKp4tIfwQmDytBQo8SWf8"></script>
 
   <!-- JQuery-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

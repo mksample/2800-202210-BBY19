@@ -36,10 +36,7 @@ async function uploadImages(e) {
     const imageUpload = document.querySelector('#image-upload');
     const formData = new FormData();
 
-    for (let i = 0; i < imageUpload.files.length; i++) {
-        // put the images from the input into the form data
-        formData.append("files", imageUpload.files[i]);
-    }
+    formData.append("files", imageUpload.files[0]);
 
     const options = {
         method: 'POST',
@@ -67,33 +64,26 @@ async function uploadImages(e) {
             }
         });
     }).catch(function (err) {
-        ("Error:", err)
+        ("Error:", err);
     });
 }
 
-async function uploadImagesIncident(e, incident) {
-    e.preventDefault();
-
-    const imageUpload = document.querySelector('#image-upload-incident');
+async function uploadImagesIncident(incident, imageUpload) {
     const formData = new FormData();
 
     if (imageUpload.files.length == 0) {
         return "";
     } else {
-        for (let i = 0; i < imageUpload.files.length; i++) {
-            // put the images from the input into the form data
-            formData.append("files", imageUpload.files[i]);
-        }
+        formData.append("files", imageUpload.files[0]);
     }
-    formData.append("incidentID", incident.ID)
+    formData.append("incidentID", incident.ID);
 
     let image = "";
-    let response = await postForm("/upload-images-incident", formData)
+    let response = await postForm("/upload-images-incident", formData);
     if (response) {
         if (response.status == "fail") {
             console.log(response.msg);
         } else {
-            console.log(response.msg);
             image = response.image;
         }
     }
