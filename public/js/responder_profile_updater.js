@@ -3,7 +3,7 @@
 const run = true;
 const time = 5000; // how often the updater runs in ms.
 
-// Gets active or inprogress incidents from the database.
+// Gets active or RESPONDING incidents from the database.
 async function getIncidents() {
     let response = await getData("/getResponderIncidents");
     if (response) {

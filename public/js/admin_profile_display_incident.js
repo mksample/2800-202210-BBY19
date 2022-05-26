@@ -29,13 +29,16 @@ async function prepareDisplayIncidentModal(incident) {
     } else {
         document.getElementById("displayIncidentImage").style.display = "none";
     }
+    var date = new Date(Date.parse(incident.timestamp));
     document.getElementById("displayIncidentTitle").innerHTML = incident.title;
     document.getElementById("displayIncidentPriority").innerHTML = incident.priority;
     document.getElementById("displayIncidentType").innerHTML = incident.type;
     document.getElementById("displayIncidentStatus").innerHTML = incident.status;
     document.getElementById("displayIncidentCallerID").innerHTML = incident.callerID;
     document.getElementById("displayIncidentDescription").innerHTML = incident.description;
-    document.getElementById("displayIncidentTimestamp").innerHTML = incident.timestamp;
+    document.getElementById("displayIncidentLat").innerHTML = "Latitude: " + incident.lat;
+    document.getElementById("displayIncidentLon").innerHTML = "Longitude: "+ incident.lon;
+    document.getElementById("displayIncidentTimestamp").innerHTML = date.toLocaleString('en-US');
     if (incident.resolutionComment) {
         document.getElementById("displayIncidentResolutionComment").style.display = "";
         document.getElementById("displayIncidentResolutionComment").innerHTML = incident.resolutionComment;

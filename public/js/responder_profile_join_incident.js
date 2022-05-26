@@ -133,7 +133,7 @@ async function createIncidentDisplay(incident, contentDOM, appendMethod, joinBut
     incidentDisp.querySelector("#incidentPriority").innerHTML = "Priority: " + incident.priority;
     incidentDisp.querySelector("#incidentType").innerHTML = "Type: " + incident.type;
     incidentDisp.querySelector("#incidentStatus").innerHTML = "Status: " + incident.status;
-    incidentDisp.querySelector("#incidentTimestamp").innerHTML = date.toLocaleString('en-US', { timeZone: 'PST' });
+    incidentDisp.querySelector("#incidentTimestamp").innerHTML = date.toLocaleString('en-US');
     incidentDisp.querySelector('.incident').setAttribute("id", "incident" + incident.ID);
     incidentDisp.querySelector('.incident').incident = incident;
 
