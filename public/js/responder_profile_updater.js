@@ -34,18 +34,20 @@ async function runUpdater() {
     }
 
     let dashboardDOM = document.getElementById("incidents");
-    let incidentLogDOM =document.getElementById("incidentLog");
+    let incidentLogDOM = document.getElementById("incidentLog");
 
     let newDashboardIncidents = await getIncidents();
     let newIncidentLogIncidents = await getIncidentLogIncidents();
 
     // Updating/Creating dashboard incidents
-    for (const newDashboardIncident of newDashboardIncidents) {
-        let dashboardIncident = dashboardDOM.querySelector("#incident" + newDashboardIncident.ID);
-        if (dashboardIncident && compare(dashboardIncident.incident, newDashboardIncident)) {
-            createIncidentDisplay(newDashboardIncident, dashboardDOM, replace, true);
-        } else if (!dashboardIncident) {
-            createIncidentDisplay(newDashboardIncident, dashboardDOM, appendBefore, true);
+    if (newDashboardIncidents) {
+        for (const newDashboardIncident of newDashboardIncidents) {
+            let dashboardIncident = dashboardDOM.querySelector("#incident" + newDashboardIncident.ID);
+            if (dashboardIncident && compare(dashboardIncident.incident, newDashboardIncident)) {
+                createIncidentDisplay(newDashboardIncident, dashboardDOM, replace, true);
+            } else if (!dashboardIncident) {
+                createIncidentDisplay(newDashboardIncident, dashboardDOM, appendBefore, true);
+            }
         }
     }
 
@@ -64,13 +66,15 @@ async function runUpdater() {
     }
 
     // Incident Log
-    for (const newIncidentLogIncident of newIncidentLogIncidents) {
-        let incidentLogIncident = incidentLogDOM.querySelector("#incident" + newIncidentLogIncident.ID);
-        if (incidentLogIncident && compare(incidentLogIncident.incident, newIncidentLogIncident)) {
-            createIncidentDisplay(newIncidentLogIncident, incidentLogDOM, replace, false);
+    if (newIncidentLogIncidents) {
+        for (const newIncidentLogIncident of newIncidentLogIncidents) {
+            let incidentLogIncident = incidentLogDOM.querySelector("#incident" + newIncidentLogIncident.ID);
+            if (incidentLogIncident && compare(incidentLogIncident.incident, newIncidentLogIncident)) {
+                createIncidentDisplay(newIncidentLogIncident, incidentLogDOM, replace, false);
+            }
         }
     }
-    
+
     setTimeout(runUpdater, time);
 }
 

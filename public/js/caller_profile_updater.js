@@ -22,26 +22,31 @@ async function runUpdater() {
     }
 
     let dashboardDOM = document.getElementById("profiles");
-    let incidentLogDOM =document.getElementById("incidents");
+    let incidentLogDOM = document.getElementById("incidents");
 
     let newIncidents = await getIncidents();
 
     // Dashboard
-    for (const newDashboardIncident of newIncidents) {
-        let dashboardIncident = dashboardDOM.querySelector("#incident" + newDashboardIncident.ID);
-        if (dashboardIncident && compare(dashboardIncident.incident, newDashboardIncident)) {
-            createIncidentDisplay(newDashboardIncident, dashboardDOM, replace);
+    if (newIncidents) {
+        for (const newDashboardIncident of newIncidents) {
+            let dashboardIncident = dashboardDOM.querySelector("#incident" + newDashboardIncident.ID);
+            if (dashboardIncident && compare(dashboardIncident.incident, newDashboardIncident)) {
+                createIncidentDisplay(newDashboardIncident, dashboardDOM, replace);
+            }
         }
     }
 
+
     // Incident Log
-    for (const newIncidentLogIncident of newIncidents) {
-        let incidentLogIncident = incidentLogDOM.querySelector("#incident" + newIncidentLogIncident.ID);
-        if (incidentLogIncident && compare(incidentLogIncident.incident, newIncidentLogIncident)) {
-            createIncidentDisplay(newIncidentLogIncident, incidentLogDOM, replace);
+    if (newIncidents) {
+        for (const newIncidentLogIncident of newIncidents) {
+            let incidentLogIncident = incidentLogDOM.querySelector("#incident" + newIncidentLogIncident.ID);
+            if (incidentLogIncident && compare(incidentLogIncident.incident, newIncidentLogIncident)) {
+                createIncidentDisplay(newIncidentLogIncident, incidentLogDOM, replace);
+            }
         }
     }
-    
+
     setTimeout(runUpdater, time);
 }
 
