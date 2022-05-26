@@ -94,7 +94,7 @@ header .nav ul li:hover {
 }
 /* styling for the links*/
 a:link {
-    color: red;
+    color: #d63b00;
     font-size: 20px;
     text-transform: uppercase;
     font-weight: 600;
