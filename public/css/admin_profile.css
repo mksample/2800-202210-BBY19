@@ -1058,10 +1058,18 @@ hr {
         color: white;
     }
 
-    #logout {
+    #logout-btm-nav {
         margin-left: 20px;
         font-size: 20px;
+        background-color: white;
+        border-style: none;
+        color: #d63b00;
+        font-size:20px;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-family: "Poppins";
     }
+
 
     .vert-bar {
         display: block;
