@@ -105,34 +105,33 @@
 
     </header>
 
+  <!-- BOTTOM NAVIGATION BAR MOBILE-->
+  <div class="nav-mobile">
+    <ul>
 
-      <!-- BOTTOM NAVIGATION BAR MOBILE-->
-      <div class="nav-mobile">
-        <ul>
-  
-          <li class ="active" onclick=show(0)>
-            <span> <i class="material-icons">home</i></span>
-            <h3>Home</h3>
-          </li>
-  
-          <li>
-            <span> <i class="material-icons">info</i></span>
-            <a href="/html/about_page.html">About</a>
-          </li>
-  
-          <li>
-            <span> <i class="material-icons">call</i></span>
-            <a href="/html/contact_page.html">Contact</a>
-          </li>
-          <li>
-            <span> <i class="material-icons">logout</i></span>
-            <form action="/logout" method="get">
-              <input id="logout" type="submit" value="Logout" />
-            </form>
-          </li>
-  
-        </ul>
-      </div>
+      <li class ="active" onclick=show(0)>
+        <span> <i class="material-icons">home</i></span>
+        <h3>Home</h3>
+      </li>
+
+      <li>
+        <span> <i class="material-icons">info</i></span>
+        <a href="/html/about_nav.html">About</a>
+      </li>
+
+      <li>
+        <span> <i class="material-icons">call</i></span>
+        <a href="/html/contact_nav.html">Contact</a>
+      </li>
+      <li>
+        <span> <i class="material-icons">logout</i></span>
+        <form action="/logout" method="get">
+          <input id="logout-btm-nav" type="submit" value="Logout" />
+        </form>
+      </li>
+
+    </ul>
+  </div>
 
 
     <!-- VERTICAL ICON NAVIGATION-->
@@ -161,8 +160,6 @@
           <span id="sessionName" class="name">John Doe</span>
 
           <span id="sessionEmail" class="email">JohnDoe@gmail.com</span>
-
-          <span class="status">Online</span>
 
         </div>
 
@@ -195,10 +192,6 @@
             <li onclick="show(2)">
               <span><i class="material-icons">timeline</i></span>
               <h3>Incident Log</h3>
-            </li>
-            <li onclick="show(3)">
-              <span><i class="material-icons">settings</i></span>
-              <h3>Settings</h3>
             </li>
           </ul>
         </nav>
@@ -266,18 +259,6 @@
         <div id="incidents" class="incidentLog">
 
         </div>
-      </section>
-      <!-- SETTINGS TAB -->
-      <section class="tabs">
-        <h1>Settings</h1>
-
-        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Quia recusandae laudantium odio!
-          Iusto velit laboriosam perferendis ab!
-          Aliquam ab odit animi autem cumque
-          sit sint corporis quo. Voluptas, natus corporis?
-          test
-        </p>
       </section>
     </div>
 
