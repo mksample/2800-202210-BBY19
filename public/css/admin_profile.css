@@ -999,7 +999,8 @@ hr {
     body {
         background-size: auto;
         height: 100%;
-        overflow: hidden;
+        overflow: scroll;
+        background-repeat: repeat;
     }
 
     header {

@@ -963,7 +963,7 @@ input[id=textContents] {
     height: 100px;
     text-align:left;
     vertical-align: top;
-  }
+}
 
 @media (max-width:900px) {
 
@@ -973,7 +973,8 @@ input[id=textContents] {
         -o-background-size: cover;
         background-size: auto;
         height: 100%;
-        overflow: hidden;
+        overflow: scroll;
+        background-repeat: repeat;
     }
     header {
         width: 100%;
