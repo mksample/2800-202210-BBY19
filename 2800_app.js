@@ -24,7 +24,7 @@ const remoteSqlAuthentication = {
     database: "heroku_b395e55ab1671ee"
 };
 
-const sqlAuthentication = remoteSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
+const sqlAuthentication = localSqlAuthentication; // SETTING TO USE LOCAL OR REMOTE DB
 
 
 // storing image at images
