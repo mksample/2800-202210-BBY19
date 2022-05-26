@@ -37,21 +37,25 @@ async function runUpdater() {
     let newIncidents = await getIncidents();
 
     // Users
-    for (const newUser of newUsers) {
-        let user = document.getElementById(newUser.ID);
-        if (user && compareUser(user.user, newUser)) {
-            createProfileDisplay(newUser, document.getElementById("userProfiles"), replaceUser);
+    if (newUsers) {
+        for (const newUser of newUsers) {
+            let user = document.getElementById(newUser.ID);
+            if (user && compareUser(user.user, newUser)) {
+                createProfileDisplay(newUser, document.getElementById("userProfiles"), replaceUser);
+            }
         }
     }
 
     // Incident Log
-    for (const newIncident of newIncidents) {
-        let incident = document.getElementById("incident" + newIncident.ID);
-        if (incident && compareIncident(incident.incident, newIncident)) {
-            createIncidentDisplay(newIncident, document.getElementById("incidents"), replaceIncident);
+    if (newIncidents) {
+        for (const newIncident of newIncidents) {
+            let incident = document.getElementById("incident" + newIncident.ID);
+            if (incident && compareIncident(incident.incident, newIncident)) {
+                createIncidentDisplay(newIncident, document.getElementById("incidents"), replaceIncident);
+            }
         }
     }
-    
+
     setTimeout(runUpdater, time);
 }
 
