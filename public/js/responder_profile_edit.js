@@ -46,7 +46,6 @@ async function prepareProfile() {
         })
         if (response) {
             if (response.status == "fail") {
-                console.log(response.msg);
                 document.getElementById("editUserStatus").innerHTML = response.displayMsg; // display edit user failure
             } else {
                 for (let i = 0; i < input.length; i++) {

@@ -75,7 +75,7 @@ header .nav ul {
 
 header .nav ul li {
     padding: 26px 20px 24px 20px;
-    transition: all .2s ease;
+    transition: all .4s ease;
     cursor: pointer;
 }
 
@@ -244,7 +244,7 @@ aside .name {
     padding: 8px 0px 8px 20px;
     margin-bottom: 10px;
     cursor: pointer;
-    transition: all .2s ease;
+    transition: all .4s ease;
     color: rgb(10, 89, 116);
 }
 
@@ -998,7 +998,7 @@ textarea {
         z-index: 500;
         background: #fff;
         padding: 10px;
-        transition: all .2s ease-in-out;
+        transition: all .4s ease-in-out;
         border-top: 1px solid #e9e9e9;
         width: 100%;
         bottom: 0;
@@ -1016,7 +1016,7 @@ textarea {
         padding: 10px;
         margin-top: 5px;
         cursor: pointer;
-        transition: all .2s ease;
+        transition: all .4s ease;
     }
 
     .nav-mobile ul li.active,
@@ -1076,7 +1076,7 @@ textarea {
     }
 
     aside {
-        transition: all 1.5s ease-in-out;
+        transition: all .4s ease-in-out;
         top: 70px;
         z-index: 20;
         position: relative;

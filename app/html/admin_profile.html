@@ -105,33 +105,33 @@
 
     </header>
 
-  <!-- BOTTOM NAVIGATION BAR MOBILE-->
-  <div class="nav-mobile">
-    <ul>
+    <!-- BOTTOM NAVIGATION BAR MOBILE-->
+    <div class="nav-mobile">
+      <ul>
 
-      <li class ="active" onclick=show(0)>
-        <span> <i class="material-icons">home</i></span>
-        <h3>Home</h3>
-      </li>
+        <li class="active" onclick=show(0)>
+          <span> <i class="material-icons">home</i></span>
+          <h3>Home</h3>
+        </li>
 
-      <li>
-        <span> <i class="material-icons">info</i></span>
-        <a href="/html/about_page.html">About</a>
-      </li>
+        <li>
+          <span> <i class="material-icons">info</i></span>
+          <a href="/html/about_page.html">About</a>
+        </li>
 
-      <li>
-        <span> <i class="material-icons">call</i></span>
-        <a href="/html/contact_page.html">Contact</a>
-      </li>
-      <li>
-        <span> <i class="material-icons">logout</i></span>
-        <form action="/logout" method="get">
-          <input id="logout-btm-nav" type="submit" value="Logout" />
-        </form>
-      </li>
+        <li>
+          <span> <i class="material-icons">call</i></span>
+          <a href="/html/contact_page.html">Contact</a>
+        </li>
+        <li>
+          <span> <i class="material-icons">logout</i></span>
+          <form action="/logout" method="get">
+            <input id="logout-btm-nav" type="submit" value="Logout" />
+          </form>
+        </li>
 
-    </ul>
-  </div>
+      </ul>
+    </div>
 
 
     <!-- VERTICAL ICON NAVIGATION-->
@@ -205,33 +205,40 @@
         <h1>Profile</h1>
         <div id="user_profile_section">
           <form>
-              <img id="detail_user_picture" src="/imgs/saveme.jpg" width="200" alt="">
-              <div class="edit">First Name:
-                <input type="text" name="name" id="detail_user_firstN" placeholder="Name" required />
-              </div>
-              <div class="edit">Last Name:
-               <input type="text" name="name" id="detail_user_lastN" placeholder="Name" required />
-              </div>
-              <div class="edit">Email:
-                <input type="text" name="name" id="detail_user_email" placeholder="Name" required />
-              </div>
-             <div class="edit">Password:
-                <input type="text" name="name" id="detail_user_password" placeholder="Name" required />
-              </div>
-              <div class="edit">Age:
-                <input type="text" name="name" id="detail_user_age" placeholder="Name" required />
-              </div>
-              <div class="edit">Gender:
-                <input type="text" name="name" id="detail_user_gender" placeholder="Name" required />
-              </div>
-             <div class="edit">Phone:
-                <input type="text" name="name" id="detail_user_cellphone" placeholder="Name" required />
-             </div>
-             <span id="editUserStatus" class="status"></span>
-              <div id="btn-container">
-                <button type="button" id="edit-button">Edit</button>
-                <button type="button" id="end-editing">Save</button>
-              </div> 
+            <img src="/imgs/saveme.jpg" id="detail_user_picture" width="200" alt="">
+            <div class="edit">First Name:
+              <input type="text" name="name" class="editable" id="detail_user_firstN" readonly placeholder="Name"
+                required />
+            </div>
+            <div class="edit">Last Name:
+              <input type="text" name="name" class="editable" id="detail_user_lastN" readonly placeholder="Name"
+                required />
+            </div>
+            <div class="edit">Email:
+              <input type="text" name="name" class="editable" id="detail_user_email" readonly placeholder="Name"
+                required />
+            </div>
+            <div class="edit">Password:
+              <input type="text" name="name" class="editable" id="detail_user_password" readonly placeholder="Name"
+                required />
+            </div>
+            <div class="edit">Age:
+              <input type="text" name="name" class="editable" id="detail_user_age" readonly placeholder="Name"
+                required />
+            </div>
+            <div class="edit">Gender:
+              <input type="text" name="name" class="editable" id="detail_user_gender" readonly placeholder="Name"
+                required />
+            </div>
+            <div class="edit">Phone:
+              <input type="text" name="name" class="editable" id="detail_user_cellphone" readonly placeholder="Name"
+                required />
+            </div>
+            <span id="editUserStatus" class="status"></span>
+            <div id="btn-container">
+              <button type="button" id="edit-button">Edit</button>
+              <button type="button" id="end-editing">Save</button>
+            </div>
           </form>
         </div>
         <div id="img-container">
