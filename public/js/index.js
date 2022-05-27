@@ -26,7 +26,6 @@ ready(async function () {
         if (response) {
             if (response.status == "fail") {
                 let errmsg = response.msg;
-                console.log(errmsg);
                 document.getElementById("loginStatus_desktop").innerHTML = errmsg; // display login failure
             } else {
                 window.location.replace("/profile");
@@ -43,7 +42,6 @@ ready(async function () {
         if (response) {
             if (response.status == "fail") {
                 let errmsg = response.msg;
-                console.log(errmsg);
                 document.getElementById("loginStatus_mobile").innerHTML = errmsg; // display login failure
             } else {
                 window.location.replace("/profile");

@@ -146,6 +146,14 @@ input {
     display: none;
 }
 
+#loginStatus_mobile {
+    color: #FE3C00;
+}
+
+#loginStatus_desktop {
+    color: #FE3C00;
+}
+
 /* Media query for mobile screen */
 @media screen and (max-width: 800px) {
 
