@@ -114,6 +114,6 @@ If using a local database:
   1. On your database, run the SQL file located in app/sql/
   2. Open the file 2800_app.js with your text editor of choice
   3. On line 26, replace ```remoteSqlAuthentication``` with ```localSqlAuthentication```
-  4. Run the command ```node 2800_app.js```
+  4. Run the command ```node 2800_app.js``` from the main folder
   5. You can now access the app at http://localhost:8000
   6. If your SQL access is denied, you can edit the connection config in the file 2800_app.js on line 9
