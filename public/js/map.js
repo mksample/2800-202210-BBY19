@@ -2,7 +2,7 @@
 
 const defaultLat = 49.2827;
 const defaultLon = -123.1207;
-const defaultZoom = 11;
+const defaultZoom = 13;
 
 function initMap(initLat, initLon, zoom, elementID, clickable, geolocation, setMarker, latElementID, lonElementID) {
     // Init map
