@@ -667,6 +667,10 @@ hr {
     margin: 0 auto;
 }
 
+#editIncidentStatus{
+    margin-top: 2%;
+    color: red;
+}
 
 .report-incident-modal-content, .edit-report-modal-content, .edit-active-modal-content, .delete-incident-modal-content {
     background-color: #fefefe;
